@@ -1,0 +1,7 @@
+﻿  EventHandler.cpp
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Input\EventHandler.cpp(42,36): warning C4101: 'e': unreferenced local variable
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Input\EventHandler.cpp(50,36): warning C4101: 'e': unreferenced local variable
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Input\EventHandler.cpp(68,35): warning C4101: 'e': unreferenced local variable
+  game.cpp
+  Generating Code...
+  DoodleJump.vcxproj -> D:\Dev\Projects\DoodleJump\DoodleJump\bin\Debug-windows-x86_64\DoodleJump\DoodleJump.exe

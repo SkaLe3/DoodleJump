@@ -97,7 +97,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Input\EventHandler.cpp" />
     <ClCompile Include="src\game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Entities\GameObject.h" />
+    <ClInclude Include="src\Input\EventHandler.h" />
+    <ClInclude Include="src\Input\Events.h" />
+    <ClInclude Include="src\Input\InputAction.h" />
+    <ClInclude Include="src\Input\InputValue.h" />
+    <ClInclude Include="src\FMath.h" />
+    <ClInclude Include="src\Input\TriggerEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
