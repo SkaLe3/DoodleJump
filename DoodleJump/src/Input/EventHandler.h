@@ -10,6 +10,7 @@
 #include <memory>
 
 
+
 class EventHandler
 {
 public:
@@ -21,11 +22,20 @@ public:
 	void PushEvent(std::shared_ptr<InputEvent> ie);
 	void HandleEvents();
 	
+	static std::shared_ptr<EventHandler> Create() 
+	{ 
+		sInstance = std::make_shared<EventHandler>(); 
+		return sInstance;
+	}
+	static std::shared_ptr<EventHandler> Get() { return sInstance; }
 
 private:
 	std::queue<std::shared_ptr<InputEvent>> queue;
 	std::unordered_map<EInputAction, std::unordered_map<ETriggerEvent, std::function<void(InputValue&)>>> bindings;
-	std::unordered_map<FRKey, std::pair<int32_t, EInputAction>> keyActionMap;
+	std::unordered_map<FRKey, std::pair<float, EInputAction>> keyActionMap;
 	std::unordered_map<FRMouseButton, EInputAction> mouseButtonActionMap;
+
+
+	static std::shared_ptr<EventHandler> sInstance;
 
 };

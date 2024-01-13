@@ -1,7 +1,13 @@
 #pragma once
+#include <memory>
+#include "Object.h"
 
-class GameObject
+#include "Math/MyMath.h"
+#include "Components/BasicComponents.h"
+
+#include <memory>
+
+class GameObject : public Object
 {
-public:
-	
+	std::shared_ptr<SceneComponent> RootComponent;
 };

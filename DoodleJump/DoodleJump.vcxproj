@@ -99,15 +99,25 @@
   <ItemGroup>
     <ClCompile Include="src\Input\EventHandler.cpp" />
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\World\Scene.cpp" />
+    <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Components\BasicComponents.h" />
+    <ClInclude Include="src\Components\BoxComponent.h" />
+    <ClInclude Include="src\Components\SpriteComponent.h" />
+    <ClInclude Include="src\Entities\Object.h" />
+    <ClInclude Include="src\Math\Transform.h" />
     <ClInclude Include="src\Entities\GameObject.h" />
     <ClInclude Include="src\Input\EventHandler.h" />
     <ClInclude Include="src\Input\Events.h" />
     <ClInclude Include="src\Input\InputAction.h" />
     <ClInclude Include="src\Input\InputValue.h" />
-    <ClInclude Include="src\FMath.h" />
+    <ClInclude Include="src\Math\MyMath.h" />
     <ClInclude Include="src\Input\TriggerEvent.h" />
+    <ClInclude Include="src\Math\Vector.h" />
+    <ClInclude Include="src\World\Scene.h" />
+    <ClInclude Include="src\World\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

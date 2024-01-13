@@ -6,11 +6,13 @@
 
 #include <iostream>
 
+std::shared_ptr<EventHandler> EventHandler::sInstance = nullptr;
+
 void EventHandler::Init()
 {
 	// Input Mapping
-	keyActionMap[FRKey::RIGHT] = std::make_pair(1, EInputAction::Move);
-	keyActionMap[FRKey::LEFT] = std::make_pair(-1, EInputAction::Move);
+	keyActionMap[FRKey::RIGHT] = std::make_pair(1.f, EInputAction::Move);
+	keyActionMap[FRKey::LEFT] = std::make_pair(-1.f, EInputAction::Move);
 	mouseButtonActionMap[FRMouseButton::LEFT] = EInputAction::Shoot;
 }
 
@@ -35,9 +37,9 @@ void EventHandler::HandleEvents()
 		if (e->GetEventType() == EInputType::Key)
 		{
 			try {
-				std::pair<int32_t, EInputAction> values = keyActionMap.at(static_pointer_cast<KeyEvent>(e)->GetKey());
+				std::pair<float, EInputAction> values = keyActionMap.at(static_pointer_cast<KeyEvent>(e)->GetKey());
 				action = values.second;
-				value = Math::Vector1D(values.first);
+				value = values.first;
 			}
 			catch (const std::out_of_range& e) {}
 		}	
