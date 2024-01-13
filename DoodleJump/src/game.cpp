@@ -1,7 +1,9 @@
 
 
 #include "Framework.h"
+// Так само як в движку викликати OnEvent в колбеках но в OnEvent викликать прибінджені функції, як в анріалі
 
+#include <iostream>
 /* Test Framework realization */
 class MyFramework : public Framework {
 
@@ -24,7 +26,12 @@ public:
 	}
 
 	virtual bool Tick() {
-        drawTestBackground();
+		float Time = (float) (getTickCount() / 1000.0f);
+		float DeltaTime = Time - LastTime;
+		LastTime = Time;
+
+
+
 		return false;
 	}
 
@@ -44,8 +51,10 @@ public:
 	
 	virtual const char* GetTitle() override
 	{
-		return "Arcanoid";
+		return "DoodleJump";
 	}
+
+	float LastTime;
 };
 
 int main(int argc, char *argv[])

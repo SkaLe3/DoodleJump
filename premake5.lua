@@ -3,9 +3,9 @@ workspace "DoodleJump"
     startproject "DoodleJump"
     configurations{ "Debug", "Release" }
 
-outputdir = "%{cgf.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
-IncludeDir["Framework"] = "vendor/Framework/include"
+IncludeDir["Framework"] = "../vendor/Framework/include"
 
 include "DoodleJump"
