@@ -1,2 +1,12 @@
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Entities\GameObject.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\GameObject.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\Doodle.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\Doodle.obj
 D:\Dev\Projects\DoodleJump\DoodleJump\src\Input\EventHandler.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\EventHandler.obj
 D:\Dev\Projects\DoodleJump\DoodleJump\src\game.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\game.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Math\FuncGeometric.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\FuncGeometric.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Math\FuncMatrix.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\FuncMatrix.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Math\Matrix4.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\Matrix4.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Math\Vector.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\Vector.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Math\Vector2D.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\Vector2D.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Math\Vector4D.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\Vector4D.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\World\Scene.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\Scene.obj
+D:\Dev\Projects\DoodleJump\DoodleJump\src\World\World.cpp;D:\Dev\Projects\DoodleJump\DoodleJump\bin-int\Debug-windows-x86_64\DoodleJump\World.obj

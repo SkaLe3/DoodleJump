@@ -97,16 +97,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entities\GameObject.cpp" />
+    <ClCompile Include="src\Game\Doodle.cpp" />
     <ClCompile Include="src\Input\EventHandler.cpp" />
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\Math\FuncGeometric.cpp" />
+    <ClCompile Include="src\Math\FuncMatrix.cpp" />
+    <ClCompile Include="src\Math\Matrix4.cpp" />
+    <ClCompile Include="src\Math\Vector.cpp" />
+    <ClCompile Include="src\Math\Vector2D.cpp" />
+    <ClCompile Include="src\Math\Vector4D.cpp" />
     <ClCompile Include="src\World\Scene.cpp" />
     <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Components\BasicComponents.h" />
+    <ClInclude Include="src\Components\GameComponent.h" />
     <ClInclude Include="src\Components\BoxComponent.h" />
+    <ClInclude Include="src\Components\SceneComponent.h" />
     <ClInclude Include="src\Components\SpriteComponent.h" />
     <ClInclude Include="src\Entities\Object.h" />
+    <ClInclude Include="src\Game\Doodle.h" />
+    <ClInclude Include="src\Math\FuncGeometric.h" />
+    <ClInclude Include="src\Math\FuncMatrix.h" />
+    <ClInclude Include="src\Math\Matrix4.h" />
     <ClInclude Include="src\Math\Transform.h" />
     <ClInclude Include="src\Entities\GameObject.h" />
     <ClInclude Include="src\Input\EventHandler.h" />
@@ -116,6 +129,8 @@
     <ClInclude Include="src\Math\MyMath.h" />
     <ClInclude Include="src\Input\TriggerEvent.h" />
     <ClInclude Include="src\Math\Vector.h" />
+    <ClInclude Include="src\Math\Vector2D.h" />
+    <ClInclude Include="src\Math\Vector4D.h" />
     <ClInclude Include="src\World\Scene.h" />
     <ClInclude Include="src\World\World.h" />
   </ItemGroup>

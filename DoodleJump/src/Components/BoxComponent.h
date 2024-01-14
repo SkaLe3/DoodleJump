@@ -1,10 +1,12 @@
 #pragma once
-#include "BasicComponents.h"
+#include "SceneComponent.h"
 
 class BoxComponent : public SceneComponent
 {
 public:
-	BoxComponent() : GameComponent() {}
+	BoxComponent() : SceneComponent() {}
+
+	virtual void Tick() override {}
 	
 private:
 	

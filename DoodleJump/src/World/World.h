@@ -1,16 +1,24 @@
 #pragma once
-#include "Scene.h"
 #include <memory>
+#include <vector>
+
+class Scene;
+class World;
+
+std::shared_ptr<World> GetWorld();
+std::shared_ptr<Scene> GetScene();
 
 class World
 {
 public:
 
-
 	float GetDeltaTime() { return DeltaTime; }
-
 	void Update();
 
+	std::shared_ptr<Scene> CreateScene();
+	std::shared_ptr<Scene> GetCurrentScene();
+
+	void Init();
 
 	static std::shared_ptr<World> Create()
 	{
@@ -19,21 +27,14 @@ public:
 	}
 	static std::shared_ptr<World> Get() { return sInstance; }
 private:
-
 	float DeltaTime;
-
 
 	std::vector<std::shared_ptr<Scene>> scenes;
 	std::shared_ptr<Scene> currentScene;
 
-
-
-
 	static std::shared_ptr<World> sInstance;
-
 
 	friend class MyFramework;
 
 
 };
-
