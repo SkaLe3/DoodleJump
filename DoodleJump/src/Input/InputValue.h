@@ -6,8 +6,8 @@ class InputValue
 {
 public:
 
-	InputValue() : value(float{1}) {}
-	InputValue(float _value)	: value(_value) {}
+	InputValue() : value(double{1}) {}
+	InputValue(double _value)	: value(_value) {}
 	InputValue(Math::Vector2D vec2d) : value(vec2d) {}
 
 	template<class T>
@@ -17,5 +17,5 @@ public:
 	}
 
 private:
-	std::variant<float, Math::Vector2D> value;
+	std::variant<double, Math::Vector2D> value;
 };

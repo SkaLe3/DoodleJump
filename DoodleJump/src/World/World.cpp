@@ -22,8 +22,8 @@ std::shared_ptr<Scene> World::GetCurrentScene()
 
 void World::Init()
 {
-	CreateScene();
-	currentScene = scenes[0];
+	currentScene = CreateScene();
+	currentScene->Start();
 }
 
 

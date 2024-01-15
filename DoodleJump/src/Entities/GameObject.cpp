@@ -10,7 +10,7 @@ GameObject::GameObject()
 }
 
 
-Math::Transform& GameObject::GetTransform() const
+Math::Transform& GameObject::GetTransform()
 {
 	return rootComponent->GetTransform();
 }

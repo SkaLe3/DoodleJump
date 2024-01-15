@@ -3,14 +3,16 @@
 
 #include "SceneComponent.h"
 
-
-class SpriteComponent : SceneComponent
+// TESTING
+#include <iostream>
+class SpriteComponent : public SceneComponent
 {
 public:
 	SpriteComponent() : sprite(nullptr) {}
 	SpriteComponent(Sprite* _sprite) : sprite(_sprite) {}
 
-	virtual void Tick() override {}
+	virtual void Start() override {}
+	virtual void Tick(double DeltaTime) override { std::cout << "Sprite tick" << std::endl; }
 
 
 	void SetSprite(Sprite* _sprite) { sprite = _sprite; }

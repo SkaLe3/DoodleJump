@@ -7,13 +7,13 @@ class SceneComponent : public GameComponent
 {
 public:
 	SceneComponent() = default;
+	// Transform is relative
 	Math::Transform& GetTransform() { return transform; }
 	Math::Mat4 GetTransformMatrix()
 	{
-// 		if (parent)
-// 			return parent->GetTransformMatrix() * transform.ToMat4();
-// 		return transform.ToMat4();
-		return Math::Mat4();
+ 		if (parent)
+ 			return parent->GetTransformMatrix() * transform.ToMat4();
+ 		return transform.ToMat4();
 	}
 	void SetupAttachment(std::shared_ptr<SceneComponent> _parent) { parent = _parent; }
 

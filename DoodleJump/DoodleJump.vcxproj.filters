@@ -1,123 +1,131 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Components">
+      <UniqueIdentifier>{6B7DD516-5735-1764-C03C-F0BFAC13B254}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{8AA33B53-7670-965E-9F89-84068BB5CBEC}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7FA9857C-6BE0-860D-14CD-6C1000E3020F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{953A660D-014F-8EBE-CAD0-311E36A48AEF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{AFF4887C-9B2B-8A0D-4418-7010302E060F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{4D25640E-B939-8CBF-82BB-2F1FEE8E88F0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Input\EventHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Entities\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game\Doodle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Vector2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Vector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Vector4D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Matrix4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\FuncMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\FuncGeometric.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Input\TriggerEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Input\Events.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Input\InputValue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\MyMath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Input\EventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Entities\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Input\InputAction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Components\SpriteComponent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Components\BoxComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Components\GameComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Entities\Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Components\BoxComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game\Doodle.h">
-      <Filter>Header Files</Filter>
+      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Components\SceneComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math\Vector2D.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Components\SpriteComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math\Vector4D.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Entities\GameObject.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entities\Object.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Doodle.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\EventHandler.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Events.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\InputAction.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\InputValue.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\TriggerEvent.h">
+      <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="src\Math\FuncGeometric.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\Matrix4.h">
-      <Filter>Header Files</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="src\Math\FuncMatrix.h">
-      <Filter>Header Files</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="src\Math\Matrix4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\MyMath.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Transform.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector2D.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector4D.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Scene.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\World.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\CameraComponent.h" />
+    <ClInclude Include="src\Entities\GameMode.h" />
+    <ClInclude Include="src\Game\DJGameMode.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Entities\GameObject.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Doodle.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\EventHandler.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\FuncGeometric.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\FuncMatrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Matrix4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector2D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector4D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Scene.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\World.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\Game\DJGameMode.cpp" />
   </ItemGroup>
 </Project>

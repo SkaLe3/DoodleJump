@@ -1,6 +1,7 @@
 #include "FuncMatrix.h"
 #include "Matrix4.h"
-#include "Vector4D.h"
+#include "Vector.h"
+#include <cmath>
 
 namespace Math
 {
@@ -113,6 +114,48 @@ namespace Math
 
 
 		return oneOverDet * result;
+	}
+
+	Mat4 Translate(const Mat4& m, const Vector& v)
+	{
+		Mat4 result(m);
+		result[3] = m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3];
+		return result;
+	}
+
+	Mat4 Rotate(const Mat4& m, double angle, const Vector& v)
+	{
+		double c = cos(angle);
+		double s = sin(angle);
+
+		Mat4 result;
+		result[0][0] = c;
+		result[0][1] = s;
+		result[1][0] = -s;
+		result[1][1] = c;
+		return result;
+	}
+
+	Mat4 Scale(const Mat4& m, Vector& v)
+	{
+		Mat4 result;
+		result[0] = m[0] * v[0];
+		result[1] = m[1] * v[1];
+		result[2] = m[2] * v[2];
+		result[3] = m[3];
+		return result;
+	}
+
+	Math::Mat4 Orthographic(double left, double right, double bottom, double top)
+	{
+		Mat4 result;
+		result[0][0] = 2.0 / (right - left);
+		result[1][1] = 2.0 / (top - bottom);
+		result[2][2] = -1.0;
+		result[3][0] = -(right + left) / (right - left);
+		result[3][1] = -(top + bottom) / (top - bottom);
+		return result;
+
 	}
 
 }

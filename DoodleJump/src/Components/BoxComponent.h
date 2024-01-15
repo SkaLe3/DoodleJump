@@ -6,7 +6,8 @@ class BoxComponent : public SceneComponent
 public:
 	BoxComponent() : SceneComponent() {}
 
-	virtual void Tick() override {}
+	virtual void Start() override {}
+	virtual void Tick(double DeltaTime) override {}
 	
 private:
 	

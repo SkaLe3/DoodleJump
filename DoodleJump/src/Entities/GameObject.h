@@ -20,8 +20,8 @@ public:
 		return GetScene()->CreateComponent<T>();
 	}
 
-	Math::Transform& GetTransform() const;
-private:
+	Math::Transform& GetTransform();
+protected:
 	std::shared_ptr<SceneComponent> rootComponent;
 	std::shared_ptr<BoxComponent> boxComponent;
 };

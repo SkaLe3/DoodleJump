@@ -22,14 +22,13 @@ public:
 
 	virtual void PreInit(int& width, int& height, bool& fullscreen)
 	{
-		width = 900;
-		height = 600;
+		width = 600;
+		height = 1000;
 		fullscreen = false;
 	}
 
 	virtual bool Init() {
 		world = World::Create();
-		world->Init();
 		eventHandler = EventHandler::Create();
 		eventHandler->Init();
 
@@ -44,13 +43,7 @@ public:
 		MouseStates[FRMouseButton::RIGHT] = false;
 		MouseStates[FRMouseButton::COUNT] = false;
 
-		
-
-// 		std::cout << nt[0][0] << " " << nt[1][0] << " " << nt[2][0] << " " << nt[3][0] << "\n";
-// 		std::cout << nt[0][1] << " " << nt[1][1] << " " << nt[2][1] << " " << nt[3][1] << "\n";
-// 		std::cout << nt[0][2] << " " << nt[1][2] << " " << nt[2][2] << " " << nt[3][2] << "\n";
-// 		std::cout << nt[0][3] << " " << nt[1][3] << " " << nt[2][3] << " " << nt[3][3] << "\n";
-
+		world->Init();
 		return true;
 	}
 
@@ -76,17 +69,6 @@ public:
 		eventHandler->HandleEvents();
 
 		world->Update();
-		Math::Mat4 testmat(
-			1, 2, 3, 1,
-			4, 5, 6, 2,
-			2, 8, 2, 3,
-			4, 5, 6, 7
-		);
-		Math::Mat4 nt;
-		for (int i = 0; i < 1000; i++)
-			nt = Math::Inverse(testmat);
-
-		std::cout << 1.0 / world->GetDeltaTime()<< std::endl;
 
 		return false;
 	}
