@@ -6,9 +6,10 @@
 #include "Input/Events.h"
 #include "Input/EventHandler.h"
 #include "World/World.h"
-
+#include "Renderer/Renderer.h"
 #include <unordered_map>
-#include <memory> // shared_ptr
+#include <memory> 
+
 
 // TESTING 
 #include "Math/MyMath.h"
@@ -22,8 +23,8 @@ public:
 
 	virtual void PreInit(int& width, int& height, bool& fullscreen)
 	{
-		width = 600;
-		height = 1000;
+		width = 400;
+		height = 800;
 		fullscreen = false;
 	}
 
@@ -31,6 +32,8 @@ public:
 		world = World::Create();
 		eventHandler = EventHandler::Create();
 		eventHandler->Init();
+		
+		Renderer::Init();
 
 		KeyStates[FRKey::RIGHT] = false;
 		KeyStates[FRKey::LEFT]  = false;

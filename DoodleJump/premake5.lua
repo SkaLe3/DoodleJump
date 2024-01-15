@@ -14,6 +14,8 @@ project "DoodleJump"
     includedirs
     {
         "src",
+        "src/Core",
+        "src/Game",
         "%{IncludeDir.Framework}"
     }
 

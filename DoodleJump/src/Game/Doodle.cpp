@@ -8,23 +8,38 @@
 #include "Input/TriggerEvent.h"
 #include "Input/InputAction.h"
 #include "Input/InputValue.h"
+#include "Components/DoodleMovementComponent.h"
+#include "Components/CameraComponent.h"
 #include <functional>
 Doodle::Doodle() : GameObject()
 {
 	spriteComponent = CreateComponent<SpriteComponent>();
+	spriteComponent->SetupAttachment(GetBoxComponent());
+
+	// Don't need attachment
+	cameraComponent = CreateComponent<CameraComponent>();
+	
+	movementComponent = CreateComponent<DoodleMovementComponent>();
 }
 
 void Doodle::Start()
 {
+	GameObject::Start();
+
 	EventHandler::Get()->BindAction(EInputAction::Move, ETriggerEvent::Triggered, std::bind(&Doodle::Move, this, std::placeholders::_1));
+	cameraComponent->SetProjection(72);
+
+	GetSpriteComponent()->GetTransform().Scale = { 6.9, 6.9, 1.0 };
+	GetSpriteComponent()->GetTransform().Translation = { 0.0, 0.7, 0.0 };
+	GetBoxComponent()->SetSize({ 3.6, 5 });
 }
 
 void Doodle::Tick(double DeltaTime)
 {
-	std::cout << "TICK" << std::endl;
+	GameObject::Tick(DeltaTime);
 }
 
 void Doodle::Move(InputValue& value)
 {
-	this->GetTransform().Translation.x += 500 * value.Get<double>() * GetWorld()->GetDeltaTime();
+	this->GetTransform().Translation.x += 55 * value.Get<double>() * GetWorld()->GetDeltaTime();
 }

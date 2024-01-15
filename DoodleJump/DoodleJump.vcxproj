@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\vendor\Framework\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Core;src\Game;..\vendor\Framework\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -78,7 +78,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\vendor\Framework\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Core;src\Game;..\vendor\Framework\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -97,45 +97,54 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Components\BoxComponent.h" />
-    <ClInclude Include="src\Components\CameraComponent.h" />
-    <ClInclude Include="src\Components\GameComponent.h" />
-    <ClInclude Include="src\Components\SceneComponent.h" />
-    <ClInclude Include="src\Components\SpriteComponent.h" />
-    <ClInclude Include="src\Entities\GameMode.h" />
-    <ClInclude Include="src\Entities\GameObject.h" />
-    <ClInclude Include="src\Entities\Object.h" />
+    <ClInclude Include="src\Core\Components\BoxComponent.h" />
+    <ClInclude Include="src\Core\Components\CameraComponent.h" />
+    <ClInclude Include="src\Core\Components\GameComponent.h" />
+    <ClInclude Include="src\Core\Components\MovementComponent.h" />
+    <ClInclude Include="src\Core\Components\SceneComponent.h" />
+    <ClInclude Include="src\Core\Components\SpriteComponent.h" />
+    <ClInclude Include="src\Core\Entities\GameMode.h" />
+    <ClInclude Include="src\Core\Entities\GameObject.h" />
+    <ClInclude Include="src\Core\Entities\Object.h" />
+    <ClInclude Include="src\Core\Input\EventHandler.h" />
+    <ClInclude Include="src\Core\Input\Events.h" />
+    <ClInclude Include="src\Core\Input\InputAction.h" />
+    <ClInclude Include="src\Core\Input\InputValue.h" />
+    <ClInclude Include="src\Core\Input\TriggerEvent.h" />
+    <ClInclude Include="src\Core\Math\FuncGeometric.h" />
+    <ClInclude Include="src\Core\Math\FuncMatrix.h" />
+    <ClInclude Include="src\Core\Math\Matrix4.h" />
+    <ClInclude Include="src\Core\Math\MyMath.h" />
+    <ClInclude Include="src\Core\Math\Transform.h" />
+    <ClInclude Include="src\Core\Math\Vector.h" />
+    <ClInclude Include="src\Core\Math\Vector2D.h" />
+    <ClInclude Include="src\Core\Math\Vector4D.h" />
+    <ClInclude Include="src\Core\Renderer\Renderer.h" />
+    <ClInclude Include="src\Core\World\Scene.h" />
+    <ClInclude Include="src\Core\World\World.h" />
+    <ClInclude Include="src\Game\Components\DoodleMovementComponent.h" />
+    <ClInclude Include="src\Game\Components\FollowCameraComponent.h" />
     <ClInclude Include="src\Game\DJGameMode.h" />
     <ClInclude Include="src\Game\Doodle.h" />
-    <ClInclude Include="src\Input\EventHandler.h" />
-    <ClInclude Include="src\Input\Events.h" />
-    <ClInclude Include="src\Input\InputAction.h" />
-    <ClInclude Include="src\Input\InputValue.h" />
-    <ClInclude Include="src\Input\TriggerEvent.h" />
-    <ClInclude Include="src\Math\FuncGeometric.h" />
-    <ClInclude Include="src\Math\FuncMatrix.h" />
-    <ClInclude Include="src\Math\Matrix4.h" />
-    <ClInclude Include="src\Math\MyMath.h" />
-    <ClInclude Include="src\Math\Transform.h" />
-    <ClInclude Include="src\Math\Vector.h" />
-    <ClInclude Include="src\Math\Vector2D.h" />
-    <ClInclude Include="src\Math\Vector4D.h" />
-    <ClInclude Include="src\World\Scene.h" />
-    <ClInclude Include="src\World\World.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Entities\GameObject.cpp" />
+    <ClCompile Include="src\Core\Components\CameraComponent.cpp" />
+    <ClCompile Include="src\Core\Components\MovementComponent.cpp" />
+    <ClCompile Include="src\Core\Entities\GameObject.cpp" />
+    <ClCompile Include="src\Core\Input\EventHandler.cpp" />
+    <ClCompile Include="src\Core\Math\FuncGeometric.cpp" />
+    <ClCompile Include="src\Core\Math\FuncMatrix.cpp" />
+    <ClCompile Include="src\Core\Math\Matrix4.cpp" />
+    <ClCompile Include="src\Core\Math\Vector.cpp" />
+    <ClCompile Include="src\Core\Math\Vector2D.cpp" />
+    <ClCompile Include="src\Core\Math\Vector4D.cpp" />
+    <ClCompile Include="src\Core\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Core\World\Scene.cpp" />
+    <ClCompile Include="src\Core\World\World.cpp" />
+    <ClCompile Include="src\Game\Components\DoodleMovementComponent.cpp" />
+    <ClCompile Include="src\Game\Components\FollowCameraComponent.cpp" />
     <ClCompile Include="src\Game\DJGameMode.cpp" />
     <ClCompile Include="src\Game\Doodle.cpp" />
-    <ClCompile Include="src\Input\EventHandler.cpp" />
-    <ClCompile Include="src\Math\FuncGeometric.cpp" />
-    <ClCompile Include="src\Math\FuncMatrix.cpp" />
-    <ClCompile Include="src\Math\Matrix4.cpp" />
-    <ClCompile Include="src\Math\Vector.cpp" />
-    <ClCompile Include="src\Math\Vector2D.cpp" />
-    <ClCompile Include="src\Math\Vector4D.cpp" />
-    <ClCompile Include="src\World\Scene.cpp" />
-    <ClCompile Include="src\World\World.cpp" />
     <ClCompile Include="src\game.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
