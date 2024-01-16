@@ -1,6 +1,7 @@
 #pragma once
 #include "Entities/GameObject.h"
 #include "Input/InputValue.h"
+#include "Math/Vector2D.h"
 
 class DoodleMovementComponent;
 class SpriteComponent;
@@ -15,6 +16,8 @@ public:
 
 	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return spriteComponent; }
 	std::shared_ptr<DoodleMovementComponent> GetMovementComponent() const { return movementComponent; }
+
+	Math::Vector2D GetVelocity() const;
 
 public:
 	void Move(InputValue& value);

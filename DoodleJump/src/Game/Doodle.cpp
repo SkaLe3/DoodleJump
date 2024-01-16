@@ -1,6 +1,6 @@
 #include "Doodle.h"
 #include "Components/SpriteComponent.h"
-
+#include "Math/Vector2D.h"
 // TESTING
 #include <iostream>
 #include "World/World.h"
@@ -39,7 +39,13 @@ void Doodle::Tick(double DeltaTime)
 	GameObject::Tick(DeltaTime);
 }
 
+Math::Vector2D Doodle::GetVelocity() const
+{
+	return movementComponent->GetVelocity();
+}
+
 void Doodle::Move(InputValue& value)
 {
-	this->GetTransform().Translation.x += 55 * value.Get<double>() * GetWorld()->GetDeltaTime();
+	//this->GetTransform().Translation.x += 55 * value.Get<double>() * GetWorld()->GetDeltaTime();
+	//AddMovementInput(value.Get<double>() * Math::Vector2D{1, 0});
 }
