@@ -25,3 +25,8 @@ Math::Transform& GameObject::GetTransform()
 {
 	return rootComponent->GetTransform();
 }
+
+Math::Vector2D GameObject::GetLocation()
+{
+	return Math::Vector2D(rootComponent->GetTransform().Translation);
+}

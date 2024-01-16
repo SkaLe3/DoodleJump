@@ -56,6 +56,7 @@ void EventHandler::HandleEvents()
 		{
 			action = EInputAction::Aim;
 			value = static_pointer_cast<MouseMoveEvent>(e)->GetValue();
+			lastMousePosition = value.Get<Math::Vector2D>();
 		}
 		if (action == EInputAction::None)
 		{
@@ -71,4 +72,9 @@ void EventHandler::HandleEvents()
 
 		queue.pop();
 	}
+}
+
+Math::Vector2D EventHandler::GetMousePosition() const
+{
+	return lastMousePosition;
 }

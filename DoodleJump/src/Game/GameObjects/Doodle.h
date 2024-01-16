@@ -19,11 +19,20 @@ public:
 
 	Math::Vector2D GetVelocity() const;
 
+	void AddMovementInput(Math::Vector2D direction);
+	void Jump();
+
 public:
 	void Move(InputValue& value);
+	void Shoot(InputValue& value);
+
+	void OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
+
 
 private:
 	std::shared_ptr<SpriteComponent> spriteComponent;
 	std::shared_ptr<CameraComponent> cameraComponent;
 	std::shared_ptr<DoodleMovementComponent> movementComponent;
+
+	std::weak_ptr<GameObject> crosshair;
 };

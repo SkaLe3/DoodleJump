@@ -114,9 +114,13 @@
     <ClInclude Include="src\Game\DJGameMode.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Doodle.h">
+    <ClInclude Include="src\Game\GameObjects\Doodle.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Crosshair.h" />
+    <ClInclude Include="src\Game\GameObjects\Platform.h" />
+    <ClInclude Include="src\Game\Background.h" />
+    <ClInclude Include="src\Core\World\CollisionSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\CameraComponent.cpp">
@@ -167,9 +171,14 @@
     <ClCompile Include="src\Game\DJGameMode.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Doodle.cpp">
+    <ClCompile Include="src\Game\GameObjects\Doodle.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\Game\Crosshair.cpp" />
+    <ClCompile Include="src\Game\GameObjects\Platform.cpp" />
+    <ClCompile Include="src\Game\Background.cpp" />
+    <ClCompile Include="src\Core\Components\BoxComponent.cpp" />
+    <ClCompile Include="src\Core\World\CollisionSystem.cpp" />
   </ItemGroup>
 </Project>

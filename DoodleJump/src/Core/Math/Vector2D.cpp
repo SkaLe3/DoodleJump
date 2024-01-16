@@ -5,6 +5,8 @@
 
 namespace Math
 {
+	const Vector2D Vector2D::ZeroVector = { 0, 0 };
+
 	Vector2D::Vector2D() : x(0), y(0) {}
 
 	Vector2D::Vector2D(const Vector2D& v) : x(v.x), y(v.y) {}

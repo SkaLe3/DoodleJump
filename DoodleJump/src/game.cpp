@@ -47,6 +47,8 @@ public:
 		MouseStates[FRMouseButton::COUNT] = false;
 
 		world->Init();
+
+		LastTime = (float)(getTickCount() / 1000.0f);
 		return true;
 	}
 

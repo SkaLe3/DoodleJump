@@ -3,6 +3,7 @@
 #include "Input/TriggerEvent.h"
 #include "Input/InputAction.h"
 #include "Input/InputValue.h"
+#include "Math/Vector2D.h"
 
 #include <unordered_map>
 #include <queue>
@@ -21,6 +22,8 @@ public:
 	void BindAction(EInputAction, ETriggerEvent, std::function<void(InputValue&)> func);
 	void PushEvent(std::shared_ptr<InputEvent> ie);
 	void HandleEvents();
+
+	Math::Vector2D GetMousePosition() const;
 	
 	static std::shared_ptr<EventHandler> Create() 
 	{ 
@@ -35,6 +38,7 @@ private:
 	std::unordered_map<FRKey, std::pair<float, EInputAction>> keyActionMap;
 	std::unordered_map<FRMouseButton, EInputAction> mouseButtonActionMap;
 
+	Math::Vector2D lastMousePosition;
 
 	static std::shared_ptr<EventHandler> sInstance;
 

@@ -35,4 +35,30 @@ namespace Math
 	}
 
 
+	double Clamp(double value, double minValue, double maxValue)
+	{
+		return std::min(maxValue, std::max(value, minValue));
+	}
+
+	int32_t Clamp(int32_t value, int32_t minValue, int32_t maxValue)
+	{
+		return std::min(maxValue, std::max(value, minValue));
+	}
+
+	Vector2D Clamp(const Vector2D& value, double minValue, double maxValue)
+	{
+		Vector2D temp = value;
+		temp.x = std::min(maxValue, std::max(value.x, minValue));
+		temp.y = std::min(maxValue, std::max(value.y, minValue));
+		return temp;
+	}
+
+	Vector2D Clamp(const Vector2D& value, const Vector2D& minValue, const Vector2D& maxValue)
+	{
+		Vector2D temp = value;
+		temp.x = Clamp(value.x, minValue.x, maxValue.x);
+		temp.y = Clamp(value.y, minValue.y, maxValue.y);
+		return temp;
+	}
+
 }

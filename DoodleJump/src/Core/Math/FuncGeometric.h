@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 
 namespace Math
 {
@@ -29,5 +30,11 @@ namespace Math
 	{
 		return v / Length(v);
 	}
+
+	double Clamp(double value, double minValue, double maxValue);
+	int32_t Clamp(int32_t value, int32_t minValue, int32_t maxValue);
+	Vector2D Clamp(const Vector2D& value, double minValue, double maxValue);
+	Vector2D Clamp(const Vector2D& value, const Vector2D& minValue, const Vector2D& maxValue);
+
 
 }

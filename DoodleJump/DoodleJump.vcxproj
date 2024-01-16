@@ -120,14 +120,19 @@
     <ClInclude Include="src\Core\Math\Vector2D.h" />
     <ClInclude Include="src\Core\Math\Vector4D.h" />
     <ClInclude Include="src\Core\Renderer\Renderer.h" />
+    <ClInclude Include="src\Core\World\CollisionSystem.h" />
     <ClInclude Include="src\Core\World\Scene.h" />
     <ClInclude Include="src\Core\World\World.h" />
+    <ClInclude Include="src\Game\Background.h" />
     <ClInclude Include="src\Game\Components\DoodleMovementComponent.h" />
     <ClInclude Include="src\Game\Components\FollowCameraComponent.h" />
+    <ClInclude Include="src\Game\Crosshair.h" />
     <ClInclude Include="src\Game\DJGameMode.h" />
-    <ClInclude Include="src\Game\Doodle.h" />
+    <ClInclude Include="src\Game\GameObjects\Doodle.h" />
+    <ClInclude Include="src\Game\GameObjects\Platform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Components\BoxComponent.cpp" />
     <ClCompile Include="src\Core\Components\CameraComponent.cpp" />
     <ClCompile Include="src\Core\Components\MovementComponent.cpp" />
     <ClCompile Include="src\Core\Entities\GameObject.cpp" />
@@ -139,13 +144,17 @@
     <ClCompile Include="src\Core\Math\Vector2D.cpp" />
     <ClCompile Include="src\Core\Math\Vector4D.cpp" />
     <ClCompile Include="src\Core\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Core\World\CollisionSystem.cpp" />
     <ClCompile Include="src\Core\World\Scene.cpp" />
     <ClCompile Include="src\Core\World\World.cpp" />
+    <ClCompile Include="src\Game\Background.cpp" />
     <ClCompile Include="src\Game\Components\DoodleMovementComponent.cpp" />
     <ClCompile Include="src\Game\Components\FollowCameraComponent.cpp" />
+    <ClCompile Include="src\Game\Crosshair.cpp" />
     <ClCompile Include="src\Game\DJGameMode.cpp" />
-    <ClCompile Include="src\Game\Doodle.cpp" />
+    <ClCompile Include="src\Game\GameObjects\Doodle.cpp" />
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\Game\GameObjects\Platform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,8 +10,11 @@ namespace Math
 		double x;
 		double y;
 
+		static const Vector2D ZeroVector;
+
 		double& operator[](size_t i);
 		const double& operator[](size_t i) const;
+
 		// Basic constructors
 		Vector2D();
 		Vector2D(const Vector2D& v);
