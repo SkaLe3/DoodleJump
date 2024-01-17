@@ -153,8 +153,8 @@
     <ClCompile Include="src\Game\Crosshair.cpp" />
     <ClCompile Include="src\Game\DJGameMode.cpp" />
     <ClCompile Include="src\Game\GameObjects\Doodle.cpp" />
-    <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\Game\GameObjects\Platform.cpp" />
+    <ClCompile Include="src\game.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

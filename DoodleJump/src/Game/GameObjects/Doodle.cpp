@@ -47,16 +47,16 @@ void Doodle::Start()
 	boxComponent->OnBeginOverlap.Add(std::bind(&Doodle::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 
 
-	movementComponent->SetGravity(-10); // -140
+	movementComponent->SetGravity(-140); // -140
 	movementComponent->SetMaxSpeed(60);
-	movementComponent->SetJumpVelocity(10); //70
+	movementComponent->SetJumpVelocity(70); //70
 
 }
 
 void Doodle::Tick(double DeltaTime)
 {
 	GameObject::Tick(DeltaTime);
-
+	//std::cout << "FPS: " << 1.0 / DeltaTime << std::endl;
 }
 
 Math::Vector2D Doodle::GetVelocity() const
@@ -81,12 +81,12 @@ void Doodle::Move(InputValue& value)
 
 void Doodle::Shoot(InputValue& value)
 {
-	Jump();
+	//Jump();
 }
 
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
-
+	std::cout << collisionTime << std::endl;
 	if (normal.y > 0)
 		Jump();
 

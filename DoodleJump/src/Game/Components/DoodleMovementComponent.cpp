@@ -16,6 +16,7 @@ void DoodleMovementComponent::Tick(double deltaTime)
 {
 	MovementComponent::Tick(deltaTime);
 
+	velocity.x = 0;
 
 }
 

@@ -1,7 +1,4 @@
-﻿  Scene.cpp
-  World.cpp
-  game.cpp
-  Generating Code...
+﻿  CollisionSystem.cpp
   DoodleJump.vcxproj -> C:\Dev\Projects_CPP\DoodleJump\DoodleJump\bin\Release-windows-x86_64\DoodleJump\DoodleJump.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

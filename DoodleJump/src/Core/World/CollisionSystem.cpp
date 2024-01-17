@@ -28,6 +28,7 @@ namespace Physics
 
 	double SweptAABB(std::shared_ptr<BoxComponent>& object, std::shared_ptr<BoxComponent> other, Math::Vector2D& normal)
 	{
+		// add broad phase to check if there will be a collision, in the next frame
 		double dxEntry, dyEntry;
 		double dxExit, dyExit;
 
@@ -87,13 +88,13 @@ namespace Physics
 		double entryTime = std::max(txEntry, tyEntry);
 		double exitTime = std::min(txExit, tyExit);
 
-		if (entryTime > exitTime || txEntry < 0.0 && tyEntry < 0.0 || txEntry > 1.0 && tyEntry > 1.)
+		if (entryTime > exitTime || txEntry < 0.0 && tyEntry < 0.0 || txEntry > 1.0 || tyEntry > 1.0)
 		{
 			normal.x = 0.0;
 			normal.y = 0.0;
 			return 1.0;
 		}
-		else
+		else 
 		{
 			if (txEntry > tyEntry)
 			{

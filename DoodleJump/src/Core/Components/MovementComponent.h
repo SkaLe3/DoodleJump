@@ -10,7 +10,7 @@ public:
 	virtual void Tick(double deltaTime) override;
 
 public:
-	void AddForce(Math::Vector2D force);
+	//void AddForce(Math::Vector2D force);
 
 	Math::Vector2D& GetVelocity() { return velocity; }
 

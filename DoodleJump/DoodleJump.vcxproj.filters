@@ -28,6 +28,9 @@
     <Filter Include="Game\Components">
       <UniqueIdentifier>{3441F2CD-A0CC-5F92-A9DD-E28615E8BB92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObjects">
+      <UniqueIdentifier>{F2EA5487-DEE3-73D9-0716-595EF36D53E5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Components\BoxComponent.h">
@@ -99,11 +102,17 @@
     <ClInclude Include="src\Core\Renderer\Renderer.h">
       <Filter>Core\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\World\CollisionSystem.h">
+      <Filter>Core\World</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\World\Scene.h">
       <Filter>Core\World</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\World\World.h">
       <Filter>Core\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Background.h">
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Components\DoodleMovementComponent.h">
       <Filter>Game\Components</Filter>
@@ -111,18 +120,23 @@
     <ClInclude Include="src\Game\Components\FollowCameraComponent.h">
       <Filter>Game\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Crosshair.h">
+      <Filter>Game</Filter>
+    </ClInclude>
     <ClInclude Include="src\Game\DJGameMode.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\GameObjects\Doodle.h">
-      <Filter>Game</Filter>
+      <Filter>Game\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Crosshair.h" />
-    <ClInclude Include="src\Game\GameObjects\Platform.h" />
-    <ClInclude Include="src\Game\Background.h" />
-    <ClInclude Include="src\Core\World\CollisionSystem.h" />
+    <ClInclude Include="src\Game\GameObjects\Platform.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Components\BoxComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
     <ClCompile Include="src\Core\Components\CameraComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
@@ -156,11 +170,17 @@
     <ClCompile Include="src\Core\Renderer\Renderer.cpp">
       <Filter>Core\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\World\CollisionSystem.cpp">
+      <Filter>Core\World</Filter>
+    </ClCompile>
     <ClCompile Include="src\Core\World\Scene.cpp">
       <Filter>Core\World</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\World\World.cpp">
       <Filter>Core\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Background.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Components\DoodleMovementComponent.cpp">
       <Filter>Game\Components</Filter>
@@ -168,17 +188,18 @@
     <ClCompile Include="src\Game\Components\FollowCameraComponent.cpp">
       <Filter>Game\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Crosshair.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
     <ClCompile Include="src\Game\DJGameMode.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\GameObjects\Doodle.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\Platform.cpp">
+      <Filter>Game\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\Game\Crosshair.cpp" />
-    <ClCompile Include="src\Game\GameObjects\Platform.cpp" />
-    <ClCompile Include="src\Game\Background.cpp" />
-    <ClCompile Include="src\Core\Components\BoxComponent.cpp" />
-    <ClCompile Include="src\Core\World\CollisionSystem.cpp" />
   </ItemGroup>
 </Project>

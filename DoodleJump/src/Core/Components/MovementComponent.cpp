@@ -43,11 +43,11 @@ void MovementComponent::Tick(double deltaTime)
 
 }
 
-void MovementComponent::AddForce(Math::Vector2D force)
-{
-	acceleration += force;
-	GetOwner()->GetBoxComponent()->SetAcceleration(acceleration);
-}
+// void MovementComponent::AddForce(Math::Vector2D force)
+// {
+// 	acceleration += force;
+// 	GetOwner()->GetBoxComponent()->SetAcceleration(acceleration);
+// }
 
 
 void MovementComponent::SetGravity(double gravityValue)

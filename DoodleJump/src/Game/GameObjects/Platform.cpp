@@ -16,7 +16,6 @@ void Platform::Start()
 
 	spriteComponent->GetTransform().Scale = { 6, 1.62, 1 };
 	boxComponent->SetHalfSize({ 3, 0.8 });
-	boxComponent->GetTransform().Translation = { 0, 20, -0.5 };
 	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 }
 
