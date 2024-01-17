@@ -10,12 +10,14 @@ public:
 	virtual void Tick(double deltaTime) override;
 
 public:
-	//void AddForce(Math::Vector2D force);
+
 
 	Math::Vector2D& GetVelocity() { return velocity; }
 
 	void SetGravity(double gravityValue);
 	void SetMaxSpeed(double speed);
+
+	void OnCollision(double collisionTime);
 
 protected:
 	Math::Vector2D velocity;

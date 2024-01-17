@@ -37,14 +37,16 @@ void Doodle::Start()
 
 	EventHandler::Get()->BindAction(EInputAction::Move, ETriggerEvent::Triggered, std::bind(&Doodle::Move, this, std::placeholders::_1));
 	EventHandler::Get()->BindAction(EInputAction::Shoot, ETriggerEvent::Pressed, std::bind(&Doodle::Shoot, this, std::placeholders::_1));
-	cameraComponent->SetProjection(72);
+	boxComponent->OnBeginOverlap.Add(std::bind(&Doodle::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 
+
+	cameraComponent->SetProjection(72);
 	spriteComponent->GetTransform().Scale = { 6.9, 6.9, 1.0 };
 	spriteComponent->GetTransform().Translation = { 0.0, 0.7, 0.0 };
 	boxComponent->SetHalfSize({ 1.8, 2.5 });
 	boxComponent->SetCollisionChannel(ECollisionChannel::Character);
 	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
-	boxComponent->OnBeginOverlap.Add(std::bind(&Doodle::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+
 
 
 	movementComponent->SetGravity(-140); // -140
@@ -86,8 +88,11 @@ void Doodle::Shoot(InputValue& value)
 
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
-	std::cout << collisionTime << std::endl;
+
 	if (normal.y > 0)
+	{
+		movementComponent->OnCollision(collisionTime);
 		Jump();
+	}
 
 }

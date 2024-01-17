@@ -132,6 +132,7 @@
     <ClInclude Include="src\Game\GameObjects\Platform.h">
       <Filter>Game\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Components\BoxCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp">

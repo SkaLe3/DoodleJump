@@ -29,8 +29,6 @@ void MovementComponent::Tick(double deltaTime)
 
 
 	acceleration += gravity;
-
-
 	velocity += acceleration * 0.5 * deltaTime;
 
 	transform.Translation += Math::Vector(velocity * deltaTime, 0);
@@ -41,13 +39,9 @@ void MovementComponent::Tick(double deltaTime)
 	GetOwner()->GetBoxComponent()->SetGravity(gravity);
 	acceleration = Math::Vector2D::ZeroVector;
 
+
 }
 
-// void MovementComponent::AddForce(Math::Vector2D force)
-// {
-// 	acceleration += force;
-// 	GetOwner()->GetBoxComponent()->SetAcceleration(acceleration);
-// }
 
 
 void MovementComponent::SetGravity(double gravityValue)
@@ -58,4 +52,10 @@ void MovementComponent::SetGravity(double gravityValue)
 void MovementComponent::SetMaxSpeed(double speed)
 {
 	maxSpeed = speed;
+}
+
+void MovementComponent::OnCollision(double collisionTime)
+{
+	// Add remaining time to use instead of delta time when collision occurs
+	owner->GetTransform().Translation += Math::Vector(owner->GetBoxComponent()->GetVelocity() * collisionTime, 0);
 }

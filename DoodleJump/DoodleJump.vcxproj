@@ -97,6 +97,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Components\BoxCollider.h" />
     <ClInclude Include="src\Core\Components\BoxComponent.h" />
     <ClInclude Include="src\Core\Components\CameraComponent.h" />
     <ClInclude Include="src\Core\Components\GameComponent.h" />

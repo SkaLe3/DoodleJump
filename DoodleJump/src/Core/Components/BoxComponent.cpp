@@ -58,12 +58,21 @@ void BoxComponent::SetGravity(Math::Vector2D newGravity)
 	gravity = newGravity;
 }
 
+BoxCollider BoxComponent::GetCollider()
+{
+	BoxCollider collider;
+	collider.pos = GetTransform().Translation;
+	collider.size = GetTransform().Scale * Math::Vector(boxHalfSize, 0);
+	collider.vel = GetVelocity();
+	return collider;
+}
+
 void BeginOverlapDelegate::Add(std::function<void(std::shared_ptr<GameObject>, Math::Vector2D, double)> callback)
 {
 	callbacks.push_back(callback);
 }
 
-void BeginOverlapDelegate::Execute(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
+void BeginOverlapDelegate::operator()(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
 	for (auto& func : callbacks)
 		func(otherObject, normal, collisionTime);

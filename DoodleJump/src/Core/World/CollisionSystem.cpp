@@ -6,125 +6,112 @@
 
 
 #include <iostream>
+#include "World/World.h"
 namespace Physics
 {
 
-	bool IsColliding(std::shared_ptr<BoxComponent>& object, std::shared_ptr<BoxComponent> other)
+	bool IsColliding(const BoxCollider& object, const BoxCollider& other)
 	{
-		Math::Vector b1 = object->GetTransform().Translation;
-		Math::Vector b2 = other->GetTransform().Translation;
 
-		Math::Vector2D b1Size = object->GetHalfSize();
-		Math::Vector2D b2Size = object->GetHalfSize();
-
-
-		double left = (b2.x - b2Size.x) - (b1.x + b1Size.x);
-		double right = (b2.x + b2Size.x) - (b1.x - b1Size.x);
-		double top = (b2.y + b2Size.y) - (b1.y - b1Size.y);
-		double bottom = (b2.y - b2Size.y) - (b1.y + b1Size.y);
+		double left = (other.pos.x - other.size.x) - (object.pos.x + object.size.x);
+		double right = (other.pos.x + other.size.x) - (object.pos.x - object.size.x);
+		double top = (other.pos.y + other.size.y) - (object.pos.y - object.size.y);
+		double bottom = (other.pos.y - other.size.y) - (object.pos.y + object.size.y);
 
 		return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 	}
 
-	double SweptAABB(std::shared_ptr<BoxComponent>& object, std::shared_ptr<BoxComponent> other, Math::Vector2D& normal)
+	BoxCollider GetBroadPhaseCollider(const BoxCollider& object)
 	{
-		// add broad phase to check if there will be a collision, in the next frame
-		double dxEntry, dyEntry;
-		double dxExit, dyExit;
+		Math::Vector2D position = object.pos + object.vel * 0.5;
+		Math::Vector2D size = object.size * 2 + Math::Abs(object.vel);
 
-		Math::Vector b1 = object->GetTransform().Translation;
-		Math::Vector b2 = other->GetTransform().Translation;
+		return BoxCollider(position, size, object.vel);
+	}
 
-		Math::Vector2D b1Size = object->GetHalfSize();
-		Math::Vector2D b2Size = other->GetHalfSize();
 
-		if (object->GetVelocity().x > 0.0)
+
+	double SweptAABB(const BoxCollider& object, const BoxCollider& other, Math::Vector2D& normal)
+	{
+		// Broad-Phase 
+		BoxCollider collider = GetBroadPhaseCollider(object);
+		if (!IsColliding(collider, other))
+			return 1;
+
+		Math::Vector2D dEntry;
+		Math::Vector2D dExit;
+
+
+		if (object.vel.x > 0.0)
 		{
-			dxEntry = (b2.x - b2Size.x) - (b1.x + b1Size.x);
-			dxExit = (b2.x + b2Size.x) - (b1.x - b1Size.x);
+			dEntry.x = (other.pos.x - other.size.x) - (object.pos.x + object.size.x);
+			dExit.x = (other.pos.x + other.size.x) - (object.pos.x - object.size.x);
 		}
 		else
 		{
-			dxEntry = (b2.x + b2Size.x) - (b1.x - b1Size.x);
-			dxExit = (b2.x - b2Size.x) - (b1.x + b1Size.x);
+			dEntry.x = (other.pos.x + other.size.x) - (object.pos.x - object.size.x);
+			dExit.x = (other.pos.x - other.size.x) - (object.pos.x + object.size.x);
 		}
-		if (object->GetVelocity().y > 0.0)
+		if (object.vel.y > 0.0)
 		{
-			dyEntry = (b2.y - b2Size.y) - (b1.y + b1Size.y);
-			dyExit = (b2.y + b2Size.y) - (b1.y - b1Size.y);
-		}
-		else
-		{
-			dyEntry = (b2.y + b2Size.y) - (b1.y - b1Size.y);
-			dyExit = (b2.y - b2Size.y) - (b1.y + b1Size.y);
-		}
-
-		double txEntry, tyEntry;
-		double txExit, tyExit;
-
-		if (object->GetVelocity().x == 0.0)
-		{
-			txEntry = - std::numeric_limits<double>::infinity();
-			txExit = std::numeric_limits<double>::infinity();
+			dEntry.y = (other.pos.y - other.size.y) - (object.pos.y + object.size.y);
+			dExit.y = (other.pos.y + other.size.y) - (object.pos.y - object.size.y);
 		}
 		else
 		{
-			txEntry = dxEntry / object->GetVelocity().x;
-			txExit = dxExit / object->GetVelocity().x;
+			dEntry.y = (other.pos.y + other.size.y) - (object.pos.y - object.size.y);
+			dExit.y = (other.pos.y - other.size.y) - (object.pos.y + object.size.y);
 		}
-		if (object->GetVelocity().y == 0.0)
+
+		Math::Vector2D tEntry;
+		Math::Vector2D tExit;
+
+		if (object.vel.x == 0.0)
 		{
-			tyEntry = -std::numeric_limits<double>::infinity();
-			tyExit = std::numeric_limits<double>::infinity();
+			tEntry.x = - std::numeric_limits<double>::infinity();
+			tExit.x = std::numeric_limits<double>::infinity();
 		}
 		else
 		{
-			tyEntry = dyEntry / object->GetVelocity().y;
-			tyExit = dyExit / object->GetVelocity().y;
-
-			
+			tEntry.x = dEntry.x / object.vel.x;
+			tExit.x = dExit.x / object.vel.x;
+		}
+		if (object.vel.y == 0.0)
+		{
+			tEntry.y = -std::numeric_limits<double>::infinity();
+			tExit.y = std::numeric_limits<double>::infinity();
+		}
+		else
+		{
+			tEntry.y = dEntry.y / object.vel.y;
+			tExit.y = dExit.y / object.vel.y;
 		}
 
-		double entryTime = std::max(txEntry, tyEntry);
-		double exitTime = std::min(txExit, tyExit);
+		double entryTime = std::max(tEntry.x, tEntry.y);
+		double exitTime = std::min(tExit.x, tExit.y);
 
-		if (entryTime > exitTime || txEntry < 0.0 && tyEntry < 0.0 || txEntry > 1.0 || tyEntry > 1.0)
+		if (entryTime > exitTime || tEntry.x < 0.0 && tEntry.y < 0.0 || tEntry.x > 1.0 || tEntry.y > 1.0)
 		{
-			normal.x = 0.0;
-			normal.y = 0.0;
+			normal = { 0, 0 };
 			return 1.0;
 		}
 		else 
 		{
-			if (txEntry > tyEntry)
+			if (tEntry.x > tEntry.y)
 			{
-				if (dxEntry < 0.0)
-				{
-					normal.x = 1.0;
-					normal.y = 0.0;
-				}
+				if (dEntry.x < 0.0)
+					normal = { 1, 0 };
 				else
-				{
-					normal.x = 1.0;
-					normal.y = 0.0;
-				}
+					normal = { -1, 0 };
 			}
 			else
 			{
-				if (dyEntry < 0.0)
-				{
-					normal.x = 0.0;
-					normal.y = 1.0;
-				}
+				if (dEntry.y < 0.0)
+					normal = { 0, 1 };
 				else
-				{
-					normal.x = 0.0;
-					normal.y = -1.0;
-				}
+					normal = { 0, -1 };
 			}
-
 		}
-
 		return entryTime;
 	}
 

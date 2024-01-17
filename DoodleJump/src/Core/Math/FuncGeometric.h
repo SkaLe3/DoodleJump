@@ -36,5 +36,7 @@ namespace Math
 	Vector2D Clamp(const Vector2D& value, double minValue, double maxValue);
 	Vector2D Clamp(const Vector2D& value, const Vector2D& minValue, const Vector2D& maxValue);
 
+	Vector2D Abs(const Vector2D& v);
+
 
 }

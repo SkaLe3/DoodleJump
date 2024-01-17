@@ -78,12 +78,11 @@ void Scene::Tick(float DeltaTime)
 					)
 				{
 					Math::Vector2D normal;
-					double result = Physics::SweptAABB(object, other, normal);
+					double result = Physics::SweptAABB(object->GetCollider(), other->GetCollider(), normal);
 					if (result < 1.0)
 					{
-						object->OnBeginOverlap.Execute(other->GetOwner(), normal, result);
-						other->OnBeginOverlap.Execute(object->GetOwner(), -normal, result);
-
+						object->OnBeginOverlap(other->GetOwner(), normal, result);
+						other->OnBeginOverlap(object->GetOwner(), -normal, result);
 					}
 				}
 			}

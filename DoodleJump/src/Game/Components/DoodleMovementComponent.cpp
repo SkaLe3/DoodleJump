@@ -1,5 +1,5 @@
 #include "DoodleMovementComponent.h"
-
+#include "Entities/GameObject.h"
 // Testings
 #include <iostream>
 

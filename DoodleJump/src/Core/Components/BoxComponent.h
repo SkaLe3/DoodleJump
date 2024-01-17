@@ -1,6 +1,8 @@
 #pragma once
 #include "SceneComponent.h"
 #include "Math/Vector2D.h"
+#include "Math/Vector.h"
+#include "BoxCollider.h"
 #include <unordered_map>
 #include <functional>
 #include <vector>
@@ -21,7 +23,7 @@ struct BeginOverlapDelegate
 public:
 	void Add(std::function<void(std::shared_ptr<GameObject>, Math::Vector2D, double)> callback);
 
-	void Execute(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
+	void operator()(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
 
 private:
 	std::vector<std::function<void(std::shared_ptr<GameObject>, Math::Vector2D, double)>> callbacks;
@@ -55,6 +57,9 @@ public:
 	void SetAcceleration(Math::Vector2D newAcceleration);
 	void SetGravity(Math::Vector2D newGravity);
 
+	BoxCollider GetCollider();
+
+public:
 	BeginOverlapDelegate OnBeginOverlap;
 	
 private:
@@ -69,9 +74,6 @@ private:
 	Math::Vector2D velocity;
 	Math::Vector2D acceleration;
 	Math::Vector2D gravity;
-
-
-	// Add collisionTime and multiply by it in tick. Every frame reset it to 1 and set in on overlap handler
 	
 };
 

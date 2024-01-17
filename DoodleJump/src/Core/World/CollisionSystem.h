@@ -3,6 +3,7 @@
 
 namespace Physics
 {
-	bool IsColliding(std::shared_ptr<BoxComponent>& object, std::shared_ptr<BoxComponent> other);
-	double SweptAABB(std::shared_ptr<BoxComponent>& object, std::shared_ptr<BoxComponent> other, Math::Vector2D& normal);
+	bool IsColliding(const BoxCollider& object, const BoxCollider& other);
+	BoxCollider GetBroadPhaseCollider(const BoxCollider& object);
+	double SweptAABB(const BoxCollider& object, const BoxCollider& other, Math::Vector2D& normal);
 }

@@ -61,4 +61,12 @@ namespace Math
 		return temp;
 	}
 
+	Math::Vector2D Abs(const Vector2D& v)
+	{
+		Vector2D temp;
+		temp.x = abs(v.x);
+		temp.y = abs(v.y);
+		return temp;
+	}
+
 }
