@@ -21,7 +21,7 @@ DJGameMode::DJGameMode()
 	std::shared_ptr<GameObject> background = GetScene()->SpawnGameObject<Background>();
 
 	platformSpawner = GetScene()->SpawnGameObject<PlatformSpawner>();
-	platformSpawner->SetDefaultPlatformPoolSize(20);
+	platformSpawner->SetDefaultPlatformPoolSize(36);
 
 	rightWall = GetScene()->SpawnGameObject<GameObject>();
 	rightWall->SetTag("right wall");
@@ -50,6 +50,7 @@ void DJGameMode::Start()
 	Math::Vector camPos = camera->GetTransform().Translation;
 
 	player->GetTransform().Translation.y = camPos.y - camBounds.y * 0.5 + 4;
+	player->GetTransform().Translation.z = 1;
 
 	double wallWidth = 2;
 
@@ -64,6 +65,9 @@ void DJGameMode::Start()
 	leftWall->GetBoxComponent()->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 
 	platformSpawner->SpawnPools();
+
+	for (int i = 0; i < 36; i++)
+		platformSpawner->SetNextPlatform(1);
 	
 }
 
@@ -77,9 +81,9 @@ void DJGameMode::Tick(double DeltaTime)
 
 	score = std::max(player->GetLocation().y, score);
 
-	//std::cout << score << std::endl;
+	std::cout << (int)score << std::endl;
 
-	// Tweaking
+	platformSpawner->SetNextPlatform(score);
 }
 
 void DJGameMode::TeleportToRightWall()

@@ -62,7 +62,7 @@ void Doodle::Start()
 
 
 	movementComponent->SetGravity(-140); // -140
-	movementComponent->SetMaxSpeed(50);
+	movementComponent->SetMaxSpeed(40);
 	movementComponent->SetJumpVelocity(70); //70
 
 }
@@ -101,7 +101,6 @@ void Doodle::Shoot(InputValue& value)
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
 	std::string otherTag = otherObject->GetTag();
-	std::cout << otherTag << std::endl;
 	if (normal.y > 0 && otherTag == "platform")
 	{
 		movementComponent->OnCollision(collisionTime);

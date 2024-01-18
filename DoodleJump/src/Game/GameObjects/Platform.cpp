@@ -7,6 +7,7 @@ Platform::Platform() : GameObject()
 
 	// May be unsafe to use in c-tor
 	spriteComponent->GetTransform().Scale = { 6, 1.62, 1 };
+	spriteComponent->GetTransform().Translation.z = -0.5;
 	boxComponent->SetHalfSize({ 2.7, 0.5 });
 	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 

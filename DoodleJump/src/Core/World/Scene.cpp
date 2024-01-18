@@ -111,7 +111,6 @@ void Scene::Tick(float DeltaTime)
 
 	Renderer::BeginScene(camera->GetProjection(), camera->GetTransformMatrix());
 
-	// TODO: Sort by Z axis
 	for (std::shared_ptr<SpriteComponent>& object : drawObjects)
 	{
 		Renderer::DrawSprite(object->GetTransformMatrix(), object->GetSpriteComponent());
