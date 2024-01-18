@@ -16,3 +16,9 @@ void CameraComponent::SetViewportSize(uint32_t width, uint32_t height)
 	viewportSize = { (double)width, (double)height };
 	aspectRatio = (double)width / (double)height;
 }
+
+Math::Vector2D CameraComponent::GetCameraBounds()
+{
+	return Math::Vector2D(orthographicSize * aspectRatio, orthographicSize);
+}
+

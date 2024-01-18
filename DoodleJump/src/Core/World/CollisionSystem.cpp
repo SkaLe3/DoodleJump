@@ -24,7 +24,7 @@ namespace Physics
 	BoxCollider GetBroadPhaseCollider(const BoxCollider& object)
 	{
 		Math::Vector2D position = object.pos + object.vel * 0.5;
-		Math::Vector2D size = object.size * 2 + Math::Abs(object.vel);
+		Math::Vector2D size = object.size  + Math::Abs(object.vel) * 0.5;
 
 		return BoxCollider(position, size, object.vel);
 	}

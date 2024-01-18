@@ -6,6 +6,7 @@
 #include "World/World.h"
 #include "World/Scene.h"
 #include <memory>
+#include <string>
 //
 #include "Components/BoxComponent.h"
 //
@@ -27,7 +28,13 @@ public:
 	Math::Transform& GetTransform();
 	std::shared_ptr<BoxComponent> GetBoxComponent() { return boxComponent; }
 	Math::Vector2D GetLocation();
+	void SetLocation(const Math::Vector& location);
+
+	void SetTag(const std::string& newTag);
+	std::string GetTag();
 protected:
 	std::shared_ptr<SceneComponent> rootComponent;
 	std::shared_ptr<BoxComponent> boxComponent;
+
+	std::string tag;
 };

@@ -27,15 +27,16 @@ void Scene::Start()
 {
 
 	
+
 	gameMode = std::make_shared<DJGameMode>();
+
+// 	auto it = std::find_if(tickComponents.begin(), tickComponents.end(), [](const auto& ptr) {
+// 		return (dynamic_pointer_cast<CameraComponent>(ptr) != nullptr); });
+// 	if (it != tickComponents.end())
+// 		camera = static_pointer_cast<CameraComponent>(*it);
+// 	camera->SetViewportSize(viewportWidth, viewportHeight);
+
 	gameMode->Start();
-
-	auto it = std::find_if(tickComponents.begin(), tickComponents.end(), [](const auto& ptr) {
-		return (dynamic_pointer_cast<CameraComponent>(ptr) != nullptr); });
-	if (it != tickComponents.end())
-		camera = static_pointer_cast<CameraComponent>(*it);
-
-	camera->SetViewportSize(viewportWidth, viewportHeight);
 
 
 	for (std::shared_ptr<GameObject>& object : tickObjects)
@@ -147,5 +148,11 @@ Math::Vector2D Scene::GetMousePosition()
 std::shared_ptr<CameraComponent> Scene::GetRenderCamera()
 {
 	return camera;
+}
+
+void Scene::UseCamera(std::shared_ptr<CameraComponent> cc)
+{
+	camera = cc;
+	camera->SetViewportSize(viewportWidth, viewportHeight);
 }
 

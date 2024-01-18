@@ -4,7 +4,7 @@
 
 // testins
 #include <iostream>
-GameObject::GameObject()
+GameObject::GameObject() : tag("")
 {
 	boxComponent = CreateComponent<BoxComponent>();
 	rootComponent = boxComponent;
@@ -29,4 +29,19 @@ Math::Transform& GameObject::GetTransform()
 Math::Vector2D GameObject::GetLocation()
 {
 	return Math::Vector2D(rootComponent->GetTransform().Translation);
+}
+
+void GameObject::SetLocation(const Math::Vector& location)
+{
+	boxComponent->GetTransform().Translation = location;
+}
+
+void GameObject::SetTag(const std::string& newTag)
+{
+	tag = newTag;
+}
+
+std::string GameObject::GetTag()
+{
+	return tag;
 }

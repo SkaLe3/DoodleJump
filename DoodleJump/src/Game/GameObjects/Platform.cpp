@@ -5,6 +5,10 @@ Platform::Platform() : GameObject()
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
+	// May be unsafe to use in c-tor
+	spriteComponent->GetTransform().Scale = { 6, 1.62, 1 };
+	boxComponent->SetHalfSize({ 2.7, 0.5 });
+	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 
 }
 
@@ -14,9 +18,6 @@ void Platform::Start()
 	auto platform = GetScene()->GetObject(this);
 	spriteComponent->SetOwner(platform);
 
-	spriteComponent->GetTransform().Scale = { 6, 1.62, 1 };
-	boxComponent->SetHalfSize({ 3, 0.8 });
-	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 }
 
 void Platform::Tick(double deltaTime)

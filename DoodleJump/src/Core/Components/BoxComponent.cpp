@@ -2,6 +2,8 @@
 #include "World/World.h"
 #include "Entities/GameObject.h"
 
+// testing
+#include <iostream>
 BoxComponent::BoxComponent() : SceneComponent(), boxHalfSize{ 0.5, 0.5 }, bCollisionEnabled(true)
 {
 	collisionResponce[ECollisionChannel::Character] = ECollisionResponse::Overlap;

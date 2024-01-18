@@ -2,6 +2,7 @@
 #include "Components/SpriteComponent.h"
 #include "Math/Vector2D.h"
 #include "Crosshair.h"
+#include "Framework.h"
 
 // TESTING
 #include <iostream>
@@ -16,15 +17,23 @@
 #include <functional>
 Doodle::Doodle() : GameObject()
 {
+
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
 	// Don't need attachment
 	cameraComponent = CreateComponent<FollowCameraComponent>();
+	GetScene()->UseCamera(cameraComponent);
+	cameraComponent->SetProjection(72);
 	
 	movementComponent = CreateComponent<DoodleMovementComponent>();
 
 	crosshair = GetScene()->SpawnGameObject<Crosshair>();
+
+	Sprite* sprite = createSprite("assets/bunny-left@2x.png");
+	std::shared_ptr<Sprite> spriteRef;
+	spriteRef.reset(sprite);
+	spriteComponent->SetSprite(spriteRef);
 }
 
 void Doodle::Start()
@@ -40,7 +49,6 @@ void Doodle::Start()
 	boxComponent->OnBeginOverlap.Add(std::bind(&Doodle::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 
 
-	cameraComponent->SetProjection(72);
 	spriteComponent->GetTransform().Scale = { 6.9, 6.9, 1.0 };
 	spriteComponent->GetTransform().Translation = { 0.0, 0.7, 0.0 };
 	boxComponent->SetHalfSize({ 1.8, 2.5 });
@@ -50,7 +58,7 @@ void Doodle::Start()
 
 
 	movementComponent->SetGravity(-140); // -140
-	movementComponent->SetMaxSpeed(60);
+	movementComponent->SetMaxSpeed(50);
 	movementComponent->SetJumpVelocity(70); //70
 
 }
@@ -83,12 +91,11 @@ void Doodle::Move(InputValue& value)
 
 void Doodle::Shoot(InputValue& value)
 {
-	//Jump();
+
 }
 
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
-
 	if (normal.y > 0)
 	{
 		movementComponent->OnCollision(collisionTime);

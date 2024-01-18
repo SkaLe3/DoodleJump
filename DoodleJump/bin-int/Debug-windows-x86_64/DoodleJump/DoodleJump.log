@@ -1,4 +1,54 @@
-﻿  BoxComponent.cpp
-  Platform.cpp
-  Generating Code...
-  DoodleJump.vcxproj -> D:\Dev\Projects\DoodleJump\DoodleJump\bin\Debug-windows-x86_64\DoodleJump\DoodleJump.exe
+﻿  PlatformSpawner.cpp
+C:\Dev\Projects_CPP\DoodleJump\DoodleJump\src\Game\GameObjects\PlatformSpawner.cpp(32,20): warning C4018: '<': signed/unsigned mismatch
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1137,9): warning C4150: deletion of pointer to incomplete type 'Sprite'; no destructor called
+C:\Dev\Projects_CPP\DoodleJump\vendor\Framework\include\Framework.h(17,7): message : see declaration of 'Sprite'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1136,1): message : while compiling class template member function 'void std::_Ref_count<_Ux>::_Destroy(void) noexcept'
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1518,1): message : see reference to class template instantiation 'std::_Ref_count<_Ux>' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1674,1): message : see reference to function template instantiation 'std::shared_ptr<Sprite>::shared_ptr<_Ux,0>(_Ux *)' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1674,29): message : see reference to function template instantiation 'std::shared_ptr<Sprite>::shared_ptr<_Ux,0>(_Ux *)' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Dev\Projects_CPP\DoodleJump\DoodleJump\src\Game\GameObjects\PlatformSpawner.cpp(12,32): message : see reference to function template instantiation 'void std::shared_ptr<Sprite>::reset<Sprite,0>(_Ux *)' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Dev\Projects_CPP\DoodleJump\DoodleJump\src\Game\GameObjects\PlatformSpawner.cpp(12,25): message : see reference to function template instantiation 'void std::shared_ptr<Sprite>::reset<Sprite,0>(_Ux *)' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1473,9): warning C4150: deletion of pointer to incomplete type 'Sprite'; no destructor called
+C:\Dev\Projects_CPP\DoodleJump\vendor\Framework\include\Framework.h(17,7): message : see declaration of 'Sprite'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1472,1): message : while compiling class template member function 'std::_Temporary_owner<_Ux>::~_Temporary_owner(void)'
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1517,41): message : see reference to function template instantiation 'std::_Temporary_owner<_Ux>::~_Temporary_owner(void)' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1517,1): message : see reference to class template instantiation 'std::_Temporary_owner<_Ux>' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+  DoodleJump.vcxproj -> C:\Dev\Projects_CPP\DoodleJump\DoodleJump\bin\Debug-windows-x86_64\DoodleJump\DoodleJump.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.

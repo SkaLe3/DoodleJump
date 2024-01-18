@@ -50,7 +50,7 @@ public:
 	}
 
 	template<class T>
-	std::shared_ptr<GameObject> SpawnGameObject()
+	std::shared_ptr<T> SpawnGameObject()
 	{
 		std::shared_ptr<T> obj = std::make_shared<T>();
 		tickObjects.push_back(obj);
@@ -64,6 +64,7 @@ public:
 	std::shared_ptr<GameObject> GetObject(GameObject* object);
 	Math::Vector2D GetMousePosition();
 	std::shared_ptr<CameraComponent> GetRenderCamera();
+	void UseCamera(std::shared_ptr<CameraComponent> cc);
 
 private:
 	std::shared_ptr<GameMode> gameMode;

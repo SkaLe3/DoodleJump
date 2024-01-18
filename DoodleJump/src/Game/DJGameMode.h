@@ -2,6 +2,8 @@
 #include "Entities/GameMode.h"
 #include <memory>
 
+class CameraComponent;
+class PlatformSpawner;
 
 class DJGameMode : public GameMode
 {
@@ -12,5 +14,13 @@ public:
 	virtual void Tick(double DeltaTime) override;
 
 private:
-	Sprite* playerSprite;
+
+	double score = 0;
+
+	std::shared_ptr<CameraComponent> camera;
+
+	std::shared_ptr<PlatformSpawner> platformSpawner;
+
+	std::shared_ptr<GameObject> rightWall;
+	std::shared_ptr<GameObject> leftWall;
 };

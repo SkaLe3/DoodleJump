@@ -33,6 +33,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Components\BoxCollider.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Components\BoxComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
@@ -132,7 +135,7 @@
     <ClInclude Include="src\Game\GameObjects\Platform.h">
       <Filter>Game\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Components\BoxCollider.h" />
+    <ClInclude Include="src\Game\GameObjects\PlatformSpawner.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp">
@@ -202,5 +205,6 @@
       <Filter>Game\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\Game\GameObjects\PlatformSpawner.cpp" />
   </ItemGroup>
 </Project>

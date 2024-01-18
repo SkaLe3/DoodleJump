@@ -11,6 +11,7 @@ public:
 public:
 	void SetProjection(int32_t size);
 	void SetViewportSize(uint32_t width, uint32_t height);
+	Math::Vector2D GetCameraBounds();
 	const Math::Mat4& GetProjection() const { return projection; }
 
 protected:

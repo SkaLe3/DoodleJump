@@ -5,6 +5,11 @@ Background::Background() : GameObject()
 {
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
+
+	Sprite* sprite = createSprite("assets/bck@2x.png");
+	std::shared_ptr<Sprite> bgSpriteRef;
+	bgSpriteRef.reset(sprite);
+	spriteComponent->SetSprite(bgSpriteRef);
 }
 
 void Background::Start()
