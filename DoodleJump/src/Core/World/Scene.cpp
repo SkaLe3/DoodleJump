@@ -150,6 +150,11 @@ std::shared_ptr<CameraComponent> Scene::GetRenderCamera()
 	return camera;
 }
 
+std::shared_ptr<GameMode> Scene::GetGameMode()
+{
+	return gameMode;
+}
+
 void Scene::UseCamera(std::shared_ptr<CameraComponent> cc)
 {
 	camera = cc;

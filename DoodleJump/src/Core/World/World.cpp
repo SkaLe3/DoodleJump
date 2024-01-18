@@ -35,3 +35,8 @@ std::shared_ptr<World> GetWorld() {
 std::shared_ptr<Scene> GetScene() {
 	return World::Get()->GetCurrentScene();
 }
+
+std::shared_ptr<GameMode> GetGameMode()
+{
+	return World::Get()->GetCurrentScene()->GetGameMode();
+}

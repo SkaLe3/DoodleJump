@@ -26,7 +26,7 @@ DJGameMode::DJGameMode()
 	rightWall = GetScene()->SpawnGameObject<GameObject>();
 	rightWall->SetTag("right wall");
 	leftWall = GetScene()->SpawnGameObject<GameObject>();
-	rightWall->SetTag("left wall");
+	leftWall->SetTag("left wall");
 
 
 
@@ -45,6 +45,7 @@ void DJGameMode::Start()
 	showCursor(false);
 	camera = GetScene()->GetRenderCamera();
 	Math::Vector2D camBounds = camera->GetCameraBounds();
+	horizontalBounds = { camera->GetTransform().Translation.x - camBounds.x * 0.5, camera->GetTransform().Translation.x + camBounds.x * 0.5 };
 	camera->GetTransform().Translation.y = camBounds.y * 0.5 - 4;
 	Math::Vector camPos = camera->GetTransform().Translation;
 
@@ -54,8 +55,8 @@ void DJGameMode::Start()
 
 	rightWall->GetBoxComponent()->SetHalfSize({ wallWidth, camBounds.y * 0.5 });
 	leftWall->GetBoxComponent()->SetHalfSize({ wallWidth, camBounds.y * 0.5 });
-	rightWall->SetLocation({camPos.x + camBounds.x / 2 + wallWidth, 0 });
-	leftWall->SetLocation({camPos.x - camBounds.x / 2 - wallWidth, 0});
+	rightWall->SetLocation({ horizontalBounds.y + wallWidth + player->GetBoxComponent()->GetHalfSize().x + 0.5, 0 });
+	leftWall->SetLocation({ horizontalBounds.x - wallWidth - player->GetBoxComponent()->GetHalfSize().x - 0.5, 0});
 
 	rightWall->GetBoxComponent()->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Overlap);
 	rightWall->GetBoxComponent()->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
@@ -76,7 +77,17 @@ void DJGameMode::Tick(double DeltaTime)
 
 	score = std::max(player->GetLocation().y, score);
 
-	std::cout << score << std::endl;
+	//std::cout << score << std::endl;
 
 	// Tweaking
+}
+
+void DJGameMode::TeleportToRightWall()
+{
+	player->GetTransform().Translation.x = horizontalBounds.y - player->GetBoxComponent()->GetHalfSize().x;
+}
+
+void DJGameMode::TeleportToLeftWall()
+{
+	player->GetTransform().Translation.x = horizontalBounds.x + player->GetBoxComponent()->GetHalfSize().x;
 }

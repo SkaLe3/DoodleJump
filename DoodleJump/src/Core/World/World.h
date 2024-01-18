@@ -4,9 +4,11 @@
 
 class Scene;
 class World;
+class GameMode;
 
 std::shared_ptr<World> GetWorld();
 std::shared_ptr<Scene> GetScene();
+std::shared_ptr<GameMode> GetGameMode();
 
 class World
 {

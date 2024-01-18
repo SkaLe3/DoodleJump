@@ -2,6 +2,8 @@
 #include "Components/SpriteComponent.h"
 #include "Math/Vector2D.h"
 #include "Crosshair.h"
+#include "DJGameMode.h"
+
 #include "Framework.h"
 
 // TESTING
@@ -34,6 +36,8 @@ Doodle::Doodle() : GameObject()
 	std::shared_ptr<Sprite> spriteRef;
 	spriteRef.reset(sprite);
 	spriteComponent->SetSprite(spriteRef);
+
+	boxComponent->SetHalfSize({ 1.8, 2.5 });
 }
 
 void Doodle::Start()
@@ -51,7 +55,7 @@ void Doodle::Start()
 
 	spriteComponent->GetTransform().Scale = { 6.9, 6.9, 1.0 };
 	spriteComponent->GetTransform().Translation = { 0.0, 0.7, 0.0 };
-	boxComponent->SetHalfSize({ 1.8, 2.5 });
+
 	boxComponent->SetCollisionChannel(ECollisionChannel::Character);
 	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 
@@ -96,10 +100,21 @@ void Doodle::Shoot(InputValue& value)
 
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
-	if (normal.y > 0)
+	std::string otherTag = otherObject->GetTag();
+	std::cout << otherTag << std::endl;
+	if (normal.y > 0 && otherTag == "platform")
 	{
 		movementComponent->OnCollision(collisionTime);
 		Jump();
+	}
+	std::shared_ptr<DJGameMode> gameMode = static_pointer_cast<DJGameMode>(GetGameMode());
+	if (otherTag == "left wall")
+	{
+		gameMode->TeleportToRightWall();
+	}
+	if (otherTag == "right wall")
+	{
+		gameMode->TeleportToLeftWall();
 	}
 
 }

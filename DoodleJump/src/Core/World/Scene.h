@@ -64,6 +64,7 @@ public:
 	std::shared_ptr<GameObject> GetObject(GameObject* object);
 	Math::Vector2D GetMousePosition();
 	std::shared_ptr<CameraComponent> GetRenderCamera();
+	std::shared_ptr<GameMode> GetGameMode();
 	void UseCamera(std::shared_ptr<CameraComponent> cc);
 
 private:
