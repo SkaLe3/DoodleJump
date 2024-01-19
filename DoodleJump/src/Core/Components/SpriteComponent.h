@@ -2,7 +2,17 @@
 #include "Framework.h"
 
 #include "SceneComponent.h"
-#include <iostream>
+#include <unordered_map>
+
+
+enum class EAnimationState
+{
+	LeftIdle,
+	LeftJump,
+	RightIdle,
+	RightJump,
+	Shoot
+};
 
 // TESTING
 #include <iostream>
@@ -12,11 +22,12 @@ public:
 	SpriteComponent() = default;
 
 	virtual void Start() override {}
-	virtual void Tick(double DeltaTime) override { std::cout << "Sprite tick" << std::endl; }
+	virtual void Tick(double DeltaTime) override {  }
 
 
 	void SetSprite(std::shared_ptr<Sprite> _sprite) { sprite = _sprite; }
 	std::shared_ptr<Sprite> GetSpriteComponent() const { return sprite; }
 private:
 	std::shared_ptr<Sprite> sprite;
+	std::unordered_map<EAnimationState,std::shared_ptr<Sprite>> spriteMap;
 };

@@ -1,6 +1,4 @@
-﻿  DJGameMode.cpp
-  PlatformSpawner.cpp
-D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\PlatformSpawner.cpp(36,20): warning C4018: '<': signed/unsigned mismatch
+﻿  Doodle.cpp
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1198,9): warning C4150: deletion of pointer to incomplete type 'Sprite'; no destructor called
 D:\Dev\Projects\DoodleJump\vendor\Framework\include\Framework.h(17,7): message : see declaration of 'Sprite'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1197,10): message : while compiling class template member function 'void std::_Ref_count<_Ux>::_Destroy(void) noexcept'
@@ -18,12 +16,12 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.3253
           [
               _Ux=Sprite
           ]
-D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\PlatformSpawner.cpp(13,19): message : see reference to function template instantiation 'void std::shared_ptr<Sprite>::reset<Sprite,0>(_Ux *)' being compiled
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\Doodle.cpp(38,11): message : see reference to function template instantiation 'void std::shared_ptr<Sprite>::reset<Sprite,0>(_Ux *)' being compiled
           with
           [
               _Ux=Sprite
           ]
-D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\PlatformSpawner.cpp(13,25): message : see the first reference to 'std::shared_ptr<Sprite>::reset' in 'PlatformSpawner::PlatformSpawner'
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\Doodle.cpp(38,17): message : see the first reference to 'std::shared_ptr<Sprite>::reset' in 'Doodle::Doodle'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1534,9): warning C4150: deletion of pointer to incomplete type 'Sprite'; no destructor called
 D:\Dev\Projects\DoodleJump\vendor\Framework\include\Framework.h(17,7): message : see declaration of 'Sprite'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1533,6): message : while compiling class template member function 'std::_Temporary_owner<_Ux>::~_Temporary_owner(void)'
@@ -37,11 +35,10 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.3253
               _Ux=Sprite
           ]
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1735,29): message : see the first reference to 'std::shared_ptr<Sprite>::shared_ptr' in 'std::shared_ptr<Sprite>::reset'
-D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\PlatformSpawner.cpp(13,25): message : see the first reference to 'std::shared_ptr<Sprite>::reset' in 'PlatformSpawner::PlatformSpawner'
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\Doodle.cpp(38,17): message : see the first reference to 'std::shared_ptr<Sprite>::reset' in 'Doodle::Doodle'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1578,1): message : see reference to class template instantiation 'std::_Temporary_owner<_Ux>' being compiled
           with
           [
               _Ux=Sprite
           ]
-  Generating Code...
   DoodleJump.vcxproj -> D:\Dev\Projects\DoodleJump\DoodleJump\bin\Debug-windows-x86_64\DoodleJump\DoodleJump.exe

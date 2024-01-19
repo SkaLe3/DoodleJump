@@ -136,6 +136,7 @@
       <Filter>Game\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\GameObjects\PlatformSpawner.h" />
+    <ClInclude Include="src\Game\GameObjects\Projectile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp">
@@ -206,5 +207,7 @@
     </ClCompile>
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\Game\GameObjects\PlatformSpawner.cpp" />
+    <ClCompile Include="src\Core\Components\SpriteComponent.cpp" />
+    <ClCompile Include="src\Game\GameObjects\Projectile.cpp" />
   </ItemGroup>
 </Project>

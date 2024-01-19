@@ -79,11 +79,11 @@ void DJGameMode::Tick(double DeltaTime)
 	rightWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
 	leftWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
 
-	score = std::max(player->GetLocation().y, score);
+	distanceScore = std::max(player->GetLocation().y, distanceScore);
 
-	std::cout << (int)score << std::endl;
+	std::cout << (int)distanceScore << std::endl;
 
-	platformSpawner->SetNextPlatform(score);
+	platformSpawner->SetNextPlatform(distanceScore);
 }
 
 void DJGameMode::TeleportToRightWall()

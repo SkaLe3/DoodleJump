@@ -99,6 +99,10 @@ void Scene::Tick(float DeltaTime)
 	{
 		object->Tick(DeltaTime);
 	}
+	for (std::shared_ptr<SpriteComponent>& object : drawObjects)
+	{
+		object->Tick(DeltaTime);
+	}
 
 	gameMode->Tick(DeltaTime);
 

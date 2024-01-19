@@ -3,6 +3,7 @@
 #include "Math/Vector2D.h"
 #include "Crosshair.h"
 #include "DJGameMode.h"
+#include "Projectile.h"
 
 #include "Framework.h"
 
@@ -95,7 +96,8 @@ void Doodle::Move(InputValue& value)
 
 void Doodle::Shoot(InputValue& value)
 {
-
+	std::shared_ptr<Projectile> projectile = GetScene()->SpawnGameObject<Projectile>();
+	projectile->SetLocation({GetLocation(), 0});
 }
 
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)

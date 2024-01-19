@@ -20,7 +20,7 @@ public:
 
 private:
 
-	double score = 0;
+	double distanceScore = 0;
 
 	Math::Vector2D horizontalBounds;
 

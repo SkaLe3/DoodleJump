@@ -132,11 +132,13 @@
     <ClInclude Include="src\Game\GameObjects\Doodle.h" />
     <ClInclude Include="src\Game\GameObjects\Platform.h" />
     <ClInclude Include="src\Game\GameObjects\PlatformSpawner.h" />
+    <ClInclude Include="src\Game\GameObjects\Projectile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp" />
     <ClCompile Include="src\Core\Components\CameraComponent.cpp" />
     <ClCompile Include="src\Core\Components\MovementComponent.cpp" />
+    <ClCompile Include="src\Core\Components\SpriteComponent.cpp" />
     <ClCompile Include="src\Core\Entities\GameObject.cpp" />
     <ClCompile Include="src\Core\Input\EventHandler.cpp" />
     <ClCompile Include="src\Core\Math\FuncGeometric.cpp" />
@@ -158,6 +160,7 @@
     <ClCompile Include="src\Game\GameObjects\Platform.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\Game\GameObjects\PlatformSpawner.cpp" />
+    <ClCompile Include="src\Game\GameObjects\Projectile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
