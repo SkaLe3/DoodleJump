@@ -44,6 +44,11 @@ void MovementComponent::Tick(double deltaTime)
 
 
 
+void MovementComponent::Destroy()
+{
+	GetScene()->DestroyTickComponent(GetScene()->GetComponent(this));
+}
+
 void MovementComponent::SetGravity(double gravityValue)
 {
 	gravity.y = gravityValue;

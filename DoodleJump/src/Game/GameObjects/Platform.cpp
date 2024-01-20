@@ -25,3 +25,9 @@ void Platform::Tick(double deltaTime)
 {
 	GameObject::Tick(deltaTime);
 }
+
+void Platform::Destroy()
+{
+	GameObject::Destroy();
+	spriteComponent->Destroy();
+}

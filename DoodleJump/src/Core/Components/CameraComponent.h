@@ -8,6 +8,7 @@ public:
 	CameraComponent() = default;
 	virtual void Start() override { SceneComponent::Start(); }
 	virtual void Tick(double DeltaTime) override { SceneComponent::Tick(DeltaTime); }
+	virtual void Destroy() override {}
 public:
 	void SetProjection(int32_t size);
 	void SetViewportSize(uint32_t width, uint32_t height);

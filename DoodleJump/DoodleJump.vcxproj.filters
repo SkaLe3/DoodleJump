@@ -138,6 +138,7 @@
     <ClInclude Include="src\Game\GameObjects\PlatformSpawner.h" />
     <ClInclude Include="src\Game\GameObjects\Projectile.h" />
     <ClInclude Include="src\Game\Components\ProjectileMovementComponent.h" />
+    <ClInclude Include="src\Game\GameObjects\Monster.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp">
@@ -211,5 +212,6 @@
     <ClCompile Include="src\Core\Components\SpriteComponent.cpp" />
     <ClCompile Include="src\Game\GameObjects\Projectile.cpp" />
     <ClCompile Include="src\Game\Components\ProjectileMovementComponent.cpp" />
+    <ClCompile Include="src\Game\GameObjects\Monster.cpp" />
   </ItemGroup>
 </Project>

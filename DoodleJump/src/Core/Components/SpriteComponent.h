@@ -23,6 +23,7 @@ public:
 
 	virtual void Start() override {}
 	virtual void Tick(double DeltaTime) override {  }
+	virtual void Destroy() override;
 
 
 	void SetSprite(std::shared_ptr<Sprite> _sprite) { sprite = _sprite; }

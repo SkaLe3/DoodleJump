@@ -64,14 +64,23 @@ void Doodle::Start()
 
 	movementComponent->SetGravity(-140); // -140
 	movementComponent->SetMaxSpeed(40);
-	movementComponent->SetJumpVelocity(70); //70
+	movementComponent->SetJumpVelocity(defaultJumpVelocity); //70
+
+	SetTag("doodle");
 
 }
 
 void Doodle::Tick(double DeltaTime)
 {
 	GameObject::Tick(DeltaTime);
-	//std::cout << "FPS: " << 1.0 / DeltaTime << std::endl;
+	
+}
+
+void Doodle::Destroy()
+{
+	GameObject::Destroy();
+	spriteComponent->Destroy();
+	movementComponent->Destroy();
 }
 
 Math::Vector2D Doodle::GetVelocity() const
@@ -89,33 +98,76 @@ void Doodle::Jump()
 	movementComponent->Jump();
 }
 
+void Doodle::DisableInput()
+{
+	bInputEnabled = false;
+}
+
+void Doodle::EnableInput()
+{
+	bInputEnabled = true;
+}
+
+void Doodle::DisablePhysicsCollision()
+{
+	bPhysicsCollisionEnabled = false;
+}
+
+void Doodle::EnableCollision()
+{
+	bPhysicsCollisionEnabled = true;
+}
+
 void Doodle::Move(InputValue& value)
 {
-	AddMovementInput(value.Get<double>() * Math::Vector2D{1, 0});
+	if (bInputEnabled)
+		AddMovementInput(value.Get<double>() * Math::Vector2D{1, 0});
 }
 
 void Doodle::Shoot(InputValue& value)
 {
 	std::shared_ptr<Projectile> projectile = GetScene()->SpawnGameObject<Projectile>();
-	projectile->SetLocation({GetLocation(), 0});
+	projectile->SetLocation({ GetLocation() + Math::Vector2D{0, 3}, 0 });
+	Math::Vector2D direction =  crosshair->GetLocation() - projectile->GetLocation();
+	Math::Vector2D leftEdge{ -1, 1 };
+	Math::Vector2D rightEdge{ 1, 1 };
+	direction = Math::Clamp(Math::Normalize(direction), Math::Normalize(leftEdge), Math::Normalize(rightEdge));
+	projectile->Launch(direction, 70);
 }
 
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
 	std::string otherTag = otherObject->GetTag();
-	if (normal.y > 0 && otherTag == "platform")
+	if (normal.y > 0 && bPhysicsCollisionEnabled)
 	{
-		movementComponent->OnCollision(collisionTime);
-		Jump();
+		if (otherTag == "platform")
+		{
+			movementComponent->OnCollision(collisionTime);
+			Jump();
+		}
+		else if (otherTag == "monster")
+		{
+			movementComponent->OnCollision(collisionTime);
+			movementComponent->SetJumpVelocity(110);
+			Jump();
+			movementComponent->SetJumpVelocity(defaultJumpVelocity);
+			otherObject->Destroy();
+		}
 	}
 	std::shared_ptr<DJGameMode> gameMode = static_pointer_cast<DJGameMode>(GetGameMode());
 	if (otherTag == "left wall")
 	{
-		gameMode->TeleportToRightWall();
+		gameMode->TeleportToRightWall(GetScene()->GetObject(this));
 	}
 	if (otherTag == "right wall")
 	{
-		gameMode->TeleportToLeftWall();
+		gameMode->TeleportToLeftWall(GetScene()->GetObject(this));
+	}
+	if (otherTag == "floor")
+	{
+		gameMode->KillDoodle();
+		gameMode->GameOver();
+		// Attach camera
 	}
 
 }

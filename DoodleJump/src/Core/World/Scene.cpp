@@ -64,6 +64,7 @@ void Scene::Start()
 
 void Scene::Tick(float DeltaTime)
 {
+	gameMode->Tick(DeltaTime);
 	for (std::shared_ptr<BoxComponent>& object : collisionObjects)
 	{
 		ECollisionChannel channel = object->GetCollisionChannel();
@@ -104,7 +105,38 @@ void Scene::Tick(float DeltaTime)
 		object->Tick(DeltaTime);
 	}
 
-	gameMode->Tick(DeltaTime);
+
+
+
+	for (auto toDestory : destroyTickObjects)
+	{
+		auto it = std::find(tickObjects.begin(), tickObjects.end(), toDestory);
+		if (it != tickObjects.end())
+			tickObjects.erase(it);
+	}
+	for (auto toDestory : destroyTickComponents)
+	{
+		auto it = std::find(tickComponents.begin(), tickComponents.end(), toDestory);
+		if (it != tickComponents.end())
+			tickComponents.erase(it);
+	}
+	for (auto toDestory : destroyCollisionObjects)
+	{
+		auto it = std::find(collisionObjects.begin(), collisionObjects.end(), toDestory);
+		if (it != collisionObjects.end())
+			collisionObjects.erase(it);
+	}
+	for (auto toDestory : destroyDrawObjects)
+	{
+		auto it = std::find(drawObjects.begin(), drawObjects.end(), toDestory);
+		if (it != drawObjects.end())
+			drawObjects.erase(it);
+	}
+
+	destroyTickObjects.clear();
+	destroyTickComponents.clear();
+	destroyCollisionObjects.clear();
+	destroyDrawObjects.clear();
 
 
 	// Correct Draw order
@@ -119,6 +151,8 @@ void Scene::Tick(float DeltaTime)
 	{
 		Renderer::DrawSprite(object->GetTransformMatrix(), object->GetSpriteComponent());
 	}
+
+	// Delete objects
 }
 
 void Scene::SetViewportSize(uint32_t width, uint32_t height)
@@ -129,12 +163,34 @@ void Scene::SetViewportSize(uint32_t width, uint32_t height)
 
 std::shared_ptr<GameObject> Scene::GetObject(GameObject* object)
 {
-	// Find the shared_ptr with the given raw pointer
 	auto it = std::find_if(tickObjects.begin(), tickObjects.end(), [object](const auto& ptr) {
 		return ptr.get() == object;
 		});
 	// No need to check for found, "object" always exist in tickObjects vector
 	return *it;
+}
+
+
+std::shared_ptr<GameComponent> Scene::GetComponent(GameComponent* component)
+{
+	auto tc = std::find_if(tickComponents.begin(), tickComponents.end(), [component](const auto& ptr) {
+		return ptr.get() == component;
+		});
+	if (tc != tickComponents.end())
+		return *tc;
+
+	auto cc = std::find_if(collisionObjects.begin(), collisionObjects.end(), [component](const auto& ptr) {
+		return ptr.get() == component;
+		});
+	if (cc != collisionObjects.end())
+		return *cc;
+
+	auto dc = std::find_if(drawObjects.begin(), drawObjects.end(), [component](const auto& ptr) {
+		return ptr.get() == component;
+		});
+	if (dc != drawObjects.end())
+		return *dc;
+
 }
 
 Math::Vector2D Scene::GetMousePosition()
@@ -162,5 +218,25 @@ void Scene::UseCamera(std::shared_ptr<CameraComponent> cc)
 {
 	camera = cc;
 	camera->SetViewportSize(viewportWidth, viewportHeight);
+}
+
+void Scene::DestroyGameObject(std::shared_ptr<Object> object)
+{
+	destroyTickObjects.push_back(object);
+}
+
+void Scene::DestroyTickComponent(std::shared_ptr<Object> object)
+{
+	destroyTickComponents.push_back(object);
+}
+
+void Scene::DestroyCollisionObject(std::shared_ptr<Object> object)
+{
+	destroyCollisionObjects.push_back(object);
+}
+
+void Scene::DestroyDrawObject(std::shared_ptr<Object> object)
+{
+	destroyDrawObjects.push_back(object);
 }
 

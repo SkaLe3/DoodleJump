@@ -10,6 +10,7 @@ public:
 	Crosshair();
 	virtual void Start() override;
 	virtual void Tick(double DeltaTime) override;
+	virtual void Destroy() override;
 
 public:
 	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return spriteComponent; }

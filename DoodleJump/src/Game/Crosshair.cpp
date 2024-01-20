@@ -36,3 +36,9 @@ void Crosshair::Tick(double DeltaTime)
 
 	rootComponent->GetTransform().Translation = Math::Vector(mousePos, 0);
 }
+
+void Crosshair::Destroy()
+{
+	GameObject::Destroy();
+	spriteComponent->Destroy();
+}

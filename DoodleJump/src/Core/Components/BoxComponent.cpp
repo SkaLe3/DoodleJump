@@ -20,6 +20,11 @@ void BoxComponent::Start()
 	SceneComponent::Start();
 }
 
+void BoxComponent::Destroy()
+{
+	GetScene()->DestroyCollisionObject(GetScene()->GetComponent(this));
+}
+
 void BoxComponent::SetCollisionResponce(ECollisionChannel channel, ECollisionResponse response)
 {
 	collisionResponce[channel] = response;
@@ -42,9 +47,10 @@ void BoxComponent::SetVelocity(Math::Vector2D newVelocity)
 
 Math::Vector2D BoxComponent::GetVelocity()
 {
+	Math::Vector2D accelerationCopy = acceleration;
 	Math::Vector2D velocityCopy = velocity;
-
-	velocityCopy += acceleration * 0.5 * GetWorld()->GetDeltaTime();
+	accelerationCopy += gravity;
+	velocityCopy += accelerationCopy * 0.5 * GetWorld()->GetDeltaTime();
 	return velocityCopy * GetWorld()->GetDeltaTime();
 }
 

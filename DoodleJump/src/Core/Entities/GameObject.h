@@ -25,6 +25,9 @@ public:
 	}
 	virtual void Start() override;
 	virtual void Tick(double DeltaTime) override;
+	virtual void Destroy() override;
+
+
 	Math::Transform& GetTransform();
 	std::shared_ptr<BoxComponent> GetBoxComponent() { return boxComponent; }
 	Math::Vector2D GetLocation();

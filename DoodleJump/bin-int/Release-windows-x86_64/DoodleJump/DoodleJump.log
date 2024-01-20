@@ -1,4 +1,44 @@
-﻿  CollisionSystem.cpp
-  DoodleJump.vcxproj -> C:\Dev\Projects_CPP\DoodleJump\DoodleJump\bin\Release-windows-x86_64\DoodleJump\DoodleJump.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
+﻿  Monster.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1198,9): warning C4150: deletion of pointer to incomplete type 'Sprite'; no destructor called
+D:\Dev\Projects\DoodleJump\vendor\Framework\include\Framework.h(17,7): message : see declaration of 'Sprite'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1197,10): message : while compiling class template member function 'void std::_Ref_count<_Ux>::_Destroy(void) noexcept'
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1579,1): message : see reference to class template instantiation 'std::_Ref_count<_Ux>' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1735,19): message : see reference to function template instantiation 'std::shared_ptr<Sprite>::shared_ptr<_Ux,0>(_Ux *)' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\Monster.cpp(13,11): message : see reference to function template instantiation 'void std::shared_ptr<Sprite>::reset<Sprite,0>(_Ux *)' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\Monster.cpp(13,17): message : see the first reference to 'std::shared_ptr<Sprite>::reset' in 'Monster::Monster'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1534,9): warning C4150: deletion of pointer to incomplete type 'Sprite'; no destructor called
+D:\Dev\Projects\DoodleJump\vendor\Framework\include\Framework.h(17,7): message : see declaration of 'Sprite'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1533,6): message : while compiling class template member function 'std::_Temporary_owner<_Ux>::~_Temporary_owner(void)'
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1578,41): message : see the first reference to 'std::_Temporary_owner<_Ux>::~_Temporary_owner' in 'std::shared_ptr<Sprite>::shared_ptr'
+          with
+          [
+              _Ux=Sprite
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1735,29): message : see the first reference to 'std::shared_ptr<Sprite>::shared_ptr' in 'std::shared_ptr<Sprite>::reset'
+D:\Dev\Projects\DoodleJump\DoodleJump\src\Game\GameObjects\Monster.cpp(13,17): message : see the first reference to 'std::shared_ptr<Sprite>::reset' in 'Monster::Monster'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1578,1): message : see reference to class template instantiation 'std::_Temporary_owner<_Ux>' being compiled
+          with
+          [
+              _Ux=Sprite
+          ]
+  DoodleJump.vcxproj -> D:\Dev\Projects\DoodleJump\DoodleJump\bin\Release-windows-x86_64\DoodleJump\DoodleJump.exe

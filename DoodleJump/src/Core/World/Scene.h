@@ -62,10 +62,16 @@ public:
 	void SetViewportSize(uint32_t width, uint32_t height);
 
 	std::shared_ptr<GameObject> GetObject(GameObject* object);
+	std::shared_ptr<GameComponent> GetComponent(GameComponent* component);
 	Math::Vector2D GetMousePosition();
 	std::shared_ptr<CameraComponent> GetRenderCamera();
 	std::shared_ptr<GameMode> GetGameMode();
 	void UseCamera(std::shared_ptr<CameraComponent> cc);
+
+	void DestroyGameObject(std::shared_ptr<Object> object);
+	void DestroyTickComponent(std::shared_ptr<Object> object);
+	void DestroyCollisionObject(std::shared_ptr<Object> object);
+	void DestroyDrawObject(std::shared_ptr<Object> object);
 
 private:
 	std::shared_ptr<GameMode> gameMode;
@@ -76,6 +82,11 @@ private:
 	std::vector<std::shared_ptr<BoxComponent>> collisionObjects;
 	std::vector<std::shared_ptr<SpriteComponent>> drawObjects;
 	std::vector<std::shared_ptr<GameObject>> tickObjects;
+
+	std::vector<std::shared_ptr<Object>> destroyTickComponents;
+	std::vector<std::shared_ptr<Object>> destroyCollisionObjects;
+	std::vector<std::shared_ptr<Object>> destroyDrawObjects;
+	std::vector<std::shared_ptr<Object>> destroyTickObjects;
 
 	bool started = false;
 

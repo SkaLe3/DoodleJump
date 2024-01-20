@@ -2,6 +2,7 @@
 #include "Entities/GameMode.h"
 #include "Math/Vector2D.h"
 #include <memory>
+#include <random>
 
 class CameraComponent;
 class PlatformSpawner;
@@ -15,11 +16,19 @@ public:
 	virtual void Tick(double DeltaTime) override;
 
 public:
-	void TeleportToRightWall();
-	void TeleportToLeftWall();
+	void TeleportToRightWall(std::shared_ptr<GameObject> object);
+	void TeleportToLeftWall(std::shared_ptr<GameObject> object);
+
+	void SpawnEnemy();
+
+	void KillDoodle();
+	void GameOver();
+	void StartGame();
+
 
 private:
 
+	bool gameStarted = false;
 	double distanceScore = 0;
 
 	Math::Vector2D horizontalBounds;
@@ -30,4 +39,11 @@ private:
 
 	std::shared_ptr<GameObject> rightWall;
 	std::shared_ptr<GameObject> leftWall;
+	std::shared_ptr<GameObject> floor;
+
+	std::random_device rd;
+	std::default_random_engine gen{ rd() };
+	
+	double enemySpawnProbability = 0.05;
+	std::bernoulli_distribution enemySpawnDistribution{ enemySpawnProbability };
 };

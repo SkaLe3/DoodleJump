@@ -21,6 +21,12 @@ void GameObject::Tick(double DeltaTime)
 
 }
 
+void GameObject::Destroy()
+{
+	GetScene()->DestroyGameObject(GetScene()->GetObject(this));
+	boxComponent->Destroy();
+}
+
 Math::Transform& GameObject::GetTransform()
 {
 	return rootComponent->GetTransform();

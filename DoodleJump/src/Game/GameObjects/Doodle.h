@@ -13,6 +13,7 @@ public:
 	Doodle();
 	virtual void Start() override;
 	virtual void Tick(double DeltaTime) override;
+	virtual void Destroy() override;
 
 	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return spriteComponent; }
 	std::shared_ptr<DoodleMovementComponent> GetMovementComponent() const { return movementComponent; }
@@ -21,7 +22,10 @@ public:
 
 	void AddMovementInput(Math::Vector2D direction);
 	void Jump();
-
+	void DisableInput();
+	void EnableInput();
+	void DisablePhysicsCollision();
+	void EnableCollision();
 public:
 	void Move(InputValue& value);
 	void Shoot(InputValue& value);
@@ -34,5 +38,10 @@ private:
 	std::shared_ptr<CameraComponent> cameraComponent;
 	std::shared_ptr<DoodleMovementComponent> movementComponent;
 
-	std::weak_ptr<GameObject> crosshair;
+	std::shared_ptr<GameObject> crosshair;
+
+	double defaultJumpVelocity = 70;
+
+	bool bInputEnabled;
+	bool bPhysicsCollisionEnabled;
 };

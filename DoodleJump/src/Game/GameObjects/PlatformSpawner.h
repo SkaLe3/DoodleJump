@@ -17,11 +17,14 @@ public:
 	virtual void Start() override;
 	virtual void Tick(double DeltaTime) override;
 
+	void RestartSpawner();
 	void SpawnPools();
 
 	void SetDefaultPlatformPoolSize(uint32_t size);
 
-	void SetNextPlatform(double score);
+	bool SetNextPlatform(double score);
+
+	Math::Vector2D GetLastSetPlatformLocation();
 
 public:
 

@@ -10,7 +10,8 @@ void FollowCameraComponent::Start()
 void FollowCameraComponent::Tick(double DeltaTime)
 {
 	CameraComponent::Tick(DeltaTime);
-
+	if (!bFollowEnabled)
+		return;
 	std::shared_ptr<Doodle> doodle = dynamic_pointer_cast<Doodle>(owner);
 	if (doodle)
 	{
@@ -18,4 +19,9 @@ void FollowCameraComponent::Tick(double DeltaTime)
 		if (doodleLocation.y >= GetTransform().Translation.y)
 			GetTransform().Translation.y = doodleLocation.y;
 	}
+}
+
+void FollowCameraComponent::FollowEnable(bool bEnable)
+{
+	bFollowEnabled = bEnable;
 }

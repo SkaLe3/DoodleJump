@@ -37,6 +37,7 @@ public:
 
 	virtual void Start() override;
 	virtual void Tick(double DeltaTime) override { SceneComponent::Tick(DeltaTime); }
+	virtual void Destroy() override;
 
 	void SetHalfSize(const Math::Vector2D& newSize) { boxHalfSize = newSize; }
 	Math::Vector2D GetHalfSize() const { return boxHalfSize; }

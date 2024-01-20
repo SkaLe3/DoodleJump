@@ -26,7 +26,7 @@ namespace Math
 	Vector Cross(const Vector& v1, const Vector& v2);
 	
 	template<typename V>
-	double Normalize(const V& v)
+	V Normalize(const V& v)
 	{
 		return v / Length(v);
 	}

@@ -7,4 +7,8 @@ public:
 	FollowCameraComponent() = default;
 	virtual void Start() override;
 	virtual void Tick(double DeltaTime) override;
+
+	void FollowEnable(bool bEnable);
+private:
+	bool bFollowEnabled = true;
 };
