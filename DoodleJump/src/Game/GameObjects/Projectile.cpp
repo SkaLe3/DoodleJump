@@ -35,9 +35,8 @@ void Projectile::Start()
 
 
 
-	//movementComponent->SetGravity(-140); // -140
-	//movementComponent->SetMaxSpeed(40);
-	//movementComponent->SetJumpVelocity(70); //70
+	movementComponent->SetGravity(0); 
+	movementComponent->SetMaxSpeed(50);
 }
 
 void Projectile::Tick(double DeltaTime)

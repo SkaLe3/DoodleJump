@@ -10,7 +10,7 @@
 MovementComponent::MovementComponent()
 {
 	
-	gravity = { 0, -10 };
+	gravity = Math::Vector2D::ZeroVector;
 	acceleration = Math::Vector2D::ZeroVector;
 	velocity = Math::Vector2D::ZeroVector;
 }

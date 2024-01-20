@@ -1,6 +1,6 @@
 #pragma once
 #include "Entities/GameObject.h"
-#include "Components/MovementComponent.h"
+#include "Components/ProjectileMovementComponent.h"
 #include "Components/SpriteComponent.h"
 
 #include <memory>
@@ -14,5 +14,5 @@ public:
 	virtual void Tick(double DeltaTime) override;
 private:
 	std::shared_ptr<SpriteComponent> spriteComponent;
-	std::shared_ptr<MovementComponent> movementComponent;
+	std::shared_ptr<ProjectileMovementComponent> movementComponent;
 };

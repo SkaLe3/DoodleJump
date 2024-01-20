@@ -127,6 +127,7 @@
     <ClInclude Include="src\Game\Background.h" />
     <ClInclude Include="src\Game\Components\DoodleMovementComponent.h" />
     <ClInclude Include="src\Game\Components\FollowCameraComponent.h" />
+    <ClInclude Include="src\Game\Components\ProjectileMovementComponent.h" />
     <ClInclude Include="src\Game\Crosshair.h" />
     <ClInclude Include="src\Game\DJGameMode.h" />
     <ClInclude Include="src\Game\GameObjects\Doodle.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="src\Game\Background.cpp" />
     <ClCompile Include="src\Game\Components\DoodleMovementComponent.cpp" />
     <ClCompile Include="src\Game\Components\FollowCameraComponent.cpp" />
+    <ClCompile Include="src\Game\Components\ProjectileMovementComponent.cpp" />
     <ClCompile Include="src\Game\Crosshair.cpp" />
     <ClCompile Include="src\Game\DJGameMode.cpp" />
     <ClCompile Include="src\Game\GameObjects\Doodle.cpp" />

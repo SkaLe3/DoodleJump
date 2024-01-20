@@ -42,11 +42,9 @@ void BoxComponent::SetVelocity(Math::Vector2D newVelocity)
 
 Math::Vector2D BoxComponent::GetVelocity()
 {
-	Math::Vector2D accelerationCopy = acceleration;
 	Math::Vector2D velocityCopy = velocity;
 
-	accelerationCopy += gravity;
-	velocityCopy += accelerationCopy * 0.5 * GetWorld()->GetDeltaTime();
+	velocityCopy += acceleration * 0.5 * GetWorld()->GetDeltaTime();
 	return velocityCopy * GetWorld()->GetDeltaTime();
 }
 
