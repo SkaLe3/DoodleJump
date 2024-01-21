@@ -12,6 +12,6 @@ public:
 public:
 	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return spriteComponent; }
 
-private:
+protected:
 	std::shared_ptr<SpriteComponent> spriteComponent;
 };

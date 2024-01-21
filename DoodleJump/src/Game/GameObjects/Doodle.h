@@ -42,6 +42,6 @@ private:
 
 	double defaultJumpVelocity = 70;
 
-	bool bInputEnabled;
-	bool bPhysicsCollisionEnabled;
+	bool bInputEnabled = true;
+	bool bPhysicsCollisionEnabled = true;
 };

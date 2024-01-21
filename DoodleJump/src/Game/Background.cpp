@@ -6,7 +6,7 @@ Background::Background() : GameObject()
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/hop-bck@2x.png");
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/background.png");
 	spriteComponent->SetSprite(spriteRef);
 }
 
@@ -18,7 +18,7 @@ void Background::Start()
 	boxComponent->SetupAttachment(GetScene()->GetRenderCamera());
 	boxComponent->SetCollisionEnabled(false);
 
-	spriteComponent->GetTransform().Scale = { 45, 72, 1 };
+	spriteComponent->GetTransform().Scale = { 134.44, 72, 1 };
 	spriteComponent->GetTransform().Translation = { 4.5, 0, -1 };
 }
 

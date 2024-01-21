@@ -33,10 +33,21 @@ Doodle::Doodle() : GameObject()
 
 	crosshair = GetScene()->SpawnGameObject<Crosshair>();
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/bunny-left@2x.png");
-	spriteComponent->SetSprite(spriteRef);
-
 	boxComponent->SetHalfSize({ 1.8, 2.5 });
+
+	std::shared_ptr<AnimationMachine> animationMachine = std::make_shared<AnimationMachine>();
+	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateLeft = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
+	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateRight = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
+	animStateLeft->emplace_back(std::make_shared<MySprite>("assets/bunny-left@2x.png"));
+	animStateRight->emplace_back(std::make_shared<MySprite>("assets/bunny-right@2x.png"));
+
+	(*animationMachine)["left"] = std::make_pair(animStateLeft, 1);
+	(*animationMachine)["right"] = std::make_pair(animStateRight, 1);
+
+	spriteComponent->SetAnimationMachine(animationMachine);
+	spriteComponent->EnableAnimation();
+	spriteComponent->SwitchAnimationState("left");
+
 }
 
 void Doodle::Start()
@@ -71,6 +82,8 @@ void Doodle::Start()
 void Doodle::Tick(double DeltaTime)
 {
 	GameObject::Tick(DeltaTime);
+
+
 	
 }
 
@@ -89,6 +102,10 @@ Math::Vector2D Doodle::GetVelocity() const
 void Doodle::AddMovementInput(Math::Vector2D direction)
 {
 	movementComponent->AddMovementInput(direction);
+	if (movementComponent->GetVelocity().x > 0)
+		spriteComponent->SwitchAnimationState("right");
+	if (movementComponent->GetVelocity().x < 0)
+		spriteComponent->SwitchAnimationState("left");
 }
 
 void Doodle::Jump()
@@ -138,7 +155,7 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 	std::string otherTag = otherObject->GetTag();
 	if (normal.y > 0 && bPhysicsCollisionEnabled)
 	{
-		if (otherTag == "platform")
+		if (otherTag == "platform" )
 		{
 			movementComponent->OnCollision(collisionTime);
 			Jump();

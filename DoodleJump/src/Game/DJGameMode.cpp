@@ -39,7 +39,7 @@ void DJGameMode::Tick(double DeltaTime)
 
 	distanceScore = std::max(player->GetLocation().y, distanceScore);
 
-	//std::cout << (int)distanceScore << std::endl;
+	std::cout << (int)distanceScore << std::endl;
 	//std::cout << "FPS: " << 1.0 / DeltaTime << std::endl;
 
 	bool platformSet = platformSpawner->SetNextPlatform(distanceScore);
@@ -94,6 +94,7 @@ void DJGameMode::StartGame()
 	// Spawn Platform Spawner
 	platformSpawner = GetScene()->SpawnGameObject<PlatformSpawner>();
 	platformSpawner->SetDefaultPlatformPoolSize(36);
+	platformSpawner->SetFakePlatformPoolSize(3);
 	platformSpawner->SpawnPools();
 
 	// Walls
@@ -128,7 +129,7 @@ void DJGameMode::StartGame()
 	leftWall->SetLocation({ horizontalBounds.x - wallWidth - player->GetBoxComponent()->GetHalfSize().x - 0.5, 0 });
 	floor->SetLocation({ 0, -camBounds.y * 0.5 - wallWidth });
 
-
+	player->SetLocation({ 0, 0, 0 });
 	platformSpawner->RestartSpawner();
 	for (int i = 0; i < 36; i++)
 		platformSpawner->SetNextPlatform(1);

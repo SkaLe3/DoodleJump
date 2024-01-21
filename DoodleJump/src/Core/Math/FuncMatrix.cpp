@@ -151,8 +151,8 @@ namespace Math
 		result[0][0] = (sRight - sLeft) / (right - left);
 		result[1][1] = (sTop - sBottom) / (top - bottom);
 		result[2][2] = -1.0;
-		result[3][0] = - 400 * left / (right - left);
-		result[3][1] = - 800 * bottom / (top - bottom);
+		result[3][0] = -sRight * left / (right - left);
+		result[3][1] = -sBottom * bottom / (top - bottom);
 		return result;
 
 	}

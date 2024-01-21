@@ -1,16 +1,31 @@
 #include "PlatformSpawner.h"
 #include "GameObjects/Platform.h"
+#include "GameObjects/FakePlatform.h"
 #include "Math/MyMath.h"
 
 #include <algorithm>
+#include <utility>
+
 // debug
 #include <iostream>
 
 PlatformSpawner::PlatformSpawner() : GameObject(), defaultPlatformPoolSize(10)
 {
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/platform.png");
-	defaultPlatformSprite = spriteRef;
+	std::shared_ptr<MySprite> defaultPlatformRef = std::make_shared<MySprite>("assets/platform.png");
+	defaultPlatformSprite = defaultPlatformRef;
 
+	fakePlatformAnimation = std::make_shared<AnimationMachine>();
+	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateBreak = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
+	animStateBreak->emplace_back(std::make_shared<MySprite>("assets/fake-platform-1.png"));
+	animStateBreak->emplace_back(std::make_shared<MySprite>("assets/fake-platform-2.png"));
+	animStateBreak->emplace_back(std::make_shared<MySprite>("assets/fake-platform-3.png"));
+	animStateBreak->emplace_back(std::make_shared<MySprite>("assets/fake-platform-4.png"));
+
+	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateIdle = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
+	animStateIdle->emplace_back(std::make_shared<MySprite>("assets/fake-platform-1.png"));
+
+	(*fakePlatformAnimation)["break"] = std::make_pair(animStateBreak, 0.08);
+	(*fakePlatformAnimation)["idle"] = std::make_pair(animStateIdle, 0);
 }
 
 void PlatformSpawner::Start()
@@ -34,6 +49,11 @@ void PlatformSpawner::RestartSpawner()
 		platform->GetTransform().Translation = { -40, -40, -0.5 };
 
 	}
+	for (auto& platform : fakePlatformPool)
+	{
+		platform->GetTransform().Translation = { -40, -40, -0.5 };
+
+	}
 	std::shared_ptr<Platform> platform = defaultPlatformPool.front();
 	defaultPlatformPool.pop_front();
 	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,camera->GetTransform().Translation.y - camera->GetCameraBounds().y * 0.5, -0.5 };
@@ -53,6 +73,16 @@ void PlatformSpawner::SpawnPools()
 		platform->SetTag("platform");
 
 	}
+	for (int i = 0; i < fakePlatformPoolSize; i++)
+	{
+		std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<FakePlatform>();
+		fakePlatformPool.push_back(platform);
+		platform->GetSpriteComponent()->SetAnimationMachine(fakePlatformAnimation);
+		platform->GetSpriteComponent()->EnableAnimation();
+		platform->GetSpriteComponent()->SwitchAnimationState("idle");
+		platform->SetTag("fake platform");
+	}
+
 	platformDistanceDistribution.param(std::uniform_real_distribution<double>::param_type(1, maxPlatformDistance));
 	double horizontalRange = camera->GetCameraBounds().x * 0.5 - defaultPlatformPool.front()->GetBoxComponent()->GetHalfSize().x;
 	platformHorizontalRangeDistribution.param(std::uniform_real_distribution<double>::param_type(-horizontalRange, horizontalRange));
@@ -62,6 +92,11 @@ void PlatformSpawner::SpawnPools()
 void PlatformSpawner::SetDefaultPlatformPoolSize(uint32_t size)
 {
 	defaultPlatformPoolSize = size;
+}
+
+void PlatformSpawner::SetFakePlatformPoolSize(uint32_t size)
+{
+	fakePlatformPoolSize = size;
 }
 
 bool PlatformSpawner::SetNextPlatform(double score)
@@ -89,6 +124,19 @@ bool PlatformSpawner::SetNextPlatform(double score)
 
 	defaultPlatformPool.pop_front();
 	defaultPlatformPool.push_back(lastPlatform);
+
+	// Fake platform
+	lastPlatform = fakePlatformPool.front();
+	if (lastPlatform->GetLocation().y + 2 > camera->GetTransform().Translation.y - camera->GetCameraBounds().y * 0.5)
+		return true;
+
+	distance = platformDistanceDistribution(gen);
+	horizontalLocation = platformHorizontalRangeDistribution(gen);
+
+	lastPlatform->SetLocation({ horizontalLocation, distance * 20 + camera->GetTransform().Translation.y, 0 });
+
+	fakePlatformPool.pop_front();
+	fakePlatformPool.push_back(lastPlatform);
 
 	return true;
 }

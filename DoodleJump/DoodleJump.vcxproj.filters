@@ -140,6 +140,7 @@
     <ClInclude Include="src\Game\Components\ProjectileMovementComponent.h" />
     <ClInclude Include="src\Game\GameObjects\Monster.h" />
     <ClInclude Include="src\Core\Renderer\MySprite.h" />
+    <ClInclude Include="src\Game\GameObjects\FakePlatform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp">
@@ -215,5 +216,6 @@
     <ClCompile Include="src\Game\Components\ProjectileMovementComponent.cpp" />
     <ClCompile Include="src\Game\GameObjects\Monster.cpp" />
     <ClCompile Include="src\Core\Renderer\MySprite.cpp" />
+    <ClCompile Include="src\Game\GameObjects\FakePlatform.cpp" />
   </ItemGroup>
 </Project>
