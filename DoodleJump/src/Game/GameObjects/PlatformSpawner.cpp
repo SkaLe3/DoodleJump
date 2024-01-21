@@ -57,7 +57,6 @@ void PlatformSpawner::SpawnPools()
 	double horizontalRange = camera->GetCameraBounds().x * 0.5 - defaultPlatformPool.front()->GetBoxComponent()->GetHalfSize().x;
 	platformHorizontalRangeDistribution.param(std::uniform_real_distribution<double>::param_type(-horizontalRange, horizontalRange));
 
-	RestartSpawner();
 }
 
 void PlatformSpawner::SetDefaultPlatformPoolSize(uint32_t size)
@@ -71,8 +70,8 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	if (lastPlatform->GetLocation().y + 2 > camera->GetTransform().Translation.y - camera->GetCameraBounds().y * 0.5)
 		return false;
 
-	double minDistance = score / 4000 * (8 - 2); // Interpolate
-	double maxDistance = score / 4000 * (maxPlatformDistance - 6);
+	double minDistance = score / 10000 * (8 - 2); // Interpolate
+	double maxDistance = score / 10000 * (maxPlatformDistance - 6);
 	minDistance = std::clamp<double>(minDistance, 0, 8-2);
 	maxDistance = std::clamp<double>(maxDistance, 0, maxPlatformDistance - 6);
 

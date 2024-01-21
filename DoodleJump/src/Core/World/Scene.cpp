@@ -248,3 +248,12 @@ void Scene::DestroyDrawObject(std::shared_ptr<Object> object)
 	destroyDrawObjects.push_back(object);
 }
 
+void Scene::ClearScene()
+{
+	camera = nullptr;
+	tickComponents.clear();
+	collisionObjects.clear();
+	drawObjects.clear();
+	tickObjects.clear();
+}
+

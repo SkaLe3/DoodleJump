@@ -73,6 +73,8 @@ public:
 	void DestroyCollisionObject(std::shared_ptr<Object> object);
 	void DestroyDrawObject(std::shared_ptr<Object> object);
 
+	void ClearScene();
+
 private:
 	std::shared_ptr<GameMode> gameMode;
 
