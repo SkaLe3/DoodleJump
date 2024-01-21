@@ -8,9 +8,7 @@ Monster::Monster()
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
-	Sprite* sprite = createSprite("assets/monster.png");
-	std::shared_ptr<Sprite> spriteRef;
-	spriteRef.reset(sprite);
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/monster.png");
 	spriteComponent->SetSprite(spriteRef);
 
 	boxComponent->SetHalfSize({ 3, 2.73 });

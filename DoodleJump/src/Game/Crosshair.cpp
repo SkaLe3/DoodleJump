@@ -8,9 +8,7 @@ Crosshair::Crosshair()
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
-	Sprite* crosshairSprite = createSprite("assets/crosshair.png");
-	std::shared_ptr<Sprite> spriteRef;
-	spriteRef.reset(crosshairSprite);
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/crosshair.png");
 	spriteComponent->SetSprite(spriteRef);
 
 }

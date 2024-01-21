@@ -30,12 +30,6 @@ void Scene::Start()
 
 	gameMode = std::make_shared<DJGameMode>();
 
-// 	auto it = std::find_if(tickComponents.begin(), tickComponents.end(), [](const auto& ptr) {
-// 		return (dynamic_pointer_cast<CameraComponent>(ptr) != nullptr); });
-// 	if (it != tickComponents.end())
-// 		camera = static_pointer_cast<CameraComponent>(*it);
-// 	camera->SetViewportSize(viewportWidth, viewportHeight);
-
 	gameMode->Start();
 
 
@@ -112,25 +106,39 @@ void Scene::Tick(float DeltaTime)
 	{
 		auto it = std::find(tickObjects.begin(), tickObjects.end(), toDestory);
 		if (it != tickObjects.end())
+		{
 			tickObjects.erase(it);
+		}
 	}
 	for (auto toDestory : destroyTickComponents)
 	{
 		auto it = std::find(tickComponents.begin(), tickComponents.end(), toDestory);
 		if (it != tickComponents.end())
+		{
+			(*it)->RemoveOwner();
 			tickComponents.erase(it);
+		}
 	}
 	for (auto toDestory : destroyCollisionObjects)
 	{
 		auto it = std::find(collisionObjects.begin(), collisionObjects.end(), toDestory);
 		if (it != collisionObjects.end())
+		{
+			(*it)->DetachFromParent();
+			(*it)->RemoveOwner();
+			//std::cout << (*it).use_count() << std::endl;
 			collisionObjects.erase(it);
+		}
 	}
 	for (auto toDestory : destroyDrawObjects)
 	{
 		auto it = std::find(drawObjects.begin(), drawObjects.end(), toDestory);
 		if (it != drawObjects.end())
+		{
+			(*it)->DetachFromParent();
+			(*it)->RemoveOwner();
 			drawObjects.erase(it);
+		}
 	}
 
 	destroyTickObjects.clear();

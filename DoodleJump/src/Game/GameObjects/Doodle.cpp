@@ -33,9 +33,7 @@ Doodle::Doodle() : GameObject()
 
 	crosshair = GetScene()->SpawnGameObject<Crosshair>();
 
-	Sprite* sprite = createSprite("assets/bunny-left@2x.png");
-	std::shared_ptr<Sprite> spriteRef;
-	spriteRef.reset(sprite);
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/bunny-left@2x.png");
 	spriteComponent->SetSprite(spriteRef);
 
 	boxComponent->SetHalfSize({ 1.8, 2.5 });

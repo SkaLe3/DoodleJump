@@ -12,9 +12,7 @@ Projectile::Projectile() : GameObject()
 
 	movementComponent = CreateComponent<ProjectileMovementComponent>();
 
-	Sprite* sprite = createSprite("assets/bubble2.png");
-	std::shared_ptr<Sprite> spriteRef;
-	spriteRef.reset(sprite);
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/bubble2.png");
 	spriteComponent->SetSprite(spriteRef);
 
 	boxComponent->SetHalfSize({ 1, 1 });
@@ -58,6 +56,11 @@ void Projectile::Destroy()
 	GameObject::Destroy();
 	movementComponent->Destroy();
 	spriteComponent->Destroy();
+}
+
+Projectile::~Projectile()
+{
+
 }
 
 void Projectile::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)

@@ -1,6 +1,6 @@
 #include "Renderer.h"
 #include "Math/FuncMatrix.h"
-
+#include "Renderer/MySprite.h"
 #include "Framework.h"
 
 // testing
@@ -19,7 +19,7 @@ void Renderer::BeginScene(const Math::Mat4& cameraProjection, const Math::Mat4& 
 
 }
 
-void Renderer::DrawSprite(const Math::Mat4& transform, std::shared_ptr<Sprite> sprite)
+void Renderer::DrawSprite(const Math::Mat4& transform, std::shared_ptr<MySprite> sprite)
 {
 	Math::Mat4 MVP = sData.viewProjection * transform;
 	Math::Vector4D position = MVP * Math::Vector4D(0, 0, 0, 1);
@@ -41,6 +41,6 @@ void Renderer::DrawSprite(const Math::Mat4& transform, std::shared_ptr<Sprite> s
 	
 
 
-	setSpriteSize(sprite.get(), sizeX, sizeY);
-	drawSprite(sprite.get(), position.x - offsetX, position.y - offsetY);
+	setSpriteSize(sprite->Get(), sizeX, sizeY);
+	drawSprite(sprite->Get(), position.x - offsetX, position.y - offsetY);
 }

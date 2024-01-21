@@ -45,7 +45,7 @@ private:
 	std::uniform_real_distribution<double> platformHorizontalRangeDistribution;
 
 
-	std::shared_ptr<Sprite> defaultPlatformSprite;
+	std::shared_ptr<MySprite> defaultPlatformSprite;
 	
 	uint32_t defaultPlatformPoolSize;
 	std::list<std::shared_ptr<Platform>> defaultPlatformPool;

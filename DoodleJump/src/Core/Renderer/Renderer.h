@@ -2,8 +2,7 @@
 #include "Math/Matrix4.h"
 
 #include <memory>
-class Sprite;
-
+class MySprite;
 
 struct RendererData
 {
@@ -18,7 +17,7 @@ public:
 
 	static void BeginScene(const Math::Mat4& cameraProjection, const Math::Mat4& cameraTransform);
 
-	static void DrawSprite(const Math::Mat4& transform, std::shared_ptr<Sprite> sprite);
+	static void DrawSprite(const Math::Mat4& transform, std::shared_ptr<MySprite> sprite);
 
 private:
 	static RendererData sData;

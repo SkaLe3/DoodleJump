@@ -6,10 +6,8 @@ Background::Background() : GameObject()
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
-	Sprite* sprite = createSprite("assets/hop-bck@2x.png");
-	std::shared_ptr<Sprite> bgSpriteRef;
-	bgSpriteRef.reset(sprite);
-	spriteComponent->SetSprite(bgSpriteRef);
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/hop-bck@2x.png");
+	spriteComponent->SetSprite(spriteRef);
 }
 
 void Background::Start()

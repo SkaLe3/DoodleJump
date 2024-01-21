@@ -20,6 +20,7 @@ public:
  		return transform.ToMat4();
 	}
 	void SetupAttachment(std::shared_ptr<SceneComponent> _parent) { parent = _parent; }
+	void DetachFromParent() { parent = nullptr; }
 
 protected:
 	// Transform relative to parent

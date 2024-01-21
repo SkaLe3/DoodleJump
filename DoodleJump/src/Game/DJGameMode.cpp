@@ -81,7 +81,7 @@ void DJGameMode::Tick(double DeltaTime)
 
 	distanceScore = std::max(player->GetLocation().y, distanceScore);
 
-	std::cout << (int)distanceScore << std::endl;
+	//std::cout << (int)distanceScore << std::endl;
 	//std::cout << "FPS: " << 1.0 / DeltaTime << std::endl;
 
 	bool platformSet = platformSpawner->SetNextPlatform(distanceScore);

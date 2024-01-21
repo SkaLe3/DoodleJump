@@ -120,6 +120,7 @@
     <ClInclude Include="src\Core\Math\Vector.h" />
     <ClInclude Include="src\Core\Math\Vector2D.h" />
     <ClInclude Include="src\Core\Math\Vector4D.h" />
+    <ClInclude Include="src\Core\Renderer\MySprite.h" />
     <ClInclude Include="src\Core\Renderer\Renderer.h" />
     <ClInclude Include="src\Core\World\CollisionSystem.h" />
     <ClInclude Include="src\Core\World\Scene.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="src\Core\Math\Vector.cpp" />
     <ClCompile Include="src\Core\Math\Vector2D.cpp" />
     <ClCompile Include="src\Core\Math\Vector4D.cpp" />
+    <ClCompile Include="src\Core\Renderer\MySprite.cpp" />
     <ClCompile Include="src\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Core\World\CollisionSystem.cpp" />
     <ClCompile Include="src\Core\World\Scene.cpp" />

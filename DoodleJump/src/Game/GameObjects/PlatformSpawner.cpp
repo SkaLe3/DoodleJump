@@ -8,10 +8,8 @@
 
 PlatformSpawner::PlatformSpawner() : GameObject(), defaultPlatformPoolSize(10)
 {
-	Sprite* sprite = createSprite("assets/platform.png");
-	std::shared_ptr<Sprite> platformSpriteRef;
-	platformSpriteRef.reset(sprite);
-	defaultPlatformSprite = platformSpriteRef;
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/platform.png");
+	defaultPlatformSprite = spriteRef;
 
 }
 
