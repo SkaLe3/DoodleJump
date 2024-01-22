@@ -27,6 +27,9 @@ public:
 	bool SetNextPlatform(double score);
 
 	Math::Vector2D GetLastSetPlatformLocation();
+	Math::Vector2D GetLowestPlatformLocation();
+
+	int32_t GetPassedPlatformCount();
 
 public:
 
@@ -35,6 +38,8 @@ private:
 	double lastDefaultPlatformLocation = 0;
 
 	double maxPlatformDistance = 17;
+
+	int32_t platformPassed = 0;
 
 	std::shared_ptr<Platform> lastPlacedPlatform;
 
@@ -54,4 +59,6 @@ private:
 	std::list<std::shared_ptr<Platform>> fakePlatformPool;
 
 	std::shared_ptr<CameraComponent> camera;
+
+	std::shared_ptr<GameObject> player;
 };

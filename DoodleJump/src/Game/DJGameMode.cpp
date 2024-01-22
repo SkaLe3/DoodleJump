@@ -11,7 +11,7 @@
 #include "GameObjects/PlatformSpawner.h"
 #include "Components/CameraComponent.h"
 #include "GameObjects/Monster.h"
-#include "GameObjects/Monster.h"
+#include "GameObjects/Abilities/ImmunityAbility.h"
 
 DJGameMode::DJGameMode()
 {
@@ -38,14 +38,25 @@ void DJGameMode::Tick(double DeltaTime)
 	floor->GetBoxComponent()->GetTransform().Translation.y = camPos.y - 2 - camBounds.y * 0.5;
 
 	distanceScore = std::max(player->GetLocation().y, distanceScore);
-
-	std::cout << (int)distanceScore << std::endl;
+	platformScore = platformSpawner->GetPassedPlatformCount();
+	//std::cout << (int)distanceScore << std::endl;
+	//std::cout << platformScore << std::endl;
 	//std::cout << "FPS: " << 1.0 / DeltaTime << std::endl;
 
 	bool platformSet = platformSpawner->SetNextPlatform(distanceScore);
+	if (platformSet)
+		platformScore++;
 
 	if (platformSet && enemySpawnDistribution(gen))
+	{
 		SpawnEnemy();
+	}
+	std::shared_ptr<Doodle> doodle = static_pointer_cast<Doodle>(player);
+	if (platformSet && doodle->GetJumpsCount() >= abilitySpawnFrequency)
+	{
+		doodle->ResetJumpsCount();
+		SpawnAbility();
+	}
 }
 
 void DJGameMode::TeleportToRightWall(std::shared_ptr<GameObject> object)
@@ -58,12 +69,33 @@ void DJGameMode::TeleportToLeftWall(std::shared_ptr<GameObject> object)
 	object->GetTransform().Translation.x = horizontalBounds.x + object->GetBoxComponent()->GetHalfSize().x;
 }
 
+
+void DJGameMode::RespawnPlayer()
+{
+	Math::Vector2D platformLocation = platformSpawner->GetLowestPlatformLocation();
+	Math::Vector spawnPoint;
+	spawnPoint.y = platformLocation.y + player->GetBoxComponent()->GetHalfSize().y + 1;	
+	spawnPoint.x = platformLocation.x;
+	player->SetLocation(spawnPoint);
+	std::shared_ptr<Doodle> doodle = static_pointer_cast<Doodle>(player);
+	doodle->EnableCollision();
+	doodle->EnableInput();
+}
+
 void DJGameMode::SpawnEnemy()
 {
 	Math::Vector2D spawnLocation =  platformSpawner->GetLastSetPlatformLocation();
 	std::shared_ptr<Monster> enemy = GetScene()->SpawnGameObject<Monster>();
 	spawnLocation.y += enemy->GetBoxComponent()->GetHalfSize().y + 0.6;
 	enemy->SetLocation({ spawnLocation, 0 });
+}
+
+void DJGameMode::SpawnAbility()
+{
+	Math::Vector2D spawnLocation = platformSpawner->GetLastSetPlatformLocation();
+	std::shared_ptr<ImmunityAbility> ability = GetScene()->SpawnGameObject<ImmunityAbility>();
+	spawnLocation.y += ability->GetBoxComponent()->GetHalfSize().y + 0.6;
+	ability->SetLocation({ spawnLocation, 0 });
 }
 
 void DJGameMode::KillDoodle()
@@ -94,7 +126,7 @@ void DJGameMode::StartGame()
 	// Spawn Platform Spawner
 	platformSpawner = GetScene()->SpawnGameObject<PlatformSpawner>();
 	platformSpawner->SetDefaultPlatformPoolSize(36);
-	platformSpawner->SetFakePlatformPoolSize(3);
+	platformSpawner->SetFakePlatformPoolSize(6);
 	platformSpawner->SpawnPools();
 
 	// Walls
@@ -135,5 +167,6 @@ void DJGameMode::StartGame()
 		platformSpawner->SetNextPlatform(1);
 
 	distanceScore = 0;
+	platformScore = 0;
 
 }

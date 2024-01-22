@@ -1,5 +1,6 @@
 #include "Monster.h"
 #include "DJGameMode.h"
+#include "Doodle.h"
 
 #include <string>
 
@@ -16,7 +17,6 @@ Monster::Monster()
 
 void Monster::Start()
 {
-	GameObject::Start();
 	GameObject::Start();
 	auto monster = GetScene()->GetObject(this);
 	spriteComponent->SetOwner(monster);
@@ -46,7 +46,7 @@ void Monster::Destroy()
 void Monster::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
 	std::string tag = otherObject->GetTag();
-	if (tag == "doodle" && normal.y >= 0)
+	if (tag == "doodle" && normal.y >= 0 && !static_pointer_cast<Doodle>(otherObject)->HasImmunity())
 	{
 		std::shared_ptr<DJGameMode> gameMode = static_pointer_cast<DJGameMode>(GetGameMode());
 		gameMode->KillDoodle();

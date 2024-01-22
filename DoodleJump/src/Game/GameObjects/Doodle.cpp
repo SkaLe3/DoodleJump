@@ -4,6 +4,7 @@
 #include "Crosshair.h"
 #include "DJGameMode.h"
 #include "Projectile.h"
+#include "Abilities/ImmunityAbility.h"
 
 #include "Framework.h"
 
@@ -83,6 +84,19 @@ void Doodle::Tick(double DeltaTime)
 {
 	GameObject::Tick(DeltaTime);
 
+	if (HasImmunity())
+	{
+		if (immunityTimer > immunity->GetTime())
+		{
+			immunity->Destroy();
+			immunity = nullptr;
+		}
+		else
+		{
+			immunityTimer += DeltaTime;
+			immunity->SetLocation(boxComponent->GetTransform().Translation);
+		}
+	}
 
 	
 }
@@ -133,6 +147,26 @@ void Doodle::EnableCollision()
 	bPhysicsCollisionEnabled = true;
 }
 
+int32_t Doodle::GetLifesCount()
+{
+	return lifesCount;
+}
+
+int32_t Doodle::GetJumpsCount()
+{
+	return jumpsCount;
+}
+
+void Doodle::ResetJumpsCount()
+{
+	jumpsCount = 0;
+}
+
+bool Doodle::HasImmunity()
+{
+	return immunity != nullptr;
+}
+
 void Doodle::Move(InputValue& value)
 {
 	if (bInputEnabled)
@@ -159,6 +193,7 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 		{
 			movementComponent->OnCollision(collisionTime);
 			Jump();
+			jumpsCount++;
 		}
 		else if (otherTag == "monster")
 		{
@@ -180,9 +215,22 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 	}
 	if (otherTag == "floor")
 	{
-		gameMode->KillDoodle();
-		gameMode->GameOver();
-		// Attach camera
+		lifesCount--;
+		if (lifesCount == 0)
+		{
+			gameMode->KillDoodle();
+			gameMode->GameOver();
+		}
+		else
+		{
+			gameMode->RespawnPlayer();
+		}
+	}
+	if (otherTag == "immunity")
+	{
+		immunity = static_pointer_cast<ImmunityAbility>(otherObject);
+		immunity->DisableCollision();
+		immunityTimer = 0;
 	}
 
 }

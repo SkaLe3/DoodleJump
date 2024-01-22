@@ -20,7 +20,7 @@ public:
 	std::shared_ptr<Scene> CreateScene();
 	std::shared_ptr<Scene> GetCurrentScene();
 
-	void Init();
+	void Init(int32_t w, int32_t h);
 
 	static std::shared_ptr<World> Create()
 	{

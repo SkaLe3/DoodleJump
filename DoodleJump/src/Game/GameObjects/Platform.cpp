@@ -30,3 +30,18 @@ void Platform::Destroy()
 	GameObject::Destroy();
 	spriteComponent->Destroy();
 }
+
+void Platform::Pass()
+{
+	bPassed = true;
+}
+
+bool Platform::IsPassed()
+{
+	return bPassed;
+}
+
+void Platform::Reset()
+{
+	bPassed = false;
+}

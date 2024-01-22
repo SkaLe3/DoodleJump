@@ -20,10 +20,10 @@ std::shared_ptr<Scene> World::GetCurrentScene()
 	return currentScene;
 }
 
-void World::Init()
+void World::Init(int32_t w, int32_t h)
 {
 	currentScene = CreateScene();
-	currentScene->SetViewportSize(400, 800);
+	currentScene->SetViewportSize(w, h);
 	currentScene->Start();
 }
 

@@ -1,6 +1,7 @@
 #include "PlatformSpawner.h"
 #include "GameObjects/Platform.h"
 #include "GameObjects/FakePlatform.h"
+#include "DJGameMode.h"
 #include "Math/MyMath.h"
 
 #include <algorithm>
@@ -33,6 +34,7 @@ void PlatformSpawner::Start()
 	GameObject::Start();
 	boxComponent->SetCollisionEnabled(false);
 
+	player = GetScene()->GetGameMode()->GetPlayer();
 
 
 }
@@ -40,6 +42,32 @@ void PlatformSpawner::Start()
 void PlatformSpawner::Tick(double DeltaTime)
 {
 	GameObject::Tick(DeltaTime);
+
+	double location = player->GetTransform().Translation.y;
+
+	for (auto& platform : defaultPlatformPool)
+	{
+		if (location < platform->GetLocation().y)
+			break;
+		if (!platform->IsPassed())
+		{
+			platform->Pass();
+			platformPassed++;
+		}
+	
+	}
+	for (auto& platform : fakePlatformPool)
+	{
+		if (location < platform->GetLocation().y)
+			break;
+		if (!platform->IsPassed())
+		{
+			platform->Pass();
+			platformPassed++;
+		}
+
+	}
+
 }
 
 void PlatformSpawner::RestartSpawner()
@@ -102,11 +130,11 @@ void PlatformSpawner::SetFakePlatformPoolSize(uint32_t size)
 bool PlatformSpawner::SetNextPlatform(double score)
 {
 	std::shared_ptr<Platform> lastPlatform = defaultPlatformPool.front();
-	if (lastPlatform->GetLocation().y + 2 > camera->GetTransform().Translation.y - camera->GetCameraBounds().y * 0.5)
+	if (lastPlatform->GetLocation().y + 0.1 > camera->GetTransform().Translation.y - camera->GetCameraBounds().y * 0.5)
 		return false;
 
-	double minDistance = score / 10000 * (8 - 2); // Interpolate
-	double maxDistance = score / 10000 * (maxPlatformDistance - 6);
+	double minDistance = score / 25000 * (8 - 2); // Interpolate
+	double maxDistance = score / 15000 * (maxPlatformDistance - 6);
 	minDistance = std::clamp<double>(minDistance, 0, 8-2);
 	maxDistance = std::clamp<double>(maxDistance, 0, maxPlatformDistance - 6);
 
@@ -121,6 +149,7 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	double lppy = lastPlacedPlatform->GetLocation().y;
 	lastPlatform->SetLocation({ horizontalLocation, distance + lppy, 0 });
 	lastPlacedPlatform = lastPlatform;
+	lastPlatform->Reset();
 
 	defaultPlatformPool.pop_front();
 	defaultPlatformPool.push_back(lastPlatform);
@@ -134,6 +163,7 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	horizontalLocation = platformHorizontalRangeDistribution(gen);
 
 	lastPlatform->SetLocation({ horizontalLocation, distance * 20 + camera->GetTransform().Translation.y, 0 });
+	lastPlatform->Reset();
 
 	fakePlatformPool.pop_front();
 	fakePlatformPool.push_back(lastPlatform);
@@ -144,4 +174,14 @@ bool PlatformSpawner::SetNextPlatform(double score)
 Math::Vector2D PlatformSpawner::GetLastSetPlatformLocation()
 {
 	return defaultPlatformPool.back()->GetLocation();
+}
+
+Math::Vector2D PlatformSpawner::GetLowestPlatformLocation()
+{
+	return defaultPlatformPool.front()->GetLocation();
+}
+
+int32_t PlatformSpawner::GetPassedPlatformCount()
+{
+	return platformPassed;
 }

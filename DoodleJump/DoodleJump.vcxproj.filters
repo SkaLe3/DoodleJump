@@ -141,6 +141,8 @@
     <ClInclude Include="src\Game\GameObjects\Monster.h" />
     <ClInclude Include="src\Core\Renderer\MySprite.h" />
     <ClInclude Include="src\Game\GameObjects\FakePlatform.h" />
+    <ClInclude Include="src\Game\GameObjects\Abilities\ImmunityAbility.h" />
+    <ClInclude Include="src\Game\Components\UI\NumberComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp">
@@ -217,5 +219,7 @@
     <ClCompile Include="src\Game\GameObjects\Monster.cpp" />
     <ClCompile Include="src\Core\Renderer\MySprite.cpp" />
     <ClCompile Include="src\Game\GameObjects\FakePlatform.cpp" />
+    <ClCompile Include="src\Game\GameObjects\Abilities\ImmunityAbility.cpp" />
+    <ClCompile Include="src\Game\Components\UI\NumberComponent.cpp" />
   </ItemGroup>
 </Project>

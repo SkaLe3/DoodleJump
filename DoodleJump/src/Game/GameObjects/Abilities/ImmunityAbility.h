@@ -1,23 +1,23 @@
 #pragma once
-#include "Entities/GameObject.h"
 
-class Platform : public GameObject
+#include "Entities/GameObject.h"
+#include <memory>
+class SpriteComponent;
+
+class ImmunityAbility : public GameObject
 {
 public:
-	Platform();
+	ImmunityAbility();
+
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
 
-	void Pass();
-	bool IsPassed();
-	void Reset();
+	void DisableCollision();
+	double GetTime();
 
-public:
-	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return spriteComponent; }
-
-protected:
+private:
 	std::shared_ptr<SpriteComponent> spriteComponent;
 
-	bool bPassed;
+	double abilityTime = 20;
 };

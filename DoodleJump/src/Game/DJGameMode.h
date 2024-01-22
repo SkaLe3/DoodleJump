@@ -19,7 +19,10 @@ public:
 	void TeleportToRightWall(std::shared_ptr<GameObject> object);
 	void TeleportToLeftWall(std::shared_ptr<GameObject> object);
 
+
+	void RespawnPlayer();
 	void SpawnEnemy();
+	void SpawnAbility();
 
 	void KillDoodle();
 	void GameOver();
@@ -30,6 +33,7 @@ private:
 
 	bool gameStarted = false;
 	double distanceScore = 0;
+	int platformScore = 0;
 
 	Math::Vector2D horizontalBounds;
 
@@ -45,5 +49,6 @@ private:
 	std::default_random_engine gen{ rd() };
 	
 	double enemySpawnProbability = 0.05;
+	double abilitySpawnFrequency = 50;
 	std::bernoulli_distribution enemySpawnDistribution{ enemySpawnProbability };
 };

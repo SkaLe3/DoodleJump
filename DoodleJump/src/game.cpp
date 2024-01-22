@@ -9,7 +9,8 @@
 #include "Renderer/Renderer.h"
 #include <unordered_map>
 #include <memory> 
-
+#include <sstream>
+#include <string>
 
 // TESTING 
 #include "Math/MyMath.h"
@@ -20,12 +21,13 @@
 class MyFramework : public Framework {
 
 public:
+	MyFramework(uint32_t w, uint32_t h, bool fs) : swidth(w), sheight(h), fullscreenMode(fs){}
 
 	virtual void PreInit(int& width, int& height, bool& fullscreen)
 	{
-		width = 400;
-		height = 800;
-		fullscreen = false;
+		width = swidth;
+		height = sheight;
+		fullscreen = fullscreenMode;
 	}
 
 	virtual bool Init() {
@@ -46,7 +48,9 @@ public:
 		MouseStates[FRMouseButton::RIGHT] = false;
 		MouseStates[FRMouseButton::COUNT] = false;
 
-		world->Init();
+		int32_t w, h;
+		getScreenSize(w, h);
+		world->Init(w, h);
 
 		LastTime = (float)(getTickCount() / 1000.0f);
 		return true;
@@ -117,9 +121,40 @@ public:
 
 	std::shared_ptr<EventHandler> eventHandler;
 	std::shared_ptr<World> world;
+
+	uint32_t swidth;
+	uint32_t sheight;
+	bool fullscreenMode;
 };
 
 int main(int argc, char *argv[])
 {
-	return run(new MyFramework);
+	uint32_t width, height;
+	bool fullscreen = false;
+	if (argc > 1)
+	{
+
+		std::string windowSize;
+		for (int i = 0; i < argc; i++)
+			if (std::string(argv[i]) == "-window" && argc > i+1)
+				windowSize = argv[i + 1];
+			else if (std::string(argv[i]) == "-fullscreen")
+				fullscreen = true;
+
+		char x;
+		std::istringstream iss(windowSize);
+
+		iss >> width >> x >> height;
+
+		if (iss.fail())
+			std::cout << "Failed to set winodw size";
+
+	}
+	else
+	{
+		width = 400;
+		height = 800;
+		fullscreen = false;
+	}
+	return run(new MyFramework(width, height, fullscreen));
 }

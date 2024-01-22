@@ -129,8 +129,10 @@
     <ClInclude Include="src\Game\Components\DoodleMovementComponent.h" />
     <ClInclude Include="src\Game\Components\FollowCameraComponent.h" />
     <ClInclude Include="src\Game\Components\ProjectileMovementComponent.h" />
+    <ClInclude Include="src\Game\Components\UI\NumberComponent.h" />
     <ClInclude Include="src\Game\Crosshair.h" />
     <ClInclude Include="src\Game\DJGameMode.h" />
+    <ClInclude Include="src\Game\GameObjects\Abilities\ImmunityAbility.h" />
     <ClInclude Include="src\Game\GameObjects\Doodle.h" />
     <ClInclude Include="src\Game\GameObjects\FakePlatform.h" />
     <ClInclude Include="src\Game\GameObjects\Monster.h" />
@@ -160,8 +162,10 @@
     <ClCompile Include="src\Game\Components\DoodleMovementComponent.cpp" />
     <ClCompile Include="src\Game\Components\FollowCameraComponent.cpp" />
     <ClCompile Include="src\Game\Components\ProjectileMovementComponent.cpp" />
+    <ClCompile Include="src\Game\Components\UI\NumberComponent.cpp" />
     <ClCompile Include="src\Game\Crosshair.cpp" />
     <ClCompile Include="src\Game\DJGameMode.cpp" />
+    <ClCompile Include="src\Game\GameObjects\Abilities\ImmunityAbility.cpp" />
     <ClCompile Include="src\Game\GameObjects\Doodle.cpp" />
     <ClCompile Include="src\Game\GameObjects\FakePlatform.cpp" />
     <ClCompile Include="src\Game\GameObjects\Monster.cpp" />

@@ -6,6 +6,7 @@
 class DoodleMovementComponent;
 class SpriteComponent;
 class CameraComponent;
+class ImmunityAbility;
 
 class Doodle : public GameObject
 {
@@ -26,6 +27,12 @@ public:
 	void EnableInput();
 	void DisablePhysicsCollision();
 	void EnableCollision();
+
+	int32_t GetLifesCount();
+	int32_t GetJumpsCount();
+	void ResetJumpsCount();
+
+	bool HasImmunity();
 public:
 	void Move(InputValue& value);
 	void Shoot(InputValue& value);
@@ -44,4 +51,10 @@ private:
 
 	bool bInputEnabled = true;
 	bool bPhysicsCollisionEnabled = true;
+
+	int32_t lifesCount = 5;
+	int32_t jumpsCount = 0;
+
+	double immunityTimer;
+	std::shared_ptr<ImmunityAbility> immunity = nullptr;
 };

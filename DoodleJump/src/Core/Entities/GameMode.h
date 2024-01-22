@@ -11,6 +11,7 @@ public:
 	virtual void Tick(double DeltaTime) override {}
 	virtual void Destroy() override {}
 
+	std::shared_ptr<GameObject> GetPlayer() { return player; }
 protected:
 	std::shared_ptr<GameObject> player;
 };
