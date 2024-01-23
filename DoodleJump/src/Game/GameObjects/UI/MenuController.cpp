@@ -3,6 +3,7 @@
 #include "Input/EventHandler.h"
 #include "World/CollisionSystem.h"
 #include "Components/BoxCollider.h"
+#include "GameModes/MenuGameMode.h"
 
 #include <iostream>
 
@@ -33,12 +34,13 @@ void MenuController::Tick(double deltatime)
 
 void MenuController::Destroy()
 {
-
+	cameraComponent->Destroy();
 }
 
 void MenuController::Click(InputValue& value)
 {
 	Math::Vector2D mousePos = GetScene()->GetMousePosition();
-	bool isClicked = Physics::IsColliding({ mousePos, {1, 1}, {0, 0} }, { {0, 0}, {10, 10}, {0,0} });
+
+	static_pointer_cast<MenuGameMode>(GetGameMode())->Click(mousePos);
 
 }

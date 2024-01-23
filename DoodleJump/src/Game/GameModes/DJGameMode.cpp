@@ -16,6 +16,7 @@
 #include "Components/UI/NumberComponent.h"
 #include "GameObjects/UI/SpriteWidget.h"
 
+
 DJGameMode::DJGameMode()
 {
 
@@ -189,7 +190,7 @@ void DJGameMode::StartGame()
 	leftWall->SetLocation({ horizontalBounds.x - wallWidth - player->GetBoxComponent()->GetHalfSize().x - 0.5, 0 });
 	floor->SetLocation({ 0, -camBounds.y * 0.5 - wallWidth });
 
-	player->SetLocation({ 0, 0, 0 });
+	player->SetLocation({ 0, 3, 0 });
 	platformSpawner->RestartSpawner();
 	for (int i = 0; i < 36; i++)
 		platformSpawner->SetNextPlatform(1);

@@ -124,6 +124,7 @@
     <ClInclude Include="src\Core\Renderer\Renderer.h" />
     <ClInclude Include="src\Core\World\CollisionSystem.h" />
     <ClInclude Include="src\Game\GameObjects\UI\MenuController.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\PlayButton.h" />
     <ClInclude Include="src\Game\Scenes\LevelScene.h" />
     <ClInclude Include="src\Core\World\Scene.h" />
     <ClInclude Include="src\Core\World\World.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="src\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Core\World\CollisionSystem.cpp" />
     <ClCompile Include="src\Game\GameObjects\UI\MenuController.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\PlayButton.cpp" />
     <ClCompile Include="src\Game\Scenes\LevelScene.cpp" />
     <ClCompile Include="src\Core\World\Scene.cpp" />
     <ClCompile Include="src\Core\World\World.cpp" />

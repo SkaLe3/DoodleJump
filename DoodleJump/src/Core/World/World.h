@@ -24,6 +24,7 @@ public:
 		scenes.push_back(newScene);
 		return newScene;
 	}
+	void SetCurrentScene(std::shared_ptr<Scene> scene);
 	std::shared_ptr<Scene> GetCurrentScene();
 
 	void Init(int32_t w, int32_t h);
@@ -36,6 +37,8 @@ public:
 	static std::shared_ptr<World> Get() { return sInstance; }
 private:
 	float DeltaTime;
+
+	int32_t width, height;
 
 	std::vector<std::shared_ptr<Scene>> scenes;
 	std::shared_ptr<Scene> currentScene;

@@ -12,6 +12,13 @@ void World::Update()
 
 
 
+void World::SetCurrentScene(std::shared_ptr<Scene> scene)
+{
+	currentScene = scene;
+	currentScene->SetViewportSize(width, height);
+	currentScene->Start();
+}
+
 std::shared_ptr<Scene> World::GetCurrentScene()
 {
 	return currentScene;
@@ -19,6 +26,8 @@ std::shared_ptr<Scene> World::GetCurrentScene()
 
 void World::Init(int32_t w, int32_t h)
 {
+	width = w;
+	height = h;
 	currentScene = CreateScene<MenuScene>();
 	currentScene->SetViewportSize(w, h);
 	currentScene->Start();

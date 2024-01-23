@@ -1,6 +1,7 @@
 #include "MenuGameMode.h"
 #include "World/World.h"
 #include "World/Scene.h"
+#include "World/CollisionSystem.h"
 
 #include "GameObjects/Doodle.h"
 #include "Background.h"
@@ -8,6 +9,9 @@
 
 #include "Renderer/MySprite.h"
 #include "GameObjects/UI/MenuController.h"
+#include "GameObjects/UI/PlayButton.h"
+
+#include "Scenes/LevelScene.h"
 
 
 #include "Framework.h"
@@ -37,12 +41,23 @@ void MenuGameMode::Start()
 	horizontalBounds = { camera->GetTransform().Translation.x - camBounds.x * 0.5, camera->GetTransform().Translation.x + camBounds.x * 0.5 };
 
 
-	std::shared_ptr<GameObject> playButton = GetScene()->SpawnGameObject<GameObject>();
-	//std::shared_ptr<MySprite> spriteRefPlay = std::make_shared<MySprite>("assets/play.png");
+	playButton = GetScene()->SpawnGameObject<PlayButton>();
 
 }
 
 void MenuGameMode::Tick(double DeltaTime)
 {
 	GameMode::Tick(DeltaTime);
+}
+
+void MenuGameMode::Click(Math::Vector2D mousePos)
+{
+	bool isClicked = Physics::IsColliding({ mousePos, {0.1, 0.1}, {0, 0} }, playButton->GetBoxComponent()->GetCollider());
+
+	GetScene()->ClearScene();
+
+	auto newScene = GetWorld()->CreateScene<LevelScene>();
+	GetWorld()->SetCurrentScene(newScene);
+	
+
 }

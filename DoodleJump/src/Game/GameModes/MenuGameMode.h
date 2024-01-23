@@ -14,12 +14,13 @@ public:
 	virtual void Start() override;
 	virtual void Tick(double DeltaTime) override;
 
-
-
+	void Click(Math::Vector2D mousePos);
 private:
 
 	Math::Vector2D horizontalBounds;
 
 	std::shared_ptr<CameraComponent> camera;
+
+	std::shared_ptr<GameObject> playButton;
 
 };
