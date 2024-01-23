@@ -17,7 +17,13 @@ public:
 	float GetDeltaTime() { return DeltaTime; }
 	void Update();
 
-	std::shared_ptr<Scene> CreateScene();
+	template<class T>
+	std::shared_ptr<Scene> CreateScene()
+	{
+		std::shared_ptr<Scene> newScene = std::make_shared<T>();
+		scenes.push_back(newScene);
+		return newScene;
+	}
 	std::shared_ptr<Scene> GetCurrentScene();
 
 	void Init(int32_t w, int32_t h);

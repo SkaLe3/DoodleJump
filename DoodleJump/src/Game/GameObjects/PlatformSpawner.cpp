@@ -1,14 +1,13 @@
 #include "PlatformSpawner.h"
 #include "GameObjects/Platform.h"
 #include "GameObjects/FakePlatform.h"
-#include "DJGameMode.h"
+#include "GameModes/DJGameMode.h"
+#include "Components/CameraComponent.h"
 #include "Math/MyMath.h"
 
 #include <algorithm>
 #include <utility>
 
-// debug
-#include <iostream>
 
 PlatformSpawner::PlatformSpawner() : GameObject(), defaultPlatformPoolSize(10)
 {

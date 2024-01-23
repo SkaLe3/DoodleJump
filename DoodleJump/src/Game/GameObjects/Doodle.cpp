@@ -2,7 +2,7 @@
 #include "Components/SpriteComponent.h"
 #include "Math/Vector2D.h"
 #include "Crosshair.h"
-#include "DJGameMode.h"
+#include "GameModes/DJGameMode.h"
 #include "Projectile.h"
 #include "Abilities/ImmunityAbility.h"
 
@@ -39,8 +39,8 @@ Doodle::Doodle() : GameObject()
 	std::shared_ptr<AnimationMachine> animationMachine = std::make_shared<AnimationMachine>();
 	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateLeft = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
 	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateRight = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
-	animStateLeft->emplace_back(std::make_shared<MySprite>("assets/bunny-left@2x.png"));
-	animStateRight->emplace_back(std::make_shared<MySprite>("assets/bunny-right@2x.png"));
+	animStateLeft->emplace_back(std::make_shared<MySprite>("assets/player-left@2x.png"));
+	animStateRight->emplace_back(std::make_shared<MySprite>("assets/player-right@2x.png"));
 
 	(*animationMachine)["left"] = std::make_pair(animStateLeft, 1);
 	(*animationMachine)["right"] = std::make_pair(animStateRight, 1);

@@ -2,7 +2,7 @@
 #include "Components/ProjectileMovementComponent.h"
 #include "Components/SpriteComponent.h"
 #include "World/World.h"
-#include "DJGameMode.h"
+#include "GameModes/DJGameMode.h"
 #include "Math/MyMath.h"
 
 Projectile::Projectile() : GameObject()
@@ -12,7 +12,7 @@ Projectile::Projectile() : GameObject()
 
 	movementComponent = CreateComponent<ProjectileMovementComponent>();
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/bubble2.png");
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/bubble@2x.png");
 	spriteComponent->SetSprite(spriteRef);
 
 	boxComponent->SetHalfSize({ 1, 1 });

@@ -123,6 +123,8 @@
     <ClInclude Include="src\Core\Renderer\MySprite.h" />
     <ClInclude Include="src\Core\Renderer\Renderer.h" />
     <ClInclude Include="src\Core\World\CollisionSystem.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\MenuController.h" />
+    <ClInclude Include="src\Game\Scenes\LevelScene.h" />
     <ClInclude Include="src\Core\World\Scene.h" />
     <ClInclude Include="src\Core\World\World.h" />
     <ClInclude Include="src\Game\Background.h" />
@@ -131,7 +133,8 @@
     <ClInclude Include="src\Game\Components\ProjectileMovementComponent.h" />
     <ClInclude Include="src\Game\Components\UI\NumberComponent.h" />
     <ClInclude Include="src\Game\Crosshair.h" />
-    <ClInclude Include="src\Game\DJGameMode.h" />
+    <ClInclude Include="src\Game\GameModes\DJGameMode.h" />
+    <ClInclude Include="src\Game\GameModes\MenuGameMode.h" />
     <ClInclude Include="src\Game\GameObjects\Abilities\ImmunityAbility.h" />
     <ClInclude Include="src\Game\GameObjects\Doodle.h" />
     <ClInclude Include="src\Game\GameObjects\FakePlatform.h" />
@@ -139,6 +142,9 @@
     <ClInclude Include="src\Game\GameObjects\Platform.h" />
     <ClInclude Include="src\Game\GameObjects\PlatformSpawner.h" />
     <ClInclude Include="src\Game\GameObjects\Projectile.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\NumberWidget.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\SpriteWidget.h" />
+    <ClInclude Include="src\Game\Scenes\MenuScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp" />
@@ -156,6 +162,8 @@
     <ClCompile Include="src\Core\Renderer\MySprite.cpp" />
     <ClCompile Include="src\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Core\World\CollisionSystem.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\MenuController.cpp" />
+    <ClCompile Include="src\Game\Scenes\LevelScene.cpp" />
     <ClCompile Include="src\Core\World\Scene.cpp" />
     <ClCompile Include="src\Core\World\World.cpp" />
     <ClCompile Include="src\Game\Background.cpp" />
@@ -164,7 +172,8 @@
     <ClCompile Include="src\Game\Components\ProjectileMovementComponent.cpp" />
     <ClCompile Include="src\Game\Components\UI\NumberComponent.cpp" />
     <ClCompile Include="src\Game\Crosshair.cpp" />
-    <ClCompile Include="src\Game\DJGameMode.cpp" />
+    <ClCompile Include="src\Game\GameModes\DJGameMode.cpp" />
+    <ClCompile Include="src\Game\GameModes\MenuGameMode.cpp" />
     <ClCompile Include="src\Game\GameObjects\Abilities\ImmunityAbility.cpp" />
     <ClCompile Include="src\Game\GameObjects\Doodle.cpp" />
     <ClCompile Include="src\Game\GameObjects\FakePlatform.cpp" />
@@ -173,6 +182,9 @@
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\Game\GameObjects\PlatformSpawner.cpp" />
     <ClCompile Include="src\Game\GameObjects\Projectile.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\NumberWidget.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\SpriteWidget.cpp" />
+    <ClCompile Include="src\Game\Scenes\MenuScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

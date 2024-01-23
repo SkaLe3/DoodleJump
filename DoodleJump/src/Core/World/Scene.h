@@ -1,29 +1,30 @@
 #pragma once
-
+#include "Math/MyMath.h"
 #include "Components/BoxComponent.h"
 #include "Components/SpriteComponent.h"
-#include "Components/CameraComponent.h"
-#include "Math/Vector2D.h"
 
-#include <vector>
 #include <memory>
-class GameObject;
+#include <vector>
+
 class GameMode;
 class GameComponent;
 class CameraComponent;
+class GameObject;
+class Object;
+
 
 class Scene
 {
 public:
 
 	Scene();
-	void Start();
-	void Tick(float DeltaTime);
+	virtual void Start();
+	virtual void Tick(float DeltaTime);
 
 public:
 	template<class T>
 	std::shared_ptr<T> CreateComponent()
-	{ 
+	{
 		std::shared_ptr<T> component = std::make_shared<T>();
 		tickComponents.push_back(component);
 		if (started)
@@ -75,7 +76,7 @@ public:
 
 	void ClearScene();
 
-private:
+protected:
 	std::shared_ptr<GameMode> gameMode;
 
 	// Fake ECS

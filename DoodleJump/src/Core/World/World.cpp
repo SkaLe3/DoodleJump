@@ -1,5 +1,7 @@
 #include "World.h"
 #include "Scene.h"
+#include "Scenes/LevelScene.h"
+#include "Scenes/MenuScene.h"
 
 std::shared_ptr<World> World::sInstance = nullptr;
 
@@ -8,12 +10,7 @@ void World::Update()
 	currentScene->Tick(DeltaTime);
 }
 
-std::shared_ptr<Scene> World::CreateScene()
-{
-	std::shared_ptr<Scene> newScene = std::make_shared<Scene>();
-	scenes.push_back(newScene);
-	return newScene;
-}
+
 
 std::shared_ptr<Scene> World::GetCurrentScene()
 {
@@ -22,7 +19,7 @@ std::shared_ptr<Scene> World::GetCurrentScene()
 
 void World::Init(int32_t w, int32_t h)
 {
-	currentScene = CreateScene();
+	currentScene = CreateScene<MenuScene>();
 	currentScene->SetViewportSize(w, h);
 	currentScene->Start();
 }

@@ -1,5 +1,5 @@
 #include "Background.h"
-#include <iostream>
+#include "Components/CameraComponent.h"
 
 Background::Background() : GameObject()
 {
@@ -8,6 +8,8 @@ Background::Background() : GameObject()
 
 	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/background.png");
 	spriteComponent->SetSprite(spriteRef);
+	spriteComponent->GetTransform().Scale = { 134.44, 72, 1 };
+	spriteComponent->GetTransform().Translation = { 4.5, 0, -1 };
 }
 
 void Background::Start()
@@ -18,8 +20,6 @@ void Background::Start()
 	boxComponent->SetupAttachment(GetScene()->GetRenderCamera());
 	boxComponent->SetCollisionEnabled(false);
 
-	spriteComponent->GetTransform().Scale = { 134.44, 72, 1 };
-	spriteComponent->GetTransform().Translation = { 4.5, 0, -1 };
 }
 
 void Background::Tick(double deltaTime)

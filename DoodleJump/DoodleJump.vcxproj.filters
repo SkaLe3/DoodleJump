@@ -108,7 +108,7 @@
     <ClInclude Include="src\Core\World\CollisionSystem.h">
       <Filter>Core\World</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\World\Scene.h">
+    <ClInclude Include="src\Game\Scenes\LevelScene.h">
       <Filter>Core\World</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\World\World.h">
@@ -126,7 +126,7 @@
     <ClInclude Include="src\Game\Crosshair.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\DJGameMode.h">
+    <ClInclude Include="src\Game\GameModes\DJGameMode.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\GameObjects\Doodle.h">
@@ -143,6 +143,12 @@
     <ClInclude Include="src\Game\GameObjects\FakePlatform.h" />
     <ClInclude Include="src\Game\GameObjects\Abilities\ImmunityAbility.h" />
     <ClInclude Include="src\Game\Components\UI\NumberComponent.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\NumberWidget.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\SpriteWidget.h" />
+    <ClInclude Include="src\Game\GameModes\MenuGameMode.h" />
+    <ClInclude Include="src\Core\World\Scene.h" />
+    <ClInclude Include="src\Game\Scenes\MenuScene.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\MenuController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp">
@@ -184,7 +190,7 @@
     <ClCompile Include="src\Core\World\CollisionSystem.cpp">
       <Filter>Core\World</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\World\Scene.cpp">
+    <ClCompile Include="src\Game\Scenes\LevelScene.cpp">
       <Filter>Core\World</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\World\World.cpp">
@@ -202,7 +208,7 @@
     <ClCompile Include="src\Game\Crosshair.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\DJGameMode.cpp">
+    <ClCompile Include="src\Game\GameModes\DJGameMode.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\GameObjects\Doodle.cpp">
@@ -221,5 +227,11 @@
     <ClCompile Include="src\Game\GameObjects\FakePlatform.cpp" />
     <ClCompile Include="src\Game\GameObjects\Abilities\ImmunityAbility.cpp" />
     <ClCompile Include="src\Game\Components\UI\NumberComponent.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\NumberWidget.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\SpriteWidget.cpp" />
+    <ClCompile Include="src\Game\GameModes\MenuGameMode.cpp" />
+    <ClCompile Include="src\Core\World\Scene.cpp" />
+    <ClCompile Include="src\Game\Scenes\MenuScene.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\MenuController.cpp" />
   </ItemGroup>
 </Project>

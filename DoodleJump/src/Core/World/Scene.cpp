@@ -1,34 +1,20 @@
 #include "Scene.h"
 #include "Entities/GameMode.h"
-#include "Game/DJGameMode.h"
 #include "Entities/GameObject.h"
-#include "Components/GameComponent.h"
-#include "Components/SpriteComponent.h"
-#include "Framework.h"
-#include "Math/MyMath.h"
-#include "Components/CameraComponent.h"
+#include "CollisionSystem.h"
 #include "Renderer/Renderer.h"
 #include "Input/EventHandler.h"
-#include "Components/BoxComponent.h"
-#include "CollisionSystem.h"
+#include "Components/CameraComponent.h"
 
 #include <algorithm>
 
-#include <iostream>
-#include <sstream>
-
-
-Scene::Scene() : viewportWidth(100), viewportHeight(100)
+Scene::Scene()
 {
-	
+
 }
 
 void Scene::Start()
 {
-
-	
-
-	gameMode = std::make_shared<DJGameMode>();
 
 	gameMode->Start();
 
@@ -52,8 +38,8 @@ void Scene::Start()
 	}
 
 	started = true;
-	
-	
+
+
 }
 
 void Scene::Tick(float DeltaTime)
@@ -62,7 +48,7 @@ void Scene::Tick(float DeltaTime)
 	for (std::shared_ptr<BoxComponent>& object : collisionObjects)
 	{
 		ECollisionChannel channel = object->GetCollisionChannel();
-		if (channel == ECollisionChannel::Character || channel == ECollisionChannel::WorldDynamic )
+		if (channel == ECollisionChannel::Character || channel == ECollisionChannel::WorldDynamic)
 		{
 			for (std::shared_ptr<BoxComponent> other : collisionObjects)
 			{
@@ -256,4 +242,3 @@ void Scene::ClearScene()
 	drawObjects.clear();
 	tickObjects.clear();
 }
-

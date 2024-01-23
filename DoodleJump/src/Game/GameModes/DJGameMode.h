@@ -6,6 +6,8 @@
 
 class CameraComponent;
 class PlatformSpawner;
+class NumberWidget;
+class SpriteWidget;
 
 class DJGameMode : public GameMode
 {
@@ -32,8 +34,9 @@ public:
 private:
 
 	bool gameStarted = false;
-	double distanceScore = 0;
-	int platformScore = 0;
+	int32_t distanceScore = 0;
+	int32_t platformScore = 0;
+	int32_t playerLifes = 0;
 
 	Math::Vector2D horizontalBounds;
 
@@ -51,4 +54,9 @@ private:
 	double enemySpawnProbability = 0.05;
 	double abilitySpawnFrequency = 50;
 	std::bernoulli_distribution enemySpawnDistribution{ enemySpawnProbability };
+
+	std::shared_ptr<NumberWidget> distanceScoreWidget;
+	std::shared_ptr<NumberWidget> platformScoreWidget;
+	std::shared_ptr<NumberWidget> lifesWidget;
+
 };

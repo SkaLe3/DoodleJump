@@ -1,5 +1,5 @@
 #include "Monster.h"
-#include "DJGameMode.h"
+#include "GameModes/DJGameMode.h"
 #include "Doodle.h"
 
 #include <string>
