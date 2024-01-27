@@ -1,12 +1,10 @@
 #include "CollisionSystem.h"
 #include "Math/Vector.h"
 #include "Math/Vector2D.h"
+#include "World/World.h"
 
 #include <limits>
 
-
-#include <iostream>
-#include "World/World.h"
 namespace Physics
 {
 

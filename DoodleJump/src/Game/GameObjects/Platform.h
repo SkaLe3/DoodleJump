@@ -14,7 +14,7 @@ public:
 	void Reset();
 
 public:
-	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return spriteComponent; }
+	std::shared_ptr<SpriteComponent> GetSprite() const { return spriteComponent; }
 
 protected:
 	std::shared_ptr<SpriteComponent> spriteComponent;

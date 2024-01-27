@@ -12,7 +12,6 @@ public:
 
 public:
 
-
 	Math::Vector2D& GetVelocity() { return velocity; }
 
 	void SetGravity(double gravityValue);

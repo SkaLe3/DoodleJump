@@ -1,24 +1,16 @@
 #include "Doodle.h"
-#include "Components/SpriteComponent.h"
-#include "Math/Vector2D.h"
+
 #include "Crosshair.h"
 #include "GameModes/DJGameMode.h"
 #include "Projectile.h"
 #include "Abilities/ImmunityAbility.h"
+#include "Input/EventHandler.h"
+#include "Components/DoodleMovementComponent.h"
+#include "Components/FollowCameraComponent.h"
 
 #include "Framework.h"
 
-// TESTING
-#include <iostream>
-#include "World/World.h"
-#include "Input/EventHandler.h"
-#include "Input/TriggerEvent.h"
-#include "Input/InputAction.h"
-#include "Input/InputValue.h"
-#include "Components/DoodleMovementComponent.h"
-#include "Components/CameraComponent.h"
-#include "Components/FollowCameraComponent.h"
-#include <functional>
+
 Doodle::Doodle() : GameObject()
 {
 
@@ -31,10 +23,18 @@ Doodle::Doodle() : GameObject()
 	cameraComponent->SetProjection(72);
 	
 	movementComponent = CreateComponent<DoodleMovementComponent>();
-
 	crosshair = GetScene()->SpawnGameObject<Crosshair>();
 
 	boxComponent->SetHalfSize({ 1.8, 2.5 });
+	boxComponent->SetCollisionChannel(ECollisionChannel::Character);
+	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+
+	spriteComponent->GetTransform().Scale = { 6.9, 6.9, 1.0 };
+	spriteComponent->GetTransform().Translation = { 0.0, 0.7, 0.0 };
+
+	movementComponent->SetGravity(-140); // -140
+	movementComponent->SetMaxSpeed(40);
+	movementComponent->SetJumpVelocity(defaultJumpVelocity); //70
 
 	std::shared_ptr<AnimationMachine> animationMachine = std::make_shared<AnimationMachine>();
 	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateLeft = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
@@ -48,6 +48,7 @@ Doodle::Doodle() : GameObject()
 	spriteComponent->SetAnimationMachine(animationMachine);
 	spriteComponent->EnableAnimation();
 	spriteComponent->SwitchAnimationState("left");
+
 
 }
 
@@ -63,21 +64,7 @@ void Doodle::Start()
 	EventHandler::Get()->BindAction(EInputAction::Shoot, ETriggerEvent::Pressed, std::bind(&Doodle::Shoot, this, std::placeholders::_1));
 	boxComponent->OnBeginOverlap.Add(std::bind(&Doodle::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 
-
-	spriteComponent->GetTransform().Scale = { 6.9, 6.9, 1.0 };
-	spriteComponent->GetTransform().Translation = { 0.0, 0.7, 0.0 };
-
-	boxComponent->SetCollisionChannel(ECollisionChannel::Character);
-	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
-
-
-
-	movementComponent->SetGravity(-140); // -140
-	movementComponent->SetMaxSpeed(40);
-	movementComponent->SetJumpVelocity(defaultJumpVelocity); //70
-
 	SetTag("doodle");
-
 }
 
 void Doodle::Tick(double DeltaTime)
@@ -97,8 +84,6 @@ void Doodle::Tick(double DeltaTime)
 			immunity->SetLocation(boxComponent->GetTransform().Translation);
 		}
 	}
-
-	
 }
 
 void Doodle::Destroy()

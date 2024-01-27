@@ -8,6 +8,7 @@ class CameraComponent;
 class PlatformSpawner;
 class NumberWidget;
 class SpriteWidget;
+class Doodle;
 
 class DJGameMode : public GameMode
 {
@@ -16,8 +17,12 @@ public:
 
 	virtual void Start() override;
 	virtual void Tick(double DeltaTime) override;
+	virtual void Destroy() override;
 
 public:
+	void UpdateWidget(std::shared_ptr<NumberWidget> widget, int32_t& value, int32_t newValue);
+	void CreateWidget(const std::string& path, Math::Vector2D coords, Math::Vector2D scale, double zLocation);
+
 	void TeleportToRightWall(std::shared_ptr<GameObject> object);
 	void TeleportToLeftWall(std::shared_ptr<GameObject> object);
 
@@ -25,13 +30,16 @@ public:
 	void RespawnPlayer();
 	void SpawnEnemy();
 	void SpawnAbility();
+	void SpawnWall(std::shared_ptr<GameObject>& object, const std::string& tag);
 
 	void KillDoodle();
 	void GameOver();
 	void StartGame();
 
 
+
 private:
+	std::shared_ptr<Doodle> doodle;
 
 	bool gameStarted = false;
 	int32_t distanceScore = 0;

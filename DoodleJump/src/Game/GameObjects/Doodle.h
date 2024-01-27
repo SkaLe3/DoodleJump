@@ -16,7 +16,7 @@ public:
 	virtual void Tick(double DeltaTime) override;
 	virtual void Destroy() override;
 
-	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return spriteComponent; }
+	std::shared_ptr<SpriteComponent> GetSprite() const { return spriteComponent; }
 	std::shared_ptr<DoodleMovementComponent> GetMovementComponent() const { return movementComponent; }
 
 	Math::Vector2D GetVelocity() const;

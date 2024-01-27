@@ -1,15 +1,10 @@
 #pragma once
-
 #include "Object.h"
-#include "Math/MyMath.h"
-
 #include "World/World.h"
 #include "World/Scene.h"
-#include <memory>
+
 #include <string>
-//
-#include "Components/BoxComponent.h"
-//
+
 
 class SceneComponent;
 class BoxComponent;
@@ -29,7 +24,7 @@ public:
 
 
 	Math::Transform& GetTransform();
-	std::shared_ptr<BoxComponent> GetBoxComponent() { return boxComponent; }
+	std::shared_ptr<BoxComponent> GetBoxComponent();
 	Math::Vector2D GetLocation();
 	void SetLocation(const Math::Vector& location);
 

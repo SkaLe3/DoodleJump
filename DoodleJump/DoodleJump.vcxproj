@@ -151,6 +151,7 @@
     <ClCompile Include="src\Core\Components\BoxComponent.cpp" />
     <ClCompile Include="src\Core\Components\CameraComponent.cpp" />
     <ClCompile Include="src\Core\Components\MovementComponent.cpp" />
+    <ClCompile Include="src\Core\Components\SceneComponent.cpp" />
     <ClCompile Include="src\Core\Components\SpriteComponent.cpp" />
     <ClCompile Include="src\Core\Entities\GameObject.cpp" />
     <ClCompile Include="src\Core\Input\EventHandler.cpp" />

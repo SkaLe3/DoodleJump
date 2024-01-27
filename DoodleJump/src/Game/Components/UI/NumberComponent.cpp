@@ -20,8 +20,6 @@ NumberComponent::NumberComponent()
 	 digits.push_back(std::make_shared<MySprite>("assets/digits/8.png"));
 	 digits.push_back(std::make_shared<MySprite>("assets/digits/9.png"));
 	 digits.push_back(std::make_shared<MySprite>("assets/digits/empty.png"));
-
-
 }
 
 void NumberComponent::Start()
@@ -53,21 +51,18 @@ void NumberComponent::Destroy()
 void NumberComponent::Update(int32_t number)
 {
 	std::string num = std::to_string(number);
-	int32_t emptyAmount = sprites.size() - num.size();
+	size_t emptyAmount = sprites.size() - num.size();
 
-	for (int i = 0; i < emptyAmount; i++)
+	for (size_t i = 0; i < emptyAmount; i++)
 	{
 		sprites[i]->SetSprite(digits[10]);
 	}
-	for (int i = emptyAmount; i < sprites.size(); i++)
+	for (size_t i = emptyAmount; i < sprites.size(); i++)
 	{
 		char digit = num[i - emptyAmount];
 		int32_t ind = digit - '0';
 		sprites[i]->SetSprite(digits[ind]);
-		
 	}
-	
-
 }
 
 void NumberComponent::AddDigit(std::shared_ptr<SpriteComponent> sprite)

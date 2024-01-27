@@ -235,5 +235,6 @@
     <ClCompile Include="src\Game\Scenes\MenuScene.cpp" />
     <ClCompile Include="src\Game\GameObjects\UI\MenuController.cpp" />
     <ClCompile Include="src\Game\GameObjects\UI\PlayButton.cpp" />
+    <ClCompile Include="src\Core\Components\SceneComponent.cpp" />
   </ItemGroup>
 </Project>

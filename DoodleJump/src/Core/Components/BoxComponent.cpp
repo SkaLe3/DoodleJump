@@ -2,8 +2,6 @@
 #include "World/World.h"
 #include "Entities/GameObject.h"
 
-// testing
-#include <iostream>
 BoxComponent::BoxComponent() : SceneComponent(), boxHalfSize{ 0.5, 0.5 }, bCollisionEnabled(true)
 {
 	collisionResponce[ECollisionChannel::Character] = ECollisionResponse::Overlap;
@@ -17,12 +15,37 @@ BoxComponent::BoxComponent() : SceneComponent(), boxHalfSize{ 0.5, 0.5 }, bColli
 
 void BoxComponent::Start()
 {
-	SceneComponent::Start();
+
+}
+
+void BoxComponent::Tick(double DeltaTime)
+{
+
 }
 
 void BoxComponent::Destroy()
 {
 	GetScene()->DestroyCollisionObject(GetScene()->GetComponent(this));
+}
+
+void BoxComponent::SetHalfSize(const Math::Vector2D& newSize)
+{
+	boxHalfSize = newSize;
+}
+
+Math::Vector2D BoxComponent::GetHalfSize() const
+{
+	return boxHalfSize;
+}
+
+void BoxComponent::SetCollisionChannel(ECollisionChannel channel)
+{
+	collisionChannel = channel;
+}
+
+ECollisionChannel BoxComponent::GetCollisionChannel()
+{
+	return collisionChannel;
 }
 
 void BoxComponent::SetCollisionResponce(ECollisionChannel channel, ECollisionResponse response)
@@ -38,6 +61,11 @@ ECollisionResponse BoxComponent::GetCollisionResponce(ECollisionChannel channel)
 void BoxComponent::SetCollisionEnabled(bool bEnabled)
 {
 	bCollisionEnabled = bEnabled;
+}
+
+bool BoxComponent::IsCollisionEnabled()
+{
+	return bCollisionEnabled;
 }
 
 void BoxComponent::SetVelocity(Math::Vector2D newVelocity)

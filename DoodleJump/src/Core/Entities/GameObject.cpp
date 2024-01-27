@@ -2,14 +2,11 @@
 #include "Components/SceneComponent.h"
 #include "Components/BoxComponent.h"
 
-// testins
-#include <iostream>
 GameObject::GameObject() : tag("")
 {
 	boxComponent = CreateComponent<BoxComponent>();
 	rootComponent = boxComponent;
 }
-
 
 void GameObject::Start()
 {
@@ -30,6 +27,11 @@ void GameObject::Destroy()
 Math::Transform& GameObject::GetTransform()
 {
 	return rootComponent->GetTransform();
+}
+
+std::shared_ptr<BoxComponent> GameObject::GetBoxComponent()
+{
+	return boxComponent;
 }
 
 Math::Vector2D GameObject::GetLocation()

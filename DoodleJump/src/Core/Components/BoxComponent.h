@@ -36,20 +36,23 @@ public:
 	BoxComponent();
 
 	virtual void Start() override;
-	virtual void Tick(double DeltaTime) override { SceneComponent::Tick(DeltaTime); }
+	virtual void Tick(double DeltaTime) override;
 	virtual void Destroy() override;
 
-	void SetHalfSize(const Math::Vector2D& newSize) { boxHalfSize = newSize; }
-	Math::Vector2D GetHalfSize() const { return boxHalfSize; }
+public:
+	// Collision
+	void SetHalfSize(const Math::Vector2D& newSize);
+	Math::Vector2D GetHalfSize() const;
 
-	void SetCollisionChannel(ECollisionChannel channel) { collisionChannel = channel; }
-	ECollisionChannel GetCollisionChannel() { return collisionChannel; }
+	void SetCollisionChannel(ECollisionChannel channel);
+	ECollisionChannel GetCollisionChannel();
 
 	void SetCollisionResponce(ECollisionChannel channel, ECollisionResponse response);
 	ECollisionResponse GetCollisionResponce(ECollisionChannel channel);
 
 	void SetCollisionEnabled(bool bEnabled);
-	bool IsCollisionEnabled() { return bCollisionEnabled; }
+	bool IsCollisionEnabled();
+
 
 	// Movement
 	void SetVelocity(Math::Vector2D newVelocity);
@@ -67,9 +70,7 @@ private:
 
 	Math::Vector2D boxHalfSize;
 	bool bCollisionEnabled;
-
 	ECollisionChannel collisionChannel = ECollisionChannel::WorldStatic;
-
 	std::unordered_map<ECollisionChannel, ECollisionResponse> collisionResponce;
 
 	Math::Vector2D velocity;

@@ -27,16 +27,12 @@ void Projectile::Start()
 	movementComponent->SetOwner(projectile);
 
 	boxComponent->OnBeginOverlap.Add(std::bind(&Projectile::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-
-
-	spriteComponent->GetTransform().Scale = { 1, 1 , 1.0 };
-	spriteComponent->GetTransform().Translation = { 0.0, 0.0, 0.0 };
-
 	boxComponent->SetCollisionChannel(ECollisionChannel::WorldDynamic);
 	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 	boxComponent->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Ignore);
 
-
+	spriteComponent->GetTransform().Scale = { 1, 1 , 1.0 };
+	spriteComponent->GetTransform().Translation = { 0.0, 0.0, 0.0 };
 
 	movementComponent->SetGravity(0); 
 	movementComponent->SetMaxSpeed(50);

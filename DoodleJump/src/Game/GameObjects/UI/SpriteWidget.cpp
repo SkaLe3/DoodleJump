@@ -38,7 +38,7 @@ void SpriteWidget::SetCoordinates(Math::Vector2D coords)
 	coordinates = coords;
 }
 
-std::shared_ptr<SpriteComponent> SpriteWidget::GetSpriteComponent()
+std::shared_ptr<SpriteComponent> SpriteWidget::GetSprite()
 {
 	return spriteComponent;
 }

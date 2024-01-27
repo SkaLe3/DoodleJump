@@ -1,5 +1,13 @@
 #include "CameraComponent.h"
 
+void CameraComponent::Start()
+{
+}
+
+void CameraComponent::Tick(double DeltaTime)
+{
+}
+
 void CameraComponent::SetProjection(int32_t _size)
 {
 	orthographicSize = _size;
@@ -20,5 +28,10 @@ void CameraComponent::SetViewportSize(uint32_t width, uint32_t height)
 Math::Vector2D CameraComponent::GetCameraBounds()
 {
 	return Math::Vector2D(orthographicSize * aspectRatio, orthographicSize);
+}
+
+const Math::Mat4& CameraComponent::GetProjection() const
+{
+	return projection;
 }
 

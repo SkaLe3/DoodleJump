@@ -2,6 +2,7 @@
 #include "Math/Matrix4.h"
 
 #include <memory>
+
 class MySprite;
 
 struct RendererData
@@ -21,5 +22,4 @@ public:
 
 private:
 	static RendererData sData;
-	// May be add statistics on sprite count 
 };	

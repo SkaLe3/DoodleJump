@@ -16,7 +16,6 @@ class Object;
 class Scene
 {
 public:
-
 	Scene();
 	virtual void Start();
 	virtual void Tick(float DeltaTime);
@@ -49,7 +48,6 @@ public:
 			sprite->Start();
 		return sprite;
 	}
-
 	template<class T>
 	std::shared_ptr<T> SpawnGameObject()
 	{
@@ -59,6 +57,12 @@ public:
 			obj->Start();
 		return obj;
 	}
+
+public:
+	void UpdateCollisions();
+	void UpdateObjects(double deltaTime);
+	void RemoveDestroyed();
+	void ClearDestroyed();
 
 	void SetViewportSize(uint32_t width, uint32_t height);
 

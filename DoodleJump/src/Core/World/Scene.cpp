@@ -15,79 +15,83 @@ Scene::Scene()
 
 void Scene::Start()
 {
-
 	gameMode->Start();
 
-
-	for (std::shared_ptr<GameObject>& object : tickObjects)
-	{
-		object->Start();
-	}
-	for (std::shared_ptr<GameComponent>& component : tickComponents)
-	{
-		component->Start();
-	}
-	for (std::shared_ptr<BoxComponent>& object : collisionObjects)
-	{
-		object->Start();
-	}
-
-	for (std::shared_ptr<SpriteComponent>& object : drawObjects)
-	{
-		object->Start();
-	}
+	for (std::shared_ptr<GameObject>& object : tickObjects) { object->Start(); }
+	for (std::shared_ptr<GameComponent>& component : tickComponents) { component->Start(); }
+	for (std::shared_ptr<BoxComponent>& object : collisionObjects) { object->Start(); }
+	for (std::shared_ptr<SpriteComponent>& object : drawObjects) { object->Start(); }
 
 	started = true;
-
-
 }
 
 void Scene::Tick(float DeltaTime)
 {
 	gameMode->Tick(DeltaTime);
+	UpdateCollisions();
+	UpdateObjects(DeltaTime);
+	RemoveDestroyed();
+	ClearDestroyed();
+
+	// Sort in correct draw order
+	std::sort(drawObjects.begin(), drawObjects.end(),
+		[](std::shared_ptr<SpriteComponent>& s1, std::shared_ptr<SpriteComponent>& s2) {
+			return s1->GetTransform().Translation.z < s2->GetTransform().Translation.z;
+		});
+	Renderer::BeginScene(camera->GetProjection(), camera->GetTransformMatrix());
+
+	for (std::shared_ptr<SpriteComponent>& object : drawObjects)
+	{
+		Renderer::DrawSprite(object->GetTransformMatrix(), object->GetSprite());
+	}
+}
+
+void Scene::UpdateCollisions()
+{
 	for (std::shared_ptr<BoxComponent>& object : collisionObjects)
 	{
 		ECollisionChannel channel = object->GetCollisionChannel();
-		if (channel == ECollisionChannel::Character || channel == ECollisionChannel::WorldDynamic)
+		if (!(channel == ECollisionChannel::Character || channel == ECollisionChannel::WorldDynamic))
+			continue;
+
+		for (std::shared_ptr<BoxComponent> other : collisionObjects)
 		{
-			for (std::shared_ptr<BoxComponent> other : collisionObjects)
+			if (!(other != object
+				&& object->IsCollisionEnabled()
+				&& other->IsCollisionEnabled()
+				&& object->GetCollisionResponce(other->GetCollisionChannel()) == ECollisionResponse::Overlap
+				&& other->GetCollisionResponce(object->GetCollisionChannel()) == ECollisionResponse::Overlap
+				)) continue;
+
+			Math::Vector2D normal;
+			double result = Physics::SweptAABB(object->GetCollider(), other->GetCollider(), normal);
+			if (result < 1.0)
 			{
-				if (other != object
-					&& object->IsCollisionEnabled()
-					&& other->IsCollisionEnabled()
-					&& object->GetCollisionResponce(other->GetCollisionChannel()) == ECollisionResponse::Overlap
-					&& other->GetCollisionResponce(object->GetCollisionChannel()) == ECollisionResponse::Overlap
-					)
-				{
-					Math::Vector2D normal;
-					double result = Physics::SweptAABB(object->GetCollider(), other->GetCollider(), normal);
-					if (result < 1.0)
-					{
-						object->OnBeginOverlap(other->GetOwner(), normal, result);
-						other->OnBeginOverlap(object->GetOwner(), -normal, result);
-					}
-				}
+				object->OnBeginOverlap(other->GetOwner(), normal, result);
+				other->OnBeginOverlap(object->GetOwner(), -normal, result);
 			}
 		}
-
 	}
+}
 
+void Scene::UpdateObjects(double deltaTime)
+{
 	for (std::shared_ptr<GameComponent>& component : tickComponents)
 	{
-		component->Tick(DeltaTime);
+		component->Tick(deltaTime);
 	}
 	for (std::shared_ptr<GameObject>& object : tickObjects)
 	{
-		object->Tick(DeltaTime);
+		object->Tick(deltaTime);
 	}
 	for (std::shared_ptr<SpriteComponent>& object : drawObjects)
 	{
-		object->Tick(DeltaTime);
+		object->Tick(deltaTime);
 	}
+}
 
-
-
-
+void Scene::RemoveDestroyed()
+{
 	for (auto toDestory : destroyTickObjects)
 	{
 		auto it = std::find(tickObjects.begin(), tickObjects.end(), toDestory);
@@ -112,7 +116,6 @@ void Scene::Tick(float DeltaTime)
 		{
 			(*it)->DetachFromParent();
 			(*it)->RemoveOwner();
-			//std::cout << (*it).use_count() << std::endl;
 			collisionObjects.erase(it);
 		}
 	}
@@ -126,27 +129,14 @@ void Scene::Tick(float DeltaTime)
 			drawObjects.erase(it);
 		}
 	}
+}
 
+void Scene::ClearDestroyed()
+{
 	destroyTickObjects.clear();
 	destroyTickComponents.clear();
 	destroyCollisionObjects.clear();
 	destroyDrawObjects.clear();
-
-
-	// Correct Draw order
-	std::sort(drawObjects.begin(), drawObjects.end(),
-		[](std::shared_ptr<SpriteComponent>& s1, std::shared_ptr<SpriteComponent>& s2) {
-			return s1->GetTransform().Translation.z < s2->GetTransform().Translation.z;
-		});
-
-	Renderer::BeginScene(camera->GetProjection(), camera->GetTransformMatrix());
-
-	for (std::shared_ptr<SpriteComponent>& object : drawObjects)
-	{
-		Renderer::DrawSprite(object->GetTransformMatrix(), object->GetSpriteComponent());
-	}
-
-	// Delete objects
 }
 
 void Scene::SetViewportSize(uint32_t width, uint32_t height)
@@ -185,6 +175,7 @@ std::shared_ptr<GameComponent> Scene::GetComponent(GameComponent* component)
 	if (dc != drawObjects.end())
 		return *dc;
 
+	return nullptr;
 }
 
 Math::Vector2D Scene::GetMousePosition()
@@ -195,7 +186,6 @@ Math::Vector2D Scene::GetMousePosition()
 	Math::Mat4 transform = camera->GetTransformMatrix();
 
 	return  transform * projection * mousePos;
-
 }
 
 std::shared_ptr<CameraComponent> Scene::GetRenderCamera()

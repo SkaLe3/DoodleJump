@@ -11,8 +11,6 @@ void LevelScene::Start()
 {
 	gameMode = std::make_shared<DJGameMode>();
 	Scene::Start();
-	
-	
 }
 
 void LevelScene::Tick(float DeltaTime)

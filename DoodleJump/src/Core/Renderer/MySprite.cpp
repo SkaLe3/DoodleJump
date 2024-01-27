@@ -1,7 +1,6 @@
 #include "MySprite.h"
 #include "Framework.h"
 
-#include <iostream>
 MySprite::MySprite(const char* path)
 {
 	sprite = createSprite(path);

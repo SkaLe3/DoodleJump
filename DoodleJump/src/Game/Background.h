@@ -10,7 +10,7 @@ public:
 	virtual void Destroy() override;
 
 public:
-	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return spriteComponent; }
+	std::shared_ptr<SpriteComponent> GetSprite() const { return spriteComponent; }
 
 private:
 	std::shared_ptr<SpriteComponent> spriteComponent;

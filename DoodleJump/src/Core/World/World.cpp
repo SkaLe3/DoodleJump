@@ -10,8 +10,6 @@ void World::Update()
 	currentScene->Tick(DeltaTime);
 }
 
-
-
 void World::SetCurrentScene(std::shared_ptr<Scene> scene)
 {
 	currentScene = scene;
@@ -22,6 +20,12 @@ void World::SetCurrentScene(std::shared_ptr<Scene> scene)
 std::shared_ptr<Scene> World::GetCurrentScene()
 {
 	return currentScene;
+}
+
+std::shared_ptr<World> World::Create()
+{
+	sInstance = std::make_shared<World>();
+	return sInstance;
 }
 
 void World::Init(int32_t w, int32_t h)

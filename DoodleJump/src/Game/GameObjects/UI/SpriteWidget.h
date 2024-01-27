@@ -11,7 +11,7 @@ public:
 
 	void SetCoordinates(Math::Vector2D coords);
 
-	std::shared_ptr<SpriteComponent> GetSpriteComponent();
+	std::shared_ptr<SpriteComponent> GetSprite();
 
 private:
 	std::shared_ptr<SpriteComponent> spriteComponent;

@@ -8,8 +8,6 @@
 NumberWidget::NumberWidget() : GameObject()
 {
 	numberComponent = CreateComponent<NumberComponent>();
-
-
 }
 
 void NumberWidget::Start()
@@ -55,7 +53,6 @@ void NumberWidget::Init(int32_t digits)
 		spriteComp->GetTransform().Translation.z = 2;
 		numberComponent->AddDigit(spriteComp);
 	}
-
 }
 
 void NumberWidget::Update(int32_t number)

@@ -1,7 +1,5 @@
 #include "DoodleMovementComponent.h"
 #include "Entities/GameObject.h"
-// Testings
-#include <iostream>
 
 DoodleMovementComponent::DoodleMovementComponent() : MovementComponent(), jumpVelocity(20)
 {
@@ -17,7 +15,6 @@ void DoodleMovementComponent::Tick(double deltaTime)
 	MovementComponent::Tick(deltaTime);
 
 	velocity.x = 0;
-
 }
 
 void DoodleMovementComponent::AddMovementInput(Math::Vector2D direction)

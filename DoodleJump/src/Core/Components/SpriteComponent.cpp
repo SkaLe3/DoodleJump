@@ -32,6 +32,16 @@ void SpriteComponent::Destroy()
 	GetScene()->DestroyDrawObject(GetScene()->GetComponent(this));
 }
 
+void SpriteComponent::SetSprite(std::shared_ptr<MySprite> newSprite)
+{
+	sprite = newSprite;
+}
+
+std::shared_ptr<MySprite> SpriteComponent::GetSprite() const
+{
+	return sprite; 
+}
+
 void SpriteComponent::EnableAnimation()
 {
 	bAnimationEnabled = true;

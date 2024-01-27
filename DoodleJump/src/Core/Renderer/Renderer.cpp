@@ -3,8 +3,6 @@
 #include "Renderer/MySprite.h"
 #include "Framework.h"
 
-// testing
-#include <iostream>
 RendererData Renderer::sData;
 
 void Renderer::Init()
@@ -16,7 +14,6 @@ void Renderer::Init()
 void Renderer::BeginScene(const Math::Mat4& cameraProjection, const Math::Mat4& cameraTransform)
 {
 	sData.viewProjection = cameraProjection * Math::Inverse(cameraTransform);
-
 }
 
 void Renderer::DrawSprite(const Math::Mat4& transform, std::shared_ptr<MySprite> sprite)
@@ -35,11 +32,6 @@ void Renderer::DrawSprite(const Math::Mat4& transform, std::shared_ptr<MySprite>
 	// Offset sprite origin to its geometrical center
 	int32_t offsetX = sizeX / 2.0;
 	int32_t offsetY = sizeY / 2.0;
-
-
-	//std::cout << position.x << ", " << position.y << std::endl;
-	
-
 
 	setSpriteSize(sprite->Get(), sizeX, sizeY);
 	drawSprite(sprite->Get(), position.x - offsetX, position.y - offsetY);

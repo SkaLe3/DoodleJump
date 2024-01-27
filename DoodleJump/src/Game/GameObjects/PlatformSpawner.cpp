@@ -96,7 +96,7 @@ void PlatformSpawner::SpawnPools()
 	{
 		std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<Platform>();
 		defaultPlatformPool.push_back(platform);
-		platform->GetSpriteComponent()->SetSprite(defaultPlatformSprite);
+		platform->GetSprite()->SetSprite(defaultPlatformSprite);
 		platform->SetTag("platform");
 
 	}
@@ -104,9 +104,9 @@ void PlatformSpawner::SpawnPools()
 	{
 		std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<FakePlatform>();
 		fakePlatformPool.push_back(platform);
-		platform->GetSpriteComponent()->SetAnimationMachine(fakePlatformAnimation);
-		platform->GetSpriteComponent()->EnableAnimation();
-		platform->GetSpriteComponent()->SwitchAnimationState("idle");
+		platform->GetSprite()->SetAnimationMachine(fakePlatformAnimation);
+		platform->GetSprite()->EnableAnimation();
+		platform->GetSprite()->SwitchAnimationState("idle");
 		platform->SetTag("fake platform");
 	}
 
