@@ -25,11 +25,11 @@ void Scene::Start()
 	started = true;
 }
 
-void Scene::Tick(float DeltaTime)
+void Scene::Tick(float deltaTime)
 {
-	gameMode->Tick(DeltaTime);
+	gameMode->Tick(deltaTime);
 	UpdateCollisions();
-	UpdateObjects(DeltaTime);
+	UpdateObjects(deltaTime);
 	RemoveDestroyed();
 	ClearDestroyed();
 

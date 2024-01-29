@@ -13,7 +13,7 @@ class Doodle : public GameObject
 public:
 	Doodle();
 	virtual void Start() override;
-	virtual void Tick(double DeltaTime) override;
+	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
 
 	std::shared_ptr<SpriteComponent> GetSprite() const { return spriteComponent; }

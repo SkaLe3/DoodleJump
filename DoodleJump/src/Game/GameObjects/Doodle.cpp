@@ -67,9 +67,9 @@ void Doodle::Start()
 	SetTag("doodle");
 }
 
-void Doodle::Tick(double DeltaTime)
+void Doodle::Tick(double deltaTime)
 {
-	GameObject::Tick(DeltaTime);
+	GameObject::Tick(deltaTime);
 
 	if (HasImmunity())
 	{
@@ -80,7 +80,7 @@ void Doodle::Tick(double DeltaTime)
 		}
 		else
 		{
-			immunityTimer += DeltaTime;
+			immunityTimer += deltaTime;
 			immunity->SetLocation(boxComponent->GetTransform().Translation);
 		}
 	}

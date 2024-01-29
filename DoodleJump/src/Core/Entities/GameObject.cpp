@@ -13,7 +13,7 @@ void GameObject::Start()
 	boxComponent->SetOwner(GetScene()->GetObject(this));
 }
 
-void GameObject::Tick(double DeltaTime)
+void GameObject::Tick(double deltaTime)
 {
 
 }

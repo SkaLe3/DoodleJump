@@ -33,7 +33,7 @@ void NumberComponent::Start()
 	}
 }
 
-void NumberComponent::Tick(double DeltaTime)
+void NumberComponent::Tick(double deltaTime)
 {
 
 }

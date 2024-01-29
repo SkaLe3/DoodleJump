@@ -20,7 +20,7 @@ void DJGameMode::Start()
 	StartGame();
 }
 
-void DJGameMode::Tick(double DeltaTime)
+void DJGameMode::Tick(double deltaTime)
 {
 	Math::Vector2D camBounds = camera->GetCameraBounds();
 	Math::Vector camPos = camera->GetTransform().Translation;
@@ -111,7 +111,7 @@ void DJGameMode::SpawnWall(std::shared_ptr<GameObject>& object, const std::strin
 {
 	object = GetScene()->SpawnGameObject<GameObject>();
 	object->SetTag(tag);
-	object->GetBoxComponent()->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	object->GetBoxComponent()->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Overlap);
 	object->GetBoxComponent()->SetCollisionResponce(ECollisionChannel::WorldStatic, ECollisionResponse::Ignore);
 }
 

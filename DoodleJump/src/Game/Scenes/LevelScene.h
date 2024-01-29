@@ -10,6 +10,6 @@ public:
 	LevelScene();
 
 	virtual void Start() override;
-	virtual void Tick(float DeltaTime) override;
+	virtual void Tick(float deltaTime) override;
 
 };

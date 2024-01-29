@@ -12,7 +12,7 @@ class NumberComponent : public GameComponent
 public:
 	NumberComponent();
 	virtual void Start() override;
-	virtual void Tick(double DeltaTime) override;
+	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
 
 	void Update(int32_t number);

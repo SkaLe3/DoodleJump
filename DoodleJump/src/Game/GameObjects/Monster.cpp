@@ -32,9 +32,9 @@ void Monster::Start()
 	SetTag("monster");
 }
 
-void Monster::Tick(double DeltaTime)
+void Monster::Tick(double deltaTime)
 {
-	GameObject::Tick(DeltaTime);
+	GameObject::Tick(deltaTime);
 }
 
 void Monster::Destroy()

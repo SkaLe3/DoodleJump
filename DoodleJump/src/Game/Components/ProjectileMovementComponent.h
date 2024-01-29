@@ -7,7 +7,7 @@ public:
 	ProjectileMovementComponent();
 
 	virtual void Start() override;
-	virtual void Tick(double DeltaTime) override;
+	virtual void Tick(double deltaTime) override;
 
 	void SetInitialVelocity(Math::Vector2D initialVelocity);
 private:

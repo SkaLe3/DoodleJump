@@ -12,7 +12,7 @@ class MenuGameMode : public GameMode
 public:
 	MenuGameMode();
 	virtual void Start() override;
-	virtual void Tick(double DeltaTime) override;
+	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
 
 	void Click(Math::Vector2D mousePos);

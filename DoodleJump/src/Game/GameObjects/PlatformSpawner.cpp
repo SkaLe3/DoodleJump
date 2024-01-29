@@ -38,9 +38,9 @@ void PlatformSpawner::Start()
 
 }
 
-void PlatformSpawner::Tick(double DeltaTime)
+void PlatformSpawner::Tick(double deltaTime)
 {
-	GameObject::Tick(DeltaTime);
+	GameObject::Tick(deltaTime);
 
 	double location = player->GetTransform().Translation.y;
 

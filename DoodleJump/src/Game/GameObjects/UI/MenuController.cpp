@@ -27,7 +27,7 @@ void MenuController::Start()
 	boxComponent->SetCollisionEnabled(false);
 }
 
-void MenuController::Tick(double deltatime)
+void MenuController::Tick(double deltaTime)
 {
 
 }

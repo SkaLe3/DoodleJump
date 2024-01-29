@@ -18,7 +18,7 @@ void BoxComponent::Start()
 
 }
 
-void BoxComponent::Tick(double DeltaTime)
+void BoxComponent::Tick(double deltaTime)
 {
 
 }

@@ -14,7 +14,7 @@ class World
 {
 public:
 
-	float GetDeltaTime() { return DeltaTime; }
+	float GetDeltaTime() { return deltaTime; }
 	void Update();
 	void Init(int32_t w, int32_t h);
 
@@ -33,7 +33,7 @@ public:
 	static std::shared_ptr<World> Get() { return sInstance; }
 
 private:
-	float DeltaTime;
+	float deltaTime;
 	std::vector<std::shared_ptr<Scene>> scenes;
 	std::shared_ptr<Scene> currentScene;
 	int32_t width, height;

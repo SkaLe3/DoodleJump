@@ -7,9 +7,9 @@ void FollowCameraComponent::Start()
 	CameraComponent::Start();
 }
 
-void FollowCameraComponent::Tick(double DeltaTime)
+void FollowCameraComponent::Tick(double deltaTime)
 {
-	CameraComponent::Tick(DeltaTime);
+	CameraComponent::Tick(deltaTime);
 	if (!bFollowEnabled)
 		return;
 	std::shared_ptr<Doodle> doodle = dynamic_pointer_cast<Doodle>(owner);

@@ -7,6 +7,6 @@ public:
 	MenuScene();
 
 	virtual void Start() override;
-	virtual void Tick(float DeltaTime) override;
+	virtual void Tick(float deltaTime) override;
 
 };

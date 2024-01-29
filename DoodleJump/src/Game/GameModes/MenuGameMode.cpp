@@ -42,7 +42,8 @@ void MenuGameMode::Start()
 	playButton = GetScene()->SpawnGameObject<PlayButton>();
 }
 
-void MenuGameMode::Tick(double DeltaTime)
+void MenuGameMode::Tick(double 
+)
 {
 }
 

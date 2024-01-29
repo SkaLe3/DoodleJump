@@ -38,10 +38,10 @@ void Projectile::Start()
 	movementComponent->SetMaxSpeed(50);
 }
 
-void Projectile::Tick(double DeltaTime)
+void Projectile::Tick(double deltaTime)
 {
-	GameObject::Tick(DeltaTime);
-	autoDestroyTimer += DeltaTime;
+	GameObject::Tick(deltaTime);
+	autoDestroyTimer += deltaTime;
 
 	if (autoDestroyTimer > 2)
 		Destroy();

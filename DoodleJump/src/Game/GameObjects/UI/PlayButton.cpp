@@ -27,9 +27,9 @@ void PlayButton::Start()
 	
 }
 
-void PlayButton::Tick(double DeltaTime)
+void PlayButton::Tick(double deltaTime)
 {
-	GameObject::Tick(DeltaTime);
+	GameObject::Tick(deltaTime);
 }
 
 void PlayButton::Destroy()

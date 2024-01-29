@@ -18,7 +18,7 @@ class Scene
 public:
 	Scene();
 	virtual void Start();
-	virtual void Tick(float DeltaTime);
+	virtual void Tick(float deltaTime);
 
 public:
 	template<class T>

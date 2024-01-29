@@ -26,9 +26,9 @@ void Crosshair::Start()
 	boxComponent->SetCollisionEnabled(false);
 }
 
-void Crosshair::Tick(double DeltaTime)
+void Crosshair::Tick(double deltaTime)
 {
-	GameObject::Tick(DeltaTime);
+	GameObject::Tick(deltaTime);
 
 	Math::Vector2D mousePos = GetScene()->GetMousePosition();
 

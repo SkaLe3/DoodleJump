@@ -62,7 +62,7 @@ public:
 
 	virtual bool Tick() {
 		float Time = (float) (getTickCount() / 1000.0f);
-		world->DeltaTime = Time - LastTime;
+		world->deltaTime = Time - LastTime;
 		LastTime = Time;
 
 		// Generate Triggered Event

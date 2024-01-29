@@ -4,7 +4,7 @@ void CameraComponent::Start()
 {
 }
 
-void CameraComponent::Tick(double DeltaTime)
+void CameraComponent::Tick(double deltaTime)
 {
 }
 

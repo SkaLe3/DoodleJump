@@ -6,7 +6,7 @@ class FollowCameraComponent : public CameraComponent
 public:
 	FollowCameraComponent() = default;
 	virtual void Start() override;
-	virtual void Tick(double DeltaTime) override;
+	virtual void Tick(double deltaTime) override;
 
 	void FollowEnable(bool bEnable);
 private:

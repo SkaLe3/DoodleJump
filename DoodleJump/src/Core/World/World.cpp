@@ -7,7 +7,7 @@ std::shared_ptr<World> World::sInstance = nullptr;
 
 void World::Update()
 {
-	currentScene->Tick(DeltaTime);
+	currentScene->Tick(deltaTime);
 }
 
 void World::SetCurrentScene(std::shared_ptr<Scene> scene)

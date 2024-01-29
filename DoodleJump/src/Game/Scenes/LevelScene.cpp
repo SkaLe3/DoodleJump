@@ -13,8 +13,8 @@ void LevelScene::Start()
 	Scene::Start();
 }
 
-void LevelScene::Tick(float DeltaTime)
+void LevelScene::Tick(float deltaTime)
 {
-	Scene::Tick(DeltaTime);
+	Scene::Tick(deltaTime);
 }
 

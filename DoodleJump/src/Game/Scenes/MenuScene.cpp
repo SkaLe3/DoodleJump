@@ -12,7 +12,7 @@ void MenuScene::Start()
 	Scene::Start();
 }
 
-void MenuScene::Tick(float DeltaTime)
+void MenuScene::Tick(float deltaTime)
 {
-	Scene::Tick(DeltaTime);
+	Scene::Tick(deltaTime);
 }

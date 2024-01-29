@@ -8,14 +8,14 @@ SpriteComponent::~SpriteComponent()
 
 }
 
-void SpriteComponent::Tick(double DeltaTime)
+void SpriteComponent::Tick(double deltaTime)
 {
 	if (!bAnimationEnabled)
 		return;
 	if (currentTime < frameTime)
 	{
 		sprite = (*animationState)[index];
-		currentTime += DeltaTime;
+		currentTime += deltaTime;
 		return;
 	}
 
@@ -23,7 +23,7 @@ void SpriteComponent::Tick(double DeltaTime)
 	index++;
 	index = std::clamp(index, (size_t)0, (size_t)animationState->size()-1);
 	sprite = (*animationState)[index];
-	currentTime += DeltaTime;
+	currentTime += deltaTime;
 
 }
 

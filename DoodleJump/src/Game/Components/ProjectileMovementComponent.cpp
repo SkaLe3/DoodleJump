@@ -10,9 +10,9 @@ void ProjectileMovementComponent::Start()
 	MovementComponent::Start();
 }
 
-void ProjectileMovementComponent::Tick(double DeltaTime)
+void ProjectileMovementComponent::Tick(double deltaTime)
 {
-	MovementComponent::Tick(DeltaTime);
+	MovementComponent::Tick(deltaTime);
 }
 
 void ProjectileMovementComponent::SetInitialVelocity(Math::Vector2D initialVelocity)
