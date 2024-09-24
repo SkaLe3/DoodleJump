@@ -10,6 +10,8 @@
 
 #include "Framework.h"
 
+#include "Core/Base/Log.h"
+
 
 Doodle::Doodle() : GameObject()
 {
@@ -39,8 +41,8 @@ Doodle::Doodle() : GameObject()
 	std::shared_ptr<AnimationMachine> animationMachine = std::make_shared<AnimationMachine>();
 	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateLeft = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
 	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateRight = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
-	animStateLeft->emplace_back(std::make_shared<MySprite>("assets/player-left@2x.png"));
-	animStateRight->emplace_back(std::make_shared<MySprite>("assets/player-right@2x.png"));
+	animStateLeft->emplace_back(std::make_shared<MySprite>("assets2/player-left@2x.png"));
+	animStateRight->emplace_back(std::make_shared<MySprite>("assets2/player-right@2x.png"));
 
 	(*animationMachine)["left"] = std::make_pair(animStateLeft, 1);
 	(*animationMachine)["right"] = std::make_pair(animStateRight, 1);
@@ -48,8 +50,13 @@ Doodle::Doodle() : GameObject()
 	spriteComponent->SetAnimationMachine(animationMachine);
 	spriteComponent->EnableAnimation();
 	spriteComponent->SwitchAnimationState("left");
+	OBJECT_LOG_CONSTRUCTOR()
 
+}
 
+Doodle::~Doodle()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void Doodle::Start()

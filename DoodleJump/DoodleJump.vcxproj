@@ -58,7 +58,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;D_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;src\Core;src\Game;..\vendor\Framework\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -77,7 +77,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;D_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;src\Core;src\Game;..\vendor\Framework\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -97,6 +97,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Base\Log.h" />
     <ClInclude Include="src\Core\Components\BoxCollider.h" />
     <ClInclude Include="src\Core\Components\BoxComponent.h" />
     <ClInclude Include="src\Core\Components\CameraComponent.h" />
@@ -123,9 +124,6 @@
     <ClInclude Include="src\Core\Renderer\MySprite.h" />
     <ClInclude Include="src\Core\Renderer\Renderer.h" />
     <ClInclude Include="src\Core\World\CollisionSystem.h" />
-    <ClInclude Include="src\Game\GameObjects\UI\MenuController.h" />
-    <ClInclude Include="src\Game\GameObjects\UI\PlayButton.h" />
-    <ClInclude Include="src\Game\Scenes\LevelScene.h" />
     <ClInclude Include="src\Core\World\Scene.h" />
     <ClInclude Include="src\Core\World\World.h" />
     <ClInclude Include="src\Game\Background.h" />
@@ -143,8 +141,11 @@
     <ClInclude Include="src\Game\GameObjects\Platform.h" />
     <ClInclude Include="src\Game\GameObjects\PlatformSpawner.h" />
     <ClInclude Include="src\Game\GameObjects\Projectile.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\MenuController.h" />
     <ClInclude Include="src\Game\GameObjects\UI\NumberWidget.h" />
+    <ClInclude Include="src\Game\GameObjects\UI\PlayButton.h" />
     <ClInclude Include="src\Game\GameObjects\UI\SpriteWidget.h" />
+    <ClInclude Include="src\Game\Scenes\LevelScene.h" />
     <ClInclude Include="src\Game\Scenes\MenuScene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +165,6 @@
     <ClCompile Include="src\Core\Renderer\MySprite.cpp" />
     <ClCompile Include="src\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Core\World\CollisionSystem.cpp" />
-    <ClCompile Include="src\Game\GameObjects\UI\MenuController.cpp" />
-    <ClCompile Include="src\Game\GameObjects\UI\PlayButton.cpp" />
-    <ClCompile Include="src\Game\Scenes\LevelScene.cpp" />
     <ClCompile Include="src\Core\World\Scene.cpp" />
     <ClCompile Include="src\Core\World\World.cpp" />
     <ClCompile Include="src\Game\Background.cpp" />
@@ -182,12 +180,15 @@
     <ClCompile Include="src\Game\GameObjects\FakePlatform.cpp" />
     <ClCompile Include="src\Game\GameObjects\Monster.cpp" />
     <ClCompile Include="src\Game\GameObjects\Platform.cpp" />
-    <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\Game\GameObjects\PlatformSpawner.cpp" />
     <ClCompile Include="src\Game\GameObjects\Projectile.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\MenuController.cpp" />
     <ClCompile Include="src\Game\GameObjects\UI\NumberWidget.cpp" />
+    <ClCompile Include="src\Game\GameObjects\UI\PlayButton.cpp" />
     <ClCompile Include="src\Game\GameObjects\UI\SpriteWidget.cpp" />
+    <ClCompile Include="src\Game\Scenes\LevelScene.cpp" />
     <ClCompile Include="src\Game\Scenes\MenuScene.cpp" />
+    <ClCompile Include="src\game.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

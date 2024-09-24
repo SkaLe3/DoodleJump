@@ -7,6 +7,7 @@ class PlayButton : public GameObject
 {
 public:
 	PlayButton();
+	~PlayButton();
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;

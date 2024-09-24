@@ -37,9 +37,11 @@ project "DoodleJump"
 		systemversion "latest"
 
 	filter "configurations:Debug"
+        defines {"D_DEBUG"}
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
+        defines {"D_RELEASE"}
 		runtime "Release"
 		optimize "on"

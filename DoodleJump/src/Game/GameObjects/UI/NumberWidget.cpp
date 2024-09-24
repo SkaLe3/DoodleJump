@@ -8,6 +8,12 @@
 NumberWidget::NumberWidget() : GameObject()
 {
 	numberComponent = CreateComponent<NumberComponent>();
+	OBJECT_LOG_CONSTRUCTOR()
+}
+
+NumberWidget::~NumberWidget()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void NumberWidget::Start()

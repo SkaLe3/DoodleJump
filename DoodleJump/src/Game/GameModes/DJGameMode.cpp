@@ -13,6 +13,12 @@
 
 DJGameMode::DJGameMode()
 {
+	OBJECT_LOG_CONSTRUCTOR()
+}
+
+DJGameMode::~DJGameMode()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void DJGameMode::Start()
@@ -146,7 +152,12 @@ void DJGameMode::StartGame()
 	doodle = static_pointer_cast<Doodle>(player);
 
 	// Spawn Background
-	GetScene()->SpawnGameObject<Background>();
+	// TODO: Create Childclass LevelBackground and MenuBackground
+	std::shared_ptr<Background> background = GetScene()->SpawnGameObject<Background>();
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/background.png");
+	background->GetSprite()->SetSprite(spriteRef);
+	background->GetSprite()->GetTransform().Scale = { 134.44, 72, 1 };
+	background->GetSprite()->GetTransform().Translation = { 4.5, 0, -1 };
 
 	// Spawn Platform Spawner
 	platformSpawner = GetScene()->SpawnGameObject<PlatformSpawner>();
@@ -201,11 +212,11 @@ void DJGameMode::StartGame()
 	lifesWidget->Init(1);
 	lifesWidget->Start();
 
-	CreateWidget("assets/top.png", { 0, 34.5 }, { camBounds.x, 4.106 }, 1);
-	CreateWidget("assets/platform.png", { 15, 34.5 }, { 4, 1.08 }, 2);
-	CreateWidget("assets/heart.png", { 2, 34.5 }, { 2, 2 }, 2);
-	CreateWidget("assets/distance_icon.png", { -7, 34.5 }, {2, 2}, 2);
-	CreateWidget("assets/underwater-light@2x.png", {0, 18.35}, {camBounds.x, 35.3}, -0.6);
+	CreateWidget("assets2/top.png", { 0, 34.5 }, { camBounds.x, 4.106 }, 1);
+	CreateWidget("assets2/platform.png", { 15, 34.5 }, { 4, 1.08 }, 2);
+	CreateWidget("assets2/heart.png", { 2, 34.5 }, { 2, 2 }, 2);
+	CreateWidget("assets2/distance_icon.png", { -7, 34.5 }, {2, 2}, 2);
+	CreateWidget("assets2/underwater-light@2x.png", {0, 18.35}, {camBounds.x, 35.3}, -0.6);
 
 }
 

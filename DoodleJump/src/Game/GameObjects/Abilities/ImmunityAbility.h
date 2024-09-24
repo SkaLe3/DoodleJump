@@ -8,6 +8,7 @@ class ImmunityAbility : public GameObject
 {
 public:
 	ImmunityAbility();
+	~ImmunityAbility();
 
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;

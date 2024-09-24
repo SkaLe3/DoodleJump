@@ -3,16 +3,23 @@
 #include "Doodle.h"
 
 #include <string>
+#include "Core/Base/Log.h"
 
 Monster::Monster()
 {
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/monster.png");
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/monster.png");
 	spriteComponent->SetSprite(spriteRef);
 
 	boxComponent->SetHalfSize({ 3, 2.73 });
+	OBJECT_LOG_CONSTRUCTOR()
+}
+
+Monster::~Monster()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void Monster::Start()

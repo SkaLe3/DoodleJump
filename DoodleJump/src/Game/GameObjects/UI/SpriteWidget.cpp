@@ -1,11 +1,18 @@
 #include "SpriteWidget.h"
 #include "Components/SpriteComponent.h"
 #include "Components/CameraComponent.h"
+#include "Core/Base/Log.h"
 
 SpriteWidget::SpriteWidget() : GameObject()
 {
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
+	OBJECT_LOG_CONSTRUCTOR()
+}
+
+SpriteWidget::~SpriteWidget()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void SpriteWidget::Start()

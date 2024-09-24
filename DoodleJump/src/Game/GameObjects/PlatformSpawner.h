@@ -14,6 +14,7 @@ class PlatformSpawner : public GameObject
 {
 public:
 	PlatformSpawner();
+	~PlatformSpawner();
 
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;

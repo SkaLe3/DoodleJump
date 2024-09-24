@@ -7,6 +7,7 @@ class NumberWidget : public GameObject
 {
 public:
 	NumberWidget();
+	~NumberWidget();
 
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;

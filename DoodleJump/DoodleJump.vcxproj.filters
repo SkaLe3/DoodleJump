@@ -4,6 +4,9 @@
     <Filter Include="Core">
       <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Base">
+      <UniqueIdentifier>{78DDB915-E447-6E8C-2D86-1F32992F4CE1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Core\Components">
       <UniqueIdentifier>{83E0320B-EF6B-A0CF-F87C-23C46487FCCF}</UniqueIdentifier>
     </Filter>
@@ -28,11 +31,29 @@
     <Filter Include="Game\Components">
       <UniqueIdentifier>{3441F2CD-A0CC-5F92-A9DD-E28615E8BB92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Components\UI">
+      <UniqueIdentifier>{E1F77384-CDDB-34DA-363C-2F2D223F1F5C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameModes">
+      <UniqueIdentifier>{4053A54C-2C21-9952-15B5-0979012275B7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Game\GameObjects">
       <UniqueIdentifier>{F2EA5487-DEE3-73D9-0716-595EF36D53E5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObjects\Abilities">
+      <UniqueIdentifier>{F7199FE8-E329-4BB9-4CE3-AFD738123A52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObjects\UI">
+      <UniqueIdentifier>{DF30AAB7-4B92-87C5-D4FF-CD774060BE84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes">
+      <UniqueIdentifier>{CF35DC29-3BEB-541F-C4DF-4EF630944B23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Base\Log.h">
+      <Filter>Core\Base</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Components\BoxCollider.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
@@ -102,13 +123,16 @@
     <ClInclude Include="src\Core\Math\Vector4D.h">
       <Filter>Core\Math</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Renderer\MySprite.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Renderer\Renderer.h">
       <Filter>Core\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\World\CollisionSystem.h">
       <Filter>Core\World</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Scenes\LevelScene.h">
+    <ClInclude Include="src\Core\World\Scene.h">
       <Filter>Core\World</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\World\World.h">
@@ -123,33 +147,60 @@
     <ClInclude Include="src\Game\Components\FollowCameraComponent.h">
       <Filter>Game\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Components\ProjectileMovementComponent.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Components\UI\NumberComponent.h">
+      <Filter>Game\Components\UI</Filter>
+    </ClInclude>
     <ClInclude Include="src\Game\Crosshair.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\GameModes\DJGameMode.h">
-      <Filter>Game</Filter>
+      <Filter>Game\GameModes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameModes\MenuGameMode.h">
+      <Filter>Game\GameModes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\Abilities\ImmunityAbility.h">
+      <Filter>Game\GameObjects\Abilities</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\GameObjects\Doodle.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\FakePlatform.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\Monster.h">
       <Filter>Game\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\GameObjects\Platform.h">
       <Filter>Game\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\GameObjects\PlatformSpawner.h" />
-    <ClInclude Include="src\Game\GameObjects\Projectile.h" />
-    <ClInclude Include="src\Game\Components\ProjectileMovementComponent.h" />
-    <ClInclude Include="src\Game\GameObjects\Monster.h" />
-    <ClInclude Include="src\Core\Renderer\MySprite.h" />
-    <ClInclude Include="src\Game\GameObjects\FakePlatform.h" />
-    <ClInclude Include="src\Game\GameObjects\Abilities\ImmunityAbility.h" />
-    <ClInclude Include="src\Game\Components\UI\NumberComponent.h" />
-    <ClInclude Include="src\Game\GameObjects\UI\NumberWidget.h" />
-    <ClInclude Include="src\Game\GameObjects\UI\SpriteWidget.h" />
-    <ClInclude Include="src\Game\GameModes\MenuGameMode.h" />
-    <ClInclude Include="src\Core\World\Scene.h" />
-    <ClInclude Include="src\Game\Scenes\MenuScene.h" />
-    <ClInclude Include="src\Game\GameObjects\UI\MenuController.h" />
-    <ClInclude Include="src\Game\GameObjects\UI\PlayButton.h" />
+    <ClInclude Include="src\Game\GameObjects\PlatformSpawner.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\Projectile.h">
+      <Filter>Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\UI\MenuController.h">
+      <Filter>Game\GameObjects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\UI\NumberWidget.h">
+      <Filter>Game\GameObjects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\UI\PlayButton.h">
+      <Filter>Game\GameObjects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\UI\SpriteWidget.h">
+      <Filter>Game\GameObjects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Scenes\LevelScene.h">
+      <Filter>Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Scenes\MenuScene.h">
+      <Filter>Game\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Components\BoxComponent.cpp">
@@ -159,6 +210,12 @@
       <Filter>Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\Components\MovementComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Components\SceneComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Components\SpriteComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\Entities\GameObject.cpp">
@@ -185,13 +242,16 @@
     <ClCompile Include="src\Core\Math\Vector4D.cpp">
       <Filter>Core\Math</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\Renderer\MySprite.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Core\Renderer\Renderer.cpp">
       <Filter>Core\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\World\CollisionSystem.cpp">
       <Filter>Core\World</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Scenes\LevelScene.cpp">
+    <ClCompile Include="src\Core\World\Scene.cpp">
       <Filter>Core\World</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\World\World.cpp">
@@ -206,35 +266,60 @@
     <ClCompile Include="src\Game\Components\FollowCameraComponent.cpp">
       <Filter>Game\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Components\ProjectileMovementComponent.cpp">
+      <Filter>Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Components\UI\NumberComponent.cpp">
+      <Filter>Game\Components\UI</Filter>
+    </ClCompile>
     <ClCompile Include="src\Game\Crosshair.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\GameModes\DJGameMode.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\GameModes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameModes\MenuGameMode.cpp">
+      <Filter>Game\GameModes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\Abilities\ImmunityAbility.cpp">
+      <Filter>Game\GameObjects\Abilities</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\GameObjects\Doodle.cpp">
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\FakePlatform.cpp">
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\Monster.cpp">
       <Filter>Game\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\GameObjects\Platform.cpp">
       <Filter>Game\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\PlatformSpawner.cpp">
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\Projectile.cpp">
+      <Filter>Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\UI\MenuController.cpp">
+      <Filter>Game\GameObjects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\UI\NumberWidget.cpp">
+      <Filter>Game\GameObjects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\UI\PlayButton.cpp">
+      <Filter>Game\GameObjects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\UI\SpriteWidget.cpp">
+      <Filter>Game\GameObjects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Scenes\LevelScene.cpp">
+      <Filter>Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Scenes\MenuScene.cpp">
+      <Filter>Game\Scenes</Filter>
+    </ClCompile>
     <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\Game\GameObjects\PlatformSpawner.cpp" />
-    <ClCompile Include="src\Core\Components\SpriteComponent.cpp" />
-    <ClCompile Include="src\Game\GameObjects\Projectile.cpp" />
-    <ClCompile Include="src\Game\Components\ProjectileMovementComponent.cpp" />
-    <ClCompile Include="src\Game\GameObjects\Monster.cpp" />
-    <ClCompile Include="src\Core\Renderer\MySprite.cpp" />
-    <ClCompile Include="src\Game\GameObjects\FakePlatform.cpp" />
-    <ClCompile Include="src\Game\GameObjects\Abilities\ImmunityAbility.cpp" />
-    <ClCompile Include="src\Game\Components\UI\NumberComponent.cpp" />
-    <ClCompile Include="src\Game\GameObjects\UI\NumberWidget.cpp" />
-    <ClCompile Include="src\Game\GameObjects\UI\SpriteWidget.cpp" />
-    <ClCompile Include="src\Game\GameModes\MenuGameMode.cpp" />
-    <ClCompile Include="src\Core\World\Scene.cpp" />
-    <ClCompile Include="src\Game\Scenes\MenuScene.cpp" />
-    <ClCompile Include="src\Game\GameObjects\UI\MenuController.cpp" />
-    <ClCompile Include="src\Game\GameObjects\UI\PlayButton.cpp" />
-    <ClCompile Include="src\Core\Components\SceneComponent.cpp" />
   </ItemGroup>
 </Project>

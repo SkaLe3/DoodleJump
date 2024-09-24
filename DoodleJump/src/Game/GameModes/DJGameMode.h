@@ -14,6 +14,7 @@ class DJGameMode : public GameMode
 {
 public:
 	DJGameMode();
+	~DJGameMode();
 
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;

@@ -7,6 +7,7 @@ class Monster : public GameObject
 {
 public:
 	Monster();
+	~Monster();
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;

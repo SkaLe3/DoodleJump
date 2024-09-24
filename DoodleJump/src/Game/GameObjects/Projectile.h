@@ -11,11 +11,11 @@ class Projectile : public GameObject
 {
 public:
 	Projectile();
+	~Projectile();
 
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
-	virtual ~Projectile();
 public:
 	void OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
 	void Launch(Math::Vector2D direction, double speed);

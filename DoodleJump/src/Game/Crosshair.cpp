@@ -2,15 +2,21 @@
 #include "Input/EventHandler.h"
 #include "Math/Vector2D.h"
 #include "Framework.h"
+#include "Core/Base/Log.h"
 
 Crosshair::Crosshair()
 {
 	spriteComponent = CreateComponent<SpriteComponent>();
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/crosshair.png");
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/crosshair.png");
 	spriteComponent->SetSprite(spriteRef);
+	OBJECT_LOG_CONSTRUCTOR()
+}
 
+Crosshair::~Crosshair()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void Crosshair::Start()

@@ -17,11 +17,12 @@
 #include <iostream>
 // END TESTING
 
-/* Test Framework realization */
-class MyFramework : public Framework {
+/* Test Framework implementation */
+class MyFramework : public Framework
+{
 
 public:
-	MyFramework(uint32_t w, uint32_t h, bool fs) : swidth(w), sheight(h), fullscreenMode(fs){}
+	MyFramework(uint32_t w, uint32_t h, bool fs) : swidth(w), sheight(h), fullscreenMode(fs) {}
 
 	virtual void PreInit(int& width, int& height, bool& fullscreen)
 	{
@@ -30,17 +31,18 @@ public:
 		fullscreen = fullscreenMode;
 	}
 
-	virtual bool Init() {
+	virtual bool Init()
+	{
 		world = World::Create();
 		eventHandler = EventHandler::Create();
 		eventHandler->Init();
-		
+
 		Renderer::Init();
 
 		KeyStates[FRKey::RIGHT] = false;
-		KeyStates[FRKey::LEFT]  = false;
-		KeyStates[FRKey::DOWN]  = false;
-		KeyStates[FRKey::UP]	= false;
+		KeyStates[FRKey::LEFT] = false;
+		KeyStates[FRKey::DOWN] = false;
+		KeyStates[FRKey::UP] = false;
 		KeyStates[FRKey::COUNT] = false;
 
 		MouseStates[FRMouseButton::LEFT] = false;
@@ -56,17 +58,19 @@ public:
 		return true;
 	}
 
-	virtual void Close() {
+	virtual void Close()
+	{
 
 	}
 
-	virtual bool Tick() {
-		float Time = (float) (getTickCount() / 1000.0f);
+	virtual bool Tick()
+	{
+		float Time = (float)(getTickCount() / 1000.0f);
 		world->deltaTime = Time - LastTime;
 		LastTime = Time;
 
 		// Generate Triggered Event
-		for (auto it = KeyStates.begin(); it != KeyStates.end(); ++it) 
+		for (auto it = KeyStates.begin(); it != KeyStates.end(); ++it)
 			if (it->second)
 				eventHandler->PushEvent(std::make_shared<KeyEvent>(it->first, EInputType::Key, ETriggerEvent::Triggered));
 
@@ -82,34 +86,38 @@ public:
 		return false;
 	}
 
-	virtual void onMouseMove(int x, int y, int xrelative, int yrelative) {
-		Math::Vector2D coords({ (float) x,(float) y });
+	virtual void onMouseMove(int x, int y, int xrelative, int yrelative)
+	{
+		Math::Vector2D coords({ (float)x,(float)y });
 		eventHandler->PushEvent(std::make_shared<MouseMoveEvent>(coords, EInputType::MouseMove, ETriggerEvent::Triggered));
 	}
 
-	virtual void onMouseButtonClick(FRMouseButton button, bool isReleased) {
+	virtual void onMouseButtonClick(FRMouseButton button, bool isReleased)
+	{
 		if (isReleased)
 		{
 			eventHandler->PushEvent(std::make_shared<MouseButtonEvent>(button, EInputType::MouseButton, ETriggerEvent::Released));
 			MouseStates[button] = false;
 		}
 		else
-		{	
+		{
 			eventHandler->PushEvent(std::make_shared<MouseButtonEvent>(button, EInputType::MouseButton, ETriggerEvent::Pressed));
 			MouseStates[button] = true;
 		}
 	}
 
-	virtual void onKeyPressed(FRKey k) {	
+	virtual void onKeyPressed(FRKey k)
+	{
 		eventHandler->PushEvent(std::make_shared<KeyEvent>(k, EInputType::Key, ETriggerEvent::Pressed));
 		KeyStates[k] = true;
 	}
 
-	virtual void onKeyReleased(FRKey k) {
+	virtual void onKeyReleased(FRKey k)
+	{
 		eventHandler->PushEvent(std::make_shared<KeyEvent>(k, EInputType::Key, ETriggerEvent::Released));
 		KeyStates[k] = false;
 	}
-	
+
 	virtual const char* GetTitle() override
 	{
 		return "DoodleJump";
@@ -127,7 +135,7 @@ public:
 	bool fullscreenMode;
 };
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	uint32_t width, height;
 	bool fullscreen = false;
@@ -135,11 +143,22 @@ int main(int argc, char *argv[])
 	{
 
 		std::string windowSize;
-		for (int i = 0; i < argc; i++)
-			if (std::string(argv[i]) == "-window" && argc > i+1)
+		for (int i = 1; i < argc; i++)
+		{
+			if (std::string(argv[i]) == "-window" && argc > i + 1)
+			{
 				windowSize = argv[i + 1];
+			}
 			else if (std::string(argv[i]) == "-fullscreen")
+			{
 				fullscreen = true;
+				windowSize = "400x800";
+			}
+			else
+			{
+				return 1;
+			}
+		}
 
 		char x;
 		std::istringstream iss(windowSize);
@@ -147,7 +166,10 @@ int main(int argc, char *argv[])
 		iss >> width >> x >> height;
 
 		if (iss.fail())
-			std::cout << "Failed to set winodw size";
+		{
+			std::cout << "Failed to set window size";
+			return 1;
+		}
 
 	}
 	else

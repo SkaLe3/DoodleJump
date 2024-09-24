@@ -4,7 +4,8 @@
 class Background : public GameObject
 {
 public:
-	Background();
+	Background();	
+	~Background();
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;

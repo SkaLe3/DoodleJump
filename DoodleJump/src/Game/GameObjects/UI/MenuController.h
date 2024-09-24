@@ -6,6 +6,7 @@ class MenuController : public GameObject
 {
 public:
 	MenuController();
+	~MenuController();
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;

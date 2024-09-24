@@ -13,6 +13,12 @@ MenuController::MenuController()
 	cameraComponent = CreateComponent<CameraComponent>();
 	GetScene()->UseCamera(cameraComponent);
 	cameraComponent->SetProjection(72);
+	OBJECT_LOG_CONSTRUCTOR()
+}
+
+MenuController::~MenuController()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void MenuController::Start()

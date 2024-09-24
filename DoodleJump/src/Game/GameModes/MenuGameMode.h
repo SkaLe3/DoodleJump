@@ -11,6 +11,7 @@ class MenuGameMode : public GameMode
 {
 public:
 	MenuGameMode();
+	~MenuGameMode();
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;

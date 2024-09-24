@@ -12,6 +12,7 @@ class Doodle : public GameObject
 {
 public:
 	Doodle();
+	~Doodle();
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;

@@ -8,6 +8,7 @@ class Crosshair : public GameObject
 {
 public:
 	Crosshair();
+	~Crosshair();
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;

@@ -18,7 +18,12 @@
 
 MenuGameMode::MenuGameMode()
 {
+	OBJECT_LOG_CONSTRUCTOR()
+}
 
+MenuGameMode::~MenuGameMode()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void MenuGameMode::Start()
@@ -29,7 +34,7 @@ void MenuGameMode::Start()
 	player = GetScene()->SpawnGameObject<MenuController>();
 	// Spawn Background
 	std::shared_ptr<Background> background = GetScene()->SpawnGameObject<Background>();
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/Menu.png");
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/Menu.png");
 	background->GetSprite()->SetSprite(spriteRef);
 	background->GetSprite()->GetTransform().Scale = { 36, 54, 1 };
 	background->GetSprite()->GetTransform().Translation = { 0, 0, -1 };

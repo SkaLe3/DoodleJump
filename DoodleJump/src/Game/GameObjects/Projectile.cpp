@@ -5,6 +5,7 @@
 #include "GameModes/DJGameMode.h"
 #include "Math/MyMath.h"
 
+#include "Core/Base/Log.h"
 Projectile::Projectile() : GameObject()
 {
 	spriteComponent = CreateComponent<SpriteComponent>();
@@ -12,10 +13,19 @@ Projectile::Projectile() : GameObject()
 
 	movementComponent = CreateComponent<ProjectileMovementComponent>();
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/bubble@2x.png");
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/bubble@2x.png");
+
+	std::shared_ptr<MySprite> spriteRef2 = std::make_shared<MySprite>("assets2/bubble@2x.png");
+	spriteRef2 = nullptr;
 	spriteComponent->SetSprite(spriteRef);
 
 	boxComponent->SetHalfSize({ 1, 1 });
+
+	OBJECT_LOG_CONSTRUCTOR()
+}
+Projectile::~Projectile()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void Projectile::Start()
@@ -54,10 +64,7 @@ void Projectile::Destroy()
 	spriteComponent->Destroy();
 }
 
-Projectile::~Projectile()
-{
 
-}
 
 void Projectile::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {

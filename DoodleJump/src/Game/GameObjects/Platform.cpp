@@ -1,5 +1,5 @@
 #include "Platform.h"
-
+#include "Core/Base/Log.h"
 Platform::Platform() : GameObject()
 {
 	spriteComponent = CreateComponent<SpriteComponent>();
@@ -9,7 +9,12 @@ Platform::Platform() : GameObject()
 	spriteComponent->GetTransform().Translation.z = -0.5;
 	boxComponent->SetHalfSize({ 2.7, 0.5 });
 	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	OBJECT_LOG_CONSTRUCTOR()
+}
 
+Platform::~Platform()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void Platform::Start()

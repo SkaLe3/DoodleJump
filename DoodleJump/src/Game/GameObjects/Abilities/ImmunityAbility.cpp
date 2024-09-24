@@ -9,8 +9,14 @@ ImmunityAbility::ImmunityAbility() : GameObject()
 	spriteComponent->SetupAttachment(GetBoxComponent());
 
 	boxComponent->SetHalfSize({3, 3 });
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets/shield.png");
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/shield.png");
 	spriteComponent->SetSprite(spriteRef);
+	OBJECT_LOG_CONSTRUCTOR()
+}
+
+ImmunityAbility::~ImmunityAbility()
+{
+	OBJECT_LOG_DESTRUCTOR()
 }
 
 void ImmunityAbility::Start()
