@@ -21,3 +21,4 @@ void SceneComponent::DetachFromParent()
 {
 	parent = nullptr;
 }
+

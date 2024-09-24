@@ -42,10 +42,11 @@ void NumberWidget::Tick(double deltaTime)
 	boxComponent->GetTransform().Translation = { camPos.x + coordinates.x, camPos.y + coordinates.y, 0 };
 }
 
+
 void NumberWidget::Destroy()
 {
 	GameObject::Destroy();
-
+	numberComponent->Destroy();
 }
 
 void NumberWidget::Init(int32_t digits)

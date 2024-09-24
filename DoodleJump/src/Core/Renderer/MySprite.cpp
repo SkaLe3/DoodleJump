@@ -12,7 +12,7 @@ MySprite::MySprite(const char* path)
 MySprite::~MySprite()
 {
 	destroySprite(sprite);
-	LOG("MySprite d-tor: " + std::string(GET_SPRITE_PATH()))
+	LOG("\033[33mMySprite d-tor: " + std::string(GET_SPRITE_PATH()) + "\033[0m")
 }
 
 Sprite* MySprite::Get()

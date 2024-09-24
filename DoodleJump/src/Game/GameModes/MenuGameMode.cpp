@@ -63,9 +63,6 @@ void MenuGameMode::Click(Math::Vector2D mousePos)
 
 	if (isClicked)
 	{
-		GetScene()->ClearScene();
-
-		auto newScene = GetWorld()->CreateScene<LevelScene>();
-		GetWorld()->SetCurrentScene(newScene);
+		GetWorld()->OpenScene<LevelScene>();
 	}
 }

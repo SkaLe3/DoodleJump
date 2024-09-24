@@ -20,6 +20,7 @@ public:
 	void Init();
 
 	void BindAction(EInputAction, ETriggerEvent, std::function<void(InputValue&)> func);
+	void ClearBindings();
 	void PushEvent(std::shared_ptr<InputEvent> ie);
 	void HandleEvents();
 

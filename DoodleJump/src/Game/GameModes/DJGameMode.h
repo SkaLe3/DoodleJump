@@ -22,7 +22,7 @@ public:
 
 public:
 	void UpdateWidget(std::shared_ptr<NumberWidget> widget, int32_t& value, int32_t newValue);
-	void CreateWidget(const std::string& path, Math::Vector2D coords, Math::Vector2D scale, double zLocation);
+	void CreateWidget(const char* path, Math::Vector2D coords, Math::Vector2D scale, double zLocation);
 
 	void TeleportToRightWall(std::shared_ptr<GameObject> object);
 	void TeleportToLeftWall(std::shared_ptr<GameObject> object);

@@ -19,6 +19,13 @@ public:
 	void Init(int32_t w, int32_t h);
 
 	template<class T>
+	void OpenScene()
+	{
+		CreateScene<T>();
+		shouldSwitchToLastScene = true;
+	}
+
+	template<class T>
 	std::shared_ptr<Scene> CreateScene()
 	{
 		std::shared_ptr<Scene> newScene = std::make_shared<T>();
@@ -37,6 +44,8 @@ private:
 	std::vector<std::shared_ptr<Scene>> scenes;
 	std::shared_ptr<Scene> currentScene;
 	int32_t width, height;
+
+	bool shouldSwitchToLastScene = false;
 
 	static std::shared_ptr<World> sInstance;
 

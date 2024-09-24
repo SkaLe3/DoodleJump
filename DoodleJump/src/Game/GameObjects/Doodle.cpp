@@ -98,6 +98,7 @@ void Doodle::Destroy()
 	GameObject::Destroy();
 	spriteComponent->Destroy();
 	movementComponent->Destroy();
+	cameraComponent->Destroy();
 }
 
 Math::Vector2D Doodle::GetVelocity() const

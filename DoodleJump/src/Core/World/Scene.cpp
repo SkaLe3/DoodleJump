@@ -30,8 +30,8 @@ void Scene::Tick(float deltaTime)
 	gameMode->Tick(deltaTime);
 	UpdateCollisions();
 	UpdateObjects(deltaTime);
-	RemoveDestroyed();
-	ClearDestroyed();
+	RemoveDestroyed(); // Removes destroyed objects from registry
+	ClearDestroyed(); // Clears vectors containing destroyed objects
 
 	// Sort in correct draw order
 	std::sort(drawObjects.begin(), drawObjects.end(),
@@ -87,6 +87,14 @@ void Scene::UpdateObjects(double deltaTime)
 	for (std::shared_ptr<SpriteComponent>& object : drawObjects)
 	{
 		object->Tick(deltaTime);
+	}
+}
+
+void Scene::DestroyAll()
+{
+	for (auto& object : tickObjects)
+	{
+		object->Destroy();
 	}
 }
 
@@ -227,8 +235,8 @@ void Scene::DestroyDrawObject(std::shared_ptr<Object> object)
 void Scene::ClearScene()
 {
 	camera = nullptr;
-	tickComponents.clear();
-	collisionObjects.clear();
-	drawObjects.clear();
-	tickObjects.clear();
+	gameMode = nullptr;
+	DestroyAll();
+	RemoveDestroyed();
+	ClearDestroyed();
 }

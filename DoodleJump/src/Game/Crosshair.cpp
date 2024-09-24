@@ -44,5 +44,5 @@ void Crosshair::Tick(double deltaTime)
 void Crosshair::Destroy()
 {
 	GameObject::Destroy();
-	spriteComponent->Destroy();
+	spriteComponent->Destroy();	
 }

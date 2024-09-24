@@ -8,7 +8,7 @@ public:
 	CameraComponent() = default;
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
-	virtual void Destroy() override {}
+	virtual void Destroy() override;
 
 public:
 	void SetProjection(int32_t size);

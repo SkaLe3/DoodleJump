@@ -23,8 +23,8 @@ PlayButton::~PlayButton()
 void PlayButton::Start()
 {
 	GameObject::Start();
-	auto buttron = GetScene()->GetObject(this);
-	spriteComponent->SetOwner(buttron);
+	auto button = GetScene()->GetObject(this);
+	spriteComponent->SetOwner(button);
 
 	spriteComponent->GetTransform().Scale = { 12, 4.32, 1.0 };
 

@@ -2,12 +2,21 @@
 #include "Scene.h"
 #include "Scenes/LevelScene.h"
 #include "Scenes/MenuScene.h"
+#include "Input/EventHandler.h"
 
 std::shared_ptr<World> World::sInstance = nullptr;
 
 void World::Update()
 {
 	currentScene->Tick(deltaTime);
+	if (shouldSwitchToLastScene)
+	{
+		currentScene->ClearScene();
+		EventHandler::Get()->ClearBindings();
+		SetCurrentScene(scenes.back());
+		scenes.erase(scenes.begin());
+		shouldSwitchToLastScene = false;
+	}
 }
 
 void World::SetCurrentScene(std::shared_ptr<Scene> scene)

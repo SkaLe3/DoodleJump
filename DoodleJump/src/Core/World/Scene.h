@@ -61,6 +61,7 @@ public:
 public:
 	void UpdateCollisions();
 	void UpdateObjects(double deltaTime);
+	void DestroyAll();
 	void RemoveDestroyed();
 	void ClearDestroyed();
 

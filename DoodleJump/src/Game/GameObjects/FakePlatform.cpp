@@ -32,10 +32,6 @@ void FakePlatform::Tick(double deltaTime)
 
 }
 
-void FakePlatform::Destroy()
-{
-	Platform::Destroy();
-}
 
 void FakePlatform::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {

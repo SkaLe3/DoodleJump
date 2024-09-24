@@ -10,6 +10,7 @@
 #include "GameObjects/UI/NumberWidget.h"
 #include "Components/UI/NumberComponent.h"
 #include "GameObjects/UI/SpriteWidget.h"
+#include "Scenes/MenuScene.h"
 
 DJGameMode::DJGameMode()
 {
@@ -65,12 +66,12 @@ void DJGameMode::UpdateWidget(std::shared_ptr<NumberWidget> widget, int32_t& val
 	}
 }
 
-void DJGameMode::CreateWidget(const std::string& path, Math::Vector2D coords, Math::Vector2D scale, double zLocation)
+void DJGameMode::CreateWidget(const char* path, Math::Vector2D coords, Math::Vector2D scale, double zLocation)
 {
 	std::shared_ptr<SpriteWidget> sprite = GetScene()->SpawnGameObject<SpriteWidget>();
 	sprite->SetCoordinates(coords);
 	std::shared_ptr<SpriteComponent> sc = sprite->GetSprite();
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>(path.c_str());
+	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>(path);
 	sc->SetSprite(spriteRef);
 	sc->GetTransform().Scale = { scale, 1 };
 	sc->GetTransform().Translation.z = zLocation;
@@ -130,17 +131,7 @@ void DJGameMode::KillDoodle()
 void DJGameMode::GameOver()
 {
 	showCursor(true);
-	GetScene()->ClearScene();
-	camera = nullptr;
-	platformSpawner = nullptr;
-	rightWall = nullptr;
-	leftWall = nullptr;
-	floor = nullptr;
-	distanceScoreWidget = nullptr;
-	platformScoreWidget = nullptr;
-	lifesWidget = nullptr;
-
-	StartGame();
+	GetWorld()->OpenScene<MenuScene>();
 }
 
 void DJGameMode::StartGame()

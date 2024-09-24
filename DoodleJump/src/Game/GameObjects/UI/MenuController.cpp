@@ -40,7 +40,8 @@ void MenuController::Tick(double deltaTime)
 
 void MenuController::Destroy()
 {
-	cameraComponent->Destroy();
+	GameObject::Destroy();
+	cameraComponent->Destroy();	   
 }
 
 void MenuController::Click(InputValue& value)

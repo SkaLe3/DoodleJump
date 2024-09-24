@@ -1,4 +1,6 @@
 #include "CameraComponent.h"
+#include "World/Scene.h"
+#include "World/World.h"
 
 void CameraComponent::Start()
 {
@@ -6,6 +8,12 @@ void CameraComponent::Start()
 
 void CameraComponent::Tick(double deltaTime)
 {
+}
+
+
+void CameraComponent::Destroy()
+{
+	GetScene()->DestroyTickComponent(GetScene()->GetComponent(this));
 }
 
 void CameraComponent::SetProjection(int32_t _size)

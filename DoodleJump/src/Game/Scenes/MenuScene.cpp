@@ -15,4 +15,5 @@ void MenuScene::Start()
 void MenuScene::Tick(float deltaTime)
 {
 	Scene::Tick(deltaTime);
+
 }

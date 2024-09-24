@@ -21,6 +21,11 @@ void EventHandler::BindAction(EInputAction action, ETriggerEvent triggerEvent, s
 	bindings[action][triggerEvent] = func;
 }
 
+void EventHandler::ClearBindings()
+{
+	bindings.clear();
+}
+
 void EventHandler::PushEvent(std::shared_ptr<InputEvent> ie)
 {
 	queue.push(ie);

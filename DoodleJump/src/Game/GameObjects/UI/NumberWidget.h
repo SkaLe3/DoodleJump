@@ -12,6 +12,7 @@ public:
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
+
 	void Init(int32_t digits);
 	void Update(int32_t number);
 
