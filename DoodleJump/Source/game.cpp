@@ -9,7 +9,7 @@
 int main(int argc, char* argv[])
 {
 	uint32_t width, height;
-	uint32_t minWidth = 300, minHeight = 600;
+	uint32_t minWidth = 200, minHeight = 400;
 	bool fullscreen = false;
 	if (argc > 1)
 	{
@@ -43,10 +43,20 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 
+		if (width < minWidth)
+		{
+			width = minWidth;
+			LOG("Specified window width too low, window width was adjusted to " + std::to_string(width))
+		}
+		if (height < minHeight)
+		{
+			height = minHeight;
+			LOG("Specified window height too low, window width was adjusted to " + std::to_string(height))
+		}
 	}
 	else
 	{
-		width = 300;
+		width = 400;
 		height = 800;
 		fullscreen = false;
 	}
