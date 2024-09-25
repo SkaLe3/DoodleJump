@@ -2,26 +2,25 @@ project "DoodleJump"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++20"
-    targetdir "bin/%{cfg.buildcfg}"
     staticruntime "off"
 
     files
     {
-        "src/**.h",
-        "src/**.cpp"
+        "Source/**.h",
+        "Source/**.cpp"
     }
 
     includedirs
     {
-        "src",
-        "src/Core",
-        "src/Game",
+        "Source",
+        "Source/Core",
+        "Source/Game",
         "%{IncludeDir.Framework}"
     }
 
     libdirs
     {
-        "../vendor/Framework/lib"
+        "{wks.location}/ThirdParty/Framework/lib"
     }
 
     links
@@ -29,8 +28,8 @@ project "DoodleJump"
         "FrameworkRelease_x64"
     }
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    targetdir ("{wks.location}/Build/Binaries/" .. outputdir .. "/%{prj.name}")
+	objdir ("{wks.location}/Build/Intermediate/" .. outputdir .. "/%{prj.name}")
 
     filter "system:windows"
         defines { "_WINDOWS"}

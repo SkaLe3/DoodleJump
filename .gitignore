@@ -1,7 +1,9 @@
 # Directories
 .vs/
-DoodleJump/bin/
-DoodleJump/bin-int/
+Build/
 
 # Files
 **.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
