@@ -2,3 +2,6 @@
 .vs/
 DoodleJump/bin/
 DoodleJump/bin-int/
+
+# Files
+**.sln
