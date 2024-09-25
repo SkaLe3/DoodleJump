@@ -19,6 +19,7 @@ This project is a basic clone of the popular mobile game Doodle Jump. The goal w
 * Monsters
 * Shooting
 * Immunity ability
+* Platform spawner
 * UI widgets
     * Distance counter
     * Platform counter

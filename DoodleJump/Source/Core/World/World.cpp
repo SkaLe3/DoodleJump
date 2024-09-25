@@ -47,6 +47,15 @@ void World::Init(int32_t w, int32_t h)
 }
 
 
+void World::Shutdown()
+{
+	for (auto& scene : scenes)
+	{
+		scene->ClearScene();
+	}
+	EventHandler::Get()->ClearBindings();
+}
+
 std::shared_ptr<World> GetWorld() {
 	return World::Get();
 }

@@ -17,6 +17,7 @@ public:
 	float GetDeltaTime() { return deltaTime; }
 	void Update();
 	void Init(int32_t w, int32_t h);
+	void Shutdown();
 
 	template<class T>
 	void OpenScene()

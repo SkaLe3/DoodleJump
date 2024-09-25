@@ -7,15 +7,14 @@
 #include "Input/EventHandler.h"
 #include "World/World.h"
 #include "Renderer/Renderer.h"
+#include "Core/Base/Log.h"
+
 #include <unordered_map>
 #include <memory> 
 #include <sstream>
 #include <string>
 
-// TESTING 
-#include "Math/MyMath.h"
-#include <iostream>
-// END TESTING
+
 
 /* Test Framework implementation */
 class MyFramework : public Framework
@@ -60,7 +59,7 @@ public:
 
 	virtual void Close()
 	{
-
+		world->Shutdown();
 	}
 
 	virtual bool Tick()
@@ -167,7 +166,7 @@ int main(int argc, char* argv[])
 
 		if (iss.fail())
 		{
-			std::cout << "Failed to set window size";
+			LOG("Failed to set window size");
 			return 1;
 		}
 
