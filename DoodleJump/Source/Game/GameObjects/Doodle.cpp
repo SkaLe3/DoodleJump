@@ -22,7 +22,7 @@ Doodle::Doodle() : GameObject()
 	// Don't need attachment
 	cameraComponent = CreateComponent<FollowCameraComponent>();
 	GetScene()->UseCamera(cameraComponent);
-	cameraComponent->SetProjection(72);
+	cameraComponent->SetProjection(36);
 	
 	movementComponent = CreateComponent<DoodleMovementComponent>();
 	crosshair = GetScene()->SpawnGameObject<Crosshair>();

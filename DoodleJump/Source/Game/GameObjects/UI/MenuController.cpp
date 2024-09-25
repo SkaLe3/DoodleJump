@@ -12,7 +12,7 @@ MenuController::MenuController()
 	// Don't need attachment
 	cameraComponent = CreateComponent<CameraComponent>();
 	GetScene()->UseCamera(cameraComponent);
-	cameraComponent->SetProjection(72);
+	cameraComponent->SetProjection(36);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
