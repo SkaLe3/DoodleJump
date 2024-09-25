@@ -20,7 +20,7 @@ project "DoodleJump"
 
     libdirs
     {
-        "{wks.location}/ThirdParty/Framework/lib"
+        "%{wks.location}/ThirdParty/Framework/lib"
     }
 
     links
@@ -28,8 +28,8 @@ project "DoodleJump"
         "FrameworkRelease_x64"
     }
 
-    targetdir ("{wks.location}/Build/Binaries/" .. outputdir .. "/%{prj.name}")
-	objdir ("{wks.location}/Build/Intermediate/" .. outputdir .. "/%{prj.name}")
+    targetdir ("%{wks.location}/Build/Binaries/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/Build/Intermediate/" .. outputdir .. "/%{prj.name}")
 
     filter "system:windows"
         defines { "_WINDOWS"}
