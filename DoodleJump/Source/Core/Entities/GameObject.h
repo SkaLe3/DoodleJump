@@ -18,21 +18,24 @@ public:
 	{
 		return GetScene()->CreateComponent<T>();
 	}
+
+	//~ Begin Object Interface
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
-
+	//~ End Object Interface
 
 	Math::Transform& GetTransform();
 	std::shared_ptr<BoxComponent> GetBoxComponent();
 	Math::Vector2D GetLocation();
-	void SetLocation(const Math::Vector& location);
-
-	void SetTag(const std::string& newTag);
 	std::string GetTag();
-protected:
-	std::shared_ptr<SceneComponent> rootComponent;
-	std::shared_ptr<BoxComponent> boxComponent;
 
-	std::string tag;
+	void SetLocation(const Math::Vector& location);
+	void SetTag(const std::string& newTag);
+
+protected:
+	std::shared_ptr<SceneComponent> m_RootComponent;
+	std::shared_ptr<BoxComponent> m_BoxComponent;
+
+	std::string m_Tag;
 };

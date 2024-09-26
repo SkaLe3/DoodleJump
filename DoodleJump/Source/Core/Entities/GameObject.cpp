@@ -2,15 +2,15 @@
 #include "Components/SceneComponent.h"
 #include "Components/BoxComponent.h"
 
-GameObject::GameObject() : tag("")
+GameObject::GameObject() : m_Tag("")
 {
-	boxComponent = CreateComponent<BoxComponent>();
-	rootComponent = boxComponent;
+	m_BoxComponent = CreateComponent<BoxComponent>();
+	m_RootComponent = m_BoxComponent;
 }
 
 void GameObject::Start()
 {
-	boxComponent->SetOwner(GetScene()->GetObject(this));
+	m_BoxComponent->SetOwner(GetScene()->GetObject(this));
 }
 
 void GameObject::Tick(double deltaTime)
@@ -21,35 +21,35 @@ void GameObject::Tick(double deltaTime)
 void GameObject::Destroy()
 {
 	GetScene()->DestroyGameObject(GetScene()->GetObject(this));
-	boxComponent->Destroy();
+	m_BoxComponent->Destroy();
 }
 
 Math::Transform& GameObject::GetTransform()
 {
-	return rootComponent->GetTransform();
+	return m_RootComponent->GetTransform();
 }
 
 std::shared_ptr<BoxComponent> GameObject::GetBoxComponent()
 {
-	return boxComponent;
+	return m_BoxComponent;
 }
 
 Math::Vector2D GameObject::GetLocation()
 {
-	return Math::Vector2D(rootComponent->GetTransform().Translation);
+	return Math::Vector2D(m_RootComponent->GetTransform().Translation);
 }
 
 void GameObject::SetLocation(const Math::Vector& location)
 {
-	boxComponent->GetTransform().Translation = location;
+	m_BoxComponent->GetTransform().Translation = location;
 }
 
 void GameObject::SetTag(const std::string& newTag)
 {
-	tag = newTag;
+	m_Tag = newTag;
 }
 
 std::string GameObject::GetTag()
 {
-	return tag;
+	return m_Tag;
 }

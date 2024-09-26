@@ -10,10 +10,16 @@
 #include <functional>
 #include <memory>
 
-
-
 class EventHandler
 {
+public:
+	static std::shared_ptr<EventHandler> Create()
+	{
+		s_Instance = std::make_shared<EventHandler>();
+		return s_Instance;
+	}
+	static std::shared_ptr<EventHandler> Get() { return s_Instance; }
+
 public:
 	EventHandler() = default;
 
@@ -26,21 +32,13 @@ public:
 
 	Math::Vector2D GetMousePosition() const;
 	
-	static std::shared_ptr<EventHandler> Create() 
-	{ 
-		sInstance = std::make_shared<EventHandler>(); 
-		return sInstance;
-	}
-	static std::shared_ptr<EventHandler> Get() { return sInstance; }
-
 private:
-	std::queue<std::shared_ptr<InputEvent>> queue;
-	std::unordered_map<EInputAction, std::unordered_map<ETriggerEvent, std::function<void(InputValue&)>>> bindings;
-	std::unordered_map<FRKey, std::pair<float, EInputAction>> keyActionMap;
-	std::unordered_map<FRMouseButton, EInputAction> mouseButtonActionMap;
+	static std::shared_ptr<EventHandler> s_Instance;
 
-	Math::Vector2D lastMousePosition;
+	std::queue<std::shared_ptr<InputEvent>> m_Queue;
+	std::unordered_map<EInputAction, std::unordered_map<ETriggerEvent, std::function<void(InputValue&)>>> m_Bindings;
+	std::unordered_map<FRKey, std::pair<float, EInputAction>> m_KeyActionMap;
+	std::unordered_map<FRMouseButton, EInputAction> m_MouseButtonActionMap;
 
-	static std::shared_ptr<EventHandler> sInstance;
-
+	Math::Vector2D m_LastMousePosition;
 };

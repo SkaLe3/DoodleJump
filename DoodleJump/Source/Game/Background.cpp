@@ -4,8 +4,8 @@
 
 Background::Background() : GameObject()
 {
-	spriteComponent = CreateComponent<SpriteComponent>();
-	spriteComponent->SetupAttachment(GetBoxComponent());
+	m_SpriteComponent = CreateComponent<SpriteComponent>();
+	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
 	OBJECT_LOG_CONSTRUCTOR()
 }
@@ -19,9 +19,9 @@ void Background::Start()
 {
 	GameObject::Start();
 	auto background = GetScene()->GetObject(this);
-	spriteComponent->SetOwner(background);
-	boxComponent->SetupAttachment(GetScene()->GetRenderCamera());
-	boxComponent->SetCollisionEnabled(false);
+	m_SpriteComponent->SetOwner(background);
+	m_BoxComponent->SetupAttachment(GetScene()->GetRenderCamera());
+	m_BoxComponent->SetCollisionEnabled(false);
 
 }
 
@@ -35,5 +35,5 @@ void Background::Tick(double deltaTime)
 void Background::Destroy()
 {
 	GameObject::Destroy();
-	spriteComponent->Destroy();
+	m_SpriteComponent->Destroy();
 }

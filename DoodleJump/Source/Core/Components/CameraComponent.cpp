@@ -18,28 +18,28 @@ void CameraComponent::Destroy()
 
 void CameraComponent::SetProjection(int32_t _size)
 {
-	orthographicSize = _size;
-	double left = -orthographicSize * 0.5;
-	double right = orthographicSize * 0.5;
-	double bottom = -orthographicSize * aspectRatio * 0.5;
-	double top = orthographicSize * aspectRatio * 0.5;
+	m_OrthographicSize = _size;
+	double left = -m_OrthographicSize * 0.5;
+	double right = m_OrthographicSize * 0.5;
+	double bottom = -m_OrthographicSize * m_AspectRatio * 0.5;
+	double top = m_OrthographicSize * m_AspectRatio * 0.5;
 
-	projection = Math::Orthographic(left, right, bottom, top, 0, viewportSize.x, viewportSize.y, 0);
+	m_Projection = Math::Orthographic(left, right, bottom, top, 0, m_ViewportSize.x, m_ViewportSize.y, 0);
 }
 
 void CameraComponent::SetViewportSize(uint32_t width, uint32_t height)
 {
-	viewportSize = { (double)width, (double)height };
-	aspectRatio = (double)height / (double)width;
+	m_ViewportSize = { (double)width, (double)height };
+	m_AspectRatio = (double)height / (double)width;
 }
 
 Math::Vector2D CameraComponent::GetCameraBounds()
 {
-	return Math::Vector2D(orthographicSize, orthographicSize * aspectRatio);
+	return Math::Vector2D(m_OrthographicSize, m_OrthographicSize * m_AspectRatio);
 }
 
 const Math::Mat4& CameraComponent::GetProjection() const
 {
-	return projection;
+	return m_Projection;
 }
 

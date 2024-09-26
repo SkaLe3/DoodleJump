@@ -8,18 +8,18 @@
 #include "Core/Base/Log.h"
 Projectile::Projectile() : GameObject()
 {
-	spriteComponent = CreateComponent<SpriteComponent>();
-	spriteComponent->SetupAttachment(GetBoxComponent());
+	m_SpriteComponent = CreateComponent<SpriteComponent>();
+	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
-	movementComponent = CreateComponent<ProjectileMovementComponent>();
+	m_MovementComponent = CreateComponent<ProjectileMovementComponent>();
 
 	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/bubble@2x.png");
 
 	std::shared_ptr<MySprite> spriteRef2 = std::make_shared<MySprite>("assets2/bubble@2x.png");
 	spriteRef2 = nullptr;
-	spriteComponent->SetSprite(spriteRef);
+	m_SpriteComponent->SetSprite(spriteRef);
 
-	boxComponent->SetHalfSize({ 1, 1 });
+	m_BoxComponent->SetHalfSize({ 1, 1 });
 
 	OBJECT_LOG_CONSTRUCTOR()
 }
@@ -33,35 +33,35 @@ void Projectile::Start()
 	GameObject::Start();
 
 	auto projectile = GetScene()->GetObject(this);
-	spriteComponent->SetOwner(projectile);
-	movementComponent->SetOwner(projectile);
+	m_SpriteComponent->SetOwner(projectile);
+	m_MovementComponent->SetOwner(projectile);
 
-	boxComponent->OnBeginOverlap.Add(std::bind(&Projectile::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-	boxComponent->SetCollisionChannel(ECollisionChannel::WorldDynamic);
-	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
-	boxComponent->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Ignore);
+	m_BoxComponent->OnBeginOverlap.Add(std::bind(&Projectile::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+	m_BoxComponent->SetCollisionChannel(ECollisionChannel::WorldDynamic);
+	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	m_BoxComponent->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Ignore);
 
-	spriteComponent->GetTransform().Scale = { 1, 1 , 1.0 };
-	spriteComponent->GetTransform().Translation = { 0.0, 0.0, 0.0 };
+	m_SpriteComponent->GetTransform().Scale = { 1, 1 , 1.0 };
+	m_SpriteComponent->GetTransform().Translation = { 0.0, 0.0, 0.0 };
 
-	movementComponent->SetGravity(0); 
-	movementComponent->SetMaxSpeed(50);
+	m_MovementComponent->SetGravity(0); 
+	m_MovementComponent->SetMaxSpeed(50);
 }
 
 void Projectile::Tick(double deltaTime)
 {
 	GameObject::Tick(deltaTime);
-	autoDestroyTimer += deltaTime;
+	m_AutoDestroyTimer += deltaTime;
 
-	if (autoDestroyTimer > 2)
+	if (m_AutoDestroyTimer > 2)
 		Destroy();
 }
 
 void Projectile::Destroy()
 {
 	GameObject::Destroy();
-	movementComponent->Destroy();
-	spriteComponent->Destroy();
+	m_MovementComponent->Destroy();
+	m_SpriteComponent->Destroy();
 }
 
 
@@ -89,5 +89,5 @@ void Projectile::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vect
 
 void Projectile::Launch(Math::Vector2D direction, double speed)
 {
-	movementComponent->SetInitialVelocity(Math::Normalize(direction) * speed);
+	m_MovementComponent->SetInitialVelocity(Math::Normalize(direction) * speed);
 }

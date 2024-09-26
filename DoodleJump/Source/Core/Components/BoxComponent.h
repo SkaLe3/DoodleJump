@@ -40,42 +40,32 @@ public:
 	virtual void Destroy() override;
 
 public:
-	// Collision
-	void SetHalfSize(const Math::Vector2D& newSize);
-	Math::Vector2D GetHalfSize() const;
-
-	void SetCollisionChannel(ECollisionChannel channel);
-	ECollisionChannel GetCollisionChannel();
-
-	void SetCollisionResponce(ECollisionChannel channel, ECollisionResponse response);
-	ECollisionResponse GetCollisionResponce(ECollisionChannel channel);
-
-	void SetCollisionEnabled(bool bEnabled);
-	bool IsCollisionEnabled();
-
-
-	// Movement
-	void SetVelocity(Math::Vector2D newVelocity);
 	Math::Vector2D GetVelocity();
-
+	Math::Vector2D GetHalfSize() const;
+	ECollisionChannel GetCollisionChannel();
+	ECollisionResponse GetCollisionResponce(ECollisionChannel channel);
+	bool IsCollisionEnabled();
 	void SetAcceleration(Math::Vector2D newAcceleration);
-	void SetGravity(Math::Vector2D newGravity);
-
 	BoxCollider GetCollider();
+
+	void SetVelocity(Math::Vector2D newVelocity);
+	void SetHalfSize(const Math::Vector2D& newSize);
+	void SetCollisionChannel(ECollisionChannel channel);
+	void SetCollisionResponce(ECollisionChannel channel, ECollisionResponse response);
+	void SetCollisionEnabled(bool bEnabled);
+	void SetGravity(Math::Vector2D newGravity);
 
 public:
 	BeginOverlapDelegate OnBeginOverlap;
 	
 private:
+	Math::Vector2D m_BoxHalfSize;
+	bool m_bCollisionEnabled;
+	ECollisionChannel m_CollisionChannel = ECollisionChannel::WorldStatic;
+	std::unordered_map<ECollisionChannel, ECollisionResponse> m_CollisionResponce;
 
-	Math::Vector2D boxHalfSize;
-	bool bCollisionEnabled;
-	ECollisionChannel collisionChannel = ECollisionChannel::WorldStatic;
-	std::unordered_map<ECollisionChannel, ECollisionResponse> collisionResponce;
-
-	Math::Vector2D velocity;
-	Math::Vector2D acceleration;
-	Math::Vector2D gravity;
-	
+	Math::Vector2D m_Velocity;
+	Math::Vector2D m_Acceleration;
+	Math::Vector2D m_Gravity;
 };
 

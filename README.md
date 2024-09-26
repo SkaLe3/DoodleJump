@@ -49,7 +49,8 @@ Several improvements have been made after the initial release, including:
 * Custom assets: Created and integrated new selfmade assets for game objects.
 * Enhanced safety: Improved handling of edge cases.
 * Code readability and maintainability: Refactored the codebase for better structure and clarity.
-* Animation System: Refactored animation system code
+* Animation System: Refactored and improved animation system
+* Project structure: Reorganized project structure
 
 ### Plan
 I plan to implement the following features and improvements in the future:
@@ -59,7 +60,6 @@ I plan to implement the following features and improvements in the future:
 * Add Themes
 * Build a system for managing game assets
 * Add score serialization
-* Refactor and organize the project structure
 * Add missing animations
 
 ### Possible Enhancements
@@ -76,3 +76,4 @@ I plan to implement the following features and improvements in the future:
     ```cpp
     std::enable_shared_from_this<ThisClass>
     ```
+* Optimize scenes logic to improve performance

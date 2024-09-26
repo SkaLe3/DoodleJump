@@ -48,7 +48,7 @@ void MyFramework::Close()
 bool MyFramework::Tick()
 {
 	float Time = (float)(getTickCount() / 1000.0f);
-	m_World->deltaTime = Time - m_LastTime;
+	m_World->m_DeltaTime = Time - m_LastTime;
 	m_LastTime = Time;
 
 	// Generate Triggered Event

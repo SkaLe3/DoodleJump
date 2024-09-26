@@ -45,7 +45,6 @@ public:
 public:
 	void Update(double deltaTime);
 
-
 	void CreateState(const std::string& key, double frameDuration);
 	void SwitchState(const std::string& key);
 	void AddFrame(const std::string& state, std::shared_ptr<MySprite> frame);

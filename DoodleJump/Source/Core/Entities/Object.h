@@ -9,6 +9,7 @@
 	#define OBJECT_LOG_CONSTRUCTOR()
 	#define OBJECT_LOG_DESTRUCTOR()
 #endif
+
 class Object
 {
 public:
@@ -17,6 +18,7 @@ public:
 	virtual void Start() = 0;
 	virtual void Tick(double deltaTime) = 0;
 	virtual void Destroy() = 0;
+
 protected:
 	const char* DebugGetClassName()
 	{

@@ -8,35 +8,32 @@
 #include "Components/DoodleMovementComponent.h"
 #include "Components/FollowCameraComponent.h"
 
-#include "Framework.h"
-
 #include "Core/Base/Log.h"
 
 
 Doodle::Doodle() : GameObject()
 {
-
-	spriteComponent = CreateComponent<SpriteComponent>();
-	spriteComponent->SetupAttachment(GetBoxComponent());
+	m_SpriteComponent = CreateComponent<SpriteComponent>();
+	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
 	// Don't need attachment
-	cameraComponent = CreateComponent<FollowCameraComponent>();
-	GetScene()->UseCamera(cameraComponent);
-	cameraComponent->SetProjection(36);
+	m_CameraComponent = CreateComponent<FollowCameraComponent>();
+	GetScene()->UseCamera(m_CameraComponent);
+	m_CameraComponent->SetProjection(36);
 	
-	movementComponent = CreateComponent<DoodleMovementComponent>();
-	crosshair = GetScene()->SpawnGameObject<Crosshair>();
+	m_MovementComponent = CreateComponent<DoodleMovementComponent>();
+	m_Crosshair = GetScene()->SpawnGameObject<Crosshair>();
 
-	boxComponent->SetHalfSize({ 1.8, 2.5 });
-	boxComponent->SetCollisionChannel(ECollisionChannel::Character);
-	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	m_BoxComponent->SetHalfSize({ 1.8, 2.5 });
+	m_BoxComponent->SetCollisionChannel(ECollisionChannel::Character);
+	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 
-	spriteComponent->GetTransform().Scale = { 6.9, 6.9, 1.0 };
-	spriteComponent->GetTransform().Translation = { 0.0, 0.7, 0.0 };
+	m_SpriteComponent->GetTransform().Scale = { 6.9, 6.9, 1.0 };
+	m_SpriteComponent->GetTransform().Translation = { 0.0, 0.7, 0.0 };
 
-	movementComponent->SetGravity(-140); // -140
-	movementComponent->SetMaxSpeed(40);
-	movementComponent->SetJumpVelocity(defaultJumpVelocity); //70
+	m_MovementComponent->SetGravity(-140); // -140
+	m_MovementComponent->SetMaxSpeed(40);
+	m_MovementComponent->SetJumpVelocity(m_DefaultJumpVelocity); //70
 
 	std::shared_ptr<MySprite> leftFrame = std::make_shared<MySprite>("assets2/player-left@2x.png");
 	std::shared_ptr<MySprite> rightFrame = std::make_shared<MySprite>("assets2/player-right@2x.png");
@@ -49,11 +46,10 @@ Doodle::Doodle() : GameObject()
 	 animMachine->AddFrame("left", leftFrame);
 	 animMachine->AddFrame("right", rightFrame);
 	 animMachine->SetEntryState("left");
-	 spriteComponent->SetAnimationMachine(animMachine);
-	 spriteComponent->EnableAnimation();
+	 m_SpriteComponent->SetAnimationMachine(animMachine);
+	 m_SpriteComponent->EnableAnimation();
 
 	OBJECT_LOG_CONSTRUCTOR()
-
 }
 
 Doodle::~Doodle()
@@ -65,13 +61,13 @@ void Doodle::Start()
 {
 	GameObject::Start();
 	auto doodle = GetScene()->GetObject(this);
-	spriteComponent->SetOwner(doodle);
-	cameraComponent->SetOwner(doodle);
-	movementComponent->SetOwner(doodle);
+	m_SpriteComponent->SetOwner(doodle);
+	m_CameraComponent->SetOwner(doodle);
+	m_MovementComponent->SetOwner(doodle);
 
 	EventHandler::Get()->BindAction(EInputAction::Move, ETriggerEvent::Triggered, std::bind(&Doodle::Move, this, std::placeholders::_1));
 	EventHandler::Get()->BindAction(EInputAction::Shoot, ETriggerEvent::Pressed, std::bind(&Doodle::Shoot, this, std::placeholders::_1));
-	boxComponent->OnBeginOverlap.Add(std::bind(&Doodle::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+	m_BoxComponent->OnBeginOverlap.Add(std::bind(&Doodle::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 
 	SetTag("doodle");
 }
@@ -82,15 +78,15 @@ void Doodle::Tick(double deltaTime)
 
 	if (HasImmunity())
 	{
-		if (immunityTimer > immunity->GetTime())
+		if (m_ImmunityTimer > m_Immunity->GetTime())
 		{
-			immunity->Destroy();
-			immunity = nullptr;
+			m_Immunity->Destroy();
+			m_Immunity = nullptr;
 		}
 		else
 		{
-			immunityTimer += deltaTime;
-			immunity->SetLocation(boxComponent->GetTransform().Translation);
+			m_ImmunityTimer += deltaTime;
+			m_Immunity->SetLocation(m_BoxComponent->GetTransform().Translation);
 		}
 	}
 }
@@ -98,73 +94,73 @@ void Doodle::Tick(double deltaTime)
 void Doodle::Destroy()
 {
 	GameObject::Destroy();
-	spriteComponent->Destroy();
-	movementComponent->Destroy();
-	cameraComponent->Destroy();
+	m_SpriteComponent->Destroy();
+	m_MovementComponent->Destroy();
+	m_CameraComponent->Destroy();
 }
 
 Math::Vector2D Doodle::GetVelocity() const
 {
-	return movementComponent->GetVelocity();
+	return m_MovementComponent->GetVelocity();
 }
 
 void Doodle::AddMovementInput(Math::Vector2D direction)
 {
-	movementComponent->AddMovementInput(direction);
-	if (movementComponent->GetVelocity().x > 0)
-		spriteComponent->SwitchAnimationState("right");
-	if (movementComponent->GetVelocity().x < 0)
-		spriteComponent->SwitchAnimationState("left");
+	m_MovementComponent->AddMovementInput(direction);
+	if (m_MovementComponent->GetVelocity().x > 0)
+		m_SpriteComponent->SwitchAnimationState("right");
+	if (m_MovementComponent->GetVelocity().x < 0)
+		m_SpriteComponent->SwitchAnimationState("left");
 }
 
 void Doodle::Jump()
 {
-	movementComponent->Jump();
+	m_MovementComponent->Jump();
 }
 
 void Doodle::DisableInput()
 {
-	bInputEnabled = false;
+	m_bInputEnabled = false;
 }
 
 void Doodle::EnableInput()
 {
-	bInputEnabled = true;
+	m_bInputEnabled = true;
 }
 
 void Doodle::DisablePhysicsCollision()
 {
-	bPhysicsCollisionEnabled = false;
+	m_bPhysicsCollisionEnabled = false;
 }
 
 void Doodle::EnableCollision()
 {
-	bPhysicsCollisionEnabled = true;
+	m_bPhysicsCollisionEnabled = true;
 }
 
 int32_t Doodle::GetLifesCount()
 {
-	return lifesCount;
+	return m_LifesCount;
 }
 
 int32_t Doodle::GetJumpsCount()
 {
-	return jumpsCount;
+	return m_JumpsCount;
 }
 
 void Doodle::ResetJumpsCount()
 {
-	jumpsCount = 0;
+	m_JumpsCount = 0;
 }
 
 bool Doodle::HasImmunity()
 {
-	return immunity != nullptr;
+	return m_Immunity != nullptr;
 }
 
 void Doodle::Move(InputValue& value)
 {
-	if (bInputEnabled)
+	if (m_bInputEnabled)
 		AddMovementInput(value.Get<double>() * Math::Vector2D{1, 0});
 }
 
@@ -172,7 +168,7 @@ void Doodle::Shoot(InputValue& value)
 {
 	std::shared_ptr<Projectile> projectile = GetScene()->SpawnGameObject<Projectile>();
 	projectile->SetLocation({ GetLocation() + Math::Vector2D{0, 3}, 0 });
-	Math::Vector2D direction =  crosshair->GetLocation() - projectile->GetLocation();
+	Math::Vector2D direction =  m_Crosshair->GetLocation() - projectile->GetLocation();
 	Math::Vector2D leftEdge{ -1, 1 };
 	Math::Vector2D rightEdge{ 1, 1 };
 	direction = Math::Clamp(Math::Normalize(direction), Math::Normalize(leftEdge), Math::Normalize(rightEdge));
@@ -182,20 +178,20 @@ void Doodle::Shoot(InputValue& value)
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
 	std::string otherTag = otherObject->GetTag();
-	if (normal.y > 0 && bPhysicsCollisionEnabled)
+	if (normal.y > 0 && m_bPhysicsCollisionEnabled)
 	{
 		if (otherTag == "platform" )
 		{
-			movementComponent->OnCollision(collisionTime);
+			m_MovementComponent->OnCollision(collisionTime);
 			Jump();
-			jumpsCount++;
+			m_JumpsCount++;
 		}
 		else if (otherTag == "monster")
 		{
-			movementComponent->OnCollision(collisionTime);
-			movementComponent->SetJumpVelocity(110);
+			m_MovementComponent->OnCollision(collisionTime);
+			m_MovementComponent->SetJumpVelocity(110);
 			Jump();
-			movementComponent->SetJumpVelocity(defaultJumpVelocity);
+			m_MovementComponent->SetJumpVelocity(m_DefaultJumpVelocity);
 			otherObject->Destroy();
 		}
 	}
@@ -210,8 +206,8 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 	}
 	if (otherTag == "floor")
 	{
-		lifesCount--;
-		if (lifesCount == 0)
+		m_LifesCount--;
+		if (m_LifesCount == 0)
 		{
 			gameMode->KillDoodle();
 			gameMode->GameOver();
@@ -223,9 +219,8 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 	}
 	if (otherTag == "immunity")
 	{
-		immunity = static_pointer_cast<ImmunityAbility>(otherObject);
-		immunity->DisableCollision();
-		immunityTimer = 0;
+		m_Immunity = static_pointer_cast<ImmunityAbility>(otherObject);
+		m_Immunity->DisableCollision();
+		m_ImmunityTimer = 0;
 	}
-
 }

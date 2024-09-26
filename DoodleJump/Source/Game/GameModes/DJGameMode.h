@@ -16,11 +16,12 @@ public:
 	DJGameMode();
 	~DJGameMode();
 
+	//~ Begin Object Interface
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
+	//~ End Object Interface
 
-public:
 	void UpdateWidget(std::shared_ptr<NumberWidget> widget, int32_t& value, int32_t newValue);
 	void CreateWidget(const char* path, Math::Vector2D coords, Math::Vector2D scale, double zLocation);
 
@@ -37,35 +38,27 @@ public:
 	void GameOver();
 	void StartGame();
 
-
-
 private:
-	std::shared_ptr<Doodle> doodle;
+	std::shared_ptr<Doodle> m_Doodle;
+	std::shared_ptr<CameraComponent> m_Camera;
+	std::shared_ptr<PlatformSpawner> m_PlatformSpawner;
+	std::shared_ptr<GameObject> m_RightWall;
+	std::shared_ptr<GameObject> m_LeftWall;
+	std::shared_ptr<GameObject> m_Floor;
 
-	bool gameStarted = false;
-	int32_t distanceScore = 0;
-	int32_t platformScore = 0;
-	int32_t playerLifes = 0;
+	std::shared_ptr<NumberWidget> m_DistanceScoreWidget;
+	std::shared_ptr<NumberWidget> m_PlatformScoreWidget;
+	std::shared_ptr<NumberWidget> m_LifesWidget;
 
-	Math::Vector2D horizontalBounds;
+	bool m_bGameStarted = false;
+	int32_t m_DistanceScore = 0;
+	int32_t m_PlatformScore = 0;
+	int32_t m_PlayerLifes = 0;
+	Math::Vector2D m_HorizontalBounds;
 
-	std::shared_ptr<CameraComponent> camera;
-
-	std::shared_ptr<PlatformSpawner> platformSpawner;
-
-	std::shared_ptr<GameObject> rightWall;
-	std::shared_ptr<GameObject> leftWall;
-	std::shared_ptr<GameObject> floor;
-
-	std::random_device rd;
-	std::default_random_engine gen{ rd() };
-	
-	double enemySpawnProbability = 0.05;
-	double abilitySpawnFrequency = 50;
-	std::bernoulli_distribution enemySpawnDistribution{ enemySpawnProbability };
-
-	std::shared_ptr<NumberWidget> distanceScoreWidget;
-	std::shared_ptr<NumberWidget> platformScoreWidget;
-	std::shared_ptr<NumberWidget> lifesWidget;
-
+	std::random_device m_RandomDevice;
+	std::default_random_engine m_RandomEngine{ m_RandomDevice() };	
+	double m_EnemySpawnProbability = 0.05;
+	double m_AbilitySpawnFrequency = 50;
+	std::bernoulli_distribution m_EnemySpawnDistribution{ m_EnemySpawnProbability };
 };

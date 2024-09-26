@@ -22,10 +22,11 @@ public:
 	void EnableAnimation();
 	void SetAnimationMachine(std::shared_ptr<AnimationMachine> animMachine);
 	void SwitchAnimationState(const std::string& key); // Temporary
+
 private:
-	std::shared_ptr<MySprite> sprite;
+	std::shared_ptr<MySprite> m_Sprite;
 	std::shared_ptr<AnimationMachine> m_AnimationMachine;
 
-	bool bAnimationEnabled = false;
+	bool m_bAnimationEnabled = false;
 
 };

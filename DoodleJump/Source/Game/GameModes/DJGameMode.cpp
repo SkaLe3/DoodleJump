@@ -29,25 +29,25 @@ void DJGameMode::Start()
 
 void DJGameMode::Tick(double deltaTime)
 {
-	Math::Vector2D camBounds = camera->GetCameraBounds();
-	Math::Vector camPos = camera->GetTransform().Translation;
+	Math::Vector2D camBounds = m_Camera->GetCameraBounds();
+	Math::Vector camPos = m_Camera->GetTransform().Translation;
 
-	rightWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
-	leftWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
-	floor->GetBoxComponent()->GetTransform().Translation.y = camPos.y - 2 - camBounds.y * 0.5;
+	m_RightWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
+	m_LeftWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
+	m_Floor->GetBoxComponent()->GetTransform().Translation.y = camPos.y - 2 - camBounds.y * 0.5;
 
-	UpdateWidget(distanceScoreWidget, distanceScore, std::max((int32_t)player->GetLocation().y, distanceScore));
-	UpdateWidget(platformScoreWidget, platformScore, platformSpawner->GetPassedPlatformCount());
-	UpdateWidget(lifesWidget, playerLifes, doodle->GetLifesCount());
+	UpdateWidget(m_DistanceScoreWidget, m_DistanceScore, std::max((int32_t)m_Player->GetLocation().y, m_DistanceScore));
+	UpdateWidget(m_PlatformScoreWidget, m_PlatformScore, m_PlatformSpawner->GetPassedPlatformCount());
+	UpdateWidget(m_LifesWidget, m_PlayerLifes, m_Doodle->GetLifesCount());
 
- 	bool platformSet = platformSpawner->SetNextPlatform(distanceScore);
+ 	bool platformSet = m_PlatformSpawner->SetNextPlatform(m_DistanceScore);
 
-	if (platformSet && enemySpawnDistribution(gen))
+	if (platformSet && m_EnemySpawnDistribution(m_RandomEngine))
 		SpawnEnemy();
 
-	if (platformSet && doodle->GetJumpsCount() >= abilitySpawnFrequency)
+	if (platformSet && m_Doodle->GetJumpsCount() >= m_AbilitySpawnFrequency)
 	{
-		doodle->ResetJumpsCount();
+		m_Doodle->ResetJumpsCount();
 		SpawnAbility();
 	}
 }
@@ -79,28 +79,28 @@ void DJGameMode::CreateWidget(const char* path, Math::Vector2D coords, Math::Vec
 
 void DJGameMode::TeleportToRightWall(std::shared_ptr<GameObject> object)
 {
-	object->GetTransform().Translation.x = horizontalBounds.y - object->GetBoxComponent()->GetHalfSize().x;
+	object->GetTransform().Translation.x = m_HorizontalBounds.y - object->GetBoxComponent()->GetHalfSize().x;
 }
 
 void DJGameMode::TeleportToLeftWall(std::shared_ptr<GameObject> object)
 {
-	object->GetTransform().Translation.x = horizontalBounds.x + object->GetBoxComponent()->GetHalfSize().x;
+	object->GetTransform().Translation.x = m_HorizontalBounds.x + object->GetBoxComponent()->GetHalfSize().x;
 }
 
 
 void DJGameMode::RespawnPlayer()
 {
-	Math::Vector spawnPoint = { platformSpawner->GetLowestPlatformLocation(), 0 };
-	spawnPoint.y += + player->GetBoxComponent()->GetHalfSize().y + 1;	
+	Math::Vector spawnPoint = { m_PlatformSpawner->GetLowestPlatformLocation(), 0 };
+	spawnPoint.y += + m_Player->GetBoxComponent()->GetHalfSize().y + 1;	
 
-	doodle->SetLocation(spawnPoint);
-	doodle->EnableCollision();
-	doodle->EnableInput();
+	m_Doodle->SetLocation(spawnPoint);
+	m_Doodle->EnableCollision();
+	m_Doodle->EnableInput();
 }
 
 void DJGameMode::SpawnEnemy()
 {
-	Math::Vector2D spawnLocation =  platformSpawner->GetLastSetPlatformLocation();
+	Math::Vector2D spawnLocation =  m_PlatformSpawner->GetLastSetPlatformLocation();
 	std::shared_ptr<Monster> enemy = GetScene()->SpawnGameObject<Monster>();
 	spawnLocation.y += enemy->GetBoxComponent()->GetHalfSize().y + 0.6;
 	enemy->SetLocation({ spawnLocation, 0 });
@@ -108,7 +108,7 @@ void DJGameMode::SpawnEnemy()
 
 void DJGameMode::SpawnAbility()
 {
-	Math::Vector2D spawnLocation = platformSpawner->GetLastSetPlatformLocation();
+	Math::Vector2D spawnLocation = m_PlatformSpawner->GetLastSetPlatformLocation();
 	std::shared_ptr<ImmunityAbility> ability = GetScene()->SpawnGameObject<ImmunityAbility>();
 	spawnLocation.y += ability->GetBoxComponent()->GetHalfSize().y + 0.6;
 	ability->SetLocation({ spawnLocation, 0 });
@@ -124,8 +124,8 @@ void DJGameMode::SpawnWall(std::shared_ptr<GameObject>& object, const std::strin
 
 void DJGameMode::KillDoodle()
 {
-	doodle->DisablePhysicsCollision();
-	doodle->DisableInput();
+	m_Doodle->DisablePhysicsCollision();
+	m_Doodle->DisableInput();
 }
 
 void DJGameMode::GameOver()
@@ -139,8 +139,8 @@ void DJGameMode::StartGame()
 	showCursor(false);
 
 	// Spawn Player
-	player = GetScene()->SpawnGameObject<Doodle>();
-	doodle = static_pointer_cast<Doodle>(player);
+	m_Player = GetScene()->SpawnGameObject<Doodle>();
+	m_Doodle = static_pointer_cast<Doodle>(m_Player);
 
 	// Spawn Background
 	// TODO: Create Childclass LevelBackground and MenuBackground
@@ -151,63 +151,62 @@ void DJGameMode::StartGame()
 	background->GetSprite()->GetTransform().Translation = { 4.5, 0, -1 };
 
 	// Spawn Platform Spawner
-	platformSpawner = GetScene()->SpawnGameObject<PlatformSpawner>();
-	platformSpawner->SetDefaultPlatformPoolSize(36);
-	platformSpawner->SetFakePlatformPoolSize(6);
-	platformSpawner->SpawnPools();
+	m_PlatformSpawner = GetScene()->SpawnGameObject<PlatformSpawner>();
+	m_PlatformSpawner->SetDefaultPlatformPoolSize(36);
+	m_PlatformSpawner->SetFakePlatformPoolSize(6);
+	m_PlatformSpawner->SpawnPools();
 
 	// Walls
-	SpawnWall(rightWall, "right wall");
-	SpawnWall(leftWall, "left wall");
-	SpawnWall(floor, "floor");
+	SpawnWall(m_RightWall, "right wall");
+	SpawnWall(m_LeftWall, "left wall");
+	SpawnWall(m_Floor, "floor");
 
 
 	// Camera
-	camera = GetScene()->GetRenderCamera();
-	Math::Vector2D camBounds = camera->GetCameraBounds();
-	camera->GetTransform().Translation.y = camBounds.y * 0.5 - 4;
-	horizontalBounds = { camera->GetTransform().Translation.x - camBounds.x * 0.5, camera->GetTransform().Translation.x + camBounds.x * 0.5 };
+	m_Camera = GetScene()->GetRenderCamera();
+	Math::Vector2D camBounds = m_Camera->GetCameraBounds();
+	m_Camera->GetTransform().Translation.y = camBounds.y * 0.5 - 4;
+	m_HorizontalBounds = { m_Camera->GetTransform().Translation.x - camBounds.x * 0.5, m_Camera->GetTransform().Translation.x + camBounds.x * 0.5 };
 
 	double wallWidth = 2;
 
 	// Walls
-	rightWall->GetBoxComponent()->SetHalfSize({ wallWidth, camBounds.y * 0.5 });
-	rightWall->SetLocation({ horizontalBounds.y + wallWidth + player->GetBoxComponent()->GetHalfSize().x + 0.5, 0 });
-	leftWall->GetBoxComponent()->SetHalfSize({ wallWidth, camBounds.y * 0.5 });
-	leftWall->SetLocation({ horizontalBounds.x - wallWidth - player->GetBoxComponent()->GetHalfSize().x - 0.5, 0 });
-	floor->GetBoxComponent()->SetHalfSize({ camBounds.x, wallWidth });
-	floor->SetLocation({ 0, -camBounds.y * 0.5 - wallWidth });
+	m_RightWall->GetBoxComponent()->SetHalfSize({ wallWidth, camBounds.y * 0.5 });
+	m_RightWall->SetLocation({ m_HorizontalBounds.y + wallWidth + m_Player->GetBoxComponent()->GetHalfSize().x + 0.5, 0 });
+	m_LeftWall->GetBoxComponent()->SetHalfSize({ wallWidth, camBounds.y * 0.5 });
+	m_LeftWall->SetLocation({ m_HorizontalBounds.x - wallWidth - m_Player->GetBoxComponent()->GetHalfSize().x - 0.5, 0 });
+	m_Floor->GetBoxComponent()->SetHalfSize({ camBounds.x, wallWidth });
+	m_Floor->SetLocation({ 0, -camBounds.y * 0.5 - wallWidth });
 
-	player->SetLocation({ 0, 3, 0 });
-	platformSpawner->RestartSpawner();
+	m_Player->SetLocation({ 0, 3, 0 });
+	m_PlatformSpawner->RestartSpawner();
 	for (int i = 0; i < 36; i++)
-		platformSpawner->SetNextPlatform(1);
+		m_PlatformSpawner->SetNextPlatform(1);
 
-	distanceScore = 0;
-	platformScore = 0;
-	playerLifes = 0;
+	m_DistanceScore = 0;
+	m_PlatformScore = 0;
+	m_PlayerLifes = 0;
 
 
-	distanceScoreWidget = GetScene()->SpawnGameObject<NumberWidget>();
-	distanceScoreWidget->SetCoordinates({ -16.5, 34.5 });
-	distanceScoreWidget->Init(6);
-	distanceScoreWidget->Start();
+	m_DistanceScoreWidget = GetScene()->SpawnGameObject<NumberWidget>();
+	m_DistanceScoreWidget->SetCoordinates({ -16.5, 34.5 });
+	m_DistanceScoreWidget->Init(6);
+	m_DistanceScoreWidget->Start();
 
-	platformScoreWidget = GetScene()->SpawnGameObject<NumberWidget>();
-	platformScoreWidget->SetCoordinates({ 6, 34.5 });
-	platformScoreWidget->Init(5);
-	platformScoreWidget->Start();
+	m_PlatformScoreWidget = GetScene()->SpawnGameObject<NumberWidget>();
+	m_PlatformScoreWidget->SetCoordinates({ 6, 34.5 });
+	m_PlatformScoreWidget->Init(5);
+	m_PlatformScoreWidget->Start();
 
-	lifesWidget = GetScene()->SpawnGameObject<NumberWidget>();
-	lifesWidget->SetCoordinates({ 0, 34.5 });
-	lifesWidget->Init(1);
-	lifesWidget->Start();
+	m_LifesWidget = GetScene()->SpawnGameObject<NumberWidget>();
+	m_LifesWidget->SetCoordinates({ 0, 34.5 });
+	m_LifesWidget->Init(1);
+	m_LifesWidget->Start();
 
 	CreateWidget("assets2/top.png", { 0, 34.5 }, { camBounds.x, 4.106 }, 1);
 	CreateWidget("assets2/platform.png", { 15, 34.5 }, { 4, 1.08 }, 2);
 	CreateWidget("assets2/heart.png", { 2, 34.5 }, { 2, 2 }, 2);
 	CreateWidget("assets2/distance_icon.png", { -7, 34.5 }, {2, 2}, 2);
 	CreateWidget("assets2/underwater-light@2x.png", {0, 18.35}, {camBounds.x, 35.3}, -0.6);
-
 }
 

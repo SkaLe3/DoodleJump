@@ -7,13 +7,15 @@ class MenuController : public GameObject
 public:
 	MenuController();
 	~MenuController();
+
+	//~ Begin Object Interface
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
+	//~ End Object Interface
 
-public:
 	void Click(InputValue& value);
 
 private:
-	std::shared_ptr<CameraComponent> cameraComponent;
+	std::shared_ptr<CameraComponent> m_CameraComponent;
 };

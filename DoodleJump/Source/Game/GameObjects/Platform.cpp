@@ -1,14 +1,15 @@
 #include "Platform.h"
 #include "Core/Base/Log.h"
+
 Platform::Platform() : GameObject()
 {
-	spriteComponent = CreateComponent<SpriteComponent>();
-	spriteComponent->SetupAttachment(GetBoxComponent());
+	m_SpriteComponent = CreateComponent<SpriteComponent>();
+	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
-	spriteComponent->GetTransform().Scale = { 6, 1.565, 1 };
-	spriteComponent->GetTransform().Translation.z = -0.5;
-	boxComponent->SetHalfSize({ 2.7, 0.5 });
-	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	m_SpriteComponent->GetTransform().Scale = { 6, 1.565, 1 };
+	m_SpriteComponent->GetTransform().Translation.z = -0.5;
+	m_BoxComponent->SetHalfSize({ 2.7, 0.5 });
+	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -21,8 +22,7 @@ void Platform::Start()
 {
 	GameObject::Start();
 	auto platform = GetScene()->GetObject(this);
-	spriteComponent->SetOwner(platform);
-
+	m_SpriteComponent->SetOwner(platform);
 }
 
 void Platform::Tick(double deltaTime)
@@ -33,20 +33,20 @@ void Platform::Tick(double deltaTime)
 void Platform::Destroy()
 {
 	GameObject::Destroy();
-	spriteComponent->Destroy();
+	m_SpriteComponent->Destroy();
 }
 
 void Platform::Pass()
 {
-	bPassed = true;
+	m_bPassed = true;
 }
 
 bool Platform::IsPassed()
 {
-	return bPassed;
+	return m_bPassed;
 }
 
 void Platform::Reset()
 {
-	bPassed = false;
+	m_bPassed = false;
 }

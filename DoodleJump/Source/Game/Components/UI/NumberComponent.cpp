@@ -9,27 +9,27 @@
 
 NumberComponent::NumberComponent()
 {
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/0.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/1.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/2.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/3.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/4.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/5.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/6.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/7.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/8.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/9.png"));
-	digits.push_back(std::make_shared<MySprite>("assets2/digits/empty.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/0.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/1.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/2.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/3.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/4.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/5.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/6.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/7.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/8.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/9.png"));
+	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/empty.png"));
 }
 
 void NumberComponent::Start()
 {
-	for (auto& sprite : sprites)
-		sprite->SetSprite(digits[10]);
+	for (auto& sprite : m_Sprites)
+		sprite->SetSprite(m_Digits[10]);
 
-	for (int i = 1; i < sprites.size(); i++)
+	for (int i = 1; i < m_Sprites.size(); i++)
 	{
-		sprites[i]->GetTransform().Translation.x = sprites[i]->GetTransform().Scale.x * i;
+		m_Sprites[i]->GetTransform().Translation.x = m_Sprites[i]->GetTransform().Scale.x * i;
 	}
 }
 
@@ -42,7 +42,7 @@ void NumberComponent::Tick(double deltaTime)
 void NumberComponent::Destroy()
 {
 	GetScene()->DestroyTickComponent(GetScene()->GetComponent(this));
-	for (auto& sprite : sprites)
+	for (auto& sprite : m_Sprites)
 	{
 		sprite->Destroy();
 	}
@@ -51,26 +51,26 @@ void NumberComponent::Destroy()
 void NumberComponent::Update(int32_t number)
 {
 	std::string num = std::to_string(number);
-	size_t emptyAmount = sprites.size() - num.size();
+	size_t emptyAmount = m_Sprites.size() - num.size();
 
 	for (size_t i = 0; i < emptyAmount; i++)
 	{
-		sprites[i]->SetSprite(digits[10]);
+		m_Sprites[i]->SetSprite(m_Digits[10]);
 	}
-	for (size_t i = emptyAmount; i < sprites.size(); i++)
+	for (size_t i = emptyAmount; i < m_Sprites.size(); i++)
 	{
 		char digit = num[i - emptyAmount];
 		int32_t ind = digit - '0';
-		sprites[i]->SetSprite(digits[ind]);
+		m_Sprites[i]->SetSprite(m_Digits[ind]);
 	}
 }
 
 void NumberComponent::AddDigit(std::shared_ptr<SpriteComponent> sprite)
 {
-	sprites.push_back(sprite);
+	m_Sprites.push_back(sprite);
 }
 
 std::vector<std::shared_ptr<SpriteComponent>>& NumberComponent::GetSprites()
 {
-	return sprites;
+	return m_Sprites;
 }

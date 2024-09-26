@@ -5,14 +5,12 @@
 #include "Components/BoxCollider.h"
 #include "GameModes/MenuGameMode.h"
 
-#include <iostream>
-
 MenuController::MenuController()
 {
 	// Don't need attachment
-	cameraComponent = CreateComponent<CameraComponent>();
-	GetScene()->UseCamera(cameraComponent);
-	cameraComponent->SetProjection(36);
+	m_CameraComponent = CreateComponent<CameraComponent>();
+	GetScene()->UseCamera(m_CameraComponent);
+	m_CameraComponent->SetProjection(36);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -25,12 +23,10 @@ void MenuController::Start()
 {
 	GameObject::Start();
 	auto controller = GetScene()->GetObject(this);
-	cameraComponent->SetOwner(controller);
+	m_CameraComponent->SetOwner(controller);
 
-	
 	EventHandler::Get()->BindAction(EInputAction::Shoot, ETriggerEvent::Pressed, std::bind(&MenuController::Click, this, std::placeholders::_1));
-	
-	boxComponent->SetCollisionEnabled(false);
+	m_BoxComponent->SetCollisionEnabled(false);
 }
 
 void MenuController::Tick(double deltaTime)
@@ -41,13 +37,11 @@ void MenuController::Tick(double deltaTime)
 void MenuController::Destroy()
 {
 	GameObject::Destroy();
-	cameraComponent->Destroy();	   
+	m_CameraComponent->Destroy();	   
 }
 
 void MenuController::Click(InputValue& value)
 {
 	Math::Vector2D mousePos = GetScene()->GetMousePosition();
-
 	static_pointer_cast<MenuGameMode>(GetGameMode())->Click(mousePos);
-
 }

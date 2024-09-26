@@ -7,8 +7,8 @@ class GameObject;
 class GameMode : public Object
 {
 public:
-	std::shared_ptr<GameObject> GetPlayer() { return player; }
+	std::shared_ptr<GameObject> GetPlayer() { return m_Player; }
 
 protected:
-	std::shared_ptr<GameObject> player;
+	std::shared_ptr<GameObject> m_Player;
 };

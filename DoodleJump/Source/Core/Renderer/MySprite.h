@@ -21,6 +21,6 @@ public:
 	Sprite* Get();
 
 private:
-	Sprite* sprite;
+	Sprite* m_Sprite;
 	SPRITE_PATH
 };

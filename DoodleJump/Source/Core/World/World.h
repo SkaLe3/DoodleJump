@@ -13,8 +13,11 @@ std::shared_ptr<GameMode> GetGameMode();
 class World
 {
 public:
+	static std::shared_ptr<World> Create();
+	static std::shared_ptr<World> Get() { return s_Instance; }
 
-	float GetDeltaTime() { return deltaTime; }
+public:
+	float GetDeltaTime() { return m_DeltaTime; }
 	void Update();
 	void Init(int32_t w, int32_t h);
 	void Shutdown();
@@ -23,32 +26,29 @@ public:
 	void OpenScene()
 	{
 		CreateScene<T>();
-		shouldSwitchToLastScene = true;
+		m_ShouldSwitchToLastScene = true;
 	}
 
 	template<class T>
 	std::shared_ptr<Scene> CreateScene()
 	{
 		std::shared_ptr<Scene> newScene = std::make_shared<T>();
-		scenes.push_back(newScene);
+		m_Scenes.push_back(newScene);
 		return newScene;
 	}
 
 	void SetCurrentScene(std::shared_ptr<Scene> scene);
 	std::shared_ptr<Scene> GetCurrentScene();
 
-	static std::shared_ptr<World> Create();
-	static std::shared_ptr<World> Get() { return sInstance; }
-
 private:
-	float deltaTime;
-	std::vector<std::shared_ptr<Scene>> scenes;
-	std::shared_ptr<Scene> currentScene;
-	int32_t width, height;
+	static std::shared_ptr<World> s_Instance;
 
-	bool shouldSwitchToLastScene = false;
+	std::vector<std::shared_ptr<Scene>> m_Scenes;
+	std::shared_ptr<Scene> m_CurrentScene;
 
-	static std::shared_ptr<World> sInstance;
+	int32_t m_Width, m_Height;
+	float m_DeltaTime;
+	bool m_ShouldSwitchToLastScene = false;
 
 	friend class MyFramework;
 };

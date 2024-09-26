@@ -17,7 +17,7 @@ public:
 	MyFramework(uint32_t w, uint32_t h, bool fs);;
 
 public:
-	/* Framework Interface Implementation */
+	//~ Begin Framework Interface
 	virtual void PreInit(int& width, int& height, bool& fullscreen);
 	virtual bool Init();
 	virtual void Close();
@@ -29,6 +29,7 @@ public:
 	virtual void onKeyReleased(FRKey k);
 
 	virtual const char* GetTitle() override;
+	// End Framework Interface
 
 private:
 	float m_LastTime = 0;

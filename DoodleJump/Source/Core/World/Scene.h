@@ -17,6 +17,7 @@ class Scene
 {
 public:
 	Scene();
+
 	virtual void Start();
 	virtual void Tick(float deltaTime);
 
@@ -25,8 +26,8 @@ public:
 	std::shared_ptr<T> CreateComponent()
 	{
 		std::shared_ptr<T> component = std::make_shared<T>();
-		tickComponents.push_back(component);
-		if (started)
+		m_TickComponents.push_back(component);
+		if (m_bStarted)
 			component->Start();
 		return component;
 	}
@@ -34,8 +35,8 @@ public:
 	std::shared_ptr<BoxComponent> CreateComponent<BoxComponent>()
 	{
 		std::shared_ptr<BoxComponent> box = std::make_shared<BoxComponent>();
-		collisionObjects.push_back(box);
-		if (started)
+		m_CollisionObjects.push_back(box);
+		if (m_bStarted)
 			box->Start();
 		return box;
 	}
@@ -43,8 +44,8 @@ public:
 	std::shared_ptr<SpriteComponent> CreateComponent<SpriteComponent>()
 	{
 		std::shared_ptr<SpriteComponent> sprite = std::make_shared<SpriteComponent>();
-		drawObjects.push_back(sprite);
-		if (started)
+		m_DrawObjects.push_back(sprite);
+		if (m_bStarted)
 			sprite->Start();
 		return sprite;
 	}
@@ -52,8 +53,8 @@ public:
 	std::shared_ptr<T> SpawnGameObject()
 	{
 		std::shared_ptr<T> obj = std::make_shared<T>();
-		tickObjects.push_back(obj);
-		if (started)
+		m_TickObjects.push_back(obj);
+		if (m_bStarted)
 			obj->Start();
 		return obj;
 	}
@@ -82,22 +83,22 @@ public:
 	void ClearScene();
 
 protected:
-	std::shared_ptr<GameMode> gameMode;
+	std::shared_ptr<GameMode> m_GameMode;
 
-	// Fake ECS
-	std::shared_ptr<CameraComponent> camera; // Only one camera per scene supported
-	std::vector<std::shared_ptr<GameComponent>> tickComponents;
-	std::vector<std::shared_ptr<BoxComponent>> collisionObjects;
-	std::vector<std::shared_ptr<SpriteComponent>> drawObjects;
-	std::vector<std::shared_ptr<GameObject>> tickObjects;
+	/* ECS */
+	std::shared_ptr<CameraComponent> m_Camera; // Only one camera per scene supported
+	std::vector<std::shared_ptr<GameComponent>> m_TickComponents;
+	std::vector<std::shared_ptr<BoxComponent>> m_CollisionObjects;
+	std::vector<std::shared_ptr<SpriteComponent>> m_DrawObjects;
+	std::vector<std::shared_ptr<GameObject>> m_TickObjects;
 
-	std::vector<std::shared_ptr<Object>> destroyTickComponents;
-	std::vector<std::shared_ptr<Object>> destroyCollisionObjects;
-	std::vector<std::shared_ptr<Object>> destroyDrawObjects;
-	std::vector<std::shared_ptr<Object>> destroyTickObjects;
+	std::vector<std::shared_ptr<Object>> m_DestroyTickComponents;
+	std::vector<std::shared_ptr<Object>> m_DestroyCollisionObjects;
+	std::vector<std::shared_ptr<Object>> m_DestroyDrawObjects;
+	std::vector<std::shared_ptr<Object>> m_DestroyTickObjects;
 
-	bool started = false;
+	uint32_t m_ViewportWidth;
+	uint32_t m_ViewportHeight;
 
-	uint32_t viewportWidth;
-	uint32_t viewportHeight;
+	bool m_bStarted = false;
 };

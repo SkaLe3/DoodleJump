@@ -4,10 +4,6 @@
 #include <algorithm>
 
 
-
-
-
-
 SpriteComponent::~SpriteComponent()
 {
 
@@ -15,7 +11,7 @@ SpriteComponent::~SpriteComponent()
 
 void SpriteComponent::Tick(double deltaTime)
 {
-	if (!bAnimationEnabled)
+	if (!m_bAnimationEnabled)
 		return;
 	m_AnimationMachine->Update(deltaTime);
 }
@@ -27,20 +23,20 @@ void SpriteComponent::Destroy()
 
 void SpriteComponent::SetSprite(std::shared_ptr<MySprite> newSprite)
 {
-	sprite = newSprite;
+	m_Sprite = newSprite;
 }
 
 std::shared_ptr<MySprite> SpriteComponent::GetSprite() const
 {
-	if (!bAnimationEnabled)
-		return sprite;
+	if (!m_bAnimationEnabled)
+		return m_Sprite;
 	else
 		return m_AnimationMachine->GetActiveFrame();
 }
 
 void SpriteComponent::EnableAnimation()
 {
-	bAnimationEnabled = true;
+	m_bAnimationEnabled = true;
 }
 
 void SpriteComponent::SetAnimationMachine(std::shared_ptr<AnimationMachine> anim)
