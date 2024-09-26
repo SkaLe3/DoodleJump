@@ -12,10 +12,9 @@ public:
 	void SetupAttachment(std::shared_ptr<SceneComponent> component);
 	void DetachFromParent();
 
-
 protected:
 	// Transform relative to parent
-	Math::Transform transform;
+	Math::Transform m_Transform;
 
-	std::shared_ptr<SceneComponent> parent;
+	std::shared_ptr<SceneComponent> m_Parent;
 };

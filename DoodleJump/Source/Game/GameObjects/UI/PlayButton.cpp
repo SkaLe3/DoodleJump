@@ -4,14 +4,14 @@
 
 PlayButton::PlayButton()
 {
-	spriteComponent = CreateComponent<SpriteComponent>();
-	spriteComponent->SetupAttachment(GetBoxComponent());
+	m_SpriteComponent = CreateComponent<SpriteComponent>();
+	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
 	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/play.png");
-	spriteComponent->SetSprite(spriteRef);
+	m_SpriteComponent->SetSprite(spriteRef);
 
-	boxComponent->SetHalfSize({ 5.8, 2 });
-	boxComponent->GetTransform().Translation = { -6, 3, 0 };
+	m_BoxComponent->SetHalfSize({ 5.8, 2 });
+	m_BoxComponent->GetTransform().Translation = { -6, 3, 0 };
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -24,14 +24,9 @@ void PlayButton::Start()
 {
 	GameObject::Start();
 	auto button = GetScene()->GetObject(this);
-	spriteComponent->SetOwner(button);
-
-	spriteComponent->GetTransform().Scale = { 12, 4.32, 1.0 };
-
-
-	boxComponent->SetCollisionEnabled(false);
-
-	
+	m_SpriteComponent->SetOwner(button);
+	m_SpriteComponent->GetTransform().Scale = { 12, 4.32, 1.0 };
+	m_BoxComponent->SetCollisionEnabled(false);
 }
 
 void PlayButton::Tick(double deltaTime)
@@ -42,6 +37,6 @@ void PlayButton::Tick(double deltaTime)
 void PlayButton::Destroy()
 {
 	GameObject::Destroy();
-	spriteComponent->Destroy();
+	m_SpriteComponent->Destroy();
 }
 

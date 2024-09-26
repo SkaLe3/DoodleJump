@@ -7,7 +7,7 @@
 
 NumberWidget::NumberWidget() : GameObject()
 {
-	numberComponent = CreateComponent<NumberComponent>();
+	m_NumberComponent = CreateComponent<NumberComponent>();
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -20,17 +20,17 @@ void NumberWidget::Start()
 {
 	GameObject::Start();
 	auto widget = GetScene()->GetObject(this);
-	numberComponent->SetOwner(widget);
+	m_NumberComponent->SetOwner(widget);
 
-	std::vector<std::shared_ptr<SpriteComponent>>& sprites = numberComponent->GetSprites();
+	std::vector<std::shared_ptr<SpriteComponent>>& sprites = m_NumberComponent->GetSprites();
 	for (auto& sprite : sprites)
 	{
 		sprite->SetOwner(widget);
 		sprite->GetTransform().Scale = { 1.5, 1.5, 1.5 };
 	}
 
-	boxComponent->SetCollisionEnabled(false);
-	numberComponent->Start();
+	m_BoxComponent->SetCollisionEnabled(false);
+	m_NumberComponent->Start();
 }
 
 void NumberWidget::Tick(double deltaTime)
@@ -38,15 +38,14 @@ void NumberWidget::Tick(double deltaTime)
 	GameObject::Tick(deltaTime);
 
 	Math::Vector camPos =  GetScene()->GetRenderCamera()->GetTransform().Translation;
-
-	boxComponent->GetTransform().Translation = { camPos.x + coordinates.x, camPos.y + coordinates.y, 0 };
+	m_BoxComponent->GetTransform().Translation = { camPos.x + m_Coordinates.x, camPos.y + m_Coordinates.y, 0 };
 }
 
 
 void NumberWidget::Destroy()
 {
 	GameObject::Destroy();
-	numberComponent->Destroy();
+	m_NumberComponent->Destroy();
 }
 
 void NumberWidget::Init(int32_t digits)
@@ -58,22 +57,22 @@ void NumberWidget::Init(int32_t digits)
 		spriteComp = CreateComponent<SpriteComponent>();
 		spriteComp->SetupAttachment(GetBoxComponent());
 		spriteComp->GetTransform().Translation.z = 2;
-		numberComponent->AddDigit(spriteComp);
+		m_NumberComponent->AddDigit(spriteComp);
 	}
 }
 
 void NumberWidget::Update(int32_t number)
 {
-	numberComponent->Update(number);
+	m_NumberComponent->Update(number);
 }
 
 void NumberWidget::SetCoordinates(Math::Vector2D coords)
 {
-	coordinates = coords;
+	m_Coordinates = coords;
 }
 
 std::shared_ptr<NumberComponent> NumberWidget::GetNumberComponent()
 {
-	return numberComponent;
+	return m_NumberComponent;
 }
 

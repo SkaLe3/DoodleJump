@@ -3,6 +3,7 @@
 #include "World/Scene.h"
 #include <algorithm>
 
+
 SpriteComponent::~SpriteComponent()
 {
 
@@ -10,21 +11,9 @@ SpriteComponent::~SpriteComponent()
 
 void SpriteComponent::Tick(double deltaTime)
 {
-	if (!bAnimationEnabled)
+	if (!m_bAnimationEnabled)
 		return;
-	if (currentTime < frameTime)
-	{
-		sprite = (*animationState)[index];
-		currentTime += deltaTime;
-		return;
-	}
-
-	currentTime -= frameTime;
-	index++;
-	index = std::clamp(index, (size_t)0, (size_t)animationState->size()-1);
-	sprite = (*animationState)[index];
-	currentTime += deltaTime;
-
+	m_AnimationMachine->Update(deltaTime);
 }
 
 void SpriteComponent::Destroy()
@@ -34,29 +23,30 @@ void SpriteComponent::Destroy()
 
 void SpriteComponent::SetSprite(std::shared_ptr<MySprite> newSprite)
 {
-	sprite = newSprite;
+	m_Sprite = newSprite;
 }
 
 std::shared_ptr<MySprite> SpriteComponent::GetSprite() const
 {
-	return sprite; 
+	if (!m_bAnimationEnabled)
+		return m_Sprite;
+	else
+		return m_AnimationMachine->GetActiveFrame();
 }
 
 void SpriteComponent::EnableAnimation()
 {
-	bAnimationEnabled = true;
+	m_bAnimationEnabled = true;
 }
 
 void SpriteComponent::SetAnimationMachine(std::shared_ptr<AnimationMachine> anim)
 {
-	animations = anim;
+	m_AnimationMachine = anim;
 }
 
 void SpriteComponent::SwitchAnimationState(const std::string& key)
 {
-	auto [animState, ft] = animations->at(key);
-	frameTime = ft;
-	animationState = animState;
-	currentTime = 0;
-	index = 0;
+	 m_AnimationMachine->SwitchState(key);
 }
+
+

@@ -6,80 +6,80 @@
 
 #include <iostream>
 
-std::shared_ptr<EventHandler> EventHandler::sInstance = nullptr;
+std::shared_ptr<EventHandler> EventHandler::s_Instance = nullptr;
 
 void EventHandler::Init()
 {
 	// Input Mapping
-	keyActionMap[FRKey::RIGHT] = std::make_pair(1.f, EInputAction::Move);
-	keyActionMap[FRKey::LEFT] = std::make_pair(-1.f, EInputAction::Move);
-	mouseButtonActionMap[FRMouseButton::LEFT] = EInputAction::Shoot;
+	m_KeyActionMap[FRKey::RIGHT] = std::make_pair(1.f, EInputAction::Move);
+	m_KeyActionMap[FRKey::LEFT] = std::make_pair(-1.f, EInputAction::Move);
+	m_MouseButtonActionMap[FRMouseButton::LEFT] = EInputAction::Shoot;
 }
 
 void EventHandler::BindAction(EInputAction action, ETriggerEvent triggerEvent, std::function<void(InputValue&)> func)
 {
-	bindings[action][triggerEvent] = func;
+	m_Bindings[action][triggerEvent] = func;
 }
 
 void EventHandler::ClearBindings()
 {
-	bindings.clear();
+	m_Bindings.clear();
 }
 
 void EventHandler::PushEvent(std::shared_ptr<InputEvent> ie)
 {
-	queue.push(ie);
+	m_Queue.push(ie);
 }
 
 void EventHandler::HandleEvents()
 {
-	while (!queue.empty())
+	while (!m_Queue.empty())
 	{
-		std::shared_ptr<InputEvent> e = queue.front();
+		std::shared_ptr<InputEvent> e = m_Queue.front();
 		EInputAction action = EInputAction::None;
 		InputValue value;
 		
 		if (e->GetEventType() == EInputType::Key)
 		{
 			try {
-				std::pair<float, EInputAction> values = keyActionMap.at(static_pointer_cast<KeyEvent>(e)->GetKey());
+				std::pair<float, EInputAction> values = m_KeyActionMap.at(static_pointer_cast<KeyEvent>(e)->GetKey());
 				action = values.second;
 				value = values.first;
 			}
-			catch (const std::out_of_range& e) {}
+			catch (...) {}
 		}	
 
 		if (e->GetEventType() == EInputType::MouseButton)
 		{
 			try {
-				action = mouseButtonActionMap.at(static_pointer_cast<MouseButtonEvent>(e)->GetMouseButton());
+				action = m_MouseButtonActionMap.at(static_pointer_cast<MouseButtonEvent>(e)->GetMouseButton());
 			}
-			catch (const std::out_of_range& e) {}
+			catch (...) {}
 		}
 
 		if(e->GetEventType() == EInputType::MouseMove)
 		{
 			action = EInputAction::Aim;
 			value = static_pointer_cast<MouseMoveEvent>(e)->GetValue();
-			lastMousePosition = value.Get<Math::Vector2D>();
+			m_LastMousePosition = value.Get<Math::Vector2D>();
 		}
 		if (action == EInputAction::None)
 		{
-			queue.pop();
+			m_Queue.pop();
 			return;
 		}
 
 		try {
-			auto function = bindings.at(action).at(e->GetInputState());
+			auto function = m_Bindings.at(action).at(e->GetInputState());
 			function(value);
 		}
-		catch (const std::out_of_range& e) {}
+		catch (...) {}
 
-		queue.pop();
+		m_Queue.pop();
 	}
 }
 
 Math::Vector2D EventHandler::GetMousePosition() const
 {
-	return lastMousePosition;
+	return m_LastMousePosition;
 }

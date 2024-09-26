@@ -4,48 +4,57 @@
 #include "Scenes/MenuScene.h"
 #include "Input/EventHandler.h"
 
-std::shared_ptr<World> World::sInstance = nullptr;
+std::shared_ptr<World> World::s_Instance = nullptr;
 
 void World::Update()
 {
-	currentScene->Tick(deltaTime);
-	if (shouldSwitchToLastScene)
+	m_CurrentScene->Tick(m_DeltaTime);
+	if (m_ShouldSwitchToLastScene)
 	{
-		currentScene->ClearScene();
+		m_CurrentScene->ClearScene();
 		EventHandler::Get()->ClearBindings();
-		SetCurrentScene(scenes.back());
-		scenes.erase(scenes.begin());
-		shouldSwitchToLastScene = false;
+		SetCurrentScene(m_Scenes.back());
+		m_Scenes.erase(m_Scenes.begin());
+		m_ShouldSwitchToLastScene = false;
 	}
 }
 
 void World::SetCurrentScene(std::shared_ptr<Scene> scene)
 {
-	currentScene = scene;
-	currentScene->SetViewportSize(width, height);
-	currentScene->Start();
+	m_CurrentScene = scene;
+	m_CurrentScene->SetViewportSize(m_Width, m_Height);
+	m_CurrentScene->Start();
 }
 
 std::shared_ptr<Scene> World::GetCurrentScene()
 {
-	return currentScene;
+	return m_CurrentScene;
 }
 
 std::shared_ptr<World> World::Create()
 {
-	sInstance = std::make_shared<World>();
-	return sInstance;
+	s_Instance = std::make_shared<World>();
+	return s_Instance;
 }
 
 void World::Init(int32_t w, int32_t h)
 {
-	width = w;
-	height = h;
-	currentScene = CreateScene<MenuScene>();
-	currentScene->SetViewportSize(w, h);
-	currentScene->Start();
+	m_Width = w;
+	m_Height = h;
+	m_CurrentScene = CreateScene<MenuScene>();
+	m_CurrentScene->SetViewportSize(w, h);
+	m_CurrentScene->Start();
 }
 
+
+void World::Shutdown()
+{
+	for (auto& scene : m_Scenes)
+	{
+		scene->ClearScene();
+	}
+	EventHandler::Get()->ClearBindings();
+}
 
 std::shared_ptr<World> GetWorld() {
 	return World::Get();

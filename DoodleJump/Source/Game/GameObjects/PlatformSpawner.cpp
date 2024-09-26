@@ -9,23 +9,11 @@
 #include <utility>
 #include "Core/Base/Log.h"
 
-PlatformSpawner::PlatformSpawner() : GameObject(), defaultPlatformPoolSize(10)
+PlatformSpawner::PlatformSpawner() : GameObject(), m_DefaultPlatformPoolSize(10)
 {
 	std::shared_ptr<MySprite> defaultPlatformRef = std::make_shared<MySprite>("assets2/platform.png");
-	defaultPlatformSprite = defaultPlatformRef;
+	m_DefaultPlatformSprite = defaultPlatformRef;
 
-	fakePlatformAnimation = std::make_shared<AnimationMachine>();
-	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateBreak = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
-	animStateBreak->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-1.png"));
-	animStateBreak->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-2.png"));
-	animStateBreak->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-3.png"));
-	animStateBreak->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-4.png"));
-
-	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateIdle = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
-	animStateIdle->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-1.png"));
-
-	(*fakePlatformAnimation)["break"] = std::make_pair(animStateBreak, 0.08);
-	(*fakePlatformAnimation)["idle"] = std::make_pair(animStateIdle, 0);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -38,156 +26,148 @@ PlatformSpawner::~PlatformSpawner()
 void PlatformSpawner::Start()
 {
 	GameObject::Start();
-	boxComponent->SetCollisionEnabled(false);
+	m_BoxComponent->SetCollisionEnabled(false);
 
-	player = GetScene()->GetGameMode()->GetPlayer();
-
-
+	m_Player = GetScene()->GetGameMode()->GetPlayer();
 }
 
 void PlatformSpawner::Tick(double deltaTime)
 {
 	GameObject::Tick(deltaTime);
 
-	double location = player->GetTransform().Translation.y;
+	double location = m_Player->GetTransform().Translation.y;
 
-	for (auto& platform : defaultPlatformPool)
+	for (auto& platform : m_DefaultPlatformPool)
 	{
 		if (location < platform->GetLocation().y)
 			break;
 		if (!platform->IsPassed())
 		{
 			platform->Pass();
-			platformPassed++;
+			m_PlatformPassed++;
 		}
-
 	}
-	for (auto& platform : fakePlatformPool)
+	for (auto& platform : m_FakePlatformPool)
 	{
 		if (location < platform->GetLocation().y)
 			break;
 		if (!platform->IsPassed())
 		{
 			platform->Pass();
-			platformPassed++;
+			m_PlatformPassed++;
 		}
-
 	}
-
 }
 
 void PlatformSpawner::RestartSpawner()
 {
-	for (auto& platform : defaultPlatformPool)
+	for (auto& platform : m_DefaultPlatformPool)
 	{
 		platform->GetTransform().Translation = { -40, -40, -0.5 };
 
 	}
-	for (auto& platform : fakePlatformPool)
+	for (auto& platform : m_FakePlatformPool)
 	{
 		platform->GetTransform().Translation = { -40, -40, -0.5 };
 
 	}
-	std::shared_ptr<Platform> platform = defaultPlatformPool.front();
-	defaultPlatformPool.pop_front();
-	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,camera->GetTransform().Translation.y - camera->GetCameraBounds().y * 0.5, -0.5 };
-	defaultPlatformPool.push_back(platform);
-	lastPlacedPlatform = platform;
+	std::shared_ptr<Platform> platform = m_DefaultPlatformPool.front();
+	m_DefaultPlatformPool.pop_front();
+	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5, -0.5 };
+	m_DefaultPlatformPool.push_back(platform);
+	m_LastPlacedPlatform = platform;
 }
 
 void PlatformSpawner::SpawnPools()
 {
-	camera = GetScene()->GetRenderCamera();
+	m_Camera = GetScene()->GetRenderCamera();
 
-	for (uint32_t i = 0; i < defaultPlatformPoolSize; i++)
+	for (uint32_t i = 0; i < m_DefaultPlatformPoolSize; i++)
 	{
 		std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<Platform>();
-		defaultPlatformPool.push_back(platform);
-		platform->GetSprite()->SetSprite(defaultPlatformSprite);
+		m_DefaultPlatformPool.push_back(platform);
+		platform->GetSprite()->SetSprite(m_DefaultPlatformSprite);
 		platform->SetTag("platform");
 
 	}
-	for (uint32_t i = 0; i < fakePlatformPoolSize; i++)
+	for (uint32_t i = 0; i < m_FakePlatformPoolSize; i++)
 	{
 		std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<FakePlatform>();
-		fakePlatformPool.push_back(platform);
-		platform->GetSprite()->SetAnimationMachine(fakePlatformAnimation);
-		platform->GetSprite()->EnableAnimation();
-		platform->GetSprite()->SwitchAnimationState("idle");
+		m_FakePlatformPool.push_back(platform);
 		platform->SetTag("fake platform");
 	}
 
-	platformDistanceDistribution.param(std::uniform_real_distribution<double>::param_type(1, maxPlatformDistance));
-	double horizontalRange = camera->GetCameraBounds().x * 0.5 - defaultPlatformPool.front()->GetBoxComponent()->GetHalfSize().x;
-	platformHorizontalRangeDistribution.param(std::uniform_real_distribution<double>::param_type(-horizontalRange, horizontalRange));
+	m_PlatformDistanceDistribution.param(std::uniform_real_distribution<double>::param_type(1, m_MaxPlatformDistance));
+	double horizontalRange = m_Camera->GetCameraBounds().x * 0.5 - m_DefaultPlatformPool.front()->GetBoxComponent()->GetHalfSize().x;
+	m_PlatformHorizontalRangeDistribution.param(std::uniform_real_distribution<double>::param_type(-horizontalRange, horizontalRange));
 
 }
 
 void PlatformSpawner::SetDefaultPlatformPoolSize(uint32_t size)
 {
-	defaultPlatformPoolSize = size;
+	m_DefaultPlatformPoolSize = size;
 }
 
 void PlatformSpawner::SetFakePlatformPoolSize(uint32_t size)
 {
-	fakePlatformPoolSize = size;
+	m_FakePlatformPoolSize = size;
 }
 
 bool PlatformSpawner::SetNextPlatform(double score)
 {
-	std::shared_ptr<Platform> lastPlatform = defaultPlatformPool.front();
-	if (lastPlatform->GetLocation().y + 0.1 > camera->GetTransform().Translation.y - camera->GetCameraBounds().y * 0.5)
+	std::shared_ptr<Platform> lastPlatform = m_DefaultPlatformPool.front();
+	if (lastPlatform->GetLocation().y + 0.1 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
 		return false;
 
 	double minDistance = score / 25000 * (8 - 2); // Interpolate
-	double maxDistance = score / 15000 * (maxPlatformDistance - 6);
+	double maxDistance = score / 15000 * (m_MaxPlatformDistance - 6);
 	minDistance = std::clamp<double>(minDistance, 0, 8 - 2);
-	maxDistance = std::clamp<double>(maxDistance, 0, maxPlatformDistance - 6);
+	maxDistance = std::clamp<double>(maxDistance, 0, m_MaxPlatformDistance - 6);
 
 
-	platformDistanceDistribution.param(std::uniform_real_distribution<double>::param_type(minDistance + 2, maxDistance + 6));
+	m_PlatformDistanceDistribution.param(std::uniform_real_distribution<double>::param_type(minDistance + 2, maxDistance + 6));
 
 
-	double distance = platformDistanceDistribution(gen);
-	double horizontalLocation = platformHorizontalRangeDistribution(gen);
+	double distance = m_PlatformDistanceDistribution(m_RandomEngine);
+	double horizontalLocation = m_PlatformHorizontalRangeDistribution(m_RandomEngine);
 
 
-	double lppy = lastPlacedPlatform->GetLocation().y;
+	double lppy = m_LastPlacedPlatform->GetLocation().y;
 	lastPlatform->SetLocation({ horizontalLocation, distance + lppy, 0 });
-	lastPlacedPlatform = lastPlatform;
+	m_LastPlacedPlatform = lastPlatform;
 	lastPlatform->Reset();
 
-	defaultPlatformPool.pop_front();
-	defaultPlatformPool.push_back(lastPlatform);
+	m_DefaultPlatformPool.pop_front();
+	m_DefaultPlatformPool.push_back(lastPlatform);
 
 	// Fake platform
-	lastPlatform = fakePlatformPool.front();
-	if (lastPlatform->GetLocation().y + 2 > camera->GetTransform().Translation.y - camera->GetCameraBounds().y * 0.5)
+	lastPlatform = m_FakePlatformPool.front();
+	if (lastPlatform->GetLocation().y + 2 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
 		return true;
 
-	distance = platformDistanceDistribution(gen);
-	horizontalLocation = platformHorizontalRangeDistribution(gen);
+	distance = m_PlatformDistanceDistribution(m_RandomEngine);
+	horizontalLocation = m_PlatformHorizontalRangeDistribution(m_RandomEngine);
 
-	lastPlatform->SetLocation({ horizontalLocation, distance * 20 + camera->GetTransform().Translation.y, 0 });
+	lastPlatform->SetLocation({ horizontalLocation, distance * 20 + m_Camera->GetTransform().Translation.y, 0 });
 	lastPlatform->Reset();
 
-	fakePlatformPool.pop_front();
-	fakePlatformPool.push_back(lastPlatform);
+	m_FakePlatformPool.pop_front();
+	m_FakePlatformPool.push_back(lastPlatform);
 
 	return true;
 }
 
 Math::Vector2D PlatformSpawner::GetLastSetPlatformLocation()
 {
-	return defaultPlatformPool.back()->GetLocation();
+	return m_DefaultPlatformPool.back()->GetLocation();
 }
 
 Math::Vector2D PlatformSpawner::GetLowestPlatformLocation()
 {
-	return defaultPlatformPool.front()->GetLocation();
+	return m_DefaultPlatformPool.front()->GetLocation();
 }
 
 int32_t PlatformSpawner::GetPassedPlatformCount()
 {
-	return platformPassed;
+	return m_PlatformPassed;
 }

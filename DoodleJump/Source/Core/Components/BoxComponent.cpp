@@ -2,15 +2,15 @@
 #include "World/World.h"
 #include "Entities/GameObject.h"
 
-BoxComponent::BoxComponent() : SceneComponent(), boxHalfSize{ 0.5, 0.5 }, bCollisionEnabled(true)
+BoxComponent::BoxComponent() : SceneComponent(), m_BoxHalfSize{ 0.5, 0.5 }, m_bCollisionEnabled(true)
 {
-	collisionResponce[ECollisionChannel::Character] = ECollisionResponse::Overlap;
-	collisionResponce[ECollisionChannel::WorldDynamic] = ECollisionResponse::Overlap;
-	collisionResponce[ECollisionChannel::WorldStatic] = ECollisionResponse::Overlap;
+	m_CollisionResponce[ECollisionChannel::Character] = ECollisionResponse::Overlap;
+	m_CollisionResponce[ECollisionChannel::WorldDynamic] = ECollisionResponse::Overlap;
+	m_CollisionResponce[ECollisionChannel::WorldStatic] = ECollisionResponse::Overlap;
 
-	velocity = Math::Vector2D::ZeroVector;
-	acceleration = Math::Vector2D::ZeroVector;
-	gravity = Math::Vector2D::ZeroVector;
+	m_Velocity = Math::Vector2D::ZeroVector;
+	m_Acceleration = Math::Vector2D::ZeroVector;
+	m_Gravity = Math::Vector2D::ZeroVector;
 }
 
 void BoxComponent::Start()
@@ -30,73 +30,73 @@ void BoxComponent::Destroy()
 
 void BoxComponent::SetHalfSize(const Math::Vector2D& newSize)
 {
-	boxHalfSize = newSize;
+	m_BoxHalfSize = newSize;
 }
 
 Math::Vector2D BoxComponent::GetHalfSize() const
 {
-	return boxHalfSize;
+	return m_BoxHalfSize;
 }
 
 void BoxComponent::SetCollisionChannel(ECollisionChannel channel)
 {
-	collisionChannel = channel;
+	m_CollisionChannel = channel;
 }
 
 ECollisionChannel BoxComponent::GetCollisionChannel()
 {
-	return collisionChannel;
+	return m_CollisionChannel;
 }
 
 void BoxComponent::SetCollisionResponce(ECollisionChannel channel, ECollisionResponse response)
 {
-	collisionResponce[channel] = response;
+	m_CollisionResponce[channel] = response;
 }
 
 ECollisionResponse BoxComponent::GetCollisionResponce(ECollisionChannel channel)
 {
-	return collisionResponce[channel];
+	return m_CollisionResponce[channel];
 }
 
 void BoxComponent::SetCollisionEnabled(bool bEnabled)
 {
-	bCollisionEnabled = bEnabled;
+	m_bCollisionEnabled = bEnabled;
 }
 
 bool BoxComponent::IsCollisionEnabled()
 {
-	return bCollisionEnabled;
+	return m_bCollisionEnabled;
 }
 
 void BoxComponent::SetVelocity(Math::Vector2D newVelocity)
 {
-	velocity = newVelocity;
+	m_Velocity = newVelocity;
 }
 
 Math::Vector2D BoxComponent::GetVelocity()
 {
-	Math::Vector2D accelerationCopy = acceleration;
-	Math::Vector2D velocityCopy = velocity;
-	accelerationCopy += gravity;
+	Math::Vector2D accelerationCopy = m_Acceleration;
+	Math::Vector2D velocityCopy = m_Velocity;
+	accelerationCopy += m_Gravity;
 	velocityCopy += accelerationCopy * 0.5 * GetWorld()->GetDeltaTime();
 	return velocityCopy * GetWorld()->GetDeltaTime();
 }
 
 void BoxComponent::SetAcceleration(Math::Vector2D newAcceleration)
 {
-	acceleration = newAcceleration;
+	m_Acceleration = newAcceleration;
 }
 
 void BoxComponent::SetGravity(Math::Vector2D newGravity)
 {
-	gravity = newGravity;
+	m_Gravity = newGravity;
 }
 
 BoxCollider BoxComponent::GetCollider()
 {
 	BoxCollider collider;
 	collider.pos = GetTransform().Translation;
-	collider.size = GetTransform().Scale * Math::Vector(boxHalfSize, 0);
+	collider.size = GetTransform().Scale * Math::Vector(m_BoxHalfSize, 0);
 	collider.vel = GetVelocity();
 	return collider;
 }

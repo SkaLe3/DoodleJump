@@ -1,7 +1,6 @@
 #pragma once
 #include "Entities/GameObject.h"
 
-
 #include <memory>
 
 class SpriteComponent;
@@ -13,15 +12,18 @@ public:
 	Projectile();
 	~Projectile();
 
+	//~ Begin Object Interface
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
-public:
-	void OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
-	void Launch(Math::Vector2D direction, double speed);
-private:
-	std::shared_ptr<SpriteComponent> spriteComponent;
-	std::shared_ptr<ProjectileMovementComponent> movementComponent;
+	//~ End Object Interface
 
-	double autoDestroyTimer = 0;
+	void Launch(Math::Vector2D direction, double speed);
+	void OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
+
+private:
+	std::shared_ptr<SpriteComponent> m_SpriteComponent;
+	std::shared_ptr<ProjectileMovementComponent> m_MovementComponent;
+
+	double m_AutoDestroyTimer = 0;
 };

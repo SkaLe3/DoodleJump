@@ -4,9 +4,9 @@
 
 MovementComponent::MovementComponent()
 {
-	gravity = Math::Vector2D::ZeroVector;
-	acceleration = Math::Vector2D::ZeroVector;
-	velocity = Math::Vector2D::ZeroVector;
+	m_Gravity = Math::Vector2D::ZeroVector;
+	m_Acceleration = Math::Vector2D::ZeroVector;
+	m_Velocity = Math::Vector2D::ZeroVector;
 }
 
 void MovementComponent::Start()
@@ -16,17 +16,17 @@ void MovementComponent::Start()
 
 void MovementComponent::Tick(double deltaTime)
 {
-	Math::Transform& transform = owner->GetTransform();
+	Math::Transform& transform = m_Owner->GetTransform();
 
-	acceleration += gravity;
-	velocity += acceleration * 0.5 * deltaTime;
-	transform.Translation += Math::Vector(velocity * deltaTime, 0);
-	velocity += acceleration * 0.5 * deltaTime;
+	m_Acceleration += m_Gravity;
+	m_Velocity += m_Acceleration * 0.5 * deltaTime;
+	transform.Translation += Math::Vector(m_Velocity * deltaTime, 0);
+	m_Velocity += m_Acceleration * 0.5 * deltaTime;
 
-	GetOwner()->GetBoxComponent()->SetAcceleration(acceleration);
-	GetOwner()->GetBoxComponent()->SetVelocity(velocity);
-	GetOwner()->GetBoxComponent()->SetGravity(gravity);
-	acceleration = Math::Vector2D::ZeroVector;
+	GetOwner()->GetBoxComponent()->SetAcceleration(m_Acceleration);
+	GetOwner()->GetBoxComponent()->SetVelocity(m_Velocity);
+	GetOwner()->GetBoxComponent()->SetGravity(m_Gravity);
+	m_Acceleration = Math::Vector2D::ZeroVector;
 }
 
 
@@ -37,16 +37,16 @@ void MovementComponent::Destroy()
 
 void MovementComponent::SetGravity(double gravityValue)
 {
-	gravity.y = gravityValue;
+	m_Gravity.y = gravityValue;
 }
 
 void MovementComponent::SetMaxSpeed(double speed)
 {
-	maxSpeed = speed;
+	m_MaxSpeed = speed;
 }
 
 void MovementComponent::OnCollision(double collisionTime)
 {
 	// TODO: Add remaining time to use instead of delta time when collision occurs
-	owner->GetTransform().Translation += Math::Vector(owner->GetBoxComponent()->GetVelocity() * collisionTime, 0);
+	m_Owner->GetTransform().Translation += Math::Vector(m_Owner->GetBoxComponent()->GetVelocity() * collisionTime, 0);
 }

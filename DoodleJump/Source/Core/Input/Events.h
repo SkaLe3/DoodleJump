@@ -57,11 +57,11 @@ private:
 class MouseMoveEvent : public InputEvent
 {
 public:
-	MouseMoveEvent(Math::Vector2D _value, EInputType it, ETriggerEvent is) : InputEvent(it, is), value(_value) {}
-	Math::Vector2D GetValue() const { return value; }
+	MouseMoveEvent(Math::Vector2D _value, EInputType it, ETriggerEvent is) : InputEvent(it, is), m_Value(_value) {}
+	Math::Vector2D GetValue() const { return m_Value; }
 
 private:
-	Math::Vector2D value;
+	Math::Vector2D m_Value;
 };
 
 

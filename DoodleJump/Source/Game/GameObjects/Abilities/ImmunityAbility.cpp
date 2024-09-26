@@ -1,16 +1,15 @@
 #include "ImmunityAbility.h"
 
-
 #include "Components/SpriteComponent.h"
 
 ImmunityAbility::ImmunityAbility() : GameObject()
 {
-	spriteComponent = CreateComponent<SpriteComponent>();
-	spriteComponent->SetupAttachment(GetBoxComponent());
+	m_SpriteComponent = CreateComponent<SpriteComponent>();
+	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
-	boxComponent->SetHalfSize({3, 3 });
+	m_BoxComponent->SetHalfSize({3, 3 });
 	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/shield.png");
-	spriteComponent->SetSprite(spriteRef);
+	m_SpriteComponent->SetSprite(spriteRef);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -23,14 +22,14 @@ void ImmunityAbility::Start()
 {
 	GameObject::Start();
 	auto ability = GetScene()->GetObject(this);
-	spriteComponent->SetOwner(ability);
+	m_SpriteComponent->SetOwner(ability);
 
-	spriteComponent->GetTransform().Scale = { 7, 7, 1.0 };
+	m_SpriteComponent->GetTransform().Scale = { 7, 7, 1.0 };
 
-	boxComponent->SetCollisionChannel(ECollisionChannel::WorldStatic);
-	boxComponent->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Overlap);
-	boxComponent->SetCollisionResponce(ECollisionChannel::WorldStatic, ECollisionResponse::Ignore);
-	boxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	m_BoxComponent->SetCollisionChannel(ECollisionChannel::WorldStatic);
+	m_BoxComponent->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Overlap);
+	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldStatic, ECollisionResponse::Ignore);
+	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 
 	SetTag("immunity");
 }
@@ -43,16 +42,16 @@ void ImmunityAbility::Tick(double deltaTime)
 void ImmunityAbility::Destroy()
 {
 	GameObject::Destroy();
-	spriteComponent->Destroy();
+	m_SpriteComponent->Destroy();
 }
 
 void ImmunityAbility::DisableCollision()
 {
-	boxComponent->SetCollisionEnabled(false);
+	m_BoxComponent->SetCollisionEnabled(false);
 }
 
 double ImmunityAbility::GetTime()
 {
-	return abilityTime;
+	return m_AbilityTime;
 }
 

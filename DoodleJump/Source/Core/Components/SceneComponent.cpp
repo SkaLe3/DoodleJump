@@ -2,23 +2,23 @@
 
 Math::Transform& SceneComponent::GetTransform()
 {
-	return transform;
+	return m_Transform;
 }
 
 Math::Mat4 SceneComponent::GetTransformMatrix()
 {
-	if (parent)
-		return parent->GetTransformMatrix() * transform.ToMat4();
-	return transform.ToMat4();
+	if (m_Parent)
+		return m_Parent->GetTransformMatrix() * m_Transform.ToMat4();
+	return m_Transform.ToMat4();
 }
 
 void SceneComponent::SetupAttachment(std::shared_ptr<SceneComponent> component)
 {
-	parent = component;
+	m_Parent = component;
 }
 
 void SceneComponent::DetachFromParent()
 {
-	parent = nullptr;
+	m_Parent = nullptr;
 }
 

@@ -20,8 +20,6 @@ namespace Math
 			return Translate(Mat4(), Translation)
 				* Rotate(Mat4(), Rotation.z)
 				* Math::Scale(Mat4(), Scale);
-		}
-		
+		}	
 	};
-
 }

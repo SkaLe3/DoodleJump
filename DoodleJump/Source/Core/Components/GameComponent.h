@@ -8,11 +8,11 @@ class GameObject;
 class GameComponent : public Object
 {
 public:
-	void SetOwner(std::shared_ptr<GameObject> object) { owner = object; }
-	void RemoveOwner() { owner = nullptr; }
-	std::shared_ptr<GameObject> GetOwner() { return owner; }
+	void SetOwner(std::shared_ptr<GameObject> object) { m_Owner = object; }
+	void RemoveOwner() { m_Owner = nullptr; }
+	std::shared_ptr<GameObject> GetOwner() { return m_Owner; }
 
 protected:
-	std::shared_ptr<GameObject> owner;
+	std::shared_ptr<GameObject> m_Owner;
 };
 

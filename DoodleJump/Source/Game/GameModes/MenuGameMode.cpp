@@ -13,8 +13,7 @@
 
 #include "Scenes/LevelScene.h"
 
-
-#include "Framework.h"
+#include "Framework.h" /* For showCursor() */
 
 MenuGameMode::MenuGameMode()
 {
@@ -31,7 +30,7 @@ void MenuGameMode::Start()
 	showCursor(true);
 
 	// Spawn Player
-	player = GetScene()->SpawnGameObject<MenuController>();
+	m_Player = GetScene()->SpawnGameObject<MenuController>();
 	// Spawn Background
 	std::shared_ptr<Background> background = GetScene()->SpawnGameObject<Background>();
 	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/Menu.png");
@@ -40,11 +39,11 @@ void MenuGameMode::Start()
 	background->GetSprite()->GetTransform().Translation = { 0, 0, -1 };
 
 	// Camera
-	camera = GetScene()->GetRenderCamera();
-	Math::Vector2D camBounds = camera->GetCameraBounds();
-	horizontalBounds = { camera->GetTransform().Translation.x - camBounds.x * 0.5, camera->GetTransform().Translation.x + camBounds.x * 0.5 };
+	m_Camera = GetScene()->GetRenderCamera();
+	Math::Vector2D camBounds = m_Camera->GetCameraBounds();
+	m_HorizontalBounds = { m_Camera->GetTransform().Translation.x - camBounds.x * 0.5, m_Camera->GetTransform().Translation.x + camBounds.x * 0.5 };
 
-	playButton = GetScene()->SpawnGameObject<PlayButton>();
+	m_PlayButton = GetScene()->SpawnGameObject<PlayButton>();
 }
 
 void MenuGameMode::Tick(double 
@@ -59,7 +58,7 @@ void MenuGameMode::Destroy()
 
 void MenuGameMode::Click(Math::Vector2D mousePos)
 {
-	bool isClicked = Physics::IsColliding({ mousePos, {0.1, 0.1}, {0, 0} }, playButton->GetBoxComponent()->GetCollider());
+	bool isClicked = Physics::IsColliding({ mousePos, {0.1, 0.1}, {0, 0} }, m_PlayButton->GetBoxComponent()->GetCollider());
 
 	if (isClicked)
 	{

@@ -9,7 +9,7 @@ LevelScene::LevelScene()
 
 void LevelScene::Start()
 {
-	gameMode = std::make_shared<DJGameMode>();
+	m_GameMode = std::make_shared<DJGameMode>();
 	Scene::Start();
 }
 

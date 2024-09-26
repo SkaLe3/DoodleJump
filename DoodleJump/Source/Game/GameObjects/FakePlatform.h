@@ -6,16 +6,16 @@ class FakePlatform : public Platform
 public:
 	FakePlatform();
 
+	//~ Begin Object Interface
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
+	//~ End Object Interface
 
 	void OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
 
-public:
 	void Break();
+
 private:
-
-	bool bBroken = false;
-	double timer = 0;
-
+	bool m_bBroken = false;
+	double m_Timer = 0;
 };

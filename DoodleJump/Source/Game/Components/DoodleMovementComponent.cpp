@@ -1,7 +1,7 @@
 #include "DoodleMovementComponent.h"
 #include "Entities/GameObject.h"
 
-DoodleMovementComponent::DoodleMovementComponent() : MovementComponent(), jumpVelocity(20)
+DoodleMovementComponent::DoodleMovementComponent() : MovementComponent(), m_JumpVelocity(20)
 {
 }
 
@@ -14,20 +14,20 @@ void DoodleMovementComponent::Tick(double deltaTime)
 {
 	MovementComponent::Tick(deltaTime);
 
-	velocity.x = 0;
+	m_Velocity.x = 0;
 }
 
 void DoodleMovementComponent::AddMovementInput(Math::Vector2D direction)
 {
-	velocity.x = direction.x * maxSpeed;
+	m_Velocity.x = direction.x * m_MaxSpeed;
 }
 
 void DoodleMovementComponent::Jump()
 {
-	velocity.y = jumpVelocity;
+	m_Velocity.y = m_JumpVelocity;
 }
 
 void DoodleMovementComponent::SetJumpVelocity(double velocity)
 {
-	jumpVelocity = velocity;
+	m_JumpVelocity = velocity;
 }

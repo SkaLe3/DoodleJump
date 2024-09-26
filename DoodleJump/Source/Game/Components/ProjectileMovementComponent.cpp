@@ -17,5 +17,5 @@ void ProjectileMovementComponent::Tick(double deltaTime)
 
 void ProjectileMovementComponent::SetInitialVelocity(Math::Vector2D initialVelocity)
 {
-	velocity = initialVelocity;
+	m_Velocity = initialVelocity;
 }

@@ -6,11 +6,11 @@
 
 Crosshair::Crosshair()
 {
-	spriteComponent = CreateComponent<SpriteComponent>();
-	spriteComponent->SetupAttachment(GetBoxComponent());
+	m_SpriteComponent = CreateComponent<SpriteComponent>();
+	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
 	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/crosshair.png");
-	spriteComponent->SetSprite(spriteRef);
+	m_SpriteComponent->SetSprite(spriteRef);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -24,12 +24,12 @@ void Crosshair::Start()
 	GameObject::Start();
 
 	auto crosshair = GetScene()->GetObject(this);
-	spriteComponent->SetOwner(crosshair);
+	m_SpriteComponent->SetOwner(crosshair);
 
-	spriteComponent->GetTransform().Scale = { 2, 2, 1.0 };
-	spriteComponent->GetTransform().Translation = { 0, 0, 10 };
+	m_SpriteComponent->GetTransform().Scale = { 2, 2, 1.0 };
+	m_SpriteComponent->GetTransform().Translation = { 0, 0, 10 };
 	
-	boxComponent->SetCollisionEnabled(false);
+	m_BoxComponent->SetCollisionEnabled(false);
 }
 
 void Crosshair::Tick(double deltaTime)
@@ -37,12 +37,11 @@ void Crosshair::Tick(double deltaTime)
 	GameObject::Tick(deltaTime);
 
 	Math::Vector2D mousePos = GetScene()->GetMousePosition();
-
-	rootComponent->GetTransform().Translation = Math::Vector(mousePos, 0);
+	m_RootComponent->GetTransform().Translation = Math::Vector(mousePos, 0);
 }
 
 void Crosshair::Destroy()
 {
 	GameObject::Destroy();
-	spriteComponent->Destroy();	
+	m_SpriteComponent->Destroy();	
 }

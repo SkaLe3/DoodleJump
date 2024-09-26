@@ -1,11 +1,8 @@
 #pragma once
 #include "SceneComponent.h"
 #include "Renderer/MySprite.h"
-#include <unordered_map>
-#include <vector>
+#include "Renderer/AnimationMachine.h"
 
-
-using AnimationMachine = std::unordered_map<std::string, std::pair<std::shared_ptr<std::vector<std::shared_ptr<MySprite>>>, double>>;
 
 class SpriteComponent : public SceneComponent
 {
@@ -13,25 +10,23 @@ public:
 	SpriteComponent() = default;
 	~SpriteComponent();
 
+	//~ Begin Object Interface
 	virtual void Start() override {}
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
+	//~ End Object Interface
 
 	void SetSprite(std::shared_ptr<MySprite> newSprite);
 	std::shared_ptr<MySprite> GetSprite() const;
-	
+
 	void EnableAnimation();
-	void SetAnimationMachine(std::shared_ptr<AnimationMachine> anim);
-	void SwitchAnimationState(const std::string& key);
+	void SetAnimationMachine(std::shared_ptr<AnimationMachine> animMachine);
+	void SwitchAnimationState(const std::string& key); // Temporary
 
 private:
-	std::shared_ptr<MySprite> sprite;
-	std::shared_ptr<AnimationMachine> animations;
-	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animationState;
+	std::shared_ptr<MySprite> m_Sprite;
+	std::shared_ptr<AnimationMachine> m_AnimationMachine;
 
-	size_t index = 0;
-	double frameTime = 1;
-	double currentTime = 0;
-	bool bAnimationEnabled = false;
+	bool m_bAnimationEnabled = false;
 
 };
