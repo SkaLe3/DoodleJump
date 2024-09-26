@@ -14,18 +14,7 @@ PlatformSpawner::PlatformSpawner() : GameObject(), defaultPlatformPoolSize(10)
 	std::shared_ptr<MySprite> defaultPlatformRef = std::make_shared<MySprite>("assets2/platform.png");
 	defaultPlatformSprite = defaultPlatformRef;
 
-	fakePlatformAnimation = std::make_shared<AnimationMachine>();
-	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateBreak = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
-	animStateBreak->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-1.png"));
-	animStateBreak->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-2.png"));
-	animStateBreak->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-3.png"));
-	animStateBreak->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-4.png"));
 
-	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateIdle = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
-	animStateIdle->emplace_back(std::make_shared<MySprite>("assets2/fake-platform-1.png"));
-
-	(*fakePlatformAnimation)["break"] = std::make_pair(animStateBreak, 0.08);
-	(*fakePlatformAnimation)["idle"] = std::make_pair(animStateIdle, 0);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -111,9 +100,6 @@ void PlatformSpawner::SpawnPools()
 	{
 		std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<FakePlatform>();
 		fakePlatformPool.push_back(platform);
-		platform->GetSprite()->SetAnimationMachine(fakePlatformAnimation);
-		platform->GetSprite()->EnableAnimation();
-		platform->GetSprite()->SwitchAnimationState("idle");
 		platform->SetTag("fake platform");
 	}
 

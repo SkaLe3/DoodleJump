@@ -52,7 +52,6 @@ private:
 
 
 	std::shared_ptr<MySprite> defaultPlatformSprite;
-	std::shared_ptr<AnimationMachine> fakePlatformAnimation;
 	
 	uint32_t defaultPlatformPoolSize;
 	uint32_t fakePlatformPoolSize;

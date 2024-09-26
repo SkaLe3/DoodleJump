@@ -38,18 +38,20 @@ Doodle::Doodle() : GameObject()
 	movementComponent->SetMaxSpeed(40);
 	movementComponent->SetJumpVelocity(defaultJumpVelocity); //70
 
-	std::shared_ptr<AnimationMachine> animationMachine = std::make_shared<AnimationMachine>();
-	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateLeft = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
-	std::shared_ptr<std::vector<std::shared_ptr<MySprite>>> animStateRight = std::make_shared<std::vector<std::shared_ptr<MySprite>>>();
-	animStateLeft->emplace_back(std::make_shared<MySprite>("assets2/player-left@2x.png"));
-	animStateRight->emplace_back(std::make_shared<MySprite>("assets2/player-right@2x.png"));
+	std::shared_ptr<MySprite> leftFrame = std::make_shared<MySprite>("assets2/player-left@2x.png");
+	std::shared_ptr<MySprite> rightFrame = std::make_shared<MySprite>("assets2/player-right@2x.png");
 
-	(*animationMachine)["left"] = std::make_pair(animStateLeft, 1);
-	(*animationMachine)["right"] = std::make_pair(animStateRight, 1);
+	std::shared_ptr<AnimationMachine> animMachine = AnimationMachine::Create();
+	animMachine->CreateState("left", -1);
+	animMachine->CreateState("right", -1);
+	// TODO: Add Jump state
+	// TODO: Add shoot state
+	 animMachine->AddFrame("left", leftFrame);
+	 animMachine->AddFrame("right", rightFrame);
+	 animMachine->SetEntryState("left");
+	 spriteComponent->SetAnimationMachine(animMachine);
+	 spriteComponent->EnableAnimation();
 
-	spriteComponent->SetAnimationMachine(animationMachine);
-	spriteComponent->EnableAnimation();
-	spriteComponent->SwitchAnimationState("left");
 	OBJECT_LOG_CONSTRUCTOR()
 
 }

@@ -1,4 +1,5 @@
 #include "FakePlatform.h"
+#include <memory>
 
 FakePlatform::FakePlatform() : Platform()
 {
@@ -6,6 +7,24 @@ FakePlatform::FakePlatform() : Platform()
 	spriteComponent->GetTransform().Translation.z = -0.5;
 	spriteComponent->GetTransform().Translation.y = -0.3;
 	boxComponent->SetHalfSize({ 2.7, 0.5 });
+
+	// Asset Manager should be implemented to avoid multiple loading of the same images
+	std::shared_ptr<MySprite> fpFrame1 = std::make_shared<MySprite>("assets2/fake-platform-1.png");
+	std::shared_ptr<MySprite> fpFrame2 = std::make_shared<MySprite>("assets2/fake-platform-2.png");
+	std::shared_ptr<MySprite> fpFrame3 = std::make_shared<MySprite>("assets2/fake-platform-3.png");
+	std::shared_ptr<MySprite> fpFrame4 = std::make_shared<MySprite>("assets2/fake-platform-4.png");
+
+	std::shared_ptr<AnimationMachine> animMachine = AnimationMachine::Create();
+	animMachine->CreateState("break", 0.08);
+	animMachine->CreateState("idle", -1);
+	animMachine->AddFrame("break", fpFrame1);
+	animMachine->AddFrame("break", fpFrame2);
+	animMachine->AddFrame("break", fpFrame3);
+	animMachine->AddFrame("break", fpFrame4);
+	animMachine->AddFrame("idle", fpFrame1);
+	animMachine->SetEntryState("idle");
+	GetSprite()->SetAnimationMachine(animMachine);
+	GetSprite()->EnableAnimation();
 }
 
 void FakePlatform::Start()
