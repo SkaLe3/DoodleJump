@@ -64,11 +64,11 @@ void Scene::UpdateCollisions()
 				)) continue;
 
 			Math::Vector2D normal;
-			double result = Physics::SweptAABB(object->GetCollider(), other->GetCollider(), normal);
-			if (result < 1.0)
+			double entryTime = Physics::SweptAABB(object->GetCollider(), other->GetCollider(), normal);
+			if (entryTime < 1.0)
 			{
-				object->OnBeginOverlap(other->GetOwner(), normal, result);
-				other->OnBeginOverlap(object->GetOwner(), -normal, result);
+				object->OnBeginOverlap(other->GetOwner(), normal, entryTime * GetWorld()->GetDeltaTime());
+				other->OnBeginOverlap(object->GetOwner(), -normal, entryTime * GetWorld()->GetDeltaTime());
 			}
 		}
 	}
