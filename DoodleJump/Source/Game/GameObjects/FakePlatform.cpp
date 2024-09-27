@@ -1,4 +1,5 @@
 #include "FakePlatform.h"
+#include "Core/Base/AssetManager.h"
 #include <memory>
 
 FakePlatform::FakePlatform() : Platform()
@@ -9,10 +10,10 @@ FakePlatform::FakePlatform() : Platform()
 	m_BoxComponent->SetHalfSize({ 2.7, 0.5 });
 
 	// Asset Manager should be implemented to avoid multiple loading of the same images
-	std::shared_ptr<MySprite> fpFrame1 = std::make_shared<MySprite>("assets2/fake-platform-1.png");
-	std::shared_ptr<MySprite> fpFrame2 = std::make_shared<MySprite>("assets2/fake-platform-2.png");
-	std::shared_ptr<MySprite> fpFrame3 = std::make_shared<MySprite>("assets2/fake-platform-3.png");
-	std::shared_ptr<MySprite> fpFrame4 = std::make_shared<MySprite>("assets2/fake-platform-4.png");
+	std::shared_ptr<MySprite> fpFrame1 = AssetManager::Get().GetAsset<MySprite>("S_FakePlatform1");
+	std::shared_ptr<MySprite> fpFrame2 = AssetManager::Get().GetAsset<MySprite>("S_FakePlatform2");
+	std::shared_ptr<MySprite> fpFrame3 = AssetManager::Get().GetAsset<MySprite>("S_FakePlatform3");
+	std::shared_ptr<MySprite> fpFrame4 = AssetManager::Get().GetAsset<MySprite>("S_FakePlatform4");
 
 	std::shared_ptr<AnimationMachine> animMachine = AnimationMachine::Create();
 	animMachine->CreateState("break", 0.08);
@@ -39,7 +40,7 @@ void FakePlatform::Tick(double deltaTime)
 	Platform::Tick(deltaTime);
 	if (!m_bBroken)
 		return;
-	if (m_Timer >= 0.32)
+	if (m_Timer >= GetSprite()->GetActiveAnimationDuration())
 	{
 		m_bBroken = false;
 		m_BoxComponent->GetTransform().Translation.y = -10;

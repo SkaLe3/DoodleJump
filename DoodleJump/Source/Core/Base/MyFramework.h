@@ -14,7 +14,7 @@
 class MyFramework : public Framework
 {
 public:
-	MyFramework(uint32_t w, uint32_t h, bool fs);;
+	MyFramework(uint32_t w, uint32_t h, bool fs);
 
 public:
 	//~ Begin Framework Interface
@@ -29,7 +29,7 @@ public:
 	virtual void onKeyReleased(FRKey k);
 
 	virtual const char* GetTitle() override;
-	// End Framework Interface
+	//~ End Framework Interface
 
 private:
 	float m_LastTime = 0;

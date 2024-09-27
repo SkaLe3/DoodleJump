@@ -1,14 +1,14 @@
 #include "PlayButton.h"
 #include "Components/SpriteComponent.h"
 #include "Core/Base/Log.h"
+#include "Core/Base/AssetManager.h"
 
 PlayButton::PlayButton()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
 	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/play.png");
-	m_SpriteComponent->SetSprite(spriteRef);
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Play"));
 
 	m_BoxComponent->SetHalfSize({ 5.8, 2 });
 	m_BoxComponent->GetTransform().Translation = { -6, 3, 0 };

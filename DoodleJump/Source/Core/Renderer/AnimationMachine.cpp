@@ -59,8 +59,3 @@ void AnimationMachine::SetEntryState(const std::string& key)
 		m_ActiveState = m_States[key];
 	}
 }
-
-void AnimationState::SetFrameDuration(double frameDuration)
-{
-	m_FrameDuration = frameDuration;
-}

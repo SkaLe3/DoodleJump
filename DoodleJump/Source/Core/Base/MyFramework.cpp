@@ -1,4 +1,6 @@
 #include "MyFramework.h"
+#include "AssetManager.h"
+
 
 MyFramework::MyFramework(uint32_t w, uint32_t h, bool fs)
 	: m_Width(w), m_Height(h), m_FullscreenMode(fs)
@@ -15,6 +17,8 @@ void MyFramework::PreInit(int& width, int& height, bool& fullscreen)
 
 bool MyFramework::Init()
 {
+	
+	auto& assetMap = AssetManager::Get().GetMap();
 	m_World = World::Create();
 	m_EventHandler = EventHandler::Create();
 	m_EventHandler->Init();

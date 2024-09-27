@@ -49,4 +49,9 @@ void SpriteComponent::SwitchAnimationState(const std::string& key)
 	 m_AnimationMachine->SwitchState(key);
 }
 
+double SpriteComponent::GetActiveAnimationDuration()
+{
+	if (m_AnimationMachine)
+	return m_AnimationMachine->GetActiveStateDuration();
+}
 

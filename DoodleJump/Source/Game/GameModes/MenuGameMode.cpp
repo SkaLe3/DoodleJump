@@ -12,6 +12,7 @@
 #include "GameObjects/UI/PlayButton.h"
 
 #include "Scenes/LevelScene.h"
+#include "Core/Base/AssetManager.h"
 
 #include "Framework.h" /* For showCursor() */
 
@@ -33,8 +34,7 @@ void MenuGameMode::Start()
 	m_Player = GetScene()->SpawnGameObject<MenuController>();
 	// Spawn Background
 	std::shared_ptr<Background> background = GetScene()->SpawnGameObject<Background>();
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/Menu.png");
-	background->GetSprite()->SetSprite(spriteRef);
+	background->GetSprite()->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_MenuBackground"));
 	background->GetSprite()->GetTransform().Scale = { 36, 54, 1 };
 	background->GetSprite()->GetTransform().Translation = { 0, 0, -1 };
 

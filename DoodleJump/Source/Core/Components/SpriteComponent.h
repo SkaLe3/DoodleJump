@@ -22,7 +22,7 @@ public:
 	void EnableAnimation();
 	void SetAnimationMachine(std::shared_ptr<AnimationMachine> animMachine);
 	void SwitchAnimationState(const std::string& key); // Temporary
-
+	double GetActiveAnimationDuration();
 private:
 	std::shared_ptr<MySprite> m_Sprite;
 	std::shared_ptr<AnimationMachine> m_AnimationMachine;

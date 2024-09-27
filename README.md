@@ -49,18 +49,21 @@ Several improvements have been made after the initial release, including:
 * Custom assets: Created and integrated new selfmade assets for game objects.
 * Enhanced safety: Improved handling of edge cases.
 * Code readability and maintainability: Refactored the codebase for better structure and clarity.
-* Animation System: Refactored and improved animation system
+* Animation System: Refactored and improved animation system, created Animation class
 * Project structure: Reorganized project structure
+* Platfrom spawner: Imroved platform spawner logic 
+* Assets: Created Asset Manager
+
 
 ### Plan
 I plan to implement the following features and improvements in the future:
 * Remake main menu with custom background, buttons, additional widgets
-* Improve platform spawner logic
 * Improve different aspect ratio handling
 * Add Themes
 * Build a system for managing game assets
 * Add score serialization
 * Add missing animations
+* Animations: Add new animations (jump, shoot, etc.) 
 
 ### Possible Enhancements
 * Make use of `weak_ptr`

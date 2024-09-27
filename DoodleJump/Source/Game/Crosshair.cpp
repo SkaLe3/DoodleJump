@@ -3,14 +3,14 @@
 #include "Math/Vector2D.h"
 #include "Framework.h"
 #include "Core/Base/Log.h"
+#include "Core/Base/AssetManager.h"
 
 Crosshair::Crosshair()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
 	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/crosshair.png");
-	m_SpriteComponent->SetSprite(spriteRef);
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Crosshair"));
 	OBJECT_LOG_CONSTRUCTOR()
 }
 

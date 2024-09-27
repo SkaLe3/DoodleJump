@@ -9,6 +9,7 @@
 #include "Components/FollowCameraComponent.h"
 
 #include "Core/Base/Log.h"
+#include "Core/Base/AssetManager.h"
 
 
 Doodle::Doodle() : GameObject()
@@ -35,8 +36,8 @@ Doodle::Doodle() : GameObject()
 	m_MovementComponent->SetMaxSpeed(40);
 	m_MovementComponent->SetJumpVelocity(m_DefaultJumpVelocity); //70
 
-	std::shared_ptr<MySprite> leftFrame = std::make_shared<MySprite>("assets2/player-left@2x.png");
-	std::shared_ptr<MySprite> rightFrame = std::make_shared<MySprite>("assets2/player-right@2x.png");
+	std::shared_ptr<MySprite> leftFrame = AssetManager::Get().GetAsset<MySprite>("S_DoodleLeft");
+	std::shared_ptr<MySprite> rightFrame = AssetManager::Get().GetAsset<MySprite>("S_DoodleRight");
 
 	std::shared_ptr<AnimationMachine> animMachine = AnimationMachine::Create();
 	animMachine->CreateState("left", -1);
@@ -89,6 +90,7 @@ void Doodle::Tick(double deltaTime)
 			m_Immunity->SetLocation(m_BoxComponent->GetTransform().Translation);
 		}
 	}
+	//LOG("position: " + std::to_string(m_BoxComponent->GetTransform().Translation.y))
 }
 
 void Doodle::Destroy()

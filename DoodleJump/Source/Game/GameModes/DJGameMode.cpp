@@ -11,6 +11,7 @@
 #include "Components/UI/NumberComponent.h"
 #include "GameObjects/UI/SpriteWidget.h"
 #include "Scenes/MenuScene.h"
+#include "Core/Base/AssetManager.h"
 
 DJGameMode::DJGameMode()
 {
@@ -40,7 +41,11 @@ void DJGameMode::Tick(double deltaTime)
 	UpdateWidget(m_PlatformScoreWidget, m_PlatformScore, m_PlatformSpawner->GetPassedPlatformCount());
 	UpdateWidget(m_LifesWidget, m_PlayerLifes, m_Doodle->GetLifesCount());
 
- 	bool platformSet = m_PlatformSpawner->SetNextPlatform(m_DistanceScore);
+ 	bool platformSet = false;
+	if ( m_PlatformSpawner->GetLastSetPlatformLocation().y - m_DistanceScore < 36)
+	{
+		platformSet = m_PlatformSpawner->SetNextPlatform(m_DistanceScore);
+	}
 
 	if (platformSet && m_EnemySpawnDistribution(m_RandomEngine))
 		SpawnEnemy();
@@ -66,13 +71,12 @@ void DJGameMode::UpdateWidget(std::shared_ptr<NumberWidget> widget, int32_t& val
 	}
 }
 
-void DJGameMode::CreateWidget(const char* path, Math::Vector2D coords, Math::Vector2D scale, double zLocation)
+void DJGameMode::CreateWidget(const std::string& assetName, Math::Vector2D coords, Math::Vector2D scale, double zLocation)
 {
 	std::shared_ptr<SpriteWidget> sprite = GetScene()->SpawnGameObject<SpriteWidget>();
 	sprite->SetCoordinates(coords);
 	std::shared_ptr<SpriteComponent> sc = sprite->GetSprite();
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>(path);
-	sc->SetSprite(spriteRef);
+	sc->SetSprite(AssetManager::Get().GetAsset<MySprite>(assetName));
 	sc->GetTransform().Scale = { scale, 1 };
 	sc->GetTransform().Translation.z = zLocation;
 }
@@ -90,7 +94,7 @@ void DJGameMode::TeleportToLeftWall(std::shared_ptr<GameObject> object)
 
 void DJGameMode::RespawnPlayer()
 {
-	Math::Vector spawnPoint = { m_PlatformSpawner->GetLowestPlatformLocation(), 0 };
+	Math::Vector spawnPoint = { m_PlatformSpawner->GetLowestVisiblePlatformLocation(), 0 };
 	spawnPoint.y += + m_Player->GetBoxComponent()->GetHalfSize().y + 1;	
 
 	m_Doodle->SetLocation(spawnPoint);
@@ -145,15 +149,14 @@ void DJGameMode::StartGame()
 	// Spawn Background
 	// TODO: Create Childclass LevelBackground and MenuBackground
 	std::shared_ptr<Background> background = GetScene()->SpawnGameObject<Background>();
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/background.png");
-	background->GetSprite()->SetSprite(spriteRef);
+	background->GetSprite()->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Background"));
 	background->GetSprite()->GetTransform().Scale = { 134.44, 72, 1 };
 	background->GetSprite()->GetTransform().Translation = { 4.5, 0, -1 };
 
 	// Spawn Platform Spawner
 	m_PlatformSpawner = GetScene()->SpawnGameObject<PlatformSpawner>();
 	m_PlatformSpawner->SetDefaultPlatformPoolSize(36);
-	m_PlatformSpawner->SetFakePlatformPoolSize(6);
+	m_PlatformSpawner->SetFakePlatformPoolSize(10);
 	m_PlatformSpawner->SpawnPools();
 
 	// Walls
@@ -203,10 +206,10 @@ void DJGameMode::StartGame()
 	m_LifesWidget->Init(1);
 	m_LifesWidget->Start();
 
-	CreateWidget("assets2/top.png", { 0, 34.5 }, { camBounds.x, 4.106 }, 1);
-	CreateWidget("assets2/platform.png", { 15, 34.5 }, { 4, 1.08 }, 2);
-	CreateWidget("assets2/heart.png", { 2, 34.5 }, { 2, 2 }, 2);
-	CreateWidget("assets2/distance_icon.png", { -7, 34.5 }, {2, 2}, 2);
-	CreateWidget("assets2/underwater-light@2x.png", {0, 18.35}, {camBounds.x, 35.3}, -0.6);
+	CreateWidget("S_Top", {0, 34.5}, {camBounds.x, 4.106}, 1);
+	CreateWidget("S_Platform", {15, 34.5}, {4, 1.08}, 2);
+	CreateWidget("S_Heart", {2, 34.5}, {2, 2}, 2);
+	CreateWidget("S_DistanceIcon", {-7, 34.5}, {2, 2}, 2);
+	CreateWidget("S_Light", {0, 18.35}, {camBounds.x, 35.3}, -0.6);
 }
 

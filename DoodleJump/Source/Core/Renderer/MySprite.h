@@ -1,7 +1,8 @@
 #pragma once
 
 #ifdef D_DEBUG
-#define SPRITE_PATH const char* spritePath; 
+#include <string>
+#define SPRITE_PATH std::string spritePath; 
 #define GET_SPRITE_PATH() spritePath
 #define SET_SPRITE_PATH(x) spritePath = x;
 #else

@@ -1,6 +1,7 @@
 # Directories
 .vs/
 Build/
+DoodleJump/data/
 
 # Files
 **.sln
