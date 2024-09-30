@@ -15,8 +15,8 @@ public:
 
 	//~ Begin Object Interface
 	virtual void Start() override;
-	virtual void Tick(double deltaTime) override;
-	virtual void Destroy() override;
+	virtual void Tick(double deltaTime) override{};
+	virtual void Destroy() override{};
 	//~ End Object Interface
 
 	void Click(Math::Vector2D mousePos);

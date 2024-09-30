@@ -4,8 +4,8 @@
 class Background : public GameObject
 {
 public:
-	Background();	
-	~Background();		  
+	Background();
+	~Background();
 
 	//~ Begin Object Interface
 	virtual void Start() override;
@@ -15,6 +15,6 @@ public:
 
 	std::shared_ptr<SpriteComponent> GetSprite() const { return m_SpriteComponent; }
 
-private:
+protected:
 	std::shared_ptr<SpriteComponent> m_SpriteComponent;
 };

@@ -2,7 +2,7 @@
 
 #include "DJGameMode.h"
 #include "GameObjects/Doodle.h"
-#include "Background.h"
+#include "GameObjects/UI/LevelBackground.h"
 #include "GameObjects/PlatformSpawner.h"
 #include "Components/CameraComponent.h"
 #include "GameObjects/Monster.h"
@@ -165,8 +165,7 @@ void DJGameMode::StartGame()
 	for (int i = 0, offset = 72; i < 3; i++)
 	{
 		double bgY = (i - 1) * offset;
-		std::shared_ptr<Background> background = GetScene()->SpawnGameObject<Background>();
-		background->GetSprite()->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Background"));
+		std::shared_ptr<Background> background = GetScene()->SpawnGameObject<LevelBackground>();
 		background->GetSprite()->GetTransform().Scale = { 134.44, (double)offset, 1 };
 		background->GetSprite()->GetTransform().Translation = { 4.5, bgY, -1 };
 	}
