@@ -52,8 +52,8 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		width = 400;
-		height = 800;
+		width = 500;
+		height = 900;
 		fullscreen = false;
 	}
 

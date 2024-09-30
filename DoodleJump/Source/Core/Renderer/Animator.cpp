@@ -1,4 +1,5 @@
 #include "Animator.h"
+#include "Core/Base/Log.h"
 
 
 void Animator::Update(double deltaTime)
@@ -11,6 +12,7 @@ void Animator::Update(double deltaTime)
 		if (tCondition)
 		{
 			m_AnimMachine->SwitchState(targetState);
+			LOG("State switched: " + activeState + " ====>> " + targetState);
 		}
 	}
 

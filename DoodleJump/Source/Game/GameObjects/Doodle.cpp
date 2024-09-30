@@ -82,7 +82,19 @@ void Doodle::Tick(double deltaTime)
 			m_Immunity->SetLocation(m_BoxComponent->GetTransform().Translation);
 		}
 	}
-	//LOG("position: " + std::to_string(m_BoxComponent->GetTransform().Translation.y))
+
+	if (m_bShooting)
+	{
+		if (m_ShootTimer >= 0.35)
+			m_bShooting = false;
+		m_ShootTimer += deltaTime;
+	}
+	if (m_bJumping)
+	{
+		if (m_JumpTimer >= 0.35)
+			m_bJumping = false;
+		m_JumpTimer += deltaTime;
+	}
 }
 
 void Doodle::Destroy()
@@ -167,6 +179,8 @@ void Doodle::Shoot(InputValue& value)
 	Math::Vector2D rightEdge{ 1, 1 };
 	direction = Math::Clamp(Math::Normalize(direction), Math::Normalize(leftEdge), Math::Normalize(rightEdge));
 	projectile->Launch(direction, 70);
+	m_bShooting = true;
+	m_ShootTimer = 0;
 }
 
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
@@ -179,6 +193,8 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 			m_MovementComponent->OnCollision(collisionTime);
 			Jump();
 			m_JumpsCount++;
+			m_bJumping = true;
+			m_JumpTimer = 0;
 		}
 		else if (otherTag == "monster")
 		{

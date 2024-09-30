@@ -55,6 +55,7 @@ Several improvements have been made after the initial release, including:
 * Platfrom spawner: Imroved platform spawner logic 
 * Assets: Created Asset Manager and asset handlers
 * Adaptive scene aspect ratio: Implemented dynamic handling of various window sized for better visual consistency
+* Animations: Added jumping and shooting animations
 
 
 ### Plan
@@ -62,8 +63,8 @@ I plan to implement the following features and improvements in the future:
 * Remake main menu with custom background, buttons, additional widgets
 * Add Themes. Theme switch should load theme assets
 * Add score serialization
-* Animations: Add new animations (jump, shoot, etc.) 
 * optimize performance
+* Make all assets 128x128 size
 
 ### Possible Enhancements
 * Make use of `weak_ptr`

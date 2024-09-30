@@ -55,7 +55,12 @@ void AssetManager::Init()
 					while (std::getline(animFile, line))
 					{
 						if (!line.empty())
-							frames.push_back(GetSpriteAsset(line));
+						{
+							if (m_AssetMap.count(line))
+								frames.push_back(GetSpriteAsset(line));
+							else
+								LOG("Unvalid animation frame referenced in animation file: " + entryPath.string());
+						}
 					}
 					animFile.close();
 				}
