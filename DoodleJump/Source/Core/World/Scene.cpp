@@ -153,6 +153,12 @@ void Scene::SetViewportSize(uint32_t width, uint32_t height)
 	m_ViewportHeight = height;
 }
 
+void Scene::GetViewportSize(uint32_t& width, uint32_t& height)
+{
+   width = m_ViewportWidth;
+   height = m_ViewportHeight;
+}
+
 std::shared_ptr<GameObject> Scene::GetObject(GameObject* object)
 {
 	auto it = std::find_if(m_TickObjects.begin(), m_TickObjects.end(), [object](const auto& ptr) {

@@ -13,7 +13,7 @@ void SpriteComponent::Tick(double deltaTime)
 {
 	if (!m_bAnimationEnabled)
 		return;
-	m_AnimationMachine->Update(deltaTime);
+	m_Animator->Update(deltaTime);
 }
 
 void SpriteComponent::Destroy()
@@ -31,7 +31,7 @@ std::shared_ptr<MySprite> SpriteComponent::GetSprite() const
 	if (!m_bAnimationEnabled)
 		return m_Sprite;
 	else
-		return m_AnimationMachine->GetActiveFrame();
+		return m_Animator->GetFrame();
 }
 
 void SpriteComponent::EnableAnimation()
@@ -39,14 +39,9 @@ void SpriteComponent::EnableAnimation()
 	m_bAnimationEnabled = true;
 }
 
-void SpriteComponent::SetAnimationMachine(std::shared_ptr<AnimationMachine> anim)
+void SpriteComponent::SetAnimator(std::shared_ptr<Animator> animator)
 {
-	m_AnimationMachine = anim;
-}
-
-void SpriteComponent::SwitchAnimationState(const std::string& key)
-{
-	 m_AnimationMachine->SwitchState(key);
+	m_Animator = animator;
 }
 
 

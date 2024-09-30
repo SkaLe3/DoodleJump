@@ -25,6 +25,9 @@ public:
 	Math::Vector2D GetVelocity() const;
 	int32_t GetLifesCount();
 	int32_t GetJumpsCount();
+	inline int32_t GetLookHDirection() { return m_LookHDirection; }
+	inline bool IsJumping() { return m_bJumping; }
+	inline bool IsShooting() { return m_bShooting; }
 
 	void AddMovementInput(Math::Vector2D direction);
 	void Jump();
@@ -56,4 +59,11 @@ private:
 
 	bool m_bInputEnabled = true;
 	bool m_bPhysicsCollisionEnabled = true;
+
+	int32_t m_LookHDirection = -1;
+	bool m_bJumping = false;
+	bool m_bShooting = false;
+	double m_JumpTimer = 0;
+	double m_ShootTimer = 0;
+
 };

@@ -4,6 +4,7 @@
 #include "GameModes/DJGameMode.h"
 #include "Components/CameraComponent.h"
 #include "Math/MyMath.h"
+#include "Core/Base/AssetManager.h"
 
 #include <algorithm>
 #include <utility>
@@ -11,9 +12,6 @@
 
 PlatformSpawner::PlatformSpawner() : GameObject(), m_DefaultPlatformPoolSize(10)
 {
-	std::shared_ptr<MySprite> defaultPlatformRef = std::make_shared<MySprite>("assets2/platform.png");
-	m_DefaultPlatformSprite = defaultPlatformRef;
-
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -71,9 +69,10 @@ void PlatformSpawner::RestartSpawner()
 		platform->GetTransform().Translation = { -40, -40, -0.5 };
 
 	}
+	std::shared_ptr<DJGameMode> gm = std::static_pointer_cast<DJGameMode>(GetGameMode()); 
 	std::shared_ptr<Platform> platform = m_DefaultPlatformPool.front();
 	m_DefaultPlatformPool.pop_front();
-	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5, -0.5 };
+	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,m_Camera->GetTransform().Translation.y - gm->GetViewArea().y * 0.5, -0.5 };
 	m_DefaultPlatformPool.push_back(platform);
 	m_LastPlacedPlatform = platform;
 }
@@ -86,7 +85,6 @@ void PlatformSpawner::SpawnPools()
 	{
 		std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<Platform>();
 		m_DefaultPlatformPool.push_back(platform);
-		platform->GetSprite()->SetSprite(m_DefaultPlatformSprite);
 		platform->SetTag("platform");
 
 	}
@@ -98,7 +96,7 @@ void PlatformSpawner::SpawnPools()
 	}
 
 	m_PlatformDistanceDistribution.param(std::uniform_real_distribution<double>::param_type(1, m_MaxPlatformDistance));
-	double horizontalRange = m_Camera->GetCameraBounds().x * 0.5 - m_DefaultPlatformPool.front()->GetBoxComponent()->GetHalfSize().x;
+	double horizontalRange = std::static_pointer_cast<DJGameMode>(GetGameMode())->GetViewArea().x * 0.5 - m_DefaultPlatformPool.front()->GetBoxComponent()->GetHalfSize().x;
 	m_PlatformHorizontalRangeDistribution.param(std::uniform_real_distribution<double>::param_type(-horizontalRange, horizontalRange));
 
 }
@@ -119,8 +117,8 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	if (lastPlatform->GetLocation().y + 0.1 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
 		return false;
 
-	double minDistance = score / 25000 * (8 - 2); // Interpolate
-	double maxDistance = score / 15000 * (m_MaxPlatformDistance - 6);
+	double minDistance = score / 80000 * (8 - 2); // Interpolate
+	double maxDistance = score / 60000 * (m_MaxPlatformDistance - 6);
 	minDistance = std::clamp<double>(minDistance, 0, 8 - 2);
 	maxDistance = std::clamp<double>(maxDistance, 0, m_MaxPlatformDistance - 6);
 
@@ -133,6 +131,8 @@ bool PlatformSpawner::SetNextPlatform(double score)
 
 
 	double lppy = m_LastPlacedPlatform->GetLocation().y;
+
+
 	lastPlatform->SetLocation({ horizontalLocation, distance + lppy, 0 });
 	m_LastPlacedPlatform = lastPlatform;
 	lastPlatform->Reset();
@@ -140,20 +140,22 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	m_DefaultPlatformPool.pop_front();
 	m_DefaultPlatformPool.push_back(lastPlatform);
 
+
 	// Fake platform
 	lastPlatform = m_FakePlatformPool.front();
 	if (lastPlatform->GetLocation().y + 2 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
 		return true;
 
-	distance = m_PlatformDistanceDistribution(m_RandomEngine);
-	horizontalLocation = m_PlatformHorizontalRangeDistribution(m_RandomEngine);
+	if (distance > maxDistance + 5.5 - 5.5 * std::clamp<double>(score / 25000, 0, 1))
+	{
+		horizontalLocation = m_PlatformHorizontalRangeDistribution(m_RandomEngine);
 
-	lastPlatform->SetLocation({ horizontalLocation, distance * 20 + m_Camera->GetTransform().Translation.y, 0 });
-	lastPlatform->Reset();
+		lastPlatform->SetLocation({ horizontalLocation, distance / 2 + lppy, 0 });
+		lastPlatform->Reset();
 
-	m_FakePlatformPool.pop_front();
-	m_FakePlatformPool.push_back(lastPlatform);
-
+		m_FakePlatformPool.pop_front();
+		m_FakePlatformPool.push_back(lastPlatform);
+	}
 	return true;
 }
 
@@ -162,9 +164,15 @@ Math::Vector2D PlatformSpawner::GetLastSetPlatformLocation()
 	return m_DefaultPlatformPool.back()->GetLocation();
 }
 
-Math::Vector2D PlatformSpawner::GetLowestPlatformLocation()
+Math::Vector2D PlatformSpawner::GetLowestVisiblePlatformLocation()
 {
-	return m_DefaultPlatformPool.front()->GetLocation();
+	auto it = std::find_if(m_DefaultPlatformPool.begin(), m_DefaultPlatformPool.end(), 
+						   [&](const std::shared_ptr<Platform>& platform)
+						   {
+							   return platform->GetLocation().y + 0.1 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5;
+						   });
+	if (it != m_DefaultPlatformPool.end())
+		return (*it)->GetLocation();
 }
 
 int32_t PlatformSpawner::GetPassedPlatformCount()

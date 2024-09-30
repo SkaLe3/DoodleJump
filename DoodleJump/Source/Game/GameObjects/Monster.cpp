@@ -1,17 +1,16 @@
 #include "Monster.h"
 #include "GameModes/DJGameMode.h"
 #include "Doodle.h"
+#include "Core/Base/Log.h"
+#include "Core/Base/AssetManager.h"
 
 #include <string>
-#include "Core/Base/Log.h"
 
 Monster::Monster()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
 	m_SpriteComponent->SetupAttachment(GetBoxComponent());
-
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/monster.png");
-	m_SpriteComponent->SetSprite(spriteRef);
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_UnderwaterMonster"));
 
 	m_BoxComponent->SetHalfSize({ 3, 2.73 });
 	OBJECT_LOG_CONSTRUCTOR()

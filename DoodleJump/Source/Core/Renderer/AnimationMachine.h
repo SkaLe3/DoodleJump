@@ -1,40 +1,9 @@
 #pragma once
-#include "MySprite.h"
+#include "AnimationState.h"
+#include "Animation.h"
 
-#include <vector>
-#include <memory>
 #include <string>
 #include <unordered_map>
-
-			 
-// TODO: Create Animation class and handle it as asset. Create instance of animation and store in AnimationState
-// TODO: Create AnimationSystem class to contain AnimationMachine
-// TODO: Add states transitions conditions
-
-class AnimationState;
-
-class AnimationState
-{
-public:
-	/* Resets frame index*/
-	inline void Reset() { m_Index = 0; }
-
-	inline std::shared_ptr<MySprite> GetFrame() { return m_State[m_Index]; }
-	inline double GetStateDuration() { return m_State.size() * m_FrameDuration; }
-	inline double GetFrameDuration() { return m_FrameDuration; }
-	
-	inline void AddFrame(std::shared_ptr<MySprite> frame) { m_State.push_back(frame); }
-	inline void NextFrame() { m_Index = ++m_Index % m_State.size(); }
-
-	void SetFrameDuration(double frameDuration);
-
-private:
-	using AnimationStateVec = std::vector<std::shared_ptr<MySprite>>;
-
-	AnimationStateVec m_State;
-	double m_FrameDuration;
-	size_t m_Index = 0;
-};
 
 
 class AnimationMachine
@@ -47,19 +16,26 @@ public:
 
 	void CreateState(const std::string& key, double frameDuration);
 	void SwitchState(const std::string& key);
-	void AddFrame(const std::string& state, std::shared_ptr<MySprite> frame);
+	void SetStateAnimation(const std::string& state, std::shared_ptr<Animation>);
 
-	inline std::shared_ptr<MySprite> GetActiveFrame()	{ return  m_ActiveState->GetFrame(); }
-	
+	inline std::shared_ptr<MySprite> GetActiveFrame() { return  GetActive()->GetFrame(); }
+	inline double GetActiveStateDuration() { return GetActive()->GetAnimationDuration(); } // check
+	inline std::string GetActiveName() { return m_ActiveStateName; }
+	inline bool IsValidState(const std::string& state) { return (bool)m_States.count(state); }
 	void SetEntryState(const std::string& key);
 
+
+private:
+	/* No check required since m_ActiveStateName is always valid */
+	inline std::shared_ptr<AnimationState> GetActive() { return m_States[m_ActiveStateName]; }
+	void SetActive(const std::string& state);
 private:
 	using AnimationMachineMap = std::unordered_map<std::string, std::shared_ptr<AnimationState>>;
 
 	AnimationMachineMap m_States;
-	std::shared_ptr<AnimationState> m_ActiveState;
+	std::string m_ActiveStateName;
 	std::shared_ptr<MySprite> m_ActiveFrame;
-	std::string m_EntryStateKey;
-	double m_ElapsedTime = 0;
+	std::string m_EntryStateName;
+
 };
 

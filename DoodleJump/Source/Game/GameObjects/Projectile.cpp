@@ -4,21 +4,16 @@
 #include "World/World.h"
 #include "GameModes/DJGameMode.h"
 #include "Math/MyMath.h"
-
 #include "Core/Base/Log.h"
+#include "Core/Base/AssetManager.h"
+
 Projectile::Projectile() : GameObject()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
 	m_SpriteComponent->SetupAttachment(GetBoxComponent());
-
 	m_MovementComponent = CreateComponent<ProjectileMovementComponent>();
 
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/bubble@2x.png");
-
-	std::shared_ptr<MySprite> spriteRef2 = std::make_shared<MySprite>("assets2/bubble@2x.png");
-	spriteRef2 = nullptr;
-	m_SpriteComponent->SetSprite(spriteRef);
-
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Cocos"));
 	m_BoxComponent->SetHalfSize({ 1, 1 });
 
 	OBJECT_LOG_CONSTRUCTOR()

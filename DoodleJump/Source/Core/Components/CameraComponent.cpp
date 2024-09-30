@@ -2,6 +2,8 @@
 #include "World/Scene.h"
 #include "World/World.h"
 
+#include <algorithm>
+
 void CameraComponent::Start()
 {
 }
@@ -41,5 +43,10 @@ Math::Vector2D CameraComponent::GetCameraBounds()
 const Math::Mat4& CameraComponent::GetProjection() const
 {
 	return m_Projection;
+}
+
+const double CameraComponent::GetAspectRatio() const
+{
+	return m_AspectRatio;
 }
 

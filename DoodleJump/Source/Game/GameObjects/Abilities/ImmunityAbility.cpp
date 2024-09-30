@@ -1,6 +1,6 @@
 #include "ImmunityAbility.h"
-
 #include "Components/SpriteComponent.h"
+#include "Core/Base/AssetManager.h"
 
 ImmunityAbility::ImmunityAbility() : GameObject()
 {
@@ -8,8 +8,7 @@ ImmunityAbility::ImmunityAbility() : GameObject()
 	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 
 	m_BoxComponent->SetHalfSize({3, 3 });
-	std::shared_ptr<MySprite> spriteRef = std::make_shared<MySprite>("assets2/shield.png");
-	m_SpriteComponent->SetSprite(spriteRef);
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Shield"));
 	OBJECT_LOG_CONSTRUCTOR()
 }
 

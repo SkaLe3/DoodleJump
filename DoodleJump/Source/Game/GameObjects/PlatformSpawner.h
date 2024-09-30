@@ -27,7 +27,7 @@ public:
 	bool SetNextPlatform(double score);
 
 	Math::Vector2D GetLastSetPlatformLocation();
-	Math::Vector2D GetLowestPlatformLocation();
+	Math::Vector2D GetLowestVisiblePlatformLocation();
 	int32_t GetPassedPlatformCount();
 
 private:

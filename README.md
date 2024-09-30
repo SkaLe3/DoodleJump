@@ -13,7 +13,8 @@ This project is a basic clone of the popular mobile game Doodle Jump. The goal w
 * ECS
 * Collision System
 * Scenes System
-* Animations
+* Animator
+* Asset Manager
 ### Game
 * Doodle movement
 * Monsters
@@ -49,18 +50,21 @@ Several improvements have been made after the initial release, including:
 * Custom assets: Created and integrated new selfmade assets for game objects.
 * Enhanced safety: Improved handling of edge cases.
 * Code readability and maintainability: Refactored the codebase for better structure and clarity.
-* Animation System: Refactored and improved animation system
+* Animation System: Refactored and improved animations code, created enhanced animation system
 * Project structure: Reorganized project structure
+* Platfrom spawner: Imroved platform spawner logic 
+* Assets: Created Asset Manager and asset handlers
+* Adaptive scene aspect ratio: Implemented dynamic handling of various window sized for better visual consistency
+* Animations: Added jumping and shooting animations
+
 
 ### Plan
 I plan to implement the following features and improvements in the future:
 * Remake main menu with custom background, buttons, additional widgets
-* Improve platform spawner logic
-* Improve different aspect ratio handling
-* Add Themes
-* Build a system for managing game assets
+* Add Themes. Theme switch should load theme assets
 * Add score serialization
-* Add missing animations
+* optimize performance
+* Make all assets 128x128 size
 
 ### Possible Enhancements
 * Make use of `weak_ptr`

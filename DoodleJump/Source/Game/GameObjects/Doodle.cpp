@@ -1,6 +1,6 @@
 #include "Doodle.h"
 
-#include "Crosshair.h"
+#include "GameObjects/UI/Crosshair.h"
 #include "GameModes/DJGameMode.h"
 #include "Projectile.h"
 #include "Abilities/ImmunityAbility.h"
@@ -9,6 +9,11 @@
 #include "Components/FollowCameraComponent.h"
 
 #include "Core/Base/Log.h"
+#include "Core/Base/AssetManager.h"
+#include "Animations/DoodleAnimator.h"
+
+
+#include "Core/Renderer/Animation.h" // Temporary
 
 
 Doodle::Doodle() : GameObject()
@@ -19,7 +24,6 @@ Doodle::Doodle() : GameObject()
 	// Don't need attachment
 	m_CameraComponent = CreateComponent<FollowCameraComponent>();
 	GetScene()->UseCamera(m_CameraComponent);
-	m_CameraComponent->SetProjection(36);
 	
 	m_MovementComponent = CreateComponent<DoodleMovementComponent>();
 	m_Crosshair = GetScene()->SpawnGameObject<Crosshair>();
@@ -35,18 +39,7 @@ Doodle::Doodle() : GameObject()
 	m_MovementComponent->SetMaxSpeed(40);
 	m_MovementComponent->SetJumpVelocity(m_DefaultJumpVelocity); //70
 
-	std::shared_ptr<MySprite> leftFrame = std::make_shared<MySprite>("assets2/player-left@2x.png");
-	std::shared_ptr<MySprite> rightFrame = std::make_shared<MySprite>("assets2/player-right@2x.png");
-
-	std::shared_ptr<AnimationMachine> animMachine = AnimationMachine::Create();
-	animMachine->CreateState("left", -1);
-	animMachine->CreateState("right", -1);
-	// TODO: Add Jump state
-	// TODO: Add shoot state
-	 animMachine->AddFrame("left", leftFrame);
-	 animMachine->AddFrame("right", rightFrame);
-	 animMachine->SetEntryState("left");
-	 m_SpriteComponent->SetAnimationMachine(animMachine);
+	m_SpriteComponent->SetAnimator(std::make_shared<DoodleAnimator>(this));
 	 m_SpriteComponent->EnableAnimation();
 
 	OBJECT_LOG_CONSTRUCTOR()
@@ -89,6 +82,19 @@ void Doodle::Tick(double deltaTime)
 			m_Immunity->SetLocation(m_BoxComponent->GetTransform().Translation);
 		}
 	}
+
+	if (m_bShooting)
+	{
+		if (m_ShootTimer >= 0.35)
+			m_bShooting = false;
+		m_ShootTimer += deltaTime;
+	}
+	if (m_bJumping)
+	{
+		if (m_JumpTimer >= 0.35)
+			m_bJumping = false;
+		m_JumpTimer += deltaTime;
+	}
 }
 
 void Doodle::Destroy()
@@ -108,9 +114,9 @@ void Doodle::AddMovementInput(Math::Vector2D direction)
 {
 	m_MovementComponent->AddMovementInput(direction);
 	if (m_MovementComponent->GetVelocity().x > 0)
-		m_SpriteComponent->SwitchAnimationState("right");
+		m_LookHDirection = 1;
 	if (m_MovementComponent->GetVelocity().x < 0)
-		m_SpriteComponent->SwitchAnimationState("left");
+		m_LookHDirection = -1;
 }
 
 void Doodle::Jump()
@@ -173,6 +179,8 @@ void Doodle::Shoot(InputValue& value)
 	Math::Vector2D rightEdge{ 1, 1 };
 	direction = Math::Clamp(Math::Normalize(direction), Math::Normalize(leftEdge), Math::Normalize(rightEdge));
 	projectile->Launch(direction, 70);
+	m_bShooting = true;
+	m_ShootTimer = 0;
 }
 
 void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
@@ -185,6 +193,8 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 			m_MovementComponent->OnCollision(collisionTime);
 			Jump();
 			m_JumpsCount++;
+			m_bJumping = true;
+			m_JumpTimer = 0;
 		}
 		else if (otherTag == "monster")
 		{

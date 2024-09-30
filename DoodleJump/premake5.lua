@@ -31,6 +31,9 @@ project "DoodleJump"
     targetdir ("%{wks.location}/Build/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Build/Intermediate/" .. outputdir .. "/%{prj.name}")
 
+    filter "action:vs*"
+        flags { "MultiProcessorCompile" }  -- Enables /MP flag for MSVC
+
     filter "system:windows"
         defines { "_WINDOWS"}
 		systemversion "latest"
