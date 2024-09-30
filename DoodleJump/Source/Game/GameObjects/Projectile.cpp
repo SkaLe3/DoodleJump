@@ -13,7 +13,7 @@ Projectile::Projectile() : GameObject()
 	m_SpriteComponent->SetupAttachment(GetBoxComponent());
 	m_MovementComponent = CreateComponent<ProjectileMovementComponent>();
 
-	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Projectile"));
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Cocos"));
 	m_BoxComponent->SetHalfSize({ 1, 1 });
 
 	OBJECT_LOG_CONSTRUCTOR()

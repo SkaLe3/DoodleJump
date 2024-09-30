@@ -221,11 +221,11 @@ void DJGameMode::StartGame()
 	m_LifesWidget->Init(1);
 	m_LifesWidget->Start();
 
-	CreateWidget("S_Top", { 0, widgetY }, { camBounds.x, 4.106 }, 1);
-	CreateWidget("S_Platform", { 15, widgetY }, { 4, 1.08 }, 2);
+	CreateWidget("S_UnderwaterTop", { 0, widgetY }, { camBounds.x, 4.106 }, 1);
+	CreateWidget("S_Bamboo", { 15, widgetY }, { 4, 1.08 }, 2);
 	CreateWidget("S_Heart", { 2, widgetY }, { 2, 2 }, 2);
 	CreateWidget("S_DistanceIcon", { -7, widgetY }, { 2, 2 }, 2);
-	CreateWidget("S_Light", { 0, widgetY - 18 }, { camBounds.x, 35.3 }, -0.6);
+	CreateWidget("S_UnderwaterLight", { 0, widgetY - 18 }, { camBounds.x, 35.3 }, -0.6);
 	CreateWidget("S_BlackBar", { -68, 0 }, { 100, 200 }, 2);
 	CreateWidget("S_BlackBar", { 68, 0 }, { 100, 200 }, 2);
 	CreateWidget("S_BlackBar", { 0, 104 }, { 100, 100 }, 2);

@@ -58,5 +58,5 @@ int main(int argc, char* argv[])
 	}
 
 
-	return run(new Game(width, height, fullscreen, "assets2"));
+	return run(new Game(width, height, fullscreen, "Content"));
 }

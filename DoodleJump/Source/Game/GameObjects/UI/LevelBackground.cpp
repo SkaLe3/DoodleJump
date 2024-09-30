@@ -5,5 +5,5 @@
 
 LevelBackground::LevelBackground() : Background()
 {
-	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Background"));
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_UnderwaterBackground"));
 }

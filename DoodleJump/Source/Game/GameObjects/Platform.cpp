@@ -9,7 +9,7 @@ Platform::Platform() : GameObject()
 
 	m_SpriteComponent->GetTransform().Scale = { 6, 1.565, 1 };
 	m_SpriteComponent->GetTransform().Translation.z = -0.5;
-	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Platform"));
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Bamboo"));
 	m_BoxComponent->SetHalfSize({ 2.7, 0.5 });
 	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 	OBJECT_LOG_CONSTRUCTOR()

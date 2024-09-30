@@ -60,7 +60,7 @@ Several improvements have been made after the initial release, including:
 ### Plan
 I plan to implement the following features and improvements in the future:
 * Remake main menu with custom background, buttons, additional widgets
-* Add Themes
+* Add Themes. Theme switch should load theme assets
 * Add score serialization
 * Animations: Add new animations (jump, shoot, etc.) 
 * optimize performance

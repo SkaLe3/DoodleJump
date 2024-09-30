@@ -73,7 +73,6 @@ void PlatformSpawner::RestartSpawner()
 	std::shared_ptr<Platform> platform = m_DefaultPlatformPool.front();
 	m_DefaultPlatformPool.pop_front();
 	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,m_Camera->GetTransform().Translation.y - gm->GetViewArea().y * 0.5, -0.5 };
-	LOG("first platform Y" + std::to_string(platform->GetBoxComponent()->GetTransform().Translation.y));
 	m_DefaultPlatformPool.push_back(platform);
 	m_LastPlacedPlatform = platform;
 }

@@ -10,7 +10,7 @@ Monster::Monster()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
 	m_SpriteComponent->SetupAttachment(GetBoxComponent());
-	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Monster"));
+	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_UnderwaterMonster"));
 
 	m_BoxComponent->SetHalfSize({ 3, 2.73 });
 	OBJECT_LOG_CONSTRUCTOR()
