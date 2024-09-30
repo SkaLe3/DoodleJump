@@ -69,9 +69,11 @@ void PlatformSpawner::RestartSpawner()
 		platform->GetTransform().Translation = { -40, -40, -0.5 };
 
 	}
+	std::shared_ptr<DJGameMode> gm = std::static_pointer_cast<DJGameMode>(GetGameMode()); 
 	std::shared_ptr<Platform> platform = m_DefaultPlatformPool.front();
 	m_DefaultPlatformPool.pop_front();
-	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5, -0.5 };
+	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,m_Camera->GetTransform().Translation.y - gm->GetViewArea().y * 0.5, -0.5 };
+	LOG("first platform Y" + std::to_string(platform->GetBoxComponent()->GetTransform().Translation.y));
 	m_DefaultPlatformPool.push_back(platform);
 	m_LastPlacedPlatform = platform;
 }
@@ -95,7 +97,7 @@ void PlatformSpawner::SpawnPools()
 	}
 
 	m_PlatformDistanceDistribution.param(std::uniform_real_distribution<double>::param_type(1, m_MaxPlatformDistance));
-	double horizontalRange = m_Camera->GetCameraBounds().x * 0.5 - m_DefaultPlatformPool.front()->GetBoxComponent()->GetHalfSize().x;
+	double horizontalRange = std::static_pointer_cast<DJGameMode>(GetGameMode())->GetViewArea().x * 0.5 - m_DefaultPlatformPool.front()->GetBoxComponent()->GetHalfSize().x;
 	m_PlatformHorizontalRangeDistribution.param(std::uniform_real_distribution<double>::param_type(-horizontalRange, horizontalRange));
 
 }

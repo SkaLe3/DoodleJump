@@ -6,13 +6,6 @@
 #include <unordered_map>
 
 
-// TODO: Create Animation class and handle it as asset. Create instance of animation and store in AnimationState
-// TODO: Create AnimationSystem class to contain AnimationMachine
-// TODO: Add states transitions conditions
-
-
-
-
 class AnimationMachine
 {
 public:
@@ -26,7 +19,7 @@ public:
 	void SetStateAnimation(const std::string& state, std::shared_ptr<Animation>);
 
 	inline std::shared_ptr<MySprite> GetActiveFrame() { return  GetActive()->GetFrame(); }
-	inline double GetActiveStateDuration() { return GetActive()->GetAnimationDuration(); }
+	inline double GetActiveStateDuration() { return GetActive()->GetAnimationDuration(); } // check
 	inline std::string GetActiveName() { return m_ActiveStateName; }
 	inline bool IsValidState(const std::string& state) { return (bool)m_States.count(state); }
 	void SetEntryState(const std::string& key);

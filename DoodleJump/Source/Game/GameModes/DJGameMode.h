@@ -55,9 +55,10 @@ private:
 	int32_t m_PlatformScore = 0;
 	int32_t m_PlayerLifes = 0;
 	Math::Vector2D m_HorizontalBounds;
+	double m_MinAspectRatio = 1.5;
 
 	std::random_device m_RandomDevice;
-	std::default_random_engine m_RandomEngine{ m_RandomDevice() };	
+	std::default_random_engine m_RandomEngine{ m_RandomDevice() };
 	double m_EnemySpawnProbability = 0.05;
 	double m_AbilitySpawnFrequency = 50;
 	std::bernoulli_distribution m_EnemySpawnDistribution{ m_EnemySpawnProbability };

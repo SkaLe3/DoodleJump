@@ -24,7 +24,6 @@ Doodle::Doodle() : GameObject()
 	// Don't need attachment
 	m_CameraComponent = CreateComponent<FollowCameraComponent>();
 	GetScene()->UseCamera(m_CameraComponent);
-	m_CameraComponent->SetProjection(36);
 	
 	m_MovementComponent = CreateComponent<DoodleMovementComponent>();
 	m_Crosshair = GetScene()->SpawnGameObject<Crosshair>();

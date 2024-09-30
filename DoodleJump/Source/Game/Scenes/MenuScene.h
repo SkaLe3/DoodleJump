@@ -4,10 +4,9 @@
 class MenuScene : public Scene
 {
 public:
-	MenuScene();
+	MenuScene() = default;
 
 	//~ Begin Scene Interface
 	virtual void Start() override;
-	virtual void Tick(float deltaTime) override;
 	//~ End Scene Interface
 };

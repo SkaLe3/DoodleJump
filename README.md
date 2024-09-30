@@ -54,16 +54,14 @@ Several improvements have been made after the initial release, including:
 * Project structure: Reorganized project structure
 * Platfrom spawner: Imroved platform spawner logic 
 * Assets: Created Asset Manager and asset handlers
+* Adaptive scene aspect ratio: Implemented dynamic handling of various window sized for better visual consistency
 
 
 ### Plan
 I plan to implement the following features and improvements in the future:
 * Remake main menu with custom background, buttons, additional widgets
-* Improve different aspect ratio handling
 * Add Themes
-* Build a system for managing game assets
 * Add score serialization
-* Add missing animations
 * Animations: Add new animations (jump, shoot, etc.) 
 * optimize performance
 
