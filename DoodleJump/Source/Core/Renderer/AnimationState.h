@@ -8,22 +8,19 @@
 class AnimationState
 {
 public:
-	/* Resets frame index*/
-	inline void Reset() { m_Index = 0; }
+	void Update(double deltaTime);
 
-	inline std::shared_ptr<MySprite> GetFrame() { return m_Animation[m_Index]; }
-	inline double GetStateDuration() { return m_Animation.size() * m_FrameDuration; }
+	inline std::shared_ptr<MySprite> GetFrame() { return m_Animation->GetFrame(); }
+	inline double GetAnimationDuration() { return m_Animation->Length() * m_FrameDuration; }
 	inline double GetFrameDuration() { return m_FrameDuration; }
 
-	inline void AddFrame(std::shared_ptr<MySprite> frame) { m_Animation.push_back(frame); }
-	inline void NextFrame() { m_Index = ++m_Index % m_Animation.size(); }
-
-	void SetFrameDuration(double frameDuration) { m_FrameDuration = frameDuration; }
+	inline void Play() { m_Animation->Reset(); m_ElapsedTime = 0; }
+	inline void SetAnimation(std::shared_ptr<Animation> animation) { m_Animation = animation; }
+	inline void SetFrameDuration(double frameDuration) { m_FrameDuration = frameDuration; }
+	inline void SetLoopAnimation(bool bLoop) { m_Animation->SetLoop(bLoop); }
 
 private:
-	using AnimationStateVec = std::vector<std::shared_ptr<MySprite>>;
-
-	AnimationStateVec m_Animation;
+	std::shared_ptr<Animation> m_Animation;
 	double m_FrameDuration;
-	size_t m_Index = 0;
+	double m_ElapsedTime = 0;
 };

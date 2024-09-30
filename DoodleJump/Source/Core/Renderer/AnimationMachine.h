@@ -1,10 +1,11 @@
 #pragma once
 #include "AnimationState.h"
+#include "Animation.h"
 
 #include <string>
 #include <unordered_map>
 
-			 
+
 // TODO: Create Animation class and handle it as asset. Create instance of animation and store in AnimationState
 // TODO: Create AnimationSystem class to contain AnimationMachine
 // TODO: Add states transitions conditions
@@ -22,20 +23,26 @@ public:
 
 	void CreateState(const std::string& key, double frameDuration);
 	void SwitchState(const std::string& key);
-	void AddFrame(const std::string& state, std::shared_ptr<MySprite> frame);
+	void SetStateAnimation(const std::string& state, std::shared_ptr<Animation>);
 
-	inline std::shared_ptr<MySprite> GetActiveFrame()	{ return  m_ActiveState->GetFrame(); }
-	inline double GetActiveStateDuration() { return m_ActiveState->GetStateDuration();}
-	
+	inline std::shared_ptr<MySprite> GetActiveFrame() { return  GetActive()->GetFrame(); }
+	inline double GetActiveStateDuration() { return GetActive()->GetAnimationDuration(); }
+	inline std::string GetActiveName() { return m_ActiveStateName; }
+	inline bool IsValidState(const std::string& state) { return (bool)m_States.count(state); }
 	void SetEntryState(const std::string& key);
 
+
+private:
+	/* No check required since m_ActiveStateName is always valid */
+	inline std::shared_ptr<AnimationState> GetActive() { return m_States[m_ActiveStateName]; }
+	void SetActive(const std::string& state);
 private:
 	using AnimationMachineMap = std::unordered_map<std::string, std::shared_ptr<AnimationState>>;
 
 	AnimationMachineMap m_States;
-	std::shared_ptr<AnimationState> m_ActiveState;
+	std::string m_ActiveStateName;
 	std::shared_ptr<MySprite> m_ActiveFrame;
-	std::string m_EntryStateKey;
-	double m_ElapsedTime = 0;
+	std::string m_EntryStateName;
+
 };
 

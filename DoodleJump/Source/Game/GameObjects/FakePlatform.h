@@ -14,6 +14,7 @@ public:
 	void OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
 
 	void Break();
+	inline bool IsBroken() { return m_bBroken; }
 
 private:
 	bool m_bBroken = false;

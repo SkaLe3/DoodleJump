@@ -55,6 +55,9 @@ public:
 	inline std::filesystem::path GetContentPath() { return m_ContentPath; }
 
 private:
+	/* Function to get raw asset instance */
+	std::shared_ptr<SpriteAsset> GetSpriteAsset(const std::string& assetName);
+private:
 	static AssetManager* s_Instance;
 	std::filesystem::path m_ContentPath;
 

@@ -13,6 +13,7 @@ bool Game::Init()
 {
 	m_AssetManager = new AssetManager(m_ContentDirectory);
 	m_AssetManager->Init();
+	m_AssetManager->GetMap();
 	MyFramework::Init();
 	return true;
 }

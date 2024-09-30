@@ -8,33 +8,16 @@ std::shared_ptr<AnimationMachine> AnimationMachine::Create()
 
 void AnimationMachine::Update(double deltaTime)
 {
-	double frameDuration = m_ActiveState->GetFrameDuration();
-	if (frameDuration == -1) 
-	{
-		// Always return for one-frame animations (they should have frame duration value equal to -1)
-		return;
-	}
-	if (m_ElapsedTime < frameDuration)
-	{
-		m_ElapsedTime += deltaTime;
-		return;
-	}
-
-	m_ElapsedTime -= frameDuration;
-	m_ActiveState->NextFrame();
-	m_ElapsedTime += deltaTime;
+	GetActive()->Update(deltaTime);
 }
 
 void AnimationMachine::SwitchState(const std::string& key)
 {
-	std::shared_ptr<AnimationState> newState;
 	if (m_States.count(key))
 	{
-		newState = m_States[key];
+		m_ActiveStateName = key;
 	}
-	m_ActiveState = newState;
-	m_ActiveState->Reset();
-	m_ElapsedTime = 0;
+	GetActive()->Play();
 }
 
 void AnimationMachine::CreateState(const std::string& key, double frameDuration)
@@ -43,19 +26,27 @@ void AnimationMachine::CreateState(const std::string& key, double frameDuration)
 	m_States[key]->SetFrameDuration(frameDuration);
 }
 
-void AnimationMachine::AddFrame(const std::string& state, std::shared_ptr<MySprite> frame)
+void AnimationMachine::SetStateAnimation(const std::string& state, std::shared_ptr<Animation> animation)
 {
 	if (m_States.count(state))
 	{
-		m_States[state]->AddFrame(frame);
+		m_States[state]->SetAnimation(animation);
 	}
 }
 
-void AnimationMachine::SetEntryState(const std::string& key)
+void AnimationMachine::SetEntryState(const std::string& state)
 {
-	m_EntryStateKey = key;
-	if (m_States.count(key))
+	if (m_States.count(state))
 	{
-		m_ActiveState = m_States[key];
+		m_EntryStateName = state;
+		m_ActiveStateName = m_EntryStateName;
+	}
+}
+
+void AnimationMachine::SetActive(const std::string& state)
+{
+	if (m_States.count(state))
+	{
+		m_ActiveStateName = state;
 	}
 }

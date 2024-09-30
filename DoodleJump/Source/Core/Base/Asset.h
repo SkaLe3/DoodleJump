@@ -39,7 +39,7 @@ private:
 class AnimationAsset : public Asset
 {
 public:
-	AnimationAsset(std::vector<std::shared_ptr<SpriteAsset>> animationSource);
+	AnimationAsset(const std::vector<std::shared_ptr<SpriteAsset>>& animationSource);
 
 	//~ Begin Asset Interface
 	virtual std::shared_ptr<void> Get() override { return m_AnimationRef; }

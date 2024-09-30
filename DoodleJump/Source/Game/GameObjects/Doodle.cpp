@@ -10,6 +10,10 @@
 
 #include "Core/Base/Log.h"
 #include "Core/Base/AssetManager.h"
+#include "Animations/DoodleAnimator.h"
+
+
+#include "Core/Renderer/Animation.h" // Temporary
 
 
 Doodle::Doodle() : GameObject()
@@ -36,18 +40,7 @@ Doodle::Doodle() : GameObject()
 	m_MovementComponent->SetMaxSpeed(40);
 	m_MovementComponent->SetJumpVelocity(m_DefaultJumpVelocity); //70
 
-	std::shared_ptr<MySprite> leftFrame = AssetManager::Get().GetAsset<MySprite>("S_DoodleLeft");
-	std::shared_ptr<MySprite> rightFrame = AssetManager::Get().GetAsset<MySprite>("S_DoodleRight");
-
-	std::shared_ptr<AnimationMachine> animMachine = AnimationMachine::Create();
-	animMachine->CreateState("left", -1);
-	animMachine->CreateState("right", -1);
-	// TODO: Add Jump state
-	// TODO: Add shoot state
-	 animMachine->AddFrame("left", leftFrame);
-	 animMachine->AddFrame("right", rightFrame);
-	 animMachine->SetEntryState("left");
-	 m_SpriteComponent->SetAnimationMachine(animMachine);
+	m_SpriteComponent->SetAnimator(std::make_shared<DoodleAnimator>(this));
 	 m_SpriteComponent->EnableAnimation();
 
 	OBJECT_LOG_CONSTRUCTOR()
@@ -110,9 +103,9 @@ void Doodle::AddMovementInput(Math::Vector2D direction)
 {
 	m_MovementComponent->AddMovementInput(direction);
 	if (m_MovementComponent->GetVelocity().x > 0)
-		m_SpriteComponent->SwitchAnimationState("right");
+		m_LookHDirection = 1;
 	if (m_MovementComponent->GetVelocity().x < 0)
-		m_SpriteComponent->SwitchAnimationState("left");
+		m_LookHDirection = -1;
 }
 
 void Doodle::Jump()

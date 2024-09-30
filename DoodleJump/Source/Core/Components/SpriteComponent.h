@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneComponent.h"
 #include "Renderer/MySprite.h"
-#include "Renderer/AnimationMachine.h"
+#include "Renderer/Animator.h"
 
 
 class SpriteComponent : public SceneComponent
@@ -20,12 +20,10 @@ public:
 	std::shared_ptr<MySprite> GetSprite() const;
 
 	void EnableAnimation();
-	void SetAnimationMachine(std::shared_ptr<AnimationMachine> animMachine);
-	void SwitchAnimationState(const std::string& key); // Temporary
-	double GetActiveAnimationDuration();
+	void SetAnimator(std::shared_ptr<Animator> animator);
 private:
 	std::shared_ptr<MySprite> m_Sprite;
-	std::shared_ptr<AnimationMachine> m_AnimationMachine;
+	std::shared_ptr<Animator> m_Animator;
 
 	bool m_bAnimationEnabled = false;
 

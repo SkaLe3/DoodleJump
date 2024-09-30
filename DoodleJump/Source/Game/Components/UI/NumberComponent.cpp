@@ -4,22 +4,23 @@
 #include "Components/SceneComponent.h"
 #include "World/World.h"
 #include "World/Scene.h"
+#include "Core/Base/AssetManager.h"
 
 #include <string>
 
 NumberComponent::NumberComponent()
 {
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/0.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/1.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/2.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/3.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/4.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/5.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/6.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/7.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/8.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/9.png"));
-	m_Digits.push_back(std::make_shared<MySprite>("assets2/digits/empty.png"));
+	m_Digits.push_back(AssetManager::Get().GetAsset<MySprite>("S_0"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_1"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_2"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_3"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_4"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_5"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_6"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_7"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_8"));
+	m_Digits.push_back(	AssetManager::Get().GetAsset<MySprite>("S_9"));
+	m_Digits.push_back(AssetManager::Get().GetAsset<MySprite>("S_Empty"));
 }
 
 void NumberComponent::Start()
