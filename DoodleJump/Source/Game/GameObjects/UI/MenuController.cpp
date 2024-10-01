@@ -9,8 +9,8 @@ MenuController::MenuController()
 {
 	// Don't need attachment
 	m_CameraComponent = CreateComponent<CameraComponent>();
-	GetScene()->UseCamera(m_CameraComponent);
-	m_CameraComponent->SetProjection(36);
+	GetScene()->UseCamera(GetCameraComponent());
+	GetCameraComponent()->SetProjection(36);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -22,11 +22,10 @@ MenuController::~MenuController()
 void MenuController::Start()
 {
 	GameObject::Start();
-	auto controller = GetScene()->GetObject(this);
-	m_CameraComponent->SetOwner(controller);
+	GetCameraComponent()->SetOwner(GetSelf());
 
 	EventHandler::Get()->BindAction(EInputAction::Shoot, ETriggerEvent::Pressed, std::bind(&MenuController::Click, this, std::placeholders::_1));
-	m_BoxComponent->SetCollisionEnabled(false);
+	GetBoxComponent()->SetCollisionEnabled(false);
 }
 
 void MenuController::Tick(double deltaTime)
@@ -37,7 +36,7 @@ void MenuController::Tick(double deltaTime)
 void MenuController::Destroy()
 {
 	GameObject::Destroy();
-	m_CameraComponent->Destroy();	   
+	GetCameraComponent()->Destroy();	   
 }
 
 void MenuController::Click(InputValue& value)

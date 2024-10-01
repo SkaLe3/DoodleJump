@@ -4,21 +4,22 @@
 
 FakePlatform::FakePlatform() : Platform()
 {
-	m_SpriteComponent->GetTransform().Scale = { 6, 2.95, 1 };
-	m_SpriteComponent->GetTransform().Translation.z = -0.5;
-	m_SpriteComponent->GetTransform().Translation.y = -0.3;
-	m_BoxComponent->SetHalfSize({ 2.7, 0.5 });
+	auto sprite = GetSpriteComponent();
+	sprite->GetTransform().Scale = { 6, 2.95, 1 };
+	sprite->GetTransform().Translation.z = -0.5;
+	sprite->GetTransform().Translation.y = -0.3;
+	GetBoxComponent()->SetHalfSize({ 2.7, 0.5 });
 
 
-	GetSprite()->SetAnimator(std::make_shared<FakePlatformAnimator>(this));
-	GetSprite()->EnableAnimation();
+	GetSpriteComponent()->SetAnimator(std::make_shared<FakePlatformAnimator>(this));
+	GetSpriteComponent()->EnableAnimation();
 }
 
 void FakePlatform::Start()
 {
 	Platform::Start();
 
-	m_BoxComponent->OnBeginOverlap.Add(std::bind(&FakePlatform::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+	GetBoxComponent()->OnBeginOverlap.Add(std::bind(&FakePlatform::OnCollision, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
 
 void FakePlatform::Tick(double deltaTime)
@@ -29,7 +30,7 @@ void FakePlatform::Tick(double deltaTime)
 	if (m_Timer >= 0.32)
 	{
 		m_bBroken = false;
-		m_BoxComponent->GetTransform().Translation.y = -10;
+		GetBoxComponent()->GetTransform().Translation.y = -10;
 		m_Timer = 0;
 	}
 	m_Timer += deltaTime;

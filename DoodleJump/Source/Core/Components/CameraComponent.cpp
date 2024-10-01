@@ -13,7 +13,7 @@ void CameraComponent::Tick(double deltaTime)
 
 void CameraComponent::Destroy()
 {
-	GetScene()->DestroyTickComponent(GetScene()->GetComponent(this));
+	GetScene()->DestroyTickComponent(GetSelf());
 }
 
 void CameraComponent::SetProjection(int32_t _size)

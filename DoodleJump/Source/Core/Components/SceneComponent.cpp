@@ -7,18 +7,18 @@ Math::Transform& SceneComponent::GetTransform()
 
 Math::Mat4 SceneComponent::GetTransformMatrix()
 {
-	if (m_Parent)
-		return m_Parent->GetTransformMatrix() * m_Transform.ToMat4();
+	if (auto parent = m_Parent.lock())
+		return parent->GetTransformMatrix() * m_Transform.ToMat4();
 	return m_Transform.ToMat4();
 }
 
-void SceneComponent::SetupAttachment(std::shared_ptr<SceneComponent> component)
+void SceneComponent::SetupAttachment(std::weak_ptr<SceneComponent> component)
 {
 	m_Parent = component;
 }
 
 void SceneComponent::DetachFromParent()
 {
-	m_Parent = nullptr;
+	m_Parent.reset();
 }
 

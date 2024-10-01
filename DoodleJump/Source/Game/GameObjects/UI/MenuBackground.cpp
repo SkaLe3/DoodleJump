@@ -5,5 +5,5 @@
 
 MenuBackground::MenuBackground() : Background()
 {
-	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_MenuBackground"));
+	GetSpriteComponent()->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_MenuBackground"));
 }

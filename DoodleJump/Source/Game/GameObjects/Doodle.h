@@ -19,8 +19,9 @@ public:
 	virtual void Destroy() override;
 	//~ End Object Interface
 
-	std::shared_ptr<SpriteComponent> GetSprite() const { return m_SpriteComponent; }
-	std::shared_ptr<DoodleMovementComponent> GetMovementComponent() const { return m_MovementComponent; }
+	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return m_SpriteComponent.lock(); }
+	std::shared_ptr<DoodleMovementComponent> GetMovementComponent() const { return m_MovementComponent.lock(); }
+	std::shared_ptr<CameraComponent> GetCameraComponent() const { return m_CameraComponent.lock(); }
 	Math::Vector2D GetVelocity() const;
 	int32_t GetLifesCount();
 	int32_t GetJumpsCount();
@@ -36,7 +37,7 @@ public:
 	void EnableCollision();
 
 	void ResetJumpsCount();
-	bool HasImmunity();
+	std::shared_ptr<ImmunityAbility> GetImmunity();
 
 	void Move(InputValue& value);
 	void Shoot(InputValue& value);
@@ -44,12 +45,12 @@ public:
 	void OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
 
 private:
-	std::shared_ptr<SpriteComponent> m_SpriteComponent;
-	std::shared_ptr<CameraComponent> m_CameraComponent;
-	std::shared_ptr<DoodleMovementComponent> m_MovementComponent;
+	std::weak_ptr<SpriteComponent> m_SpriteComponent;
+	std::weak_ptr<CameraComponent> m_CameraComponent;
+	std::weak_ptr<DoodleMovementComponent> m_MovementComponent;
 
-	std::shared_ptr<GameObject> m_Crosshair;
-	std::shared_ptr<ImmunityAbility> m_Immunity = nullptr;
+	std::weak_ptr<GameObject> m_Crosshair;
+	std::weak_ptr<ImmunityAbility> m_Immunity;
 
 	double m_DefaultJumpVelocity = 70;
 	int32_t m_LifesCount = 5;

@@ -68,17 +68,15 @@ public:
 	void SetViewportSize(uint32_t width, uint32_t height);
 	void GetViewportSize(uint32_t& width, uint32_t& height);
 
-	std::shared_ptr<GameObject> GetObject(GameObject* object);
-	std::shared_ptr<GameComponent> GetComponent(GameComponent* component);
 	Math::Vector2D GetMousePosition();
 	std::shared_ptr<CameraComponent> GetRenderCamera();
 	std::shared_ptr<GameMode> GetGameMode();
-	void UseCamera(std::shared_ptr<CameraComponent> cc);
+	void UseCamera(std::weak_ptr<CameraComponent> cc);
 
-	void DestroyGameObject(std::shared_ptr<Object> object);
-	void DestroyTickComponent(std::shared_ptr<Object> object);
-	void DestroyCollisionObject(std::shared_ptr<Object> object);
-	void DestroyDrawObject(std::shared_ptr<Object> object);
+	void DestroyGameObject(std::weak_ptr<Object> object);
+	void DestroyTickComponent(std::weak_ptr<Object> object);
+	void DestroyCollisionObject(std::weak_ptr<Object> object);
+	void DestroyDrawObject(std::weak_ptr<Object> object);
 
 	void ClearScene();
 

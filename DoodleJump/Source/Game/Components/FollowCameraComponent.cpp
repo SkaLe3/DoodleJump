@@ -12,12 +12,16 @@ void FollowCameraComponent::Tick(double deltaTime)
 	CameraComponent::Tick(deltaTime);
 	if (!m_bFollowEnabled)
 		return;
-	std::shared_ptr<Doodle> doodle = dynamic_pointer_cast<Doodle>(m_Owner);
-	if (doodle)
+	if (auto owner = m_Owner.lock())
 	{
-		Math::Vector2D doodleLocation = doodle->GetLocation();
-		if (doodleLocation.y >= GetTransform().Translation.y)
-			GetTransform().Translation.y = doodleLocation.y;
+
+		std::shared_ptr<Doodle> doodle = dynamic_pointer_cast<Doodle>(owner);
+		if (doodle)
+		{
+			Math::Vector2D doodleLocation = doodle->GetLocation();
+			if (doodleLocation.y >= GetTransform().Translation.y)
+				GetTransform().Translation.y = doodleLocation.y;
+		}
 	}
 }
 

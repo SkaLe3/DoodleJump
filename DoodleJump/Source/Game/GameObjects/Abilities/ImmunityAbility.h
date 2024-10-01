@@ -17,8 +17,9 @@ public:
 
 	void DisableCollision();
 	double GetTime();
+	inline std::shared_ptr<SpriteComponent> GetSpriteComponent() { return m_SpriteComponent.lock(); }
 
 private:
-	std::shared_ptr<SpriteComponent> m_SpriteComponent;
+	std::weak_ptr<SpriteComponent> m_SpriteComponent;
 	double m_AbilityTime = 20;
 };

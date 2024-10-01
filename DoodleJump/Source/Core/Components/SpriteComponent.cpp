@@ -18,7 +18,7 @@ void SpriteComponent::Tick(double deltaTime)
 
 void SpriteComponent::Destroy()
 {
-	GetScene()->DestroyDrawObject(GetScene()->GetComponent(this));
+	GetScene()->DestroyDrawObject(GetSelf());
 }
 
 void SpriteComponent::SetSprite(std::shared_ptr<MySprite> newSprite)
@@ -26,7 +26,7 @@ void SpriteComponent::SetSprite(std::shared_ptr<MySprite> newSprite)
 	m_Sprite = newSprite;
 }
 
-std::shared_ptr<MySprite> SpriteComponent::GetSprite() const
+std::shared_ptr<MySprite> SpriteComponent::GetSpriteComponent() const
 {
 	if (!m_bAnimationEnabled)
 		return m_Sprite;

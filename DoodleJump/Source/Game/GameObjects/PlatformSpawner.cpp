@@ -25,7 +25,7 @@ PlatformSpawner::~PlatformSpawner()
 void PlatformSpawner::Start()
 {
 	GameObject::Start();
-	m_BoxComponent->SetCollisionEnabled(false);
+	GetBoxComponent()->SetCollisionEnabled(false);
 
 	m_Player = GetScene()->GetGameMode()->GetPlayer();
 }

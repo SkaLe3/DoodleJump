@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "Components/SceneComponent.h"
 #include "Components/BoxComponent.h"
+#include <cassert>
 
 GameObject::GameObject() : m_Tag("")
 {
@@ -10,7 +11,10 @@ GameObject::GameObject() : m_Tag("")
 
 void GameObject::Start()
 {
-	m_BoxComponent->SetOwner(GetScene()->GetObject(this));
+	if (auto box = m_BoxComponent.lock())
+	{
+		box->SetOwner(GetSelf());
+	}
 }
 
 void GameObject::Tick(double deltaTime)
@@ -20,28 +24,37 @@ void GameObject::Tick(double deltaTime)
 
 void GameObject::Destroy()
 {
-	GetScene()->DestroyGameObject(GetScene()->GetObject(this));
-	m_BoxComponent->Destroy();
+	GetScene()->DestroyGameObject(GetSelf());
+	if (auto box = m_BoxComponent.lock())
+		box->Destroy();
 }
 
 Math::Transform& GameObject::GetTransform()
 {
-	return m_RootComponent->GetTransform();
+	if (auto root = m_RootComponent.lock())
+		return root->GetTransform();
+	else
+		assert(false);
 }
 
 std::shared_ptr<BoxComponent> GameObject::GetBoxComponent()
 {
-	return m_BoxComponent;
+	return m_BoxComponent.lock();
 }
 
 Math::Vector2D GameObject::GetLocation()
 {
-	return Math::Vector2D(m_RootComponent->GetTransform().Translation);
+
+	if (auto root = m_RootComponent.lock())
+		return Math::Vector2D(root->GetTransform().Translation);
+	else
+		return Math::Vector2D::ZeroVector;
 }
 
 void GameObject::SetLocation(const Math::Vector& location)
 {
-	m_BoxComponent->GetTransform().Translation = location;
+	if (auto box = m_BoxComponent.lock())
+	box->GetTransform().Translation = location;
 }
 
 void GameObject::SetTag(const std::string& newTag)

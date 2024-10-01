@@ -81,14 +81,16 @@ void DJGameMode::CreateWidget(const std::string& assetName, Math::Vector2D coord
 	sc->GetTransform().Translation.z = zLocation;
 }
 
-void DJGameMode::TeleportToRightWall(std::shared_ptr<GameObject> object)
+void DJGameMode::TeleportToRightWall(std::weak_ptr<GameObject> object)
 {
-	object->GetTransform().Translation.x = m_HorizontalBounds.y - object->GetBoxComponent()->GetHalfSize().x;
+	if (auto sharedObject = object.lock())
+		sharedObject->GetTransform().Translation.x = m_HorizontalBounds.y - sharedObject->GetBoxComponent()->GetHalfSize().x;
 }
 
-void DJGameMode::TeleportToLeftWall(std::shared_ptr<GameObject> object)
+void DJGameMode::TeleportToLeftWall(std::weak_ptr<GameObject> object)
 {
-	object->GetTransform().Translation.x = m_HorizontalBounds.x + object->GetBoxComponent()->GetHalfSize().x;
+	if (auto sharedObject = object.lock())
+		sharedObject->GetTransform().Translation.x = m_HorizontalBounds.x + sharedObject->GetBoxComponent()->GetHalfSize().x;
 }
 
 
@@ -167,8 +169,8 @@ void DJGameMode::StartGame()
 	{
 		double bgY = (i - 1) * offset;
 		std::shared_ptr<Background> background = GetScene()->SpawnGameObject<LevelBackground>();
-		background->GetSprite()->GetTransform().Scale = { 134.44, (double)offset, 1 };
-		background->GetSprite()->GetTransform().Translation = { 4.5, bgY, -1 };
+		background->GetSpriteComponent()->GetTransform().Scale = { 134.44, (double)offset, 1 };
+		background->GetSpriteComponent()->GetTransform().Translation = { 4.5, bgY, -1 };
 	}
 
 	// Spawn Platform Spawner

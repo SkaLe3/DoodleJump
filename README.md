@@ -71,7 +71,7 @@ Several improvements have been made after the initial release, including:
 * Assets: Created Asset Manager and asset handlers
 * Adaptive scene aspect ratio: Implemented dynamic handling of various window sizes for better visual consistency
 * Animations: Added and integrated jumping and shooting animations
-
+* Smart pointer optimization: Introduced `weak_from_this` and replaced some `shared_ptr` with `weak_ptr` to improve memory management and avoid cyclic dependencies.
 
 ### Plan
 I plan to implement the following features and improvements in the future:
@@ -82,17 +82,4 @@ I plan to implement the following features and improvements in the future:
 * Make all assets 128x128 size
 
 ### Possible Enhancements
-* Make use of `weak_ptr`
-* Get rid of smart pointers and write garbage collector. 
-    The current use of smart pointers can lead to code like this:
-    ```cpp 
-    void MovementComponent::Destroy()
-    {
-        GetScene()->DestroyTickComponent(GetScene()->GetComponent(this));
-    }
-    ```
-    Or consider using:
-    ```cpp
-    std::enable_shared_from_this<ThisClass>
-    ```
 * Optimize scenes logic to improve performance

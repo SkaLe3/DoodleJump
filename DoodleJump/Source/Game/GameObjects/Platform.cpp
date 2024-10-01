@@ -5,13 +5,15 @@
 Platform::Platform() : GameObject()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
-	m_SpriteComponent->SetupAttachment(GetBoxComponent());
+	auto sprite = GetSpriteComponent();
+	sprite->SetupAttachment(GetBoxComponent());
 
-	m_SpriteComponent->GetTransform().Scale = { 6, 1.565, 1 };
-	m_SpriteComponent->GetTransform().Translation.z = -0.5;
-	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Bamboo"));
-	m_BoxComponent->SetHalfSize({ 2.7, 0.5 });
-	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	sprite->GetTransform().Scale = { 6, 1.565, 1 };
+	sprite->GetTransform().Translation.z = -0.5;
+	sprite->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Bamboo"));
+	auto box = GetBoxComponent();
+	box->SetHalfSize({ 2.7, 0.5 });
+	box->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -23,8 +25,7 @@ Platform::~Platform()
 void Platform::Start()
 {
 	GameObject::Start();
-	auto platform = GetScene()->GetObject(this);
-	m_SpriteComponent->SetOwner(platform);
+	GetSpriteComponent()->SetOwner(GetSelf());
 }
 
 void Platform::Tick(double deltaTime)
@@ -35,7 +36,7 @@ void Platform::Tick(double deltaTime)
 void Platform::Destroy()
 {
 	GameObject::Destroy();
-	m_SpriteComponent->Destroy();
+	GetSpriteComponent()->Destroy();
 }
 
 void Platform::Pass()

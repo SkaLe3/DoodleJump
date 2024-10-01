@@ -17,7 +17,7 @@ public:
 	//~ End Object Interface
 
 	void SetSprite(std::shared_ptr<MySprite> newSprite);
-	std::shared_ptr<MySprite> GetSprite() const;
+	std::shared_ptr<MySprite> GetSpriteComponent() const;
 
 	void EnableAnimation();
 	void SetAnimator(std::shared_ptr<Animator> animator);

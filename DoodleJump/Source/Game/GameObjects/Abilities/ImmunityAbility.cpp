@@ -5,10 +5,12 @@
 ImmunityAbility::ImmunityAbility() : GameObject()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
-	m_SpriteComponent->SetupAttachment(GetBoxComponent());
+	auto sprite = GetSpriteComponent();
+	auto box = GetBoxComponent();
+	sprite->SetupAttachment(GetBoxComponent());
 
-	m_BoxComponent->SetHalfSize({3, 3 });
-	m_SpriteComponent->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Shield"));
+	box->SetHalfSize({3, 3 });
+	sprite->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Shield"));
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -20,15 +22,16 @@ ImmunityAbility::~ImmunityAbility()
 void ImmunityAbility::Start()
 {
 	GameObject::Start();
-	auto ability = GetScene()->GetObject(this);
-	m_SpriteComponent->SetOwner(ability);
+	auto sprite = GetSpriteComponent();
+	auto box = GetBoxComponent();
 
-	m_SpriteComponent->GetTransform().Scale = { 7, 7, 1.0 };
+	sprite->SetOwner(GetSelf());
+	sprite->GetTransform().Scale = { 7, 7, 1.0 };
 
-	m_BoxComponent->SetCollisionChannel(ECollisionChannel::WorldStatic);
-	m_BoxComponent->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Overlap);
-	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldStatic, ECollisionResponse::Ignore);
-	m_BoxComponent->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	box->SetCollisionChannel(ECollisionChannel::WorldStatic);
+	box->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Overlap);
+	box->SetCollisionResponce(ECollisionChannel::WorldStatic, ECollisionResponse::Ignore);
+	box->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 
 	SetTag("immunity");
 }
@@ -41,12 +44,12 @@ void ImmunityAbility::Tick(double deltaTime)
 void ImmunityAbility::Destroy()
 {
 	GameObject::Destroy();
-	m_SpriteComponent->Destroy();
+	GetSpriteComponent()->Destroy();
 }
 
 void ImmunityAbility::DisableCollision()
 {
-	m_BoxComponent->SetCollisionEnabled(false);
+	GetBoxComponent()->SetCollisionEnabled(false);
 }
 
 double ImmunityAbility::GetTime()

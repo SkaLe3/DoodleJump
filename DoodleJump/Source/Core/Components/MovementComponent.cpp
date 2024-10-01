@@ -16,23 +16,29 @@ void MovementComponent::Start()
 
 void MovementComponent::Tick(double deltaTime)
 {
-	Math::Transform& transform = m_Owner->GetTransform();
+	if (auto owner = m_Owner.lock())
+	{
+		Math::Transform& transform = owner->GetTransform();
 
-	m_Acceleration += m_Gravity;
-	m_Velocity += m_Acceleration * 0.5 * deltaTime;
-	transform.Translation += Math::Vector(m_Velocity * deltaTime, 0);
-	m_Velocity += m_Acceleration * 0.5 * deltaTime;
+		m_Acceleration += m_Gravity;
+		m_Velocity += m_Acceleration * 0.5 * deltaTime;
+		transform.Translation += Math::Vector(m_Velocity * deltaTime, 0);
+		m_Velocity += m_Acceleration * 0.5 * deltaTime;
 
-	GetOwner()->GetBoxComponent()->SetAcceleration(m_Acceleration);
-	GetOwner()->GetBoxComponent()->SetVelocity(m_Velocity);
-	GetOwner()->GetBoxComponent()->SetGravity(m_Gravity);
-	m_Acceleration = Math::Vector2D::ZeroVector;
+		if (auto box = owner->GetBoxComponent())
+		{
+			box->SetAcceleration(m_Acceleration);
+			box->SetVelocity(m_Velocity);
+			box->SetGravity(m_Gravity);
+		}
+		m_Acceleration = Math::Vector2D::ZeroVector;
+	}
 }
 
 
 void MovementComponent::Destroy()
 {
-	GetScene()->DestroyTickComponent(GetScene()->GetComponent(this));
+	GetScene()->DestroyTickComponent(GetSelf());
 }
 
 void MovementComponent::SetGravity(double gravityValue)
@@ -47,6 +53,10 @@ void MovementComponent::SetMaxSpeed(double speed)
 
 void MovementComponent::OnCollision(double collisionTime)
 {
-	// TODO: Add remaining time to use instead of delta time when collision occurs
-	m_Owner->GetTransform().Translation += Math::Vector(m_Owner->GetBoxComponent()->GetVelocity() * collisionTime, 0);
+	auto owner = GetOwner().lock();
+	auto box = owner->GetBoxComponent();
+	if (owner && box )
+	{
+		owner->GetTransform().Translation += Math::Vector(box->GetVelocity() * collisionTime, 0);
+	}
 }

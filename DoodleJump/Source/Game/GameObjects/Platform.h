@@ -17,9 +17,9 @@ public:
 	bool IsPassed();
 	void Reset();
 
-	std::shared_ptr<SpriteComponent> GetSprite() const { return m_SpriteComponent; }
+	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return m_SpriteComponent.lock(); }
 
 protected:
-	std::shared_ptr<SpriteComponent> m_SpriteComponent;
+	std::weak_ptr<SpriteComponent> m_SpriteComponent;
 	bool m_bPassed;
 };

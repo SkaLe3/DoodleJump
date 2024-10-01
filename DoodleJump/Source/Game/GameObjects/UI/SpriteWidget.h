@@ -17,6 +17,6 @@ public:
 	std::shared_ptr<SpriteComponent> GetSprite();
 
 private:
-	std::shared_ptr<SpriteComponent> m_SpriteComponent;
+	std::weak_ptr<SpriteComponent> m_SpriteComponent;
 	Math::Vector2D m_Coordinates;
 };

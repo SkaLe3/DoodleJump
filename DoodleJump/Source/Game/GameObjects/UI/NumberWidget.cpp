@@ -19,18 +19,17 @@ NumberWidget::~NumberWidget()
 void NumberWidget::Start()
 {
 	GameObject::Start();
-	auto widget = GetScene()->GetObject(this);
-	m_NumberComponent->SetOwner(widget);
+	GetNumberComponent()->SetOwner(GetSelf());
 
-	std::vector<std::shared_ptr<SpriteComponent>>& sprites = m_NumberComponent->GetSprites();
+	std::vector<std::shared_ptr<SpriteComponent>>& sprites = GetNumberComponent()->GetSprites();
 	for (auto& sprite : sprites)
 	{
-		sprite->SetOwner(widget);
+		sprite->SetOwner(GetSelf());
 		sprite->GetTransform().Scale = { 1.5, 1.5, 1.5 };
 	}
 
-	m_BoxComponent->SetCollisionEnabled(false);
-	m_NumberComponent->Start();
+	GetBoxComponent()->SetCollisionEnabled(false);
+	GetNumberComponent()->Start();
 }
 
 void NumberWidget::Tick(double deltaTime)
@@ -38,14 +37,14 @@ void NumberWidget::Tick(double deltaTime)
 	GameObject::Tick(deltaTime);
 
 	Math::Vector camPos =  GetScene()->GetRenderCamera()->GetTransform().Translation;
-	m_BoxComponent->GetTransform().Translation = { camPos.x + m_Coordinates.x, camPos.y + m_Coordinates.y, 0 };
+	GetBoxComponent()->GetTransform().Translation = { camPos.x + m_Coordinates.x, camPos.y + m_Coordinates.y, 0 };
 }
 
 
 void NumberWidget::Destroy()
 {
 	GameObject::Destroy();
-	m_NumberComponent->Destroy();
+	GetNumberComponent()->Destroy();
 }
 
 void NumberWidget::Init(int32_t digits)
@@ -54,16 +53,16 @@ void NumberWidget::Init(int32_t digits)
 
 	for (int i = 0; i < digits; i++)
 	{
-		spriteComp = CreateComponent<SpriteComponent>();
+		spriteComp = CreateComponent<SpriteComponent>().lock();
 		spriteComp->SetupAttachment(GetBoxComponent());
 		spriteComp->GetTransform().Translation.z = 2;
-		m_NumberComponent->AddDigit(spriteComp);
+		GetNumberComponent()->AddDigit(spriteComp);
 	}
 }
 
 void NumberWidget::Update(int32_t number)
 {
-	m_NumberComponent->Update(number);
+	GetNumberComponent()->Update(number);
 }
 
 void NumberWidget::SetCoordinates(Math::Vector2D coords)
@@ -73,6 +72,6 @@ void NumberWidget::SetCoordinates(Math::Vector2D coords)
 
 std::shared_ptr<NumberComponent> NumberWidget::GetNumberComponent()
 {
-	return m_NumberComponent;
+	return m_NumberComponent.lock();
 }
 

@@ -41,7 +41,7 @@ void NumberComponent::Tick(double deltaTime)
 
 void NumberComponent::Destroy()
 {
-	GetScene()->DestroyTickComponent(GetScene()->GetComponent(this));
+	GetScene()->DestroyTickComponent(GetSelf());
 	for (auto& sprite : m_Sprites)
 	{
 		sprite->Destroy();

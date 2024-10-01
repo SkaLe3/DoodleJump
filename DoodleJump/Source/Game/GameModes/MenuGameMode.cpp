@@ -32,8 +32,8 @@ void MenuGameMode::Start()
 	m_Player = GetScene()->SpawnGameObject<MenuController>();
 	// Spawn Background
 	std::shared_ptr<Background> background = GetScene()->SpawnGameObject<MenuBackground>();
-	background->GetSprite()->GetTransform().Scale = { 36, 54, 1 };
-	background->GetSprite()->GetTransform().Translation = { 0, 0, -1 };
+	background->GetSpriteComponent()->GetTransform().Scale = { 36, 54, 1 };
+	background->GetSpriteComponent()->GetTransform().Translation = { 0, 0, -1 };
 
 	// Camera
 	m_Camera = GetScene()->GetRenderCamera();

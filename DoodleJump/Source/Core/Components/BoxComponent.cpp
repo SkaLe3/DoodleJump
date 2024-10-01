@@ -25,7 +25,7 @@ void BoxComponent::Tick(double deltaTime)
 
 void BoxComponent::Destroy()
 {
-	GetScene()->DestroyCollisionObject(GetScene()->GetComponent(this));
+	GetScene()->DestroyCollisionObject(GetSelf());
 }
 
 void BoxComponent::SetHalfSize(const Math::Vector2D& newSize)

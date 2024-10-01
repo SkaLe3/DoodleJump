@@ -6,7 +6,7 @@
 SpriteWidget::SpriteWidget() : GameObject()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
-	m_SpriteComponent->SetupAttachment(GetBoxComponent());
+	GetSprite()->SetupAttachment(GetBoxComponent());
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -18,10 +18,9 @@ SpriteWidget::~SpriteWidget()
 void SpriteWidget::Start()
 {
 	GameObject::Start();
-	auto widget = GetScene()->GetObject(this);
-	m_SpriteComponent->SetOwner(widget);
+	GetSprite()->SetOwner(GetSelf());
 
-	m_BoxComponent->SetCollisionEnabled(false);
+	GetBoxComponent()->SetCollisionEnabled(false);
 }
 
 void SpriteWidget::Tick(double deltaTime)
@@ -29,13 +28,13 @@ void SpriteWidget::Tick(double deltaTime)
 	GameObject::Tick(deltaTime);
 
 	Math::Vector camPos = GetScene()->GetRenderCamera()->GetTransform().Translation;
-	m_BoxComponent->GetTransform().Translation = { camPos.x + m_Coordinates.x, camPos.y + m_Coordinates.y, 0 };
+	GetBoxComponent()->GetTransform().Translation = { camPos.x + m_Coordinates.x, camPos.y + m_Coordinates.y, 0 };
 }
 
 void SpriteWidget::Destroy()
 {
 	GameObject::Destroy();
-	m_SpriteComponent->Destroy();
+	GetSprite()->Destroy();
 }
 
 void SpriteWidget::SetCoordinates(Math::Vector2D coords)
@@ -45,5 +44,5 @@ void SpriteWidget::SetCoordinates(Math::Vector2D coords)
 
 std::shared_ptr<SpriteComponent> SpriteWidget::GetSprite()
 {
-	return m_SpriteComponent;
+	return m_SpriteComponent.lock();
 }

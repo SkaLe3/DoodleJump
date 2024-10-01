@@ -15,8 +15,8 @@ public:
 	virtual void Destroy() override;
 	//~ End Object Interface
 
-	std::shared_ptr<SpriteComponent> GetSprite() const { return m_SpriteComponent; }
+	std::shared_ptr<SpriteComponent> GetSpriteComponent() const { return m_SpriteComponent.lock(); }
 
 private:
-	std::shared_ptr<SpriteComponent> m_SpriteComponent;
+	std::weak_ptr<SpriteComponent> m_SpriteComponent;
 };

@@ -22,6 +22,6 @@ public:
 	std::shared_ptr<NumberComponent> GetNumberComponent();
 
 private:
-	std::shared_ptr<NumberComponent> m_NumberComponent;
+	std::weak_ptr<NumberComponent> m_NumberComponent;
 	Math::Vector2D m_Coordinates;
 };
