@@ -168,6 +168,7 @@ void Doodle::Move(InputValue& value)
 
 void Doodle::Shoot(InputValue& value)
 {
+	// Option: Could use a pool of projectiles instead of spawning new ones, but not doing that for now.
 	std::shared_ptr<Projectile> projectile = GetScene()->SpawnGameObject<Projectile>();
 	projectile->SetLocation({ GetLocation() + Math::Vector2D{0, 3}, 0 });
 	Math::Vector2D direction =  m_Crosshair->GetLocation() - projectile->GetLocation();
