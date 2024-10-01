@@ -1,10 +1,10 @@
 #pragma once
-#include "Renderer/MySprite.h"
-#include "Renderer/Animation.h"
-
 #include <filesystem>
 #include <vector>
 #include <memory>
+
+class MySprite;
+class Animation;
 
 class Asset
 {

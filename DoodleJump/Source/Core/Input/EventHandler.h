@@ -2,13 +2,13 @@
 #include "Input/Events.h"
 #include "Input/TriggerEvent.h"
 #include "Input/InputAction.h"
-#include "Input/InputValue.h"
-#include "Math/Vector2D.h"
 
 #include <unordered_map>
 #include <queue>
 #include <functional>
 #include <memory>
+
+class InputValue;
 
 class EventHandler
 {

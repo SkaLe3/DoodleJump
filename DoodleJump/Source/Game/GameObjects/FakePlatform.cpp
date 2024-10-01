@@ -1,8 +1,6 @@
 #include "FakePlatform.h"
 #include "Core/Base/AssetManager.h"
 #include "Animations/FakePlatformAnimator.h"
-#include <memory>
-#include <vector>
 
 FakePlatform::FakePlatform() : Platform()
 {

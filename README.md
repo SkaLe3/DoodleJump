@@ -1,6 +1,6 @@
 # Doodle Jump clone
 ![video placeholder]()
-This is my implementation of a Doodle Jump clone, initially  created as a test task for a C++ developer internship. The project was built in 5 days, and after some time, I revisited it to fix a couple of bugs, improve code quality, enhance visuals, and polish it for public release.
+This is my implementation of a Doodle Jump clone, initially  created as a test task for a C++ game developer internship. The project was built in 5 days, and after some time, I revisited it to fix a couple of bugs, improve code quality, enhance visuals, and polish it for public release.
 ***
 
 ## Project Overview
@@ -13,10 +13,12 @@ This project is a basic clone of the popular mobile game Doodle Jump. The goal w
 * ECS
 * Collision System
 * Scenes System
-* Animator
+* Animation System
 * Asset Manager
+* Input bindings
 ### Game
 * Doodle movement
+* Doodle Animator
 * Monsters
 * Shooting
 * Immunity ability
@@ -37,6 +39,19 @@ Run the [GenerateProjectFiles.bat](https://github.com/SkaLe3/DoodleJump/blob/mas
 
 If changes are made, or if you want to regenerate project files, rerun the [GenerateProjectFiles.bat](https://github.com/SkaLe3/DoodleJump/blob/master/Scripts/GenerateProjectFiles.bat) script file found in `Scripts` folder.
 
+<ins>**3. Building the project:**</ins>
+
+After generating the project files, open the solution in Visual Studio 2022 and build the project.
+
+<ins>**4. Copying framework dependencies:**</ins>
+
+Once the project is built, you need to copy the framework dependencies. Copy the libraries from `ThirdParty/Framework/bin` to the `Build/Binaries/%{buildcfg-system-architecture}/DoodleJump` directory, where:
+- `buildcfg` refers to your build configuration (e.g., `Debug`, `Release`).
+- `system` refers to your operating system (e.g., `windows`).
+- `architecture` refers to your system architecture (e.g., `x64`).
+
+These libraries are provided with the framework and are mandatory for the project to run.
+
 ### Requirements
 - [Visual Studio 2022](https://visualstudio.com) (required to automatically set up the project, otherwise you will have to set up the project yourself)
 
@@ -54,8 +69,8 @@ Several improvements have been made after the initial release, including:
 * Project structure: Reorganized project structure
 * Platfrom spawner: Imroved platform spawner logic 
 * Assets: Created Asset Manager and asset handlers
-* Adaptive scene aspect ratio: Implemented dynamic handling of various window sized for better visual consistency
-* Animations: Added jumping and shooting animations
+* Adaptive scene aspect ratio: Implemented dynamic handling of various window sizes for better visual consistency
+* Animations: Added and integrated jumping and shooting animations
 
 
 ### Plan

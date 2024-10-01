@@ -1,11 +1,11 @@
 #include "Projectile.h"
-#include "Components/ProjectileMovementComponent.h"
-#include "Components/SpriteComponent.h"
-#include "World/World.h"
-#include "GameModes/DJGameMode.h"
-#include "Math/MyMath.h"
 #include "Core/Base/Log.h"
 #include "Core/Base/AssetManager.h"
+#include "Core/Components/SpriteComponent.h"
+#include "Core/World/World.h"
+
+#include "Components/ProjectileMovementComponent.h"
+#include "GameModes/DJGameMode.h"
 
 Projectile::Projectile() : GameObject()
 {

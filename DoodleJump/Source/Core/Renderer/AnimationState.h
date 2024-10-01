@@ -1,9 +1,5 @@
 #pragma once
-#include "MySprite.h"
 #include "Animation.h"
-
-#include <vector>
-#include <memory>
 
 class AnimationState
 {

@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Renderer/Animator.h"
-#include "GameObjects/FakePlatform.h"
+
+class FakePlatform;
 
 class FakePlatformAnimator : public Animator
 {

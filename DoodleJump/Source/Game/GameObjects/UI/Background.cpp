@@ -1,5 +1,5 @@
 #include "Background.h"
-#include "Components/CameraComponent.h"	  
+#include "Core/Components/CameraComponent.h"	  
 #include "Core/Base/Log.h"
 
 Background::Background() : GameObject()

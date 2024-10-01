@@ -2,8 +2,6 @@
 #include "AnimationMachine.h"
 #include "TransitionCondition.h"
 
-#include <memory>
-#include <unordered_map>
 #include <functional>
 
 template <typename T>

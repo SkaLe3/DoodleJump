@@ -1,5 +1,5 @@
 #pragma once
-#include "Entities/GameObject.h"
+#include "Core/Entities/GameObject.h"
 
 class Background : public GameObject
 {

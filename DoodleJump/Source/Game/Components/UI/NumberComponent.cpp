@@ -1,10 +1,9 @@
 #include "NumberComponent.h"
-#include "Components/SpriteComponent.h"
-#include "Renderer/MySprite.h"
-#include "Components/SceneComponent.h"
-#include "World/World.h"
-#include "World/Scene.h"
 #include "Core/Base/AssetManager.h"
+#include "Core/Components/SpriteComponent.h"
+#include "Core/Components/SceneComponent.h"
+#include "Core/Renderer/MySprite.h"
+#include "Core/World/World.h"
 
 #include <string>
 

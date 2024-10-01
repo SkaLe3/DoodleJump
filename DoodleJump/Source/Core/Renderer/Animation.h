@@ -1,5 +1,6 @@
 #pragma once
-#include "Core/Renderer/MySprite.h"
+#include "MySprite.h"
+
 #include <vector>
 #include <memory>
 
@@ -17,5 +18,5 @@ public:
 private:
 	std::vector<std::shared_ptr<MySprite>> m_Frames;
 	size_t m_Index = 0;
-	bool m_bLoopAnimation;
+	bool m_bLoopAnimation = false;
 };

@@ -1,5 +1,6 @@
 #include "Asset.h"
-
+#include "Renderer/MySprite.h"
+#include "Renderer/Animation.h"
 
 SpriteAsset::SpriteAsset(std::filesystem::path assetPath)
 {

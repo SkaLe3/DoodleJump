@@ -8,7 +8,6 @@ Game::Game(uint32_t w, uint32_t h, bool fs, const std::string& contentDirectory)
 
 }
 
-
 bool Game::Init()
 {
 	m_AssetManager = new AssetManager(m_ContentDirectory);

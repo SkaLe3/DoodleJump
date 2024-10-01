@@ -1,7 +1,6 @@
 #pragma once
-#include "Entities/GameObject.h"
-#include "Input/InputValue.h"
-#include "Math/Vector2D.h"
+#include "Core/Entities/GameObject.h"
+#include "Core/Input/InputValue.h"
 
 class DoodleMovementComponent;
 class SpriteComponent;

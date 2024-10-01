@@ -1,9 +1,8 @@
 #pragma once
 #include "Core/Base/Log.h"
 #include "Asset.h"
-#include <unordered_map>
-#include <filesystem>
 
+#include <unordered_map>
 
 class MySprite;
 class Animation;

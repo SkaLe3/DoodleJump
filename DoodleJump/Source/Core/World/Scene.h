@@ -1,5 +1,4 @@
 #pragma once
-#include "Math/MyMath.h"
 #include "Components/BoxComponent.h"
 #include "Components/SpriteComponent.h"
 

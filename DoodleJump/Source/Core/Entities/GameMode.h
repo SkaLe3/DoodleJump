@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Core/Math/MyMath.h"
-#include <memory>
+
 
 class GameObject;
 
@@ -15,5 +15,5 @@ protected:
 	std::shared_ptr<GameObject> m_Player;
 
 	Math::Vector2D m_MaxViewArea = { 36, 108 }; /* Maximum size of a scene in game coordinates */
-	Math::Vector2D m_ViewArea; /* Visible part of the scene */
+	Math::Vector2D m_ViewArea; /* Visible part of a scene */
 };

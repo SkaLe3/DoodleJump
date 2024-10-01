@@ -1,20 +1,18 @@
 #include "MenuGameMode.h"
-#include "World/World.h"
-#include "World/Scene.h"
-#include "World/CollisionSystem.h"
+#include "Framework.h" /* For showCursor() */
+#include "Core/World/World.h"
+#include "Core/World/CollisionSystem.h"
+#include "Core/Components/CameraComponent.h"
+#include "Core/Renderer/MySprite.h"
+#include "Core/Base/AssetManager.h"
 
 #include "GameObjects/Doodle.h"
 #include "GameObjects/UI/MenuBackground.h"
-#include "Components/CameraComponent.h"
-
-#include "Renderer/MySprite.h"
 #include "GameObjects/UI/MenuController.h"
 #include "GameObjects/UI/PlayButton.h"
 
 #include "Scenes/LevelScene.h"
-#include "Core/Base/AssetManager.h"
 
-#include "Framework.h" /* For showCursor() */
 
 MenuGameMode::MenuGameMode()
 {

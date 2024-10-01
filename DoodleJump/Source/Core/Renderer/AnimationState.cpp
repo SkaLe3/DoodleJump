@@ -1,8 +1,5 @@
 #include "AnimationState.h"
 
-
-
-
 void AnimationState::Update(double deltaTime)
 {
 	if (m_FrameDuration == -1)

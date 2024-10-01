@@ -1,5 +1,5 @@
 #include "ImmunityAbility.h"
-#include "Components/SpriteComponent.h"
+#include "Core/Components/SpriteComponent.h"
 #include "Core/Base/AssetManager.h"
 
 ImmunityAbility::ImmunityAbility() : GameObject()

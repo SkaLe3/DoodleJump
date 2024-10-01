@@ -1,6 +1,5 @@
 #pragma once
 #include "GameComponent.h"
-#include "Math/Vector2D.h"
 
 class MovementComponent : public GameComponent
 {

@@ -1,11 +1,9 @@
 #pragma once
 #include "SceneComponent.h"
-#include "Math/Vector2D.h"
-#include "Math/Vector.h"
 #include "BoxCollider.h"
+
 #include <unordered_map>
 #include <functional>
-#include <vector>
 
 enum class ECollisionChannel
 {
@@ -26,8 +24,7 @@ public:
 	void operator()(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime);
 
 private:
-	std::vector<std::function<void(std::shared_ptr<GameObject>, Math::Vector2D, double)>> callbacks;
-	
+	std::vector<std::function<void(std::shared_ptr<GameObject>, Math::Vector2D, double)>> callbacks;	
 };
 
 class BoxComponent : public SceneComponent
@@ -35,10 +32,11 @@ class BoxComponent : public SceneComponent
 public:
 	BoxComponent();
 
+	//~ Begin Object Interface
 	virtual void Start() override;
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
-
+	//~ End Object Interface
 public:
 	Math::Vector2D GetVelocity();
 	Math::Vector2D GetHalfSize() const;

@@ -1,13 +1,8 @@
 #pragma once
-
 #include "Framework.h"
-
-#include "Events.h"
 #include "TriggerEvent.h"
 #include "Math/MyMath.h"
 
-#include <queue>
-#include <unordered_map>
 
 enum class EInputType : uint8_t
 {
@@ -18,15 +13,15 @@ enum class EInputType : uint8_t
 class InputEvent
 {
 public:
-	InputEvent(EInputType it, ETriggerEvent is) : inputType(it), inputState(is) {}
+	InputEvent(EInputType it, ETriggerEvent is) : m_InputType(it), m_InputState(is) {}
 
-	EInputType GetEventType() { return inputType; }
+	EInputType GetEventType() { return m_InputType; }
 
-	ETriggerEvent GetInputState() { return inputState; }
+	ETriggerEvent GetInputState() { return m_InputState; }
 
 protected:
-	EInputType inputType;
-	ETriggerEvent inputState;
+	EInputType m_InputType;
+	ETriggerEvent m_InputState;
 };
 
 
@@ -34,23 +29,23 @@ class KeyEvent : public InputEvent
 {
 public:
 
-	KeyEvent(FRKey _key, EInputType it, ETriggerEvent is) : InputEvent(it, is), key(_key) {}
+	KeyEvent(FRKey _key, EInputType it, ETriggerEvent is) : InputEvent(it, is), m_Key(_key) {}
 
-	FRKey GetKey() const { return key; }
+	FRKey GetKey() const { return m_Key; }
 
 private:
-	FRKey key;
+	FRKey m_Key;
 };
 
 
 class MouseButtonEvent : public InputEvent
 {
 public:
-	MouseButtonEvent(FRMouseButton _button, EInputType it, ETriggerEvent is) : InputEvent(it, is), button(_button) {}
-	FRMouseButton GetMouseButton() const { return button; }
+	MouseButtonEvent(FRMouseButton _button, EInputType it, ETriggerEvent is) : InputEvent(it, is), m_Button(_button) {}
+	FRMouseButton GetMouseButton() const { return m_Button; }
 
 private:
-	FRMouseButton button;
+	FRMouseButton m_Button;
 };
 
 

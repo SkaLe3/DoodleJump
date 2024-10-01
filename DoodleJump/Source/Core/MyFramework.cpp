@@ -1,5 +1,10 @@
 #include "MyFramework.h"
-#include "AssetManager.h"
+#include "Input/EventHandler.h"
+#include "Input/TriggerEvent.h"
+#include "Input/Events.h"
+#include "Core/Base/AssetManager.h"
+#include "Renderer/Renderer.h"
+#include "World/World.h"
 
 
 MyFramework::MyFramework(uint32_t w, uint32_t h, bool fs)

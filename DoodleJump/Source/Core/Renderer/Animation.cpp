@@ -1,7 +1,5 @@
 #include "Animation.h"
 
-
-
 void Animation::Update()
 {
 	if (m_bLoopAnimation)

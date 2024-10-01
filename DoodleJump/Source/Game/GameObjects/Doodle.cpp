@@ -1,19 +1,15 @@
 #include "Doodle.h"
+#include "Core/Input/EventHandler.h"
+#include "Core/Base/Log.h"
+#include "Core/Base/AssetManager.h"
 
 #include "GameObjects/UI/Crosshair.h"
 #include "GameModes/DJGameMode.h"
-#include "Projectile.h"
-#include "Abilities/ImmunityAbility.h"
-#include "Input/EventHandler.h"
+#include "GameObjects/Projectile.h"
+#include "GameObjects/Abilities/ImmunityAbility.h"
 #include "Components/DoodleMovementComponent.h"
 #include "Components/FollowCameraComponent.h"
-
-#include "Core/Base/Log.h"
-#include "Core/Base/AssetManager.h"
 #include "Animations/DoodleAnimator.h"
-
-
-#include "Core/Renderer/Animation.h" // Temporary
 
 
 Doodle::Doodle() : GameObject()

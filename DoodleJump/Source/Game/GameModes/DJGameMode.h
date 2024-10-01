@@ -1,7 +1,6 @@
 #pragma once
 #include "Entities/GameMode.h"
-#include "Math/Vector2D.h"
-#include <memory>
+
 #include <random>
 
 class CameraComponent;

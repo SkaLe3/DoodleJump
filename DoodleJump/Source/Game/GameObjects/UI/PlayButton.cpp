@@ -1,5 +1,5 @@
 #include "PlayButton.h"
-#include "Components/SpriteComponent.h"
+#include "Core/Components/SpriteComponent.h"
 #include "Core/Base/Log.h"
 #include "Core/Base/AssetManager.h"
 

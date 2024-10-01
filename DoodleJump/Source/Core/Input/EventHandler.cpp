@@ -1,10 +1,5 @@
 #include "EventHandler.h"
-#include "Framework.h"
-
-#include <stdexcept>
-#include <memory>
-
-#include <iostream>
+#include "Input/InputValue.h"
 
 std::shared_ptr<EventHandler> EventHandler::s_Instance = nullptr;
 

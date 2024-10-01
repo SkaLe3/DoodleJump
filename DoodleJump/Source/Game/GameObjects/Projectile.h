@@ -1,7 +1,6 @@
 #pragma once
-#include "Entities/GameObject.h"
+#include "Core/Entities/GameObject.h"
 
-#include <memory>
 
 class SpriteComponent;
 class ProjectileMovementComponent;

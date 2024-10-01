@@ -1,6 +1,5 @@
 #pragma once
-#include "Entities/GameObject.h"
-#include <memory>
+#include "Core/Entities/GameObject.h"
 
 class SpriteComponent;
 

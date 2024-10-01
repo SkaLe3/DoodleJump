@@ -1,6 +1,5 @@
 #include "AnimationMachine.h"
 
-
 std::shared_ptr<AnimationMachine> AnimationMachine::Create()
 {
 	return std::make_shared<AnimationMachine>();

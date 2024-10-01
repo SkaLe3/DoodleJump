@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Renderer/Animator.h"
-#include "GameObjects/Doodle.h"
+
+class Doodle;
 
 class DoodleAnimator : public Animator
 {

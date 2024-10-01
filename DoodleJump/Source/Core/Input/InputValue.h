@@ -1,5 +1,6 @@
 #pragma once
 #include "Math/MyMath.h"
+
 #include <variant>
 
 class InputValue

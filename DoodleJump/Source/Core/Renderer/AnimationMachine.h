@@ -1,6 +1,5 @@
 #pragma once
 #include "AnimationState.h"
-#include "Animation.h"
 
 #include <string>
 #include <unordered_map>

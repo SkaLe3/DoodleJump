@@ -12,7 +12,7 @@ void Animator::Update(double deltaTime)
 		if (tCondition)
 		{
 			m_AnimMachine->SwitchState(targetState);
-			LOG("State switched: " + activeState + " ====>> " + targetState);
+			//LOG("State switched: " + activeState + " ====>> " + targetState);
 		}
 	}
 

@@ -1,6 +1,5 @@
 #pragma once
-#include "Entities/GameObject.h"
-#include "Components/SpriteComponent.h"
+#include "Core/Entities/GameObject.h"
 
 #include <random>
 #include <list>

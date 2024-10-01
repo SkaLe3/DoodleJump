@@ -1,5 +1,5 @@
 #include "AssetManager.h"
-#include "Asset.h"
+
 #include <fstream>
 
 namespace fs = std::filesystem;

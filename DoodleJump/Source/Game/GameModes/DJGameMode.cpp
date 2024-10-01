@@ -1,17 +1,18 @@
-#include "Framework.h"
-
 #include "DJGameMode.h"
+
+#include "Framework.h"
+#include "Core/Base/AssetManager.h"
+#include "Core/Components/CameraComponent.h"
+
 #include "GameObjects/Doodle.h"
 #include "GameObjects/UI/LevelBackground.h"
 #include "GameObjects/PlatformSpawner.h"
-#include "Components/CameraComponent.h"
 #include "GameObjects/Monster.h"
 #include "GameObjects/Abilities/ImmunityAbility.h"
 #include "GameObjects/UI/NumberWidget.h"
-#include "Components/UI/NumberComponent.h"
 #include "GameObjects/UI/SpriteWidget.h"
+#include "Components/UI/NumberComponent.h"
 #include "Scenes/MenuScene.h"
-#include "Core/Base/AssetManager.h"
 
 DJGameMode::DJGameMode()
 {

@@ -1,8 +1,8 @@
 #include "Monster.h"
-#include "GameModes/DJGameMode.h"
-#include "Doodle.h"
 #include "Core/Base/Log.h"
 #include "Core/Base/AssetManager.h"
+#include "GameModes/DJGameMode.h"
+#include "GameObjects/Doodle.h"
 
 #include <string>
 

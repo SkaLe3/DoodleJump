@@ -1,7 +1,6 @@
 #pragma once
 #include "Math/MyMath.h"
 #include "Entities/Object.h"
-#include <memory>
 
 class GameObject;
 

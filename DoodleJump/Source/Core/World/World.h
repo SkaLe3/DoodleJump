@@ -1,8 +1,6 @@
 #pragma once
-#include <memory>
-#include <vector>
+#include "Scene.h"
 
-class Scene;
 class World;
 class GameMode;
 

@@ -1,6 +1,6 @@
 #pragma once
-#include "Entities/GameObject.h"
-#include "Input/InputValue.h"
+#include "Core/Entities/GameObject.h"
+#include "Core/Input/InputValue.h"
 
 class MenuController : public GameObject
 {

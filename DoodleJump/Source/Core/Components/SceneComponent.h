@@ -1,6 +1,6 @@
 #pragma once
 #include "GameComponent.h"
-#include "Math/Matrix4.h"
+
 
 class SceneComponent : public GameComponent
 {
@@ -13,7 +13,7 @@ public:
 	void DetachFromParent();
 
 protected:
-	// Transform relative to parent
+	// Transform is relative to parent
 	Math::Transform m_Transform;
 
 	std::shared_ptr<SceneComponent> m_Parent;

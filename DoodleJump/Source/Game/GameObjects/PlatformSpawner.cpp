@@ -1,14 +1,15 @@
 #include "PlatformSpawner.h"
+#include "Core/Base/Log.h"
+#include "Core/Base/AssetManager.h"
+#include "Core/Components/SpriteComponent.h"
+#include "Core/Components/CameraComponent.h"
+
 #include "GameObjects/Platform.h"
 #include "GameObjects/FakePlatform.h"
 #include "GameModes/DJGameMode.h"
-#include "Components/CameraComponent.h"
-#include "Math/MyMath.h"
-#include "Core/Base/AssetManager.h"
 
 #include <algorithm>
 #include <utility>
-#include "Core/Base/Log.h"
 
 PlatformSpawner::PlatformSpawner() : GameObject(), m_DefaultPlatformPoolSize(10)
 {
@@ -173,6 +174,7 @@ Math::Vector2D PlatformSpawner::GetLowestVisiblePlatformLocation()
 						   });
 	if (it != m_DefaultPlatformPool.end())
 		return (*it)->GetLocation();
+	return Math::Vector2D::ZeroVector;
 }
 
 int32_t PlatformSpawner::GetPassedPlatformCount()

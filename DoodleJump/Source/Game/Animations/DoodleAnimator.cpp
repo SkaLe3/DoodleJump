@@ -1,7 +1,8 @@
 #include "DoodleAnimator.h"
 #include "Core/Base/AssetManager.h"
-#include <functional>
+#include "GameObjects/Doodle.h"
 
+#include <functional>
 
 
 DoodleAnimator::DoodleAnimator(Doodle* owner) : m_Owner(owner)

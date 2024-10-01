@@ -1,8 +1,8 @@
 #include "NumberWidget.h"
+#include "Core/Components/SpriteComponent.h"
+#include "Core/Components/CameraComponent.h"
 #include "Components/UI/NumberComponent.h"
-#include "Components/SpriteComponent.h"
-#include "Components/CameraComponent.h"
-#include "Math/Vector.h"
+
 #include <vector>
 
 NumberWidget::NumberWidget() : GameObject()

@@ -1,7 +1,7 @@
 #include "SpriteComponent.h"
 #include "World/World.h"
-#include "World/Scene.h"
-#include <algorithm>
+#include "Renderer/MySprite.h"
+#include "Renderer/Animator.h"
 
 
 SpriteComponent::~SpriteComponent()

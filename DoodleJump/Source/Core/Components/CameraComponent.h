@@ -1,6 +1,5 @@
 #pragma once
 #include "SceneComponent.h"
-#include "Math/MyMath.h"
 
 class CameraComponent : public SceneComponent
 {

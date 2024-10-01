@@ -1,9 +1,9 @@
 #include "Scene.h"
+#include "Input/EventHandler.h"
 #include "Entities/GameMode.h"
 #include "Entities/GameObject.h"
 #include "CollisionSystem.h"
 #include "Renderer/Renderer.h"
-#include "Input/EventHandler.h"
 #include "Components/CameraComponent.h"
 
 #include <algorithm>

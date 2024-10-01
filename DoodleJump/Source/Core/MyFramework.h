@@ -1,15 +1,11 @@
 #pragma once
-
 #include "Framework.h"
-
-#include "Input/TriggerEvent.h"
-#include "Input/Events.h"
-#include "Input/EventHandler.h"
-#include "World/World.h"
-#include "Renderer/Renderer.h"
 
 #include <unordered_map>
 #include <memory> 
+
+class EventHandler;
+class World;
 
 class MyFramework : public Framework
 {

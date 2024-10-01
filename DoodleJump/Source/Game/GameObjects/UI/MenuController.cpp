@@ -1,8 +1,8 @@
 #include "MenuController.h"
-#include "Components/CameraComponent.h"
-#include "Input/EventHandler.h"
-#include "World/CollisionSystem.h"
-#include "Components/BoxCollider.h"
+#include "Core/Components/CameraComponent.h"
+#include "Core/Input/EventHandler.h"
+#include "Core/World/CollisionSystem.h"
+#include "Core/Components/BoxCollider.h"
 #include "GameModes/MenuGameMode.h"
 
 MenuController::MenuController()

@@ -1,5 +1,6 @@
 #include "FakePlatformAnimator.h"
 #include "Core/Base/AssetManager.h"
+#include "GameObjects/FakePlatform.h"
 
 
 FakePlatformAnimator::FakePlatformAnimator(FakePlatform* owner)

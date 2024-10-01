@@ -1,7 +1,6 @@
 #include "Crosshair.h"
-#include "Input/EventHandler.h"
-#include "Math/Vector2D.h"
 #include "Framework.h"
+#include "Core/Input/EventHandler.h"
 #include "Core/Base/Log.h"
 #include "Core/Base/AssetManager.h"
 

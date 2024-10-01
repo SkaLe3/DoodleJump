@@ -1,5 +1,4 @@
 #include "World.h"
-#include "Scene.h"
 #include "Scenes/LevelScene.h"
 #include "Scenes/MenuScene.h"
 #include "Input/EventHandler.h"

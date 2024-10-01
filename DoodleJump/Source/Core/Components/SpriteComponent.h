@@ -1,8 +1,8 @@
 #pragma once
 #include "SceneComponent.h"
-#include "Renderer/MySprite.h"
-#include "Renderer/Animator.h"
 
+class MySprite;
+class Animator;
 
 class SpriteComponent : public SceneComponent
 {
@@ -26,5 +26,4 @@ private:
 	std::shared_ptr<Animator> m_Animator;
 
 	bool m_bAnimationEnabled = false;
-
 };

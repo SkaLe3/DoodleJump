@@ -1,8 +1,6 @@
 #include "CameraComponent.h"
-#include "World/Scene.h"
 #include "World/World.h"
 
-#include <algorithm>
 
 void CameraComponent::Start()
 {

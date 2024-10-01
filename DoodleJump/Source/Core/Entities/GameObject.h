@@ -1,9 +1,6 @@
 #pragma once
 #include "Object.h"
 #include "World/World.h"
-#include "World/Scene.h"
-
-#include <string>
 
 
 class SceneComponent;
