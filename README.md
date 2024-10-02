@@ -61,8 +61,8 @@ These libraries are provided with the framework and are mandatory for the projec
 - [Visual Studio 2022](https://visualstudio.com) (required to automatically set up the project, otherwise you will have to set up the project yourself)
 
 ## Showcase
-![Gameplay 1](https://github.com/SkaLe3/DoodleJump/Resources/gameplay1.png)
-![Gameplay 2](https://github.com/SkaLe3/DoodleJump/Resources/gameplay2.png)
+![Gameplay 1](/Resources/gameplay1.png?raw=true "Gameplay")
+![Gameplay 2](/Resources/gameplay2.png?raw=true "Gameplay")
 
 ## Framework Information
 The project was developed using a custom framework provided for the task, which offers only basic functionality. Below is the header file that outlines the available features:
