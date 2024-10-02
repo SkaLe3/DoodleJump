@@ -1,11 +1,14 @@
 #pragma once
 #include <string>
-#include <filesystem>
+#include <filesystem> 
+#include <sstream>
+#include <unordered_map>
 
 class GameInstance
 {
 public:
-	static GameInstance& Get();
+	template<typename T>
+	static T& Get() { return *(static_cast<T*>(s_Instance)); }
 public:
 	GameInstance();
 	virtual ~GameInstance();
@@ -15,6 +18,12 @@ public:
 	virtual void CreateSave();
 	virtual void LoadSave();
 
+protected:
+	void Serialize(double value);
+	void Serialize(const std::string& value);
+	void Deserialize(double& value);
+	void Deserialize(std::string& value);
+
 private:
 	static GameInstance* s_Instance;
 
@@ -23,4 +32,8 @@ protected:
 
 private:
 	const std::filesystem::path m_SaveDirectory = "Saved";
+	std::stringstream m_InData;
+	std::stringstream m_OutData;
+
+
 };

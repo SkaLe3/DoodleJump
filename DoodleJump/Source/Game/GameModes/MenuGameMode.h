@@ -4,6 +4,7 @@
 #include <memory>
 
 class CameraComponent;
+class NumberWidget;
 class SpriteWidget;
 
 class MenuGameMode : public GameMode
@@ -14,7 +15,7 @@ public:
 
 	//~ Begin Object Interface
 	virtual void Start() override;
-	virtual void Tick(double deltaTime) override{};
+	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override{};
 	//~ End Object Interface
 
@@ -24,4 +25,10 @@ private:
 	Math::Vector2D m_HorizontalBounds;
 	std::shared_ptr<CameraComponent> m_Camera;
 	std::shared_ptr<GameObject> m_PlayButton;
+
+	std::shared_ptr<NumberWidget> m_HighScoreWidget;
+	std::shared_ptr<NumberWidget> m_LastScoreWidget;
+
+	double m_BestScore;
+	double m_LastScore;
 };

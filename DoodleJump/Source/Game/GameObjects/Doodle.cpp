@@ -177,6 +177,7 @@ void Doodle::Shoot(InputValue& value)
 	projectile->SetLocation({ GetLocation() + Math::Vector2D{0, 3}, 0 });
 	auto crosshair = m_Crosshair.lock();
 	Math::Vector2D direction = crosshair->GetLocation() - projectile->GetLocation();
+	direction.y = std::abs(direction.y);
 	direction = Math::Normalize(direction);
 
 	float dotProduct = Math::Dot(direction, {0, 1});

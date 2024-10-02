@@ -1,6 +1,7 @@
 #pragma once
 #include "Entities/GameMode.h"
 
+
 #include <random>
 
 class CameraComponent;
@@ -20,9 +21,6 @@ public:
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
 	//~ End Object Interface
-
-	void UpdateWidget(std::shared_ptr<NumberWidget> widget, int32_t& value, int32_t newValue);
-	void CreateWidget(const std::string& assetName, Math::Vector2D coords, Math::Vector2D scale, double zLocation);
 
 	void TeleportToRightWall(std::weak_ptr<GameObject> object);
 	void TeleportToLeftWall(std::weak_ptr<GameObject> object);

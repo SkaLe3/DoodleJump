@@ -118,8 +118,8 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	if (lastPlatform->GetLocation().y + 0.1 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
 		return false;
 
-	double minDistance = score / 80000 * (8 - 2); // Interpolate
-	double maxDistance = score / 60000 * (m_MaxPlatformDistance - 6);
+	double minDistance = score / 50000 * (8 - 2); // Interpolate
+	double maxDistance = score / 30000 * (m_MaxPlatformDistance - 6);
 	minDistance = std::clamp<double>(minDistance, 0, 8 - 2);
 	maxDistance = std::clamp<double>(maxDistance, 0, m_MaxPlatformDistance - 6);
 

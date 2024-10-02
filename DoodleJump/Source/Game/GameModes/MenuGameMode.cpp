@@ -12,6 +12,9 @@
 #include "GameObjects/UI/PlayButton.h"
 
 #include "Scenes/LevelScene.h"
+#include "DoodleGameInstance.h"
+
+#include "UI/UI.h"
 
 
 MenuGameMode::MenuGameMode()
@@ -27,6 +30,8 @@ MenuGameMode::~MenuGameMode()
 void MenuGameMode::Start()
 {
 	showCursor(true);
+	m_BestScore = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
+	m_LastScore = DoodleGameInstance::Get<DoodleGameInstance>().GetLastScore();
 
 	// Spawn Player
 	m_Player = GetScene()->SpawnGameObject<MenuController>();
@@ -41,8 +46,21 @@ void MenuGameMode::Start()
 	m_HorizontalBounds = { m_Camera->GetTransform().Translation.x - camBounds.x * 0.5, m_Camera->GetTransform().Translation.x + camBounds.x * 0.5 };
 
 	m_PlayButton = GetScene()->SpawnGameObject<PlayButton>();
+
+	m_HighScoreWidget = UI::CreateNumberWidget({9, 30}, 6);
+	m_LastScoreWidget = UI::CreateNumberWidget({9, 28}, 6);
+
 }
 
+
+void MenuGameMode::Tick(double deltaTime)
+{
+	// Doesnt work in Start
+	int32_t highScore = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
+	int32_t lastScore = DoodleGameInstance::Get<DoodleGameInstance>().GetLastScore();
+	UI::UpdateWidget(m_HighScoreWidget, highScore);
+	UI::UpdateWidget(m_LastScoreWidget, lastScore);
+}
 
 void MenuGameMode::Click(Math::Vector2D mousePos)
 {

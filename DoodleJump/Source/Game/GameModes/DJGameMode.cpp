@@ -13,6 +13,8 @@
 #include "GameObjects/UI/SpriteWidget.h"
 #include "Components/UI/NumberComponent.h"
 #include "Scenes/MenuScene.h"
+#include "DoodleGameInstance.h"
+#include "UI/UI.h"
 
 DJGameMode::DJGameMode()
 {
@@ -37,9 +39,23 @@ void DJGameMode::Tick(double deltaTime)
 	m_LeftWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
 	m_Floor->GetBoxComponent()->GetTransform().Translation.y = camPos.y - 2 - m_ViewArea.y * 0.5;
 
-	UpdateWidget(m_DistanceScoreWidget, m_DistanceScore, std::max((int32_t)m_Player->GetLocation().y, m_DistanceScore));
-	UpdateWidget(m_PlatformScoreWidget, m_PlatformScore, m_PlatformSpawner->GetPassedPlatformCount());
-	UpdateWidget(m_LifesWidget, m_PlayerLifes, m_Doodle->GetLifesCount());
+	// TODO: Move from GameMode tick to another place
+	// TODO: Make one class container for these widgets
+	if (int32_t newDistance = std::max((int32_t)m_Player->GetLocation().y, m_DistanceScore); newDistance != m_DistanceScore)
+	{
+		UI::UpdateWidget(m_DistanceScoreWidget, newDistance);
+		m_DistanceScore = newDistance;
+	}
+	if (m_PlatformScore != m_PlatformSpawner->GetPassedPlatformCount())
+	{
+		UI::UpdateWidget(m_PlatformScoreWidget, m_PlatformSpawner->GetPassedPlatformCount());
+		m_PlatformScore = m_PlatformSpawner->GetPassedPlatformCount();
+	}
+	if (m_PlayerLifes != m_Doodle->GetLifesCount())
+	{
+		UI::UpdateWidget(m_LifesWidget, m_Doodle->GetLifesCount());
+		m_PlayerLifes = m_Doodle->GetLifesCount();
+	}
 
 	bool platformSet = false;
 	if (m_PlatformSpawner->GetLastSetPlatformLocation().y - m_DistanceScore < m_ViewArea.y / 2)
@@ -62,24 +78,7 @@ void DJGameMode::Destroy()
 
 }
 
-void DJGameMode::UpdateWidget(std::shared_ptr<NumberWidget> widget, int32_t& value, int32_t newValue)
-{
-	if (value != newValue)
-	{
-		widget->Update(newValue);
-		value = newValue;
-	}
-}
 
-void DJGameMode::CreateWidget(const std::string& assetName, Math::Vector2D coords, Math::Vector2D scale, double zLocation)
-{
-	std::shared_ptr<SpriteWidget> sprite = GetScene()->SpawnGameObject<SpriteWidget>();
-	sprite->SetCoordinates(coords);
-	std::shared_ptr<SpriteComponent> sc = sprite->GetSprite();
-	sc->SetSprite(AssetManager::Get().GetAsset<MySprite>(assetName));
-	sc->GetTransform().Scale = { scale, 1 };
-	sc->GetTransform().Translation.z = zLocation;
-}
 
 void DJGameMode::TeleportToRightWall(std::weak_ptr<GameObject> object)
 {
@@ -137,13 +136,16 @@ void DJGameMode::KillDoodle()
 void DJGameMode::GameOver()
 {
 	showCursor(true);
+	DoodleGameInstance::Get<DoodleGameInstance>().SetLastScore(m_DistanceScore);
+	double lastBest = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
+	if (m_DistanceScore > lastBest)
+		DoodleGameInstance::Get<DoodleGameInstance>().SetHighScore(m_DistanceScore);
 	GetWorld()->OpenScene<MenuScene>();
 }
 
 void DJGameMode::StartGame()
 {
 	showCursor(false);
-
 	// Spawn Player
 	m_Player = GetScene()->SpawnGameObject<Doodle>();
 	m_Doodle = static_pointer_cast<Doodle>(m_Player);
@@ -209,30 +211,19 @@ void DJGameMode::StartGame()
 
 	double widgetY = m_ViewArea.y / 2 - 1.5;
 
-	m_DistanceScoreWidget = GetScene()->SpawnGameObject<NumberWidget>();
-	m_DistanceScoreWidget->SetCoordinates({ -16.5, widgetY });
-	m_DistanceScoreWidget->Init(6);
-	m_DistanceScoreWidget->Start();
+	m_DistanceScoreWidget = UI::CreateNumberWidget({ -16.5, widgetY }, 6);
+	m_PlatformScoreWidget = UI::CreateNumberWidget({ 6, widgetY }, 5);
+	m_LifesWidget = UI::CreateNumberWidget({ 0, widgetY }, 1);
 
-	m_PlatformScoreWidget = GetScene()->SpawnGameObject<NumberWidget>();
-	m_PlatformScoreWidget->SetCoordinates({ 6, widgetY });
-	m_PlatformScoreWidget->Init(5);
-	m_PlatformScoreWidget->Start();
-
-	m_LifesWidget = GetScene()->SpawnGameObject<NumberWidget>();
-	m_LifesWidget->SetCoordinates({ 0, widgetY });
-	m_LifesWidget->Init(1);
-	m_LifesWidget->Start();
-
-	CreateWidget("S_UnderwaterTop", { 0, widgetY }, { camBounds.x, 4.106 }, 1);
-	CreateWidget("S_Bamboo", { 15, widgetY }, { 4, 1.08 }, 2);
-	CreateWidget("S_Heart", { 2, widgetY }, { 2, 2 }, 2);
-	CreateWidget("S_DistanceIcon", { -7, widgetY }, { 2, 2 }, 2);
-	CreateWidget("S_UnderwaterLight", { 0, widgetY - 18 }, { camBounds.x, 35.3 }, -0.6);
-	CreateWidget("S_BlackBar", { -68, 0 }, { 100, 200 }, 2);
-	CreateWidget("S_BlackBar", { 68, 0 }, { 100, 200 }, 2);
-	CreateWidget("S_BlackBar", { 0, 104 }, { 100, 100 }, 2);
-	CreateWidget("S_BlackBar", { 0, -104 }, { 100, 100 }, 2);
+	UI::CreateWidget("S_UnderwaterTop", { 0, widgetY }, { camBounds.x, 4.106 }, 1);
+	UI::CreateWidget("S_Bamboo", { 15, widgetY }, { 4, 1.08 }, 2);
+	UI::CreateWidget("S_Heart", { 2, widgetY }, { 2, 2 }, 2);
+	UI::CreateWidget("S_DistanceIcon", { -7, widgetY }, { 2, 2 }, 2);
+	UI::CreateWidget("S_UnderwaterLight", { 0, widgetY - 18 }, { camBounds.x, 35.3 }, -0.6);
+	UI::CreateWidget("S_BlackBar", { -68, 0 }, { 100, 200 }, 3);
+	UI::CreateWidget("S_BlackBar", { 68, 0 }, { 100, 200 }, 3);
+	UI::CreateWidget("S_BlackBar", { 0, 104 }, { 100, 100 }, 3);
+	UI::CreateWidget("S_BlackBar", { 0, -104 }, { 100, 100 }, 3);
 
 }
 
