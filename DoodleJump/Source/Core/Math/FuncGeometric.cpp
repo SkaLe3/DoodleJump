@@ -4,7 +4,7 @@
 #include "Vector2D.h"
 #include "Vector4D.h"
 
-#include <cmath>
+
 namespace Math
 {
 

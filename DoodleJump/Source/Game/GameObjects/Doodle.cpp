@@ -177,9 +177,17 @@ void Doodle::Shoot(InputValue& value)
 	projectile->SetLocation({ GetLocation() + Math::Vector2D{0, 3}, 0 });
 	auto crosshair = m_Crosshair.lock();
 	Math::Vector2D direction = crosshair->GetLocation() - projectile->GetLocation();
-	Math::Vector2D leftEdge{ -1, 1 };
-	Math::Vector2D rightEdge{ 1, 1 };
-	direction = Math::Clamp(Math::Normalize(direction), Math::Normalize(leftEdge), Math::Normalize(rightEdge));
+	direction = Math::Normalize(direction);
+
+	float dotProduct = Math::Dot(direction, {0, 1});
+	float angle = std::acos(dotProduct);
+	float clampAngle = M_PI / 3;
+	if (std::abs(angle) > clampAngle)
+	{
+		direction = direction.x > 0 ? Math::Vector2D{1, 1} : Math::Vector2D{-1, 1};
+		direction = Math::Normalize(direction);
+	}
+
 	projectile->Launch(direction, 70);
 	m_bShooting = true;
 	m_ShootTimer = 0;

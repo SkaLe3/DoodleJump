@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/MyFramework.h"
 #include "Core/Base/AssetManager.h"
+#include "DoodleGameInstance.h"
 
 class Game : public MyFramework
 {
@@ -14,5 +15,6 @@ public:
 	//~End Framework Interface
 
 	AssetManager* m_AssetManager;
+	DoodleGameInstance* m_GameInstance;
 	std::string m_ContentDirectory;
 };
