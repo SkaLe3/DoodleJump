@@ -62,7 +62,7 @@ These libraries are provided with the framework and are mandatory for the projec
 
 ## Showcase
 <p>
-  <img src="/Resources/menu.png" alt="Gameplay 1" style="width: 32%; display: inline-block;"/>
+  <img src="/Resources/menu.png" alt="Menu" style="width: 32%; display: inline-block;"/>
   <img src="/Resources/gameplay1.png" alt="Gameplay 2" style="width: 32%; display: inline-block;"/>
   <img src="/Resources/gameplay2.png" alt="Gameplay 2" style="width: 32%; display: inline-block;"/>
 </p>
