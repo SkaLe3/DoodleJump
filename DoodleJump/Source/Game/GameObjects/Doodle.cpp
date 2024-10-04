@@ -182,7 +182,7 @@ void Doodle::Shoot(InputValue& value)
 
 	float dotProduct = Math::Dot(direction, {0, 1});
 	float angle = std::acos(dotProduct);
-	float clampAngle = M_PI / 3;
+	float clampAngle = M_PI / 6;
 	if (std::abs(angle) > clampAngle)
 	{
 		direction = direction.x > 0 ? Math::Vector2D{1, 1} : Math::Vector2D{-1, 1};

@@ -28,7 +28,11 @@ private:
 
 	std::shared_ptr<NumberWidget> m_HighScoreWidget;
 	std::shared_ptr<NumberWidget> m_LastScoreWidget;
+	std::shared_ptr<NumberWidget> m_HighPlatformWidget;
+	std::shared_ptr<NumberWidget> m_LastPlatformWidget;
 
-	double m_BestScore;
+	double m_HighScore;
 	double m_LastScore;
+	double m_HighPlat;
+	double m_LastPlat;
 };

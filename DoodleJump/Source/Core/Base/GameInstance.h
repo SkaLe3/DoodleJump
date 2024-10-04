@@ -25,6 +25,10 @@ protected:
 	void Deserialize(std::string& value);
 
 private:
+	std::string Encrypt(const std::string& data);
+	std::string Decrypt(const std::string& data);
+
+private:
 	static GameInstance* s_Instance;
 
 protected:

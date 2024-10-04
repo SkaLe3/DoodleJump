@@ -137,9 +137,13 @@ void DJGameMode::GameOver()
 {
 	showCursor(true);
 	DoodleGameInstance::Get<DoodleGameInstance>().SetLastScore(m_DistanceScore);
+	DoodleGameInstance::Get<DoodleGameInstance>().SetLastPassedPlatform(m_PlatformScore);
 	double lastBest = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
+	double lastHighPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetHighestReachedPlatform();
 	if (m_DistanceScore > lastBest)
 		DoodleGameInstance::Get<DoodleGameInstance>().SetHighScore(m_DistanceScore);
+	if (m_PlatformScore > lastHighPlat)
+		DoodleGameInstance::Get<DoodleGameInstance>().SetHighestReachedPlatform(m_PlatformScore);
 	GetWorld()->OpenScene<MenuScene>();
 }
 

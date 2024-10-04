@@ -30,8 +30,11 @@ MenuGameMode::~MenuGameMode()
 void MenuGameMode::Start()
 {
 	showCursor(true);
-	m_BestScore = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
+	m_HighScore = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
 	m_LastScore = DoodleGameInstance::Get<DoodleGameInstance>().GetLastScore();
+	m_HighPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetHighestReachedPlatform();
+	m_LastPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetLastPassedPlatform();
+
 
 	// Spawn Player
 	m_Player = GetScene()->SpawnGameObject<MenuController>();
@@ -47,8 +50,15 @@ void MenuGameMode::Start()
 
 	m_PlayButton = GetScene()->SpawnGameObject<PlayButton>();
 
-	m_HighScoreWidget = UI::CreateNumberWidget({9, 30}, 6);
-	m_LastScoreWidget = UI::CreateNumberWidget({9, 28}, 6);
+	m_HighScoreWidget = UI::CreateNumberWidget({ 4, 30 }, 6);
+	m_HighPlatformWidget = UI::CreateNumberWidget({4, 28}, 6);
+	m_LastScoreWidget = UI::CreateNumberWidget({ -16, 30 }, 6);
+	m_LastPlatformWidget = UI::CreateNumberWidget({-16, 28}, 6);
+
+	UI::CreateWidget("S_DistanceIcon", { 14, 30 }, { 2, 2 }, 2);
+	UI::CreateWidget("S_DistanceIcon", { -6, 30 }, { 2, 2 }, 2);
+	UI::CreateWidget("S_Bamboo", { 15, 28 }, { 4, 1.08 }, 2);
+	UI::CreateWidget("S_Bamboo", { -5, 28 }, { 4, 1.08 }, 2);
 
 }
 
@@ -58,8 +68,12 @@ void MenuGameMode::Tick(double deltaTime)
 	// Doesnt work in Start
 	int32_t highScore = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
 	int32_t lastScore = DoodleGameInstance::Get<DoodleGameInstance>().GetLastScore();
+	int32_t highPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetHighestReachedPlatform();
+	int32_t lastPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetLastPassedPlatform();
 	UI::UpdateWidget(m_HighScoreWidget, highScore);
 	UI::UpdateWidget(m_LastScoreWidget, lastScore);
+	UI::UpdateWidget(m_HighPlatformWidget, highPlat);
+	UI::UpdateWidget(m_LastPlatformWidget, lastPlat);
 }
 
 void MenuGameMode::Click(Math::Vector2D mousePos)

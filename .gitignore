@@ -2,6 +2,7 @@
 .vs/
 Build/
 DoodleJump/data/
+DoodleJump/Saved/
 
 # Files
 **.sln
