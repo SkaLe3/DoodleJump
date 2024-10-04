@@ -8,7 +8,7 @@ class CameraComponent;
 class PlatformSpawner;
 class NumberWidget;
 class SpriteWidget;
-class Doodle;
+class DoodleController;
 
 class DJGameMode : public GameMode
 {
@@ -35,7 +35,7 @@ public:
 	void StartGame();
 
 private:
-	std::shared_ptr<Doodle> m_Doodle;
+	std::shared_ptr<DoodleController> m_Doodle;
 	std::shared_ptr<CameraComponent> m_Camera;
 	std::shared_ptr<PlatformSpawner> m_PlatformSpawner;
 	std::shared_ptr<GameObject> m_RightWall;

@@ -2,7 +2,7 @@
 #include "Core/Base/Log.h"
 #include "Core/Base/AssetManager.h"
 #include "GameModes/DJGameMode.h"
-#include "GameObjects/Doodle.h"
+#include "GameObjects/DoodleController.h"
 
 #include <string>
 
@@ -56,7 +56,7 @@ void Monster::Destroy()
 void Monster::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
 	std::string tag = otherObject->GetTag();
-	if (tag == "doodle" && normal.y >= 0 && !static_pointer_cast<Doodle>(otherObject)->GetImmunity())
+	if (tag == "doodle" && normal.y >= 0 && !static_pointer_cast<DoodleController>(otherObject)->GetImmunity())
 	{
 		std::shared_ptr<DJGameMode> gameMode = static_pointer_cast<DJGameMode>(GetGameMode());
 		gameMode->KillDoodle();

@@ -11,7 +11,6 @@ PlayButton::PlayButton()
 	sprite->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Play"));
 	auto box = GetBoxComponent();
 	box->SetHalfSize({ 5.8, 2 });
-	box->GetTransform().Translation = { -6, 3, 0 };
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -25,7 +24,7 @@ void PlayButton::Start()
 	GameObject::Start();
 	auto sprite = GetSpriteComponent();
 	sprite->SetOwner(GetSelf());
-	sprite->GetTransform().Scale = { 12, 4.32, 1.0 };
+	sprite->GetTransform().Scale = { 13.6, 6.3, 1.0 };
 	GetBoxComponent()->SetCollisionEnabled(false);
 }
 

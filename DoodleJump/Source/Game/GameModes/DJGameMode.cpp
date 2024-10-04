@@ -4,7 +4,7 @@
 #include "Core/Base/AssetManager.h"
 #include "Core/Components/CameraComponent.h"
 
-#include "GameObjects/Doodle.h"
+#include "GameObjects/DoodleController.h"
 #include "GameObjects/UI/LevelBackground.h"
 #include "GameObjects/PlatformSpawner.h"
 #include "GameObjects/Monster.h"
@@ -136,6 +136,7 @@ void DJGameMode::KillDoodle()
 void DJGameMode::GameOver()
 {
 	showCursor(true);
+
 	DoodleGameInstance::Get<DoodleGameInstance>().SetLastScore(m_DistanceScore);
 	DoodleGameInstance::Get<DoodleGameInstance>().SetLastPassedPlatform(m_PlatformScore);
 	double lastBest = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
@@ -151,8 +152,8 @@ void DJGameMode::StartGame()
 {
 	showCursor(false);
 	// Spawn Player
-	m_Player = GetScene()->SpawnGameObject<Doodle>();
-	m_Doodle = static_pointer_cast<Doodle>(m_Player);
+	m_Player = GetScene()->SpawnGameObject<DoodleController>();
+	m_Doodle = static_pointer_cast<DoodleController>(m_Player);
 
 	// Camera
 	m_Camera = GetScene()->GetRenderCamera();

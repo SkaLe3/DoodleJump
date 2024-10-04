@@ -87,6 +87,7 @@ void PlatformSpawner::SpawnPools()
 		std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<Platform>();
 		m_DefaultPlatformPool.push_back(platform);
 		platform->SetTag("platform");
+		// TODO: Move SetTeg call to Start() in platform class
 
 	}
 	for (uint32_t i = 0; i < m_FakePlatformPoolSize; i++)

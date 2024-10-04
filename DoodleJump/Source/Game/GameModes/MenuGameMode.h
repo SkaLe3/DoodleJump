@@ -35,4 +35,6 @@ private:
 	double m_LastScore;
 	double m_HighPlat;
 	double m_LastPlat;
+
+	double m_MinAspectRatio = 2;
 };

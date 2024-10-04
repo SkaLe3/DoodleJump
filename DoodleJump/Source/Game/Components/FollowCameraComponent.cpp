@@ -1,5 +1,5 @@
 #include "FollowCameraComponent.h"
-#include "GameObjects/Doodle.h"
+#include "GameObjects/DoodleController.h"
 #include "DoodleMovementComponent.h"
 
 void FollowCameraComponent::Start()
@@ -15,7 +15,7 @@ void FollowCameraComponent::Tick(double deltaTime)
 	if (auto owner = m_Owner.lock())
 	{
 
-		std::shared_ptr<Doodle> doodle = dynamic_pointer_cast<Doodle>(owner);
+		std::shared_ptr<DoodleController> doodle = dynamic_pointer_cast<DoodleController>(owner);
 		if (doodle)
 		{
 			Math::Vector2D doodleLocation = doodle->GetLocation();

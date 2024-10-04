@@ -155,8 +155,9 @@ Several improvements have been made after the initial release, including:
 * Assets: Created Asset Manager and asset handlers
 * Adaptive scene aspect ratio: Implemented dynamic handling of various window sizes for better visual consistency
 * Smart pointer optimization: Introduced `weak_from_this` and replaced some `shared_ptr` with `weak_ptr` to improve memory management and avoid cyclic dependencies.
-* Projectile movement: Improved direction calculation for better accuracy.
-* GameInstance: Added to manage game state and handle score serialization across scenes and game sessions.
+* Projectile movement: Fixed direction calculation for better accuracy.
+* GameInstance: Added to manage game state and handle score serialization across scenes and game sessions (with enctyption).
+* Visuals: Reworked Main menu
 
 ### Plan
 I plan to implement the following features and improvements in the future:
