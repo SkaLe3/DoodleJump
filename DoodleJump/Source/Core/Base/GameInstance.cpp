@@ -62,9 +62,23 @@ void GameInstance::CreateSave()
 void GameInstance::LoadSave()
 {
 	std::ifstream saveFile(m_SaveDirectory / m_Filename);
+	if (!(std::filesystem::exists(m_SaveDirectory) && std::filesystem::is_directory(m_SaveDirectory)))
+	{
+		LOG_RELEASE("The 'Saved' directory does not exist. Trying to create it...");
+		if (std::filesystem::create_directory(m_SaveDirectory)) // returns true if successful
+		{
+			LOG_RELEASE("Directory created successfully: " +  m_SaveDirectory.string() );
+		}
+		else
+		{
+			LOG_RELEASE("Failed to create directory: " + m_SaveDirectory.string());
+		}
+	}
+
+
 	if (!saveFile.is_open())
 	{
-		LOG("Can't open save file: " + m_SaveDirectory.string() + m_Filename);
+		LOG("Can't open save file: " + m_SaveDirectory.string() + m_Filename);		
 		return;
 	}
 	std::string encryptedData;
@@ -79,7 +93,7 @@ void GameInstance::LoadSave()
 
 	if (static_cast<int>(recalculatedChecksum) != savedChecksum)
 	{
-		LOG("Data integrity check failed! Save file may have been tampered with.");
+		LOG_RELEASE("Data integrity check failed! Save file may have been tampered with.");
 		m_InData << "";
 		return;
 	}

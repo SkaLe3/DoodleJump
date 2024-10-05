@@ -8,7 +8,7 @@ Platform::Platform() : GameObject()
 	auto sprite = GetSpriteComponent();
 	sprite->SetupAttachment(GetBoxComponent());
 
-	sprite->GetTransform().Scale = { 6, 1.565, 1 };
+	sprite->GetTransform().Scale = { 6.68, 6.68, 1 };
 	sprite->GetTransform().Translation.z = -0.5;
 	sprite->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Bamboo"));
 	auto box = GetBoxComponent();

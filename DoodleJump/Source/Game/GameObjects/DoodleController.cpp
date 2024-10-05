@@ -13,7 +13,7 @@ DoodleController::DoodleController() : Doodle()
 	// Don't need attachment
 	m_CameraComponent = CreateComponent<FollowCameraComponent>();
 	GetScene()->UseCamera(m_CameraComponent);
-	
+
 	m_Crosshair = GetScene()->SpawnGameObject<Crosshair>();
 }
 
@@ -49,7 +49,7 @@ void DoodleController::Tick(double deltaTime)
 
 void DoodleController::Destroy()
 {
-	 Doodle::Destroy();
+	Doodle::Destroy();
 
 	GetCameraComponent()->Destroy();
 }
@@ -95,11 +95,13 @@ void DoodleController::ResetJumpsCount()
 void DoodleController::Move(InputValue& value)
 {
 	if (m_bInputEnabled)
-		AddMovementInput(value.Get<double>() * Math::Vector2D{1, 0});
+		AddMovementInput(value.Get<double>() * Math::Vector2D{ 1, 0 });
 }
 
 void DoodleController::Shoot(InputValue& value)
 {
+	if (!m_bInputEnabled)
+		return;
 	// Option: Could use a pool of projectiles instead of spawning new ones, but not doing that for now.
 	std::shared_ptr<Projectile> projectile = GetScene()->SpawnGameObject<Projectile>();
 	projectile->SetLocation({ GetLocation() + Math::Vector2D{0, 3}, 0 });
@@ -108,12 +110,12 @@ void DoodleController::Shoot(InputValue& value)
 	direction.y = std::abs(direction.y);
 	direction = Math::Normalize(direction);
 
-	float dotProduct = Math::Dot(direction, {0, 1});
+	float dotProduct = Math::Dot(direction, { 0, 1 });
 	float angle = std::acos(dotProduct);
 	float clampAngle = 0.22143;
 	if (std::abs(angle) > clampAngle)
 	{
-		direction = direction.x > 0 ? Math::Vector2D{1, 2.5} : Math::Vector2D{-1, 2.5};
+		direction = direction.x > 0 ? Math::Vector2D{ 1, 2.5 } : Math::Vector2D{ -1, 2.5 };
 		direction = Math::Normalize(direction);
 	}
 

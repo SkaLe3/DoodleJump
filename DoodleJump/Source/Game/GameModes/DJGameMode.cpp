@@ -220,11 +220,11 @@ void DJGameMode::StartGame()
 	m_PlatformScoreWidget = UI::CreateNumberWidget({ 6, widgetY }, 5);
 	m_LifesWidget = UI::CreateNumberWidget({ 0, widgetY }, 1);
 
-	UI::CreateWidget("S_UnderwaterTop", { 0, widgetY }, { camBounds.x, 4.106 }, 1);
-	UI::CreateWidget("S_Bamboo", { 15, widgetY }, { 4, 1.08 }, 2);
+	UI::CreateWidget("S_UnderwaterTop", { 0, widgetY }, { m_ViewArea.x, 4.106 }, 1);
+	UI::CreateWidget("S_Bamboo", { 15, widgetY }, { 4.5, 4.5 }, 2);
 	UI::CreateWidget("S_Heart", { 2, widgetY }, { 2, 2 }, 2);
 	UI::CreateWidget("S_DistanceIcon", { -7, widgetY }, { 2, 2 }, 2);
-	UI::CreateWidget("S_UnderwaterLight", { 0, widgetY - 18 }, { camBounds.x, 35.3 }, -0.6);
+	UI::CreateWidget("S_UnderwaterLight", { 0, widgetY - 18 }, { m_ViewArea.x, m_ViewArea.x }, -0.6);
 	UI::CreateWidget("S_BlackBar", { -68, 0 }, { 100, 200 }, 3);
 	UI::CreateWidget("S_BlackBar", { 68, 0 }, { 100, 200 }, 3);
 	UI::CreateWidget("S_BlackBar", { 0, 104 }, { 100, 100 }, 3);

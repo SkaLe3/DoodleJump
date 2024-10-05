@@ -59,6 +59,8 @@ bool MyFramework::Tick()
 	float Time = (float)(getTickCount() / 1000.0f);
 	m_World->m_DeltaTime = Time - m_LastTime;
 	m_LastTime = Time;
+	if (m_World->m_DeltaTime > 0.05)
+		m_World->m_DeltaTime = 0.05;
 
 	// Generate Triggered Event
 	for (auto it = m_KeyStates.begin(); it != m_KeyStates.end(); ++it)

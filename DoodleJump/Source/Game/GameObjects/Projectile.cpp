@@ -39,7 +39,7 @@ void Projectile::Start()
 	box->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
 	box->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Ignore);
 
-	sprite->GetTransform().Scale = { 1, 1 , 1.0 };
+	sprite->GetTransform().Scale = { 8, 8 , 1.0 };
 	sprite->GetTransform().Translation = { 0.0, 0.0, 0.0 };
 
 	movement->SetGravity(0);

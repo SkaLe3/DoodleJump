@@ -12,4 +12,6 @@
 	#define LOG(x) std::cout << "LOG: " << x << "\n";
 #else
 	#define LOG(x)
-#endif
+#endif	
+
+#define LOG_RELEASE(x) std::cout << "LOG: " << x << "\n";

@@ -14,7 +14,7 @@ Monster::Monster()
 	sprite->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_UnderwaterMonster"));
 
 	auto box = GetBoxComponent();
-	box->SetHalfSize({ 3, 2.73 });
+	box->SetHalfSize({ 2.9, 2.5 });
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -30,7 +30,7 @@ void Monster::Start()
 	auto box = GetBoxComponent();
 	sprite->SetOwner(GetSelf());
 
-	sprite->GetTransform().Scale = { 8, 5.455, 1.0 };
+	sprite->GetTransform().Scale = { 13.3, 6.65, 1.0 };
 	sprite->GetTransform().Translation = { 0.0, 0.0, 0.0 };
 
 

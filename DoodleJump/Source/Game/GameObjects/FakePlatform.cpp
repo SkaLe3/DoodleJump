@@ -5,7 +5,7 @@
 FakePlatform::FakePlatform() : Platform()
 {
 	auto sprite = GetSpriteComponent();
-	sprite->GetTransform().Scale = { 6, 2.95, 1 };
+	sprite->GetTransform().Scale = { 6.68, 6.68, 1 };
 	sprite->GetTransform().Translation.z = -0.5;
 	sprite->GetTransform().Translation.y = -0.3;
 	GetBoxComponent()->SetHalfSize({ 2.7, 0.5 });
@@ -27,7 +27,7 @@ void FakePlatform::Tick(double deltaTime)
 	Platform::Tick(deltaTime);
 	if (!m_bBroken)
 		return;
-	if (m_Timer >= 0.32)
+	if (m_Timer >= 0.4)
 	{
 		m_bBroken = false;
 		GetBoxComponent()->GetTransform().Translation.y = -10;
