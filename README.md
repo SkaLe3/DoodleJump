@@ -149,9 +149,9 @@ Several improvements have been made after the initial release, including:
 * Custom assets: Created and integrated new selfmade assets for game objects.
 * Code readability, maintainability and safety: Refactored the codebase for better structure and clarity, improved edge cases handling.
 * Animation System: Refactored and improved animations code, created enhanced animation system
-* Animations: Added and integrated jumping and shooting animations
+* Animations: Added and integrated jumping and shooting animations for doodle. Added monster and shield animations
 * Project structure: Reorganized project structure
-* Platfrom spawner: Imroved platform spawner logic 
+* Platfrom spawner: Imroved platform spawner logic, added moving platforms
 * Assets: Created Asset Manager and asset handlers
 * Adaptive scene aspect ratio: Implemented dynamic handling of various window sizes for better visual consistency
 * Smart pointer optimization: Introduced `weak_from_this` and replaced some `shared_ptr` with `weak_ptr` to improve memory management and avoid cyclic dependencies.
@@ -167,8 +167,6 @@ I plan to implement the following features and improvements in the future:
 * Remake UI managing and create new UI System
 * Add game over screen
 * Remake main menu
-* Encrypt serialized data to avoid cheating
-* Make moving platforms
 
 ### Possible Enhancements
 * Optimize scenes logic to improve performance

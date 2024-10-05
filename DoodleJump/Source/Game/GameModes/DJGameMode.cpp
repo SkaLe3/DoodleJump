@@ -64,13 +64,17 @@ void DJGameMode::Tick(double deltaTime)
 	}
 
 	if (platformSet && m_EnemySpawnDistribution(m_RandomEngine))
+	{
 		SpawnEnemy();
-
-	if (platformSet && m_Doodle->GetJumpsCount() >= m_AbilitySpawnFrequency)
+		m_PlatformSpawner->StopLastSetPlatform();
+	}
+	else if (platformSet && m_Doodle->GetJumpsCount() >= m_AbilitySpawnFrequency)
 	{
 		m_Doodle->ResetJumpsCount();
 		SpawnAbility();
+		m_PlatformSpawner->StopLastSetPlatform();
 	}
+
 }
 
 void DJGameMode::Destroy()
@@ -83,13 +87,13 @@ void DJGameMode::Destroy()
 void DJGameMode::TeleportToRightWall(std::weak_ptr<GameObject> object)
 {
 	if (auto sharedObject = object.lock())
-		sharedObject->GetTransform().Translation.x = m_HorizontalBounds.y - sharedObject->GetBoxComponent()->GetHalfSize().x;
+		sharedObject->GetTransform().Translation.x = m_RightWall->GetTransform().Translation.x - sharedObject->GetBoxComponent()->GetHalfSize().x - 1.5;
 }
 
 void DJGameMode::TeleportToLeftWall(std::weak_ptr<GameObject> object)
 {
 	if (auto sharedObject = object.lock())
-		sharedObject->GetTransform().Translation.x = m_HorizontalBounds.x + sharedObject->GetBoxComponent()->GetHalfSize().x;
+		sharedObject->GetTransform().Translation.x = m_LeftWall->GetTransform().Translation.x + sharedObject->GetBoxComponent()->GetHalfSize().x + 1.5;
 }
 
 
@@ -107,7 +111,7 @@ void DJGameMode::SpawnEnemy()
 {
 	Math::Vector2D spawnLocation = m_PlatformSpawner->GetLastSetPlatformLocation();
 	std::shared_ptr<Monster> enemy = GetScene()->SpawnGameObject<Monster>();
-	spawnLocation.y += enemy->GetBoxComponent()->GetHalfSize().y + 0.6;
+	spawnLocation.y += enemy->GetBoxComponent()->GetHalfSize().y + 0.8;
 	enemy->SetLocation({ spawnLocation, 0 });
 }
 
@@ -115,7 +119,7 @@ void DJGameMode::SpawnAbility()
 {
 	Math::Vector2D spawnLocation = m_PlatformSpawner->GetLastSetPlatformLocation();
 	std::shared_ptr<ImmunityAbility> ability = GetScene()->SpawnGameObject<ImmunityAbility>();
-	spawnLocation.y += ability->GetBoxComponent()->GetHalfSize().y + 0.6;
+	spawnLocation.y += ability->GetBoxComponent()->GetHalfSize().y + 0.8;
 	ability->SetLocation({ spawnLocation, 0 });
 }
 
@@ -198,9 +202,9 @@ void DJGameMode::StartGame()
 
 	// Walls
 	m_RightWall->GetBoxComponent()->SetHalfSize({ wallWidth, m_ViewArea.y * 0.5 });
-	m_RightWall->SetLocation({ m_HorizontalBounds.y + wallWidth + m_Player->GetBoxComponent()->GetHalfSize().x + 0.5, 0 });
+	m_RightWall->SetLocation({ m_HorizontalBounds.y + wallWidth + m_Player->GetBoxComponent()->GetHalfSize().x, 0 });
 	m_LeftWall->GetBoxComponent()->SetHalfSize({ wallWidth, m_ViewArea.y * 0.5 });
-	m_LeftWall->SetLocation({ m_HorizontalBounds.x - wallWidth - m_Player->GetBoxComponent()->GetHalfSize().x - 0.5, 0 });
+	m_LeftWall->SetLocation({ m_HorizontalBounds.x - wallWidth - m_Player->GetBoxComponent()->GetHalfSize().x, 0 });
 	m_Floor->GetBoxComponent()->SetHalfSize({ m_ViewArea.x, wallWidth });
 	m_Floor->SetLocation({ 0, -m_ViewArea.y * 0.5 - wallWidth });
 

@@ -119,8 +119,8 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	if (lastPlatform->GetLocation().y + 0.1 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
 		return false;
 
-	double minDistance = score / 50000 * (8 - 2); // Interpolate
-	double maxDistance = score / 30000 * (m_MaxPlatformDistance - 6);
+	double minDistance = score / 30000 * (8 - 2); // Interpolate
+	double maxDistance = score / 15000 * (m_MaxPlatformDistance - 6);
 	minDistance = std::clamp<double>(minDistance, 0, 8 - 2);
 	maxDistance = std::clamp<double>(maxDistance, 0, m_MaxPlatformDistance - 6);
 
@@ -138,6 +138,12 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	lastPlatform->SetLocation({ horizontalLocation, distance + lppy, 0 });
 	m_LastPlacedPlatform = lastPlatform;
 	lastPlatform->Reset();
+
+	double movingProbability = m_BaseMovingProbability + m_BaseMovingProbability * 9 * score / 30000;
+	movingProbability = std::clamp<double>(movingProbability, 0, 0.95);
+	std::bernoulli_distribution movingPlatformDistribution{ movingProbability };
+	if (movingPlatformDistribution(m_RandomEngine))
+		lastPlatform->StartMovement();
 
 	m_DefaultPlatformPool.pop_front();
 	m_DefaultPlatformPool.push_back(lastPlatform);
@@ -161,6 +167,12 @@ bool PlatformSpawner::SetNextPlatform(double score)
 	return true;
 }
 
+void PlatformSpawner::MoveLastSetPlatform()
+{
+	m_DefaultPlatformPool.back()->StartMovement();
+}
+
+
 Math::Vector2D PlatformSpawner::GetLastSetPlatformLocation()
 {
 	return m_DefaultPlatformPool.back()->GetLocation();
@@ -181,4 +193,9 @@ Math::Vector2D PlatformSpawner::GetLowestVisiblePlatformLocation()
 int32_t PlatformSpawner::GetPassedPlatformCount()
 {
 	return m_PlatformPassed;
+}
+
+void PlatformSpawner::StopLastSetPlatform()
+{
+	m_DefaultPlatformPool.back()->StopMovement();
 }

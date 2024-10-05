@@ -33,6 +33,7 @@ void AnimationMachine::SetStateAnimation(const std::string& state, std::shared_p
 	}
 }
 
+/* User should always set entry state manually in Animator class*/
 void AnimationMachine::SetEntryState(const std::string& state)
 {
 	if (m_States.count(state))

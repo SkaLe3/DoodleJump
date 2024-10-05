@@ -25,9 +25,11 @@ public:
 	void SetFakePlatformPoolSize(uint32_t size);
 	bool SetNextPlatform(double score);
 
+	void MoveLastSetPlatform();
 	Math::Vector2D GetLastSetPlatformLocation();
 	Math::Vector2D GetLowestVisiblePlatformLocation();
 	int32_t GetPassedPlatformCount();
+	void StopLastSetPlatform();
 
 private:
 	std::shared_ptr<Platform> m_LastPlacedPlatform;
@@ -38,6 +40,7 @@ private:
 	std::default_random_engine m_RandomEngine{ m_RandomDevice() };
 	std::uniform_real_distribution<double> m_PlatformDistanceDistribution;
 	std::uniform_real_distribution<double> m_PlatformHorizontalRangeDistribution;
+	double m_BaseMovingProbability = 0.1;
 
 	std::shared_ptr<MySprite> m_DefaultPlatformSprite;
 	

@@ -7,7 +7,7 @@ FakePlatform::FakePlatform() : Platform()
 	auto sprite = GetSpriteComponent();
 	sprite->GetTransform().Scale = { 6.68, 6.68, 1 };
 	sprite->GetTransform().Translation.z = -0.5;
-	sprite->GetTransform().Translation.y = -0.3;
+	sprite->GetTransform().Translation.y = 0.7;
 	GetBoxComponent()->SetHalfSize({ 2.7, 0.5 });
 
 

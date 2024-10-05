@@ -18,7 +18,7 @@ public:
 	void SetStateAnimation(const std::string& state, std::shared_ptr<Animation>);
 
 	inline std::shared_ptr<MySprite> GetActiveFrame() { return  GetActive()->GetFrame(); }
-	inline double GetActiveStateDuration() { return GetActive()->GetAnimationDuration(); } // check
+	inline double GetActiveStateDuration() { return GetActive()->GetAnimationDuration(); } 
 	inline std::string GetActiveName() { return m_ActiveStateName; }
 	inline bool IsValidState(const std::string& state) { return (bool)m_States.count(state); }
 	void SetEntryState(const std::string& key);

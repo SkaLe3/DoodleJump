@@ -3,6 +3,7 @@
 #include "Core/Base/AssetManager.h"
 #include "GameModes/DJGameMode.h"
 #include "GameObjects/Abilities/ImmunityAbility.h"
+#include "GameObjects/Monster.h"
 #include "Components/DoodleMovementComponent.h"
 #include "Animations/DoodleAnimator.h"
 
@@ -27,7 +28,7 @@ Doodle::Doodle() : GameObject()
 	auto box = GetBoxComponent();
 	box->SetHalfSize({ 1.8, 2.5 });
 	box->SetCollisionChannel(ECollisionChannel::Character);
-	box->SetCollisionResponce(ECollisionChannel::WorldDynamic, ECollisionResponse::Ignore);
+	box->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Ignore);
 	OBJECT_LOG_DESTRUCTOR()
 }
 
@@ -79,6 +80,15 @@ Math::Vector2D Doodle::GetVelocity() const
 	return GetMovementComponent()->GetVelocity();
 }
 
+bool Doodle::HasImmunity()
+{
+	if (auto immunity = m_Immunity.lock())
+	{
+		return immunity->IsActive();
+	}
+	return false;
+}
+
 void Doodle::Jump()
 {
 	GetMovementComponent()->Jump();
@@ -114,7 +124,7 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 			movement->SetJumpVelocity(110);
 			Jump();
 			movement->SetJumpVelocity(m_DefaultJumpVelocity);
-			otherObject->Destroy();
+			std::static_pointer_cast<Monster>(otherObject)->Kill();
 		}
 	}
 	std::shared_ptr<DJGameMode> gameMode = dynamic_pointer_cast<DJGameMode>(GetGameMode());
@@ -145,9 +155,10 @@ void Doodle::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D
 		if (otherTag == "immunity")
 		{
 			m_Immunity = static_pointer_cast<ImmunityAbility>(otherObject);
-			auto immunity = GetImmunity();
-			immunity->DisableCollision();
-			m_ImmunityTimer = 0;
+			auto immunity = m_Immunity.lock();
+			immunity->Activate();
+			immunity->GetBoxComponent()->SetupAttachment(GetBoxComponent());
+			immunity->SetLocation({0, 0}); // Relative;
 		}
 	}
 }

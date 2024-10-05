@@ -13,6 +13,7 @@ public:
 	//~End Object Interface
 
 	Math::Vector2D& GetVelocity() { return m_Velocity; }
+	void SetVelocity(Math::Vector2D velocity) { m_Velocity = velocity;}
 
 	void SetGravity(double gravityValue);
 	void SetMaxSpeed(double speed);

@@ -1,16 +1,19 @@
 #include "ImmunityAbility.h"
 #include "Core/Components/SpriteComponent.h"
 #include "Core/Base/AssetManager.h"
+#include "Animations/ShieldAnimator.h"
 
 ImmunityAbility::ImmunityAbility() : GameObject()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
 	auto sprite = GetSpriteComponent();
-	auto box = GetBoxComponent();
 	sprite->SetupAttachment(GetBoxComponent());
+	sprite->SetAnimator(std::make_shared<ShieldAnimator>(this));
+	sprite->EnableAnimation();
 
-	box->SetHalfSize({3, 3 });
-	sprite->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Shield"));
+
+	auto box = GetBoxComponent();
+	box->SetHalfSize({ 2, 2 });
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -26,7 +29,7 @@ void ImmunityAbility::Start()
 	auto box = GetBoxComponent();
 
 	sprite->SetOwner(GetSelf());
-	sprite->GetTransform().Scale = { 7, 7, 1.0 };
+	sprite->GetTransform().Scale = { 10, 10, 1.0 };
 
 	box->SetCollisionChannel(ECollisionChannel::WorldStatic);
 	box->SetCollisionResponce(ECollisionChannel::Character, ECollisionResponse::Overlap);
@@ -39,12 +42,34 @@ void ImmunityAbility::Start()
 void ImmunityAbility::Tick(double deltaTime)
 {
 	GameObject::Tick(deltaTime);
+
+	if (m_bActivated)
+	{
+		if (m_ImmunityTimer > m_AbilityTime)
+		{
+			Destroy();
+		}
+		else
+		{
+			m_ImmunityTimer += deltaTime;
+		}
+		if (m_ImmunityTimer > m_EndTime)
+		{
+			m_bEnding = true;
+		}
+	}
 }
 
 void ImmunityAbility::Destroy()
 {
 	GameObject::Destroy();
 	GetSpriteComponent()->Destroy();
+}
+
+void ImmunityAbility::Activate()
+{
+	m_bActivated = true;
+	DisableCollision();
 }
 
 void ImmunityAbility::DisableCollision()

@@ -31,19 +31,6 @@ void DoodleController::Tick(double deltaTime)
 {
 	Doodle::Tick(deltaTime);
 
-	if (auto immunity = GetImmunity())
-	{
-		if (m_ImmunityTimer > immunity->GetTime())
-		{
-			immunity->Destroy();
-			immunity = nullptr;
-		}
-		else
-		{
-			m_ImmunityTimer += deltaTime;
-			immunity->SetLocation(GetBoxComponent()->GetTransform().Translation);
-		}
-	}
 
 }
 

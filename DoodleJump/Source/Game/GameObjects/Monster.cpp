@@ -3,6 +3,7 @@
 #include "Core/Base/AssetManager.h"
 #include "GameModes/DJGameMode.h"
 #include "GameObjects/DoodleController.h"
+#include "Animations/MonsterAnimator.h"
 
 #include <string>
 
@@ -12,6 +13,8 @@ Monster::Monster()
 	auto sprite = GetSpriteComponent();
 	sprite->SetupAttachment(GetBoxComponent());
 	sprite->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_UnderwaterMonster"));
+	GetSpriteComponent()->SetAnimator(std::make_shared<MonsterAnimator>(this));
+	GetSpriteComponent()->EnableAnimation();
 
 	auto box = GetBoxComponent();
 	box->SetHalfSize({ 2.9, 2.5 });
@@ -45,6 +48,15 @@ void Monster::Start()
 void Monster::Tick(double deltaTime)
 {
 	GameObject::Tick(deltaTime);
+	if (m_bDying)
+	{
+		if (m_DeathTimer >= m_DeathTime)
+		{
+			Destroy();
+		}
+		m_DeathTimer += deltaTime;
+	}
+
 }
 
 void Monster::Destroy()
@@ -53,10 +65,16 @@ void Monster::Destroy()
 	GetSpriteComponent()->Destroy();
 }
 
+void Monster::Kill()
+{
+	m_bDying = true;
+	GetBoxComponent()->SetCollisionEnabled(false);
+}
+
 void Monster::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vector2D normal, double collisionTime)
 {
 	std::string tag = otherObject->GetTag();
-	if (tag == "doodle" && normal.y >= 0 && !static_pointer_cast<DoodleController>(otherObject)->GetImmunity())
+	if (tag == "doodle" && normal.y >= 0  && !static_pointer_cast<DoodleController>(otherObject)->HasImmunity())
 	{
 		std::shared_ptr<DJGameMode> gameMode = static_pointer_cast<DJGameMode>(GetGameMode());
 		gameMode->KillDoodle();

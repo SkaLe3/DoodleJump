@@ -6,15 +6,16 @@
 
 #include "Components/ProjectileMovementComponent.h"
 #include "GameModes/DJGameMode.h"
+#include "GameObjects/Monster.h"
 
 Projectile::Projectile() : GameObject()
 {
 	m_SpriteComponent = CreateComponent<SpriteComponent>();
 	auto sprite = GetSpriteComponent();
 	sprite->SetupAttachment(GetBoxComponent());
-	m_MovementComponent = CreateComponent<ProjectileMovementComponent>();
-
 	sprite->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_Cocos"));
+
+	m_MovementComponent = CreateComponent<ProjectileMovementComponent>();
 	GetBoxComponent()->SetHalfSize({ 1, 1 });
 
 	OBJECT_LOG_CONSTRUCTOR()
@@ -80,7 +81,7 @@ void Projectile::OnCollision(std::shared_ptr<GameObject> otherObject, Math::Vect
 
 	if (otherTag == "monster")
 	{
-		otherObject->Destroy();
+		std::static_pointer_cast<Monster>(otherObject)->Kill();
 		Destroy();
 	}
 }
