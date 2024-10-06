@@ -66,22 +66,22 @@ void MenuGameMode::Start()
 	m_PlayButton = GetScene()->SpawnGameObject<PlayButton>();
 	m_PlayButton->GetTransform().Translation = { -6, 14, 0 };
 
-	m_HighScoreWidget = UI::CreateNumberWidget({ 3.5, -2 }, 6);
-	m_HighPlatformWidget = UI::CreateNumberWidget({ 3.5, -4 }, 6);
-	m_LastScoreWidget = UI::CreateNumberWidget({ 3.5, -14 }, 6);
-	m_LastPlatformWidget = UI::CreateNumberWidget({ 3.5, -16 }, 6);
+	m_HighScoreWidget = UI::CreateNumberWidget({ 1.5, -2 }, 6);
+	m_HighPlatformWidget = UI::CreateNumberWidget({ 1.5, -4 }, 6);
+	m_LastScoreWidget = UI::CreateNumberWidget({ 1.5, -14 }, 6);
+	m_LastPlatformWidget = UI::CreateNumberWidget({ 1.5, -16 }, 6);
 
 
-	UI::CreateWidget("S_ScoreWhite", {10, 6.5}, {12, 6}, 2);
-	UI::CreateWidget("S_HighWhite", {6, 2}, {8, 4}, 2);
-	UI::CreateWidget("S_ScoreWhite", {14, 2}, {8, 4}, 2);
-	UI::CreateWidget("S_LastWhite", {6, -10}, {8, 4}, 2);
-	UI::CreateWidget("S_ScoreWhite", {14, -10}, {8, 4}, 2);
+	UI::CreateWidget("S_ScoreWhite", {8, 6.5}, {12, 6}, 2);
+	UI::CreateWidget("S_HighWhite", {4, 2}, {8, 4}, 2);
+	UI::CreateWidget("S_ScoreWhite", {12, 2}, {8, 4}, 2);
+	UI::CreateWidget("S_LastWhite", {4, -10}, {8, 4}, 2);
+	UI::CreateWidget("S_ScoreWhite", {12, -10}, {8, 4}, 2);
 
-	UI::CreateWidget("S_DistanceIcon", { 14, -2 }, { 2, 2 }, 2);
-	UI::CreateWidget("S_DistanceIcon", { 14, -14 }, { 2, 2 }, 2);
-	UI::CreateWidget("S_PlatformUI", { 14.5, -4 }, { 4.5, 4.5 }, 2);
-	UI::CreateWidget("S_PlatformUI", { 14.5, -16 }, { 4.5, 4.5 }, 2);
+	UI::CreateWidget("S_DistanceIcon", { 12, -2 }, { 2, 2 }, 2);
+	UI::CreateWidget("S_DistanceIcon", { 12, -14 }, { 2, 2 }, 2);
+	UI::CreateWidget("S_PlatformUI", { 12.5, -4 }, { 4.5, 4.5 }, 2);
+	UI::CreateWidget("S_PlatformUI", { 12.5, -16 }, { 4.5, 4.5 }, 2);
 
 	UI::CreateWidget("S_BlackBar", { -68, 0 }, { 100, 200 }, 3);
 	UI::CreateWidget("S_BlackBar", { 68, 0 }, { 100, 200 }, 3);
