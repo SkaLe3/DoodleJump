@@ -3,12 +3,13 @@
 #include "Input/TriggerEvent.h"
 #include "Input/Events.h"
 #include "Core/Base/AssetManager.h"
+#include "Core/Base/GameInstance.h"
 #include "Renderer/Renderer.h"
 #include "World/World.h"
 
 
-MyFramework::MyFramework(uint32_t w, uint32_t h, bool fs)
-	: m_Width(w), m_Height(h), m_FullscreenMode(fs)
+MyFramework::MyFramework(uint32_t w, uint32_t h, bool fs, const std::string& contentDirectory)
+	: m_Width(w), m_Height(h), m_FullscreenMode(fs), m_ContentDirectory(contentDirectory)
 {
 
 }
@@ -18,11 +19,11 @@ void MyFramework::PreInit(int& width, int& height, bool& fullscreen)
 	width = m_Width;
 	height = m_Height;
 	fullscreen = m_FullscreenMode;
+	CreateAssetManager();
 }
 
 bool MyFramework::Init()
 {
-	
 	auto& assetMap = AssetManager::Get().GetMap();
 	m_World = World::Create();
 	m_EventHandler = EventHandler::Create();
@@ -52,6 +53,8 @@ bool MyFramework::Init()
 void MyFramework::Close()
 {
 	m_World->Shutdown();
+	delete m_AssetManager;
+	delete m_GameInstance;
 }
 
 bool MyFramework::Tick()
@@ -114,4 +117,9 @@ void MyFramework::onKeyReleased(FRKey k)
 const char* MyFramework::GetTitle()
 {
 	return "DoodleJump";
+}
+
+void MyFramework::CreateAssetManager()
+{
+   m_AssetManager = new AssetManager(m_ContentDirectory);
 }

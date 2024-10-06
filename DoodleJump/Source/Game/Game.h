@@ -14,7 +14,5 @@ public:
 	virtual void Close();
 	//~End Framework Interface
 
-	AssetManager* m_AssetManager;
-	DoodleGameInstance* m_GameInstance;
-	std::string m_ContentDirectory;
+
 };

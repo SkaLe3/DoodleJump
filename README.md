@@ -147,7 +147,7 @@ Several improvements have been made after the initial release, including:
 * Fixed memory leak: Resolved issue caused by `shared_ptr` cycle dependencies.
 * Scene switching bug: Fixed crashes during scene transitions.
 * Custom assets: Created and integrated new selfmade assets for game objects.
-* Code readability, maintainability and safety: Refactored the codebase for better structure and clarity, improved edge cases handling.
+* Code readability, maintainability and safety: Refactored the codebase for better structure and clarity, improved edge cases handling, moved some code to the Core.
 * Animation System: Refactored and improved animations code, created enhanced animation system
 * Animations: Added and integrated jumping and shooting animations for doodle. Added monster and shield animations
 * Project structure: Reorganized project structure
@@ -158,6 +158,7 @@ Several improvements have been made after the initial release, including:
 * Projectile movement: Fixed direction calculation for better accuracy.
 * GameInstance: Added to manage game state and handle score serialization across scenes and game sessions (with enctyption).
 * Visuals: Reworked Main menu
+* Adjustments: adjusted platform sprite location, teleportation coordinates calculation, etc.
 
 ### Plan
 I plan to implement the following features and improvements in the future:

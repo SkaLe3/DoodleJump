@@ -87,13 +87,14 @@ void DJGameMode::Destroy()
 void DJGameMode::TeleportToRightWall(std::weak_ptr<GameObject> object)
 {
 	if (auto sharedObject = object.lock())
-		sharedObject->GetTransform().Translation.x = m_RightWall->GetTransform().Translation.x - sharedObject->GetBoxComponent()->GetHalfSize().x - 1.5;
+		sharedObject->GetTransform().Translation.x = m_RightWall->GetTransform().Translation.x - sharedObject->GetBoxComponent()->GetHalfSize().x - 2.1; // 2 - wall width
+		// TODO: put value to as constant, dont use magic values
 }
 
 void DJGameMode::TeleportToLeftWall(std::weak_ptr<GameObject> object)
 {
 	if (auto sharedObject = object.lock())
-		sharedObject->GetTransform().Translation.x = m_LeftWall->GetTransform().Translation.x + sharedObject->GetBoxComponent()->GetHalfSize().x + 1.5;
+		sharedObject->GetTransform().Translation.x = m_LeftWall->GetTransform().Translation.x + sharedObject->GetBoxComponent()->GetHalfSize().x + 2.1;
 }
 
 
@@ -175,7 +176,7 @@ void DJGameMode::StartGame()
 	m_HorizontalBounds = { m_Camera->GetTransform().Translation.x - m_ViewArea.x * 0.5, m_Camera->GetTransform().Translation.x + m_ViewArea.x * 0.5 };
 
 	// Spawn Background
-	// TODO: Create Childclass LevelBackground and MenuBackground
+	// TODO: make 1 whole asset for background
 	for (int i = 0, offset = 72; i < 3; i++)
 	{
 		double bgY = (i - 1) * offset;
