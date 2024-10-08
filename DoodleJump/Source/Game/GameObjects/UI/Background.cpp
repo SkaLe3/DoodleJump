@@ -23,7 +23,6 @@ void Background::Start()
 	auto box = GetBoxComponent();
 
 	sprite->SetOwner(GetSelf());
-	box->SetupAttachment(GetScene()->GetRenderCamera());
 	box->SetCollisionEnabled(false);
 }
 

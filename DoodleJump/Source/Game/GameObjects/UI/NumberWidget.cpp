@@ -35,9 +35,6 @@ void NumberWidget::Start()
 void NumberWidget::Tick(double deltaTime)
 {
 	GameObject::Tick(deltaTime);
-
-	Math::Vector camPos =  GetScene()->GetRenderCamera()->GetTransform().Translation;
-	GetBoxComponent()->GetTransform().Translation = { camPos.x + m_Coordinates.x, camPos.y + m_Coordinates.y, 0 };
 }
 
 
@@ -65,10 +62,6 @@ void NumberWidget::Update(int32_t number)
 	GetNumberComponent()->Update(number);
 }
 
-void NumberWidget::SetCoordinates(Math::Vector2D coords)
-{
-	m_Coordinates = coords;
-}
 
 std::shared_ptr<NumberComponent> NumberWidget::GetNumberComponent()
 {

@@ -2,6 +2,8 @@
 #include "Core/Entities/GameObject.h"
 #include "Core/Input/InputValue.h"
 
+class CameraObject;
+
 class MenuController : public GameObject
 {
 public:
@@ -15,8 +17,8 @@ public:
 	//~ End Object Interface
 
 	void Click(InputValue& value);
-	inline std::shared_ptr<CameraComponent> GetCameraComponent() { return m_CameraComponent.lock();}
+	inline std::weak_ptr<CameraObject> GetCamera() { return m_Camera;}
 
 private:
-	std::weak_ptr<CameraComponent> m_CameraComponent;
+	std::weak_ptr<CameraObject> m_Camera;
 };

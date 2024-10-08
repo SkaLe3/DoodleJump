@@ -22,7 +22,7 @@ This project is a basic clone of the popular mobile game Doodle Jump. The goal w
 
 ### Game
 * Doodle movement
-* Doodle Animator
+* GameObjects animations
 * Monsters
 * Shooting
 * Immunity ability

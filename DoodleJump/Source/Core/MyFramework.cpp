@@ -24,6 +24,7 @@ void MyFramework::PreInit(int& width, int& height, bool& fullscreen)
 
 bool MyFramework::Init()
 {
+	m_AssetManager->Init();
 	auto& assetMap = AssetManager::Get().GetMap();
 	m_World = World::Create();
 	m_EventHandler = EventHandler::Create();

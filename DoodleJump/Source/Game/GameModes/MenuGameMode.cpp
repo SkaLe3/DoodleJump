@@ -11,6 +11,7 @@
 #include "GameObjects/UI/MenuController.h"
 #include "GameObjects/UI/PlayButton.h"
 #include "GameObjects/Platform.h"
+#include "GameObjects/CameraObject.h"
 
 #include "Scenes/LevelScene.h"
 #include "DoodleGameInstance.h"
@@ -41,27 +42,32 @@ void MenuGameMode::Start()
 
 	// Spawn Player
 	m_Player = GetScene()->SpawnGameObject<MenuController>();
+	// Camera
+	m_Camera = static_pointer_cast<MenuController>(m_Player)->GetCamera().lock();
+	auto cameraComp = m_Camera->GetCameraComponent();
+	int32_t visibleHorizontalSize;
+	if (cameraComp->GetAspectRatio() >= m_MinAspectRatio)
+		visibleHorizontalSize = (int32_t)m_MaxViewArea.x;
+	else
+		visibleHorizontalSize = (int32_t)(m_MinAspectRatio / cameraComp->GetAspectRatio() * m_MaxViewArea.x);
+	cameraComp->SetProjection(visibleHorizontalSize);
+
 	// Spawn Background
 	std::shared_ptr<Background> background = GetScene()->SpawnGameObject<MenuBackground>();
 	background->GetSpriteComponent()->GetTransform().Translation = { 0, 43.5, -1 };
+	background->GetBoxComponent()->SetupAttachment(m_Camera->GetBoxComponent());
 	background = GetScene()->SpawnGameObject<MenuBackground>();
 	background->GetSpriteComponent()->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_MenuBgBottom"));
 	background->GetSpriteComponent()->GetTransform().Translation = { 0, -10, -0.8 };
+	background->GetBoxComponent()->SetupAttachment(m_Camera->GetBoxComponent());
 	// TODO: make 35 cells in width
 
-	// Camera
-	m_Camera = GetScene()->GetRenderCamera();
-	int32_t visibleHorizontalSize;
-	if (m_Camera->GetAspectRatio() >= m_MinAspectRatio)
-		visibleHorizontalSize = (int32_t)m_MaxViewArea.x;
-	else
-		visibleHorizontalSize = (int32_t)(m_MinAspectRatio / m_Camera->GetAspectRatio() * m_MaxViewArea.x);
-	m_Camera->SetProjection(visibleHorizontalSize);
+	
 
-	Math::Vector2D camBounds = m_Camera->GetCameraBounds();
+	Math::Vector2D camBounds = cameraComp->GetCameraBounds();
 	m_ViewArea = { std::min(m_MaxViewArea.x, camBounds.x), std::min(m_MaxViewArea.y, camBounds.y)};
 
-	m_HorizontalBounds = { m_Camera->GetTransform().Translation.x - m_ViewArea.x * 0.5, m_Camera->GetTransform().Translation.x + m_ViewArea.x * 0.5 };
+	m_HorizontalBounds = { m_Camera->GetWorldTransform().Translation.x - m_ViewArea.x * 0.5, m_Camera->GetWorldTransform().Translation.x + m_ViewArea.x * 0.5 };
 
 	m_PlayButton = GetScene()->SpawnGameObject<PlayButton>();
 	m_PlayButton->GetTransform().Translation = { -6, 14, 0 };
@@ -102,8 +108,6 @@ void MenuGameMode::Start()
 	std::shared_ptr<Doodle> doodle = static_pointer_cast<Doodle>(GetScene()->SpawnGameObject<Doodle>());
 	doodle->SetLocation({-10, -29, 1});
 	doodle->Jump();
-	GetScene()->UseCamera(m_Camera);
-
 }
 
 

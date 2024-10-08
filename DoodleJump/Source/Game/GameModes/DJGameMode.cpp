@@ -3,6 +3,7 @@
 #include "Framework.h"
 #include "Core/Base/AssetManager.h"
 #include "Core/Components/CameraComponent.h"
+#include "Core/Entities/CameraObject.h"
 
 #include "GameObjects/DoodleController.h"
 #include "GameObjects/UI/LevelBackground.h"
@@ -33,11 +34,6 @@ void DJGameMode::Start()
 
 void DJGameMode::Tick(double deltaTime)
 {
-	Math::Vector camPos = m_Camera->GetTransform().Translation;
-
-	m_RightWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
-	m_LeftWall->GetBoxComponent()->GetTransform().Translation.y = camPos.y;
-	m_Floor->GetBoxComponent()->GetTransform().Translation.y = camPos.y - 2 - m_ViewArea.y * 0.5;
 
 	// TODO: Move from GameMode tick to another place
 	// TODO: Make one class container for these widgets
@@ -87,14 +83,14 @@ void DJGameMode::Destroy()
 void DJGameMode::TeleportToRightWall(std::weak_ptr<GameObject> object)
 {
 	if (auto sharedObject = object.lock())
-		sharedObject->GetTransform().Translation.x = m_RightWall->GetTransform().Translation.x - sharedObject->GetBoxComponent()->GetHalfSize().x - 2.1; // 2 - wall width
+		sharedObject->GetTransform().Translation.x = m_RightWall->GetWorldTransform().Translation.x - sharedObject->GetBoxComponent()->GetHalfSize().x - 2.1; // 2 - wall width
 		// TODO: put value to as constant, dont use magic values
 }
 
 void DJGameMode::TeleportToLeftWall(std::weak_ptr<GameObject> object)
 {
 	if (auto sharedObject = object.lock())
-		sharedObject->GetTransform().Translation.x = m_LeftWall->GetTransform().Translation.x + sharedObject->GetBoxComponent()->GetHalfSize().x + 2.1;
+		sharedObject->GetTransform().Translation.x = m_LeftWall->GetWorldTransform().Translation.x + sharedObject->GetBoxComponent()->GetHalfSize().x + 2.1;
 }
 
 
@@ -161,19 +157,22 @@ void DJGameMode::StartGame()
 	m_Doodle = static_pointer_cast<DoodleController>(m_Player);
 
 	// Camera
-	m_Camera = GetScene()->GetRenderCamera();
+	m_Camera = m_Doodle->GetCamera().lock();
+	auto cameraComp = m_Camera->GetCameraComponent();
+
 	int32_t visibleHorizontalSize;
-	if (m_Camera->GetAspectRatio() >= m_MinAspectRatio)
+	if (cameraComp->GetAspectRatio() >= m_MinAspectRatio)
 		visibleHorizontalSize = (int32_t)m_MaxViewArea.x;
 	else
-		visibleHorizontalSize = (int32_t)(m_MinAspectRatio / m_Camera->GetAspectRatio() * m_MaxViewArea.x);
+		visibleHorizontalSize = (int32_t)(m_MinAspectRatio / cameraComp->GetAspectRatio() * m_MaxViewArea.x);
 
-	m_Camera->SetProjection(visibleHorizontalSize);
+	cameraComp->SetProjection(visibleHorizontalSize);
 
-	Math::Vector2D camBounds = m_Camera->GetCameraBounds();
+
+	Math::Vector2D camBounds = cameraComp->GetCameraBounds();
+	m_Camera->SetLocation({0, camBounds.y * 0.5 - 4, 0});
 	m_ViewArea = { std::min(m_MaxViewArea.x, camBounds.x), std::min(m_MaxViewArea.y, camBounds.y) };
-	m_Camera->GetTransform().Translation.y = camBounds.y * 0.5 - 4;
-	m_HorizontalBounds = { m_Camera->GetTransform().Translation.x - m_ViewArea.x * 0.5, m_Camera->GetTransform().Translation.x + m_ViewArea.x * 0.5 };
+	m_HorizontalBounds = { m_Camera->GetLocation().x - m_ViewArea.x * 0.5, m_Camera->GetLocation().x + m_ViewArea.x * 0.5 };
 
 	// Spawn Background
 	// TODO: make 1 whole asset for background
@@ -181,6 +180,7 @@ void DJGameMode::StartGame()
 	{
 		double bgY = (i - 1) * offset;
 		std::shared_ptr<Background> background = GetScene()->SpawnGameObject<LevelBackground>();
+		background->AttachToObject(m_Camera);
 		background->GetSpriteComponent()->GetTransform().Scale = { 134.44, (double)offset, 1 };
 		background->GetSpriteComponent()->GetTransform().Translation = { 4.5, bgY, -1 };
 	}
@@ -196,18 +196,19 @@ void DJGameMode::StartGame()
 	SpawnWall(m_LeftWall, "left wall");
 	SpawnWall(m_Floor, "floor");
 
-
-
+	m_RightWall->AttachToObject(m_Camera);
+	m_LeftWall->AttachToObject(m_Camera);
+	m_Floor->AttachToObject(m_Camera);
 
 	double wallWidth = 2;
 
 	// Walls
 	m_RightWall->GetBoxComponent()->SetHalfSize({ wallWidth, m_ViewArea.y * 0.5 });
-	m_RightWall->SetLocation({ m_HorizontalBounds.y + wallWidth + m_Player->GetBoxComponent()->GetHalfSize().x, 0 });
+	m_RightWall->SetLocation({ m_HorizontalBounds.y + wallWidth + m_Player->GetBoxComponent()->GetHalfSize().x, 0, 0 });
 	m_LeftWall->GetBoxComponent()->SetHalfSize({ wallWidth, m_ViewArea.y * 0.5 });
-	m_LeftWall->SetLocation({ m_HorizontalBounds.x - wallWidth - m_Player->GetBoxComponent()->GetHalfSize().x, 0 });
+	m_LeftWall->SetLocation({ m_HorizontalBounds.x - wallWidth - m_Player->GetBoxComponent()->GetHalfSize().x, 0, 0 });
 	m_Floor->GetBoxComponent()->SetHalfSize({ m_ViewArea.x, wallWidth });
-	m_Floor->SetLocation({ 0, -m_ViewArea.y * 0.5 - wallWidth });
+	m_Floor->SetLocation({ 0, -m_ViewArea.y * 0.5 - wallWidth, 0 });
 
 	m_PlatformSpawner->RestartSpawner();
 	for (int i = 0; i < 36; i++)
@@ -234,6 +235,10 @@ void DJGameMode::StartGame()
 	UI::CreateWidget("S_BlackBar", { 68, 0 }, { 100, 200 }, 3);
 	UI::CreateWidget("S_BlackBar", { 0, 104 }, { 100, 100 }, 3);
 	UI::CreateWidget("S_BlackBar", { 0, -104 }, { 100, 100 }, 3);
+
+	LOG("Camera location: " + std::to_string(m_Camera->GetWorldTransform().Translation.x) + " " + std::to_string(m_Camera->GetWorldTransform().Translation.y));
+	LOG("Camera component location: " + std::to_string(m_Camera->GetCameraComponent()->GetWorldTransform().Translation.x) + " " + std::to_string(m_Camera->GetCameraComponent()->GetWorldTransform().Translation.y));
+	LOG("right wall: " + std::to_string(m_RightWall->GetWorldTransform().Translation.x) + " " + std::to_string(m_RightWall->GetWorldTransform().Translation.y));
 
 }
 

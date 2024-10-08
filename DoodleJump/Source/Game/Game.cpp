@@ -10,11 +10,8 @@ Game::Game(uint32_t w, uint32_t h, bool fs, const std::string& contentDirectory)
 
 bool Game::Init()
 {
-	// TODO: Now Create called from derived class. Move it to the base class and specify only type in derived
+	// GameInstance in optional
 	CreateGameInstance<DoodleGameInstance>();
-
-	m_AssetManager->Init();
-	
 	m_GameInstance->Init("DoodleSave.save");
 	m_GameInstance->LoadSave();
 												   

@@ -25,12 +25,18 @@ public:
 	inline std::weak_ptr<GameObject> GetSelf() { return weak_from_this(); }
 
 	Math::Transform& GetTransform();
+	Math::Transform GetWorldTransform();
 	std::shared_ptr<BoxComponent> GetBoxComponent();
 	inline std::shared_ptr<SceneComponent> GetRoot() { return m_RootComponent.lock();}
+	/* Gets location relative to world*/
 	Math::Vector2D GetLocation();
 	std::string GetTag();
-
+					
+	/* Attachment rules always make child transform as transform relative to parent @Doc*/ 
+	void AttachToObject(std::weak_ptr<GameObject> parentObject);
+	void DetachFromObject();
 	inline void SetRoot(std::weak_ptr<SceneComponent> root) { m_RootComponent = root; }
+	/* Sets location relative to parent*/
 	void SetLocation(const Math::Vector& location);
 	void SetTag(const std::string& newTag);
 

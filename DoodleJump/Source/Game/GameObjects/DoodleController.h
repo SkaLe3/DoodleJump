@@ -3,7 +3,7 @@
 #include "Core/Input/InputValue.h"
 #include "GameObjects/Doodle.h"
 
-class CameraComponent;
+class CameraObject;
 
 class DoodleController : public Doodle
 {
@@ -15,10 +15,10 @@ public:
 	virtual void Tick(double deltaTime) override;
 	virtual void Destroy() override;
 	//~ End Object Interface
-	
-	std::shared_ptr<CameraComponent> GetCameraComponent() const { return m_CameraComponent.lock(); }
+
 	int32_t GetLifesCount();
 	int32_t GetJumpsCount();
+	std::weak_ptr<CameraObject> GetCamera() { return m_Camera; }
 
 	void AddMovementInput(Math::Vector2D direction);
 	void DisableInput();
@@ -28,9 +28,9 @@ public:
 	void Move(InputValue& value);
 	void Shoot(InputValue& value);
 
-private:	
-	std::weak_ptr<CameraComponent> m_CameraComponent;	
+private:
 	std::weak_ptr<GameObject> m_Crosshair;
+	std::weak_ptr<CameraObject> m_Camera;
 
 	bool m_bInputEnabled = true;
 };

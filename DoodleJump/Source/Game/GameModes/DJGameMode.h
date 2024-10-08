@@ -4,7 +4,7 @@
 
 #include <random>
 
-class CameraComponent;
+class CameraObject;
 class PlatformSpawner;
 class NumberWidget;
 class SpriteWidget;
@@ -36,7 +36,7 @@ public:
 
 private:
 	std::shared_ptr<DoodleController> m_Doodle;
-	std::shared_ptr<CameraComponent> m_Camera;
+	std::shared_ptr<CameraObject> m_Camera;
 	std::shared_ptr<PlatformSpawner> m_PlatformSpawner;
 	std::shared_ptr<GameObject> m_RightWall;
 	std::shared_ptr<GameObject> m_LeftWall;

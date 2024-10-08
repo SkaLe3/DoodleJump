@@ -34,7 +34,7 @@ void PlatformSpawner::Tick(double deltaTime)
 {
 	GameObject::Tick(deltaTime);
 
-	double location = m_Player->GetTransform().Translation.y;
+	double location = m_Player->GetWorldTransform().Translation.y;
 
 	for (auto& platform : m_DefaultPlatformPool)
 	{
@@ -73,7 +73,7 @@ void PlatformSpawner::RestartSpawner()
 	std::shared_ptr<DJGameMode> gm = std::static_pointer_cast<DJGameMode>(GetGameMode()); 
 	std::shared_ptr<Platform> platform = m_DefaultPlatformPool.front();
 	m_DefaultPlatformPool.pop_front();
-	platform->GetBoxComponent()->GetTransform().Translation = Math::Vector{ 0,m_Camera->GetTransform().Translation.y - gm->GetViewArea().y * 0.5, -0.5 };
+	platform->GetTransform().Translation = Math::Vector{ 0,m_Camera->GetWorldTransform().Translation.y - gm->GetViewArea().y * 0.5, -0.5 };
 	m_DefaultPlatformPool.push_back(platform);
 	m_LastPlacedPlatform = platform;
 }
@@ -116,7 +116,7 @@ void PlatformSpawner::SetFakePlatformPoolSize(uint32_t size)
 bool PlatformSpawner::SetNextPlatform(double score)
 {
 	std::shared_ptr<Platform> lastPlatform = m_DefaultPlatformPool.front();
-	if (lastPlatform->GetLocation().y + 0.1 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
+	if (lastPlatform->GetLocation().y + 0.1 > m_Camera->GetWorldTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
 		return false;
 
 	double minDistance = score / 20000 * (8 - 2); // Interpolate
@@ -151,7 +151,7 @@ bool PlatformSpawner::SetNextPlatform(double score)
 
 	// Fake platform
 	lastPlatform = m_FakePlatformPool.front();
-	if (lastPlatform->GetLocation().y + 2 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
+	if (lastPlatform->GetLocation().y + 2 > m_Camera->GetWorldTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5)
 		return true;
 
 	if (distance > maxDistance + 5.5 - 5.5 * std::clamp<double>(score / 25000, 0, 1))
@@ -186,7 +186,7 @@ Math::Vector2D PlatformSpawner::GetLowestVisiblePlatformLocation()
 	auto it = std::find_if(m_DefaultPlatformPool.begin(), m_DefaultPlatformPool.end(), 
 						   [&](const std::shared_ptr<Platform>& platform)
 						   {
-							   return platform->GetLocation().y + 0.1 > m_Camera->GetTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5;
+							   return platform->GetLocation().y + 0.1 > m_Camera->GetWorldTransform().Translation.y - m_Camera->GetCameraBounds().y * 0.5;
 						   });
 	if (it != m_DefaultPlatformPool.end())
 		return (*it)->GetLocation();

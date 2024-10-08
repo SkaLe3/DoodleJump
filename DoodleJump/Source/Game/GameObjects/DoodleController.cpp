@@ -3,18 +3,14 @@
 #include "GameObjects/UI/Crosshair.h"
 #include "GameObjects/Projectile.h"
 #include "GameObjects/Abilities/ImmunityAbility.h"
+#include "GameObjects/CameraObject.h"
 #include "Components/DoodleMovementComponent.h"
-#include "Components/FollowCameraComponent.h"
-
 
 
 DoodleController::DoodleController() : Doodle()
 {
-	// Don't need attachment
-	m_CameraComponent = CreateComponent<FollowCameraComponent>();
-	GetScene()->UseCamera(m_CameraComponent);
-
 	m_Crosshair = GetScene()->SpawnGameObject<Crosshair>();
+	m_Camera = GetScene()->SpawnGameObject<CameraObject>();
 }
 
 
@@ -22,7 +18,6 @@ void DoodleController::Start()
 {
 	Doodle::Start();
 
-	GetCameraComponent()->SetOwner(GetSelf());
 	EventHandler::Get()->BindAction(EInputAction::Move, ETriggerEvent::Triggered, std::bind(&DoodleController::Move, this, std::placeholders::_1));
 	EventHandler::Get()->BindAction(EInputAction::Shoot, ETriggerEvent::Pressed, std::bind(&DoodleController::Shoot, this, std::placeholders::_1));
 }
@@ -31,6 +26,14 @@ void DoodleController::Tick(double deltaTime)
 {
 	Doodle::Tick(deltaTime);
 
+	if (auto camera = m_Camera.lock())
+	{
+
+		Math::Vector2D doodleLocation = GetLocation();
+		if (doodleLocation.y >= camera->GetWorldTransform().Translation.y)
+			camera->GetTransform().Translation.y = doodleLocation.y;
+	}
+
 
 }
 
@@ -38,7 +41,6 @@ void DoodleController::Destroy()
 {
 	Doodle::Destroy();
 
-	GetCameraComponent()->Destroy();
 }
 
 

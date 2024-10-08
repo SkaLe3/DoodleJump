@@ -8,6 +8,7 @@ class SceneComponent : public GameComponent
 public:
 	// Transform is relative
 	Math::Transform& GetTransform();
+	Math::Transform GetWorldTransform();
 	Math::Mat4 GetTransformMatrix();
 	void SetupAttachment(std::weak_ptr<SceneComponent> component);
 	void DetachFromParent();

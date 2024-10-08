@@ -37,7 +37,7 @@ void Scene::Tick(float deltaTime)
 	std::sort(m_DrawObjects.begin(), m_DrawObjects.end(),
 			  [](std::shared_ptr<SpriteComponent>& s1, std::shared_ptr<SpriteComponent>& s2)
 			  {
-				  return s1->GetTransform().Translation.z < s2->GetTransform().Translation.z;
+				  return s1->GetWorldTransform().Translation.z < s2->GetWorldTransform().Translation.z;
 			  });
 	Renderer::BeginScene(m_Camera->GetProjection(), m_Camera->GetTransformMatrix());
 

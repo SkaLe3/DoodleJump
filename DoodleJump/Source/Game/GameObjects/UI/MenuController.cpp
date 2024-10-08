@@ -3,14 +3,15 @@
 #include "Core/Input/EventHandler.h"
 #include "Core/World/CollisionSystem.h"
 #include "Core/Components/BoxCollider.h"
+#include "Core/Entities/CameraObject.h"
 #include "GameModes/MenuGameMode.h"
 
 MenuController::MenuController()
 {
 	// Don't need attachment
-	m_CameraComponent = CreateComponent<CameraComponent>();
-	GetScene()->UseCamera(GetCameraComponent());
-	GetCameraComponent()->SetProjection(36);
+	m_Camera = GetScene()->SpawnGameObject<CameraObject>();
+	auto camera = m_Camera.lock()->GetCameraComponent();
+
 	OBJECT_LOG_CONSTRUCTOR()
 }
 
@@ -22,8 +23,6 @@ MenuController::~MenuController()
 void MenuController::Start()
 {
 	GameObject::Start();
-	GetCameraComponent()->SetOwner(GetSelf());
-
 	EventHandler::Get()->BindAction(EInputAction::Shoot, ETriggerEvent::Pressed, std::bind(&MenuController::Click, this, std::placeholders::_1));
 	GetBoxComponent()->SetCollisionEnabled(false);
 }
@@ -35,8 +34,7 @@ void MenuController::Tick(double deltaTime)
 
 void MenuController::Destroy()
 {
-	GameObject::Destroy();
-	GetCameraComponent()->Destroy();	   
+	GameObject::Destroy();	   
 }
 
 void MenuController::Click(InputValue& value)

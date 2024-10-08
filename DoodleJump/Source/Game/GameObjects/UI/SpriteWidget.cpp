@@ -26,9 +26,6 @@ void SpriteWidget::Start()
 void SpriteWidget::Tick(double deltaTime)
 {
 	GameObject::Tick(deltaTime);
-
-	Math::Vector camPos = GetScene()->GetRenderCamera()->GetTransform().Translation;
-	GetBoxComponent()->GetTransform().Translation = { camPos.x + m_Coordinates.x, camPos.y + m_Coordinates.y, 0 };
 }
 
 void SpriteWidget::Destroy()

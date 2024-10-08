@@ -95,8 +95,8 @@ void BoxComponent::SetGravity(Math::Vector2D newGravity)
 BoxCollider BoxComponent::GetCollider()
 {
 	BoxCollider collider;
-	collider.pos = GetTransform().Translation;
-	collider.size = GetTransform().Scale * Math::Vector(m_BoxHalfSize, 0);
+	collider.pos = GetWorldTransform().Translation;
+	collider.size = GetWorldTransform().Scale * Math::Vector(m_BoxHalfSize, 0);
 	collider.vel = GetVelocity();
 	return collider;
 }

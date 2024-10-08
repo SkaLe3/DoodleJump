@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include "Vector2D.h"
 #include "Vector4D.h"
+#include "Matrix4.h"
 
 
 namespace Math
@@ -33,7 +34,6 @@ namespace Math
 			v2.x * v1.z - v1.x * v2.z,
 			v1.x * v2.y - v2.x * v1.y);
 	}
-
 
 	double Clamp(double value, double minValue, double maxValue)
 	{

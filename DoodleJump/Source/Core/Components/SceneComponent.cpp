@@ -5,6 +5,13 @@ Math::Transform& SceneComponent::GetTransform()
 	return m_Transform;
 }
 
+Math::Transform SceneComponent::GetWorldTransform()
+{
+	if (auto parent = m_Parent.lock())
+		return parent->GetWorldTransform() * m_Transform;
+	return m_Transform;
+}
+
 Math::Mat4 SceneComponent::GetTransformMatrix()
 {
 	if (auto parent = m_Parent.lock())

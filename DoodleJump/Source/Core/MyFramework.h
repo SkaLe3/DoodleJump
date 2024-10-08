@@ -41,7 +41,7 @@ private:
 	void CreateAssetManager();
 protected:
 	AssetManager* m_AssetManager;
-	GameInstance* m_GameInstance;
+	GameInstance* m_GameInstance;  // Optional
 	std::string m_ContentDirectory;
 
 private:

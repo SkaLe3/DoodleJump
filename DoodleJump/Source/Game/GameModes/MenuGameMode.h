@@ -3,6 +3,7 @@
 
 #include <memory>
 
+class CameraObject;
 class CameraComponent;
 class NumberWidget;
 class SpriteWidget;
@@ -23,7 +24,7 @@ public:
 
 private:
 	Math::Vector2D m_HorizontalBounds;
-	std::shared_ptr<CameraComponent> m_Camera;
+	std::shared_ptr<CameraObject> m_Camera;
 	std::shared_ptr<GameObject> m_PlayButton;
 
 	std::shared_ptr<NumberWidget> m_HighScoreWidget;
