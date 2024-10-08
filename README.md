@@ -33,6 +33,11 @@ This project is a basic clone of the popular mobile game Doodle Jump. The goal w
     * Lifes counter
 * Menu
 
+## Known issues
+* Occasionally, the distance between platforms may exceed the jump height, causing the player to become stuck
+* Sometimes, the player can fall out of the camera view due to missing bottom collision
+
+
 ## Getting Started
 <ins>**1. Downloading the repository:**</ins>
 
