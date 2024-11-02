@@ -1,17 +1,16 @@
 #include "MenuGameMode.h"
-#include "Framework.h" /* For showCursor() */
+#include "Framework.h" /* For showCursor() */  // TODO: Make wrapper for showCursor	in HUD
 #include "Core/World/World.h"
 #include "Core/World/CollisionSystem.h"
 #include "Core/Components/CameraComponent.h"
-#include "Core/Renderer/MySprite.h"
 #include "Core/Base/AssetManager.h"
+#include "Core/Entities/CameraObject.h"
 
 #include "GameObjects/DoodleController.h"
 #include "GameObjects/UI/MenuBackground.h"
 #include "GameObjects/UI/MenuController.h"
 #include "GameObjects/UI/PlayButton.h"
 #include "GameObjects/Platform.h"
-#include "GameObjects/CameraObject.h"
 
 #include "Scenes/LevelScene.h"
 #include "DoodleGameInstance.h"
@@ -32,6 +31,25 @@ MenuGameMode::~MenuGameMode()
 }
 
 void MenuGameMode::Start()
+{
+	RestartMenu();
+}
+
+
+void MenuGameMode::Tick(double deltaTime)
+{
+	// Doesnt work in Start
+	int32_t highScore = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
+	int32_t lastScore = DoodleGameInstance::Get<DoodleGameInstance>().GetLastScore();
+	int32_t highPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetHighestReachedPlatform();
+	int32_t lastPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetLastPassedPlatform();
+	UI::UpdateWidget(m_HighScoreWidget, highScore);
+	UI::UpdateWidget(m_LastScoreWidget, lastScore);
+	UI::UpdateWidget(m_HighPlatformWidget, highPlat);
+	UI::UpdateWidget(m_LastPlatformWidget, lastPlat);
+}
+
+void MenuGameMode::RestartMenu()
 {
 	showCursor(true);
 	m_HighScore = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
@@ -62,10 +80,10 @@ void MenuGameMode::Start()
 	background->GetBoxComponent()->SetupAttachment(m_Camera->GetBoxComponent());
 	// TODO: make 35 cells in width
 
-	
+
 
 	Math::Vector2D camBounds = cameraComp->GetCameraBounds();
-	m_ViewArea = { std::min(m_MaxViewArea.x, camBounds.x), std::min(m_MaxViewArea.y, camBounds.y)};
+	m_ViewArea = { std::min(m_MaxViewArea.x, camBounds.x), std::min(m_MaxViewArea.y, camBounds.y) };
 
 	m_HorizontalBounds = { m_Camera->GetWorldTransform().Translation.x - m_ViewArea.x * 0.5, m_Camera->GetWorldTransform().Translation.x + m_ViewArea.x * 0.5 };
 
@@ -78,11 +96,11 @@ void MenuGameMode::Start()
 	m_LastPlatformWidget = UI::CreateNumberWidget({ 1.5, -16 }, 6);
 
 
-	UI::CreateWidget("S_ScoreWhite", {8, 6.5}, {12, 6}, 2);
-	UI::CreateWidget("S_HighWhite", {4, 2}, {8, 4}, 2);
-	UI::CreateWidget("S_ScoreWhite", {12, 2}, {8, 4}, 2);
-	UI::CreateWidget("S_LastWhite", {4, -10}, {8, 4}, 2);
-	UI::CreateWidget("S_ScoreWhite", {12, -10}, {8, 4}, 2);
+	UI::CreateWidget("S_ScoreWhite", { 8, 6.5 }, { 12, 6 }, 2);
+	UI::CreateWidget("S_HighWhite", { 4, 2 }, { 8, 4 }, 2);
+	UI::CreateWidget("S_ScoreWhite", { 12, 2 }, { 8, 4 }, 2);
+	UI::CreateWidget("S_LastWhite", { 4, -10 }, { 8, 4 }, 2);
+	UI::CreateWidget("S_ScoreWhite", { 12, -10 }, { 8, 4 }, 2);
 
 	UI::CreateWidget("S_DistanceIcon", { 12, -2 }, { 2, 2 }, 2);
 	UI::CreateWidget("S_DistanceIcon", { 12, -14 }, { 2, 2 }, 2);
@@ -101,27 +119,13 @@ void MenuGameMode::Start()
 
 	std::shared_ptr<Platform> platform = GetScene()->SpawnGameObject<Platform>();
 	platform->SetTag("platform");
-	platform->SetLocation({-10, -18, 0});
+	platform->SetLocation({ -10, -18, 0 });
 	platform->GetSpriteComponent()->SetSprite(AssetManager::Get().GetAsset<MySprite>("S_PlatformUI"));
-	platform->GetSpriteComponent()->GetTransform().Scale = {6.8, 6.8, 1};
+	platform->GetSpriteComponent()->GetTransform().Scale = { 6.8, 6.8, 1 };
 
 	std::shared_ptr<Doodle> doodle = static_pointer_cast<Doodle>(GetScene()->SpawnGameObject<Doodle>());
-	doodle->SetLocation({-10, -29, 1});
+	doodle->SetLocation({ -10, -29, 1 });
 	doodle->Jump();
-}
-
-
-void MenuGameMode::Tick(double deltaTime)
-{
-	// Doesnt work in Start
-	int32_t highScore = DoodleGameInstance::Get<DoodleGameInstance>().GetHighScore();
-	int32_t lastScore = DoodleGameInstance::Get<DoodleGameInstance>().GetLastScore();
-	int32_t highPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetHighestReachedPlatform();
-	int32_t lastPlat = DoodleGameInstance::Get<DoodleGameInstance>().GetLastPassedPlatform();
-	UI::UpdateWidget(m_HighScoreWidget, highScore);
-	UI::UpdateWidget(m_LastScoreWidget, lastScore);
-	UI::UpdateWidget(m_HighPlatformWidget, highPlat);
-	UI::UpdateWidget(m_LastPlatformWidget, lastPlat);
 }
 
 void MenuGameMode::Click(Math::Vector2D mousePos)

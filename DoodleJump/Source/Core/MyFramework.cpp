@@ -20,6 +20,8 @@ void MyFramework::PreInit(int& width, int& height, bool& fullscreen)
 	height = m_Height;
 	fullscreen = m_FullscreenMode;
 	CreateAssetManager();
+	CreateGameInstance<GameInstance>();
+	m_GameInstance->Init("DefaultSave");
 }
 
 bool MyFramework::Init()
@@ -54,8 +56,6 @@ bool MyFramework::Init()
 void MyFramework::Close()
 {
 	m_World->Shutdown();
-	delete m_AssetManager;
-	delete m_GameInstance;
 }
 
 bool MyFramework::Tick()
@@ -122,5 +122,5 @@ const char* MyFramework::GetTitle()
 
 void MyFramework::CreateAssetManager()
 {
-   m_AssetManager = new AssetManager(m_ContentDirectory);
+   m_AssetManager = std::make_unique<AssetManager>(m_ContentDirectory);
 }

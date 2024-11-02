@@ -3,7 +3,7 @@
 #include "GameObjects/UI/Crosshair.h"
 #include "GameObjects/Projectile.h"
 #include "GameObjects/Abilities/ImmunityAbility.h"
-#include "GameObjects/CameraObject.h"
+#include "Core/Entities/CameraObject.h"
 #include "Components/DoodleMovementComponent.h"
 
 

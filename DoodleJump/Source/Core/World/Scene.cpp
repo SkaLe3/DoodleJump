@@ -5,6 +5,7 @@
 #include "CollisionSystem.h"
 #include "Renderer/Renderer.h"
 #include "Components/CameraComponent.h"
+#include "Base/Log.h"
 
 #include <algorithm>
 
@@ -27,6 +28,7 @@ void Scene::Start()
 
 void Scene::Tick(float deltaTime)
 {
+	LOG("Scene Tick");
 	m_GameMode->Tick(deltaTime);
 	UpdateCollisions();
 	UpdateObjects(deltaTime);
@@ -43,7 +45,7 @@ void Scene::Tick(float deltaTime)
 
 	for (std::shared_ptr<SpriteComponent>& object : m_DrawObjects)
 	{
-		Renderer::DrawSprite(object->GetTransformMatrix(), object->GetSpriteComponent());
+		Renderer::DrawSprite(object->GetTransformMatrix(), object->GetSprite());
 	}
 }
 

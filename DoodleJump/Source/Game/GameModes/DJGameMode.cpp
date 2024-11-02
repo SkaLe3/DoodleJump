@@ -34,7 +34,7 @@ void DJGameMode::Start()
 
 void DJGameMode::Tick(double deltaTime)
 {
-
+	LOG("GameMode Tick");
 	// TODO: Move from GameMode tick to another place
 	// TODO: Make one class container for these widgets
 	if (int32_t newDistance = std::max((int32_t)m_Player->GetLocation().y, m_DistanceScore); newDistance != m_DistanceScore)
@@ -236,9 +236,9 @@ void DJGameMode::StartGame()
 	UI::CreateWidget("S_BlackBar", { 0, 104 }, { 100, 100 }, 3);
 	UI::CreateWidget("S_BlackBar", { 0, -104 }, { 100, 100 }, 3);
 
-	LOG("Camera location: " + std::to_string(m_Camera->GetWorldTransform().Translation.x) + " " + std::to_string(m_Camera->GetWorldTransform().Translation.y));
-	LOG("Camera component location: " + std::to_string(m_Camera->GetCameraComponent()->GetWorldTransform().Translation.x) + " " + std::to_string(m_Camera->GetCameraComponent()->GetWorldTransform().Translation.y));
-	LOG("right wall: " + std::to_string(m_RightWall->GetWorldTransform().Translation.x) + " " + std::to_string(m_RightWall->GetWorldTransform().Translation.y));
+	//LOG("Camera location: " + std::to_string(m_Camera->GetWorldTransform().Translation.x) + " " + std::to_string(m_Camera->GetWorldTransform().Translation.y));
+	//LOG("Camera component location: " + std::to_string(m_Camera->GetCameraComponent()->GetWorldTransform().Translation.x) + " " + std::to_string(m_Camera->GetCameraComponent()->GetWorldTransform().Translation.y));
+	//LOG("right wall: " + std::to_string(m_RightWall->GetWorldTransform().Translation.x) + " " + std::to_string(m_RightWall->GetWorldTransform().Translation.y));
 
 }
 

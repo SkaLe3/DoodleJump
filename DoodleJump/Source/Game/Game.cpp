@@ -10,7 +10,6 @@ Game::Game(uint32_t w, uint32_t h, bool fs, const std::string& contentDirectory)
 
 bool Game::Init()
 {
-	// GameInstance in optional
 	CreateGameInstance<DoodleGameInstance>();
 	m_GameInstance->Init("DoodleSave.save");
 	m_GameInstance->LoadSave();

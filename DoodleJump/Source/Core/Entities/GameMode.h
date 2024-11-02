@@ -2,7 +2,6 @@
 #include "Object.h"
 #include "Core/Math/MyMath.h"
 
-
 class GameObject;
 
 class GameMode : public Object

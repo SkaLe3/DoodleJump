@@ -31,17 +31,19 @@ public:
 	virtual const char* GetTitle() override;
 	//~ End Framework Interface
 
+protected:
 	template<typename T>
 	void CreateGameInstance()
-	{
-		m_GameInstance = new T();
+ 	{
+		m_GameInstance = nullptr;
+		m_GameInstance = std::make_unique<T>();
 	}
 
 private:
 	void CreateAssetManager();
 protected:
-	AssetManager* m_AssetManager;
-	GameInstance* m_GameInstance;  // Optional
+	std::unique_ptr<AssetManager> m_AssetManager;
+	std::unique_ptr<GameInstance> m_GameInstance;  // Optional
 	std::string m_ContentDirectory;
 
 private:

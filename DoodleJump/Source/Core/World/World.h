@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Core/SIGS/ViewportClient.h"
 
 class World;
 class GameMode;
@@ -35,14 +36,17 @@ public:
 		return newScene;
 	}
 
-	void SetCurrentScene(std::shared_ptr<Scene> scene);
 	std::shared_ptr<Scene> GetCurrentScene();
+	void SetCurrentScene(std::shared_ptr<Scene> scene);
+
+	std::shared_ptr<ViewportClient> GetViewportClient() { return m_ViewportClient; }
 
 private:
 	static std::shared_ptr<World> s_Instance;
 
 	std::vector<std::shared_ptr<Scene>> m_Scenes;
 	std::shared_ptr<Scene> m_CurrentScene;
+	std::shared_ptr<ViewportClient> m_ViewportClient;
 
 	int32_t m_Width, m_Height;
 	float m_DeltaTime;

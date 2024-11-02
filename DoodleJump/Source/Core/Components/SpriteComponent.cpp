@@ -26,7 +26,7 @@ void SpriteComponent::SetSprite(std::shared_ptr<MySprite> newSprite)
 	m_Sprite = newSprite;
 }
 
-std::shared_ptr<MySprite> SpriteComponent::GetSpriteComponent() const
+std::shared_ptr<MySprite> SpriteComponent::GetSprite() const
 {
 	if (!m_bAnimationEnabled)
 		return m_Sprite;

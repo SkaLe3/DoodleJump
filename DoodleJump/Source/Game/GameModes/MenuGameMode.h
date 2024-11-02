@@ -20,6 +20,7 @@ public:
 	virtual void Destroy() override{};
 	//~ End Object Interface
 
+	void RestartMenu();
 	void Click(Math::Vector2D mousePos);
 
 private:
