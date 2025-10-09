@@ -1,5 +1,4 @@
 # Doodle Jump clone
-![video placeholder]()
 
 This is my implementation of a Doodle Jump clone, initially  created as a test task for a C++ game developer internship. The project was built in 5 days, and after some time, I revisited it to fix a couple of bugs, improve code quality, add features, enhance visuals, and polish it for public release. A significant portion of the assets, was created by me.
 ***
@@ -18,7 +17,7 @@ This project is a basic clone of the popular mobile game Doodle Jump. The goal w
 * Animation System
 * Asset Manager
 * Input bindings
-* Serialization
+* Serialization with encryption
 
 ### Game
 * Doodle movement
@@ -28,9 +27,6 @@ This project is a basic clone of the popular mobile game Doodle Jump. The goal w
 * Immunity ability
 * Platform spawner
 * UI widgets
-    * Distance counter
-    * Platform counter
-    * Lifes counter
 * Menu
 
 ## Getting Started
@@ -48,17 +44,8 @@ If changes are made, or if you want to regenerate project files, rerun the [Gene
 
 After generating the project files, open the solution in Visual Studio 2022 and build the project.
 
-<ins>**4. Copying framework dependencies:**</ins>
-
-Once the project is built, you need to copy the framework dependencies. Copy the libraries from `ThirdParty/Framework/bin` to the `Build/Binaries/%{buildcfg-system-architecture}/DoodleJump` directory, where:
-- `buildcfg` refers to your build configuration (e.g., `Debug`, `Release`).
-- `system` refers to your operating system (e.g., `windows`).
-- `architecture` refers to your system architecture (e.g., `x64`).
-
-These libraries are provided with the framework and are mandatory for the project to run.
-
 ### Requirements
-- [Visual Studio 2022](https://visualstudio.com) (required to automatically set up the project, otherwise you will have to set up the project yourself)
+- [Visual Studio 2022](https://visualstudio.com) (required to automatically set up the project, otherwise you will have to set up the project yourself or use provided premake)
 
 ## Showcase
 <p>
@@ -137,9 +124,6 @@ Despite providing basic features, the framework imposed several limitations that
 
 * Limited Input: Only a few keys (up, down, left, right) are available, limiting input options.
 * Sprite Restrictions: Sprites can't be rotated, tinted, or made transparent, which restricts visual effects.
-* No Text Rendering: There’s no built-in text rendering, so I had to create my own solution for scores and UI.
-* Basic Rendering: The framework doesn't support advanced transformations or custom shaders.
-* No Sound: There’s no audio support.
 
 
 ## Improvements
@@ -159,16 +143,5 @@ Several improvements have been made after the initial release, including:
 * GameInstance: Added to manage game state and handle score serialization across scenes and game sessions (with enctyption).
 * Visuals: Reworked Main menu
 
-### Plan
-I plan to implement the following features and improvements in the future:
-* Add Themes. Theme switch should load theme assets
-* optimize performance
-* Make all assets 128x128 size
-* Remake UI managing and create new UI System
-* Add game over screen
-* Remake main menu
-* Encrypt serialized data to avoid cheating
-* Make moving platforms
-
-### Possible Enhancements
-* Optimize scenes logic to improve performance
+## License
+DoodleJump is licensed under the MIT License. See the [LICENSE](https://github.com/SkaLe3/DoodleJump/blob/main/LICENSE) file for more details.
