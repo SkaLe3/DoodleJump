@@ -1,6 +1,7 @@
 #include "GameInstance.h"
 #include "Core/Base/Log.h"
 #include <fstream>
+#include <filesystem>
 
 
 unsigned char ComputeXORChecksum(const std::string& data)
@@ -40,11 +41,18 @@ void GameInstance::Shutdown()
 
 void GameInstance::CreateSave()
 {
+	if (!std::filesystem::exists(m_SaveDirectory) || !std::filesystem::is_directory(m_SaveDirectory))
+	{
+		LOG("Directory '" + m_SaveDirectory.string() + "' doesnt exist. Creating...");
+		std::filesystem::create_directories(m_SaveDirectory);
+	}
+
 	std::ofstream saveFile(m_SaveDirectory / m_Filename);
 
 	if (!saveFile.is_open())
 	{
-		LOG("Can't open file to save game: " + m_SaveDirectory.string() + m_Filename);
+		int errnum = errno;
+		LOG("Can't open file to save game: " + m_SaveDirectory.string() + "/" + m_Filename + ": " + std::to_string(errnum) + "\n" +std::strerror(errnum));
 		return;
 	}
 
