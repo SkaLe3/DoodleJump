@@ -28,8 +28,25 @@ project "DoodleJump"
         "FrameworkRelease_x64"
     }
 
-    targetdir ("%{wks.location}/Build/Binaries/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/Build/Intermediate/" .. outputdir .. "/%{prj.name}")
+    local targetDir = "%{wks.location}/Build/Binaries/" .. outputdir .. "/%{prj.name}"
+    targetdir (targetDir)
+    objdir ("%{wks.location}/Build/Intermediate/" .. outputdir .. "/%{prj.name}")
+
+    filter "system:windows"
+        defines { "_WINDOWS"}
+        systemversion "latest"
+
+        postbuildcommands
+        {
+            "copy \"%{wks.location}/ThirdParty/Framework/bin\\*.*\" \"" .. targetDir .. "\\\""
+        }
+
+        postbuildcommands
+        {
+            "xcopy \"%{prj.location}/Content\" \"" .. targetDir .. "\\Content\" /E /I /Y"
+        }
+
+
 
     filter "action:vs*"
         flags { "MultiProcessorCompile" }  -- Enables /MP flag for MSVC
